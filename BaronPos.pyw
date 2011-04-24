@@ -1,7 +1,7 @@
 __author__ = 'dennis'
 
 import wx
-import POSGui
+from Gui.MainFrame import MainFrame
 
 import logging
 
@@ -12,7 +12,7 @@ log=logging.getLogger(__name__)
 
 class BaronPOSApp(wx.App):
     def OnInit(self):
-        self.frame = POSGui.MainFrame(None)
+        self.frame = MainFrame(None)
         self.SetTopWindow(self.frame)
         self.frame.Show()
         return True

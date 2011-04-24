@@ -11,10 +11,10 @@ import wx
 import wx.grid
 
 ###########################################################################
-## Class MainFrame
+## Class MainFrameBase
 ###########################################################################
 
-class MainFrame ( wx.Frame ):
+class MainFrameBase ( wx.Frame ):
 	
 	def __init__( self, parent ):
 		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"BaronPOS", pos = wx.DefaultPosition, size = wx.Size( 1172,705 ), style = wx.DEFAULT_FRAME_STYLE|wx.MAXIMIZE|wx.TAB_TRAVERSAL )
@@ -69,9 +69,9 @@ class MainFrame ( wx.Frame ):
 		
 		fgSizer1.Add( sbGroepen, 1, wx.EXPAND, 5 )
 		
-		self.sbProducten = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Producten" ), wx.VERTICAL )
+		sbProducten = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Producten" ), wx.VERTICAL )
 		
-		fgSizer1.Add( self.sbProducten, 1, wx.EXPAND, 5 )
+		fgSizer1.Add( sbProducten, 1, wx.EXPAND, 5 )
 		
 		sbRekening = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Rekening" ), wx.VERTICAL )
 		
@@ -148,10 +148,10 @@ class MainFrame ( wx.Frame ):
 	
 
 ###########################################################################
-## Class pnlFrieten
+## Class PanelFrietenBase
 ###########################################################################
 
-class pnlFrieten ( wx.Panel ):
+class PanelFrietenBase ( wx.Panel ):
 	
 	def __init__( self, parent ):
 		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 648,462 ), style = wx.TAB_TRAVERSAL )
