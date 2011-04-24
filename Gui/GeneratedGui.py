@@ -37,7 +37,9 @@ class MainFrameBase ( wx.Frame ):
 		self.btnLogOut = wx.Button( self, wx.ID_ANY, u"Log Uit", wx.DefaultPosition, wx.DefaultSize, 0 )
 		sbFuncties.Add( self.btnLogOut, 0, wx.ALL, 5 )
 		
-		self.btnNieuwTicket = wx.Button( self, wx.ID_ANY, u"Nieuw Ticket", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.btnNieuwTicket = wx.Button( self, wx.ID_ANY, u"Nieuw\nTicket", wx.DefaultPosition, wx.Size( 100,100 ), 0 )
+		self.btnNieuwTicket.SetFont( wx.Font( 15, 70, 90, 90, False, wx.EmptyString ) )
+		
 		sbFuncties.Add( self.btnNieuwTicket, 0, wx.ALL, 5 )
 		
 		self.btnAdmin = wx.Button( self, wx.ID_ANY, u"Admin", wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -71,48 +73,54 @@ class MainFrameBase ( wx.Frame ):
 		
 		sbProducten = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Producten" ), wx.VERTICAL )
 		
+		self.pnlProducten = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		sbProducten.Add( self.pnlProducten, 1, wx.EXPAND |wx.ALL, 5 )
+		
 		fgSizer1.Add( sbProducten, 1, wx.EXPAND, 5 )
 		
 		sbRekening = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Rekening" ), wx.VERTICAL )
 		
-		self.m_textCtrl1 = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		sbRekening.Add( self.m_textCtrl1, 0, wx.ALL, 5 )
+		self.lblTotal = wx.StaticText( self, wx.ID_ANY, u"€ 00,00", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.lblTotal.Wrap( -1 )
+		self.lblTotal.SetFont( wx.Font( 20, 70, 90, 90, False, wx.EmptyString ) )
 		
-		self.m_grid1 = wx.grid.Grid( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
+		sbRekening.Add( self.lblTotal, 0, wx.ALIGN_RIGHT|wx.ALL, 5 )
+		
+		self.gOrder = wx.grid.Grid( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
 		
 		# Grid
-		self.m_grid1.CreateGrid( 5, 5 )
-		self.m_grid1.EnableEditing( True )
-		self.m_grid1.EnableGridLines( True )
-		self.m_grid1.EnableDragGridSize( False )
-		self.m_grid1.SetMargins( 0, 0 )
+		self.gOrder.CreateGrid( 5, 5 )
+		self.gOrder.EnableEditing( True )
+		self.gOrder.EnableGridLines( True )
+		self.gOrder.EnableDragGridSize( False )
+		self.gOrder.SetMargins( 0, 0 )
 		
 		# Columns
-		self.m_grid1.EnableDragColMove( False )
-		self.m_grid1.EnableDragColSize( True )
-		self.m_grid1.SetColLabelSize( 30 )
-		self.m_grid1.SetColLabelAlignment( wx.ALIGN_CENTRE, wx.ALIGN_CENTRE )
+		self.gOrder.EnableDragColMove( False )
+		self.gOrder.EnableDragColSize( True )
+		self.gOrder.SetColLabelSize( 30 )
+		self.gOrder.SetColLabelAlignment( wx.ALIGN_CENTRE, wx.ALIGN_CENTRE )
 		
 		# Rows
-		self.m_grid1.EnableDragRowSize( True )
-		self.m_grid1.SetRowLabelSize( 80 )
-		self.m_grid1.SetRowLabelAlignment( wx.ALIGN_CENTRE, wx.ALIGN_CENTRE )
+		self.gOrder.EnableDragRowSize( True )
+		self.gOrder.SetRowLabelSize( 80 )
+		self.gOrder.SetRowLabelAlignment( wx.ALIGN_CENTRE, wx.ALIGN_CENTRE )
 		
 		# Label Appearance
 		
 		# Cell Defaults
-		self.m_grid1.SetDefaultCellAlignment( wx.ALIGN_LEFT, wx.ALIGN_TOP )
-		sbRekening.Add( self.m_grid1, 0, wx.ALL, 5 )
-		
-		self.btnAfrekeken = wx.Button( self, wx.ID_ANY, u"Afrekenen", wx.DefaultPosition, wx.Size( 200,100 ), 0 )
-		self.btnAfrekeken.SetFont( wx.Font( 15, 70, 90, 90, False, wx.EmptyString ) )
-		
-		sbRekening.Add( self.btnAfrekeken, 0, wx.ALL, 5 )
+		self.gOrder.SetDefaultCellAlignment( wx.ALIGN_LEFT, wx.ALIGN_TOP )
+		sbRekening.Add( self.gOrder, 0, wx.ALL, 5 )
 		
 		self.btnAnnuleren = wx.Button( self, wx.ID_ANY, u"Annuleren", wx.DefaultPosition, wx.Size( 200,50 ), 0 )
 		self.btnAnnuleren.SetFont( wx.Font( 15, 70, 90, 90, False, wx.EmptyString ) )
 		
-		sbRekening.Add( self.btnAnnuleren, 0, wx.ALL, 5 )
+		sbRekening.Add( self.btnAnnuleren, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 5 )
+		
+		self.btnAfrekeken = wx.Button( self, wx.ID_ANY, u"Afrekenen", wx.DefaultPosition, wx.Size( 200,100 ), 0 )
+		self.btnAfrekeken.SetFont( wx.Font( 15, 70, 90, 90, False, wx.EmptyString ) )
+		
+		sbRekening.Add( self.btnAfrekeken, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 5 )
 		
 		fgSizer1.Add( sbRekening, 1, wx.EXPAND, 5 )
 		
@@ -186,6 +194,136 @@ class PanelFrietenBase ( wx.Panel ):
 		
 		self.SetSizer( bSizer7 )
 		self.Layout()
+		
+		# Connect Events
+		self.btnFrietGroot.Bind( wx.EVT_BUTTON, self.btnFrietGrootOnButtonClick )
+		self.btnFrietMidden.Bind( wx.EVT_BUTTON, self.btnFrietMiddenOnButtonClick )
+		self.btnFrietKlein.Bind( wx.EVT_BUTTON, self.btnFrietKleinOnButtonClick )
+		self.btnFrietFamilie.Bind( wx.EVT_BUTTON, self.btnFrietFamilieOnButtonClick )
+	
+	def __del__( self ):
+		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def btnFrietGrootOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnFrietMiddenOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnFrietKleinOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnFrietFamilieOnButtonClick( self, event ):
+		event.Skip()
+	
+
+###########################################################################
+## Class PanelSnacksBase
+###########################################################################
+
+class PanelSnacksBase ( wx.Panel ):
+	
+	def __init__( self, parent ):
+		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 554,300 ), style = wx.TAB_TRAVERSAL )
+		
+		bSizer10 = wx.BoxSizer( wx.VERTICAL )
+		
+		fgSizer2 = wx.FlexGridSizer( 2, 1, 0, 0 )
+		fgSizer2.SetFlexibleDirection( wx.BOTH )
+		fgSizer2.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
+		
+		bSizer11 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.btnFrikandel = wx.Button( self, wx.ID_ANY, u"Frikandel", wx.DefaultPosition, wx.Size( 120,100 ), 0 )
+		self.btnFrikandel.SetFont( wx.Font( 15, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer11.Add( self.btnFrikandel, 0, wx.ALL, 5 )
+		
+		self.btnMexicano = wx.Button( self, wx.ID_ANY, u"Mexicano", wx.DefaultPosition, wx.Size( 120,100 ), 0 )
+		self.btnMexicano.SetFont( wx.Font( 15, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer11.Add( self.btnMexicano, 0, wx.ALL, 5 )
+		
+		self.btnKippets = wx.Button( self, wx.ID_ANY, u"Kippets", wx.DefaultPosition, wx.Size( 120,100 ), 0 )
+		self.btnKippets.SetFont( wx.Font( 15, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer11.Add( self.btnKippets, 0, wx.ALL, 5 )
+		
+		self.btnMammoet = wx.Button( self, wx.ID_ANY, u"Mammoet", wx.DefaultPosition, wx.Size( 120,100 ), 0 )
+		self.btnMammoet.SetFont( wx.Font( 15, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer11.Add( self.btnMammoet, 0, wx.ALL, 5 )
+		
+		fgSizer2.Add( bSizer11, 1, wx.EXPAND, 5 )
+		
+		bSizer12 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.btnFrikandel4 = wx.Button( self, wx.ID_ANY, u"Frikandel", wx.DefaultPosition, wx.Size( 120,100 ), 0 )
+		self.btnFrikandel4.SetFont( wx.Font( 15, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer12.Add( self.btnFrikandel4, 0, wx.ALL, 5 )
+		
+		self.btnFrikandel5 = wx.Button( self, wx.ID_ANY, u"Frikandel", wx.DefaultPosition, wx.Size( 120,100 ), 0 )
+		self.btnFrikandel5.SetFont( wx.Font( 15, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer12.Add( self.btnFrikandel5, 0, wx.ALL, 5 )
+		
+		fgSizer2.Add( bSizer12, 1, wx.EXPAND, 5 )
+		
+		bSizer10.Add( fgSizer2, 1, wx.EXPAND, 5 )
+		
+		self.SetSizer( bSizer10 )
+		self.Layout()
+		
+		# Connect Events
+		self.btnFrikandel.Bind( wx.EVT_BUTTON, self.btnFrikandelOnButtonClick )
+		self.btnMexicano.Bind( wx.EVT_BUTTON, self.btnMexicanoOnButtonClick )
+		self.btnKippets.Bind( wx.EVT_BUTTON, self.btnKippetsOnButtonClick )
+		self.btnMammoet.Bind( wx.EVT_BUTTON, self.btnMammoetOnButtonClick )
+	
+	def __del__( self ):
+		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def btnFrikandelOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnMexicanoOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnKippetsOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnMammoetOnButtonClick( self, event ):
+		event.Skip()
+	
+
+###########################################################################
+## Class PanelDrankBase
+###########################################################################
+
+class PanelDrankBase ( wx.Panel ):
+	
+	def __init__( self, parent ):
+		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.TAB_TRAVERSAL )
+		
+	
+	def __del__( self ):
+		pass
+	
+
+###########################################################################
+## Class PanelSausBase
+###########################################################################
+
+class PanelSausBase ( wx.Panel ):
+	
+	def __init__( self, parent ):
+		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.TAB_TRAVERSAL )
+		
 	
 	def __del__( self ):
 		pass

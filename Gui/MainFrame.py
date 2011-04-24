@@ -4,25 +4,53 @@ import wx
 import GeneratedGui
 
 # Implementing MainFrameBase
+from Gui import *
+from Gui.PanelDrank import PanelDrank
+from Gui.PanelFrieten import PanelFrieten
+from Gui.PanelSaus import PanelSaus
+from Gui.PanelSnacks import PanelSnacks
+
 class MainFrame( GeneratedGui.MainFrameBase ):
-	def __init__( self, parent ):
-		GeneratedGui.MainFrameBase.__init__( self, parent )
-	
-	# Handlers for MainFrameBase events.
-	def btnFrietenOnButtonClick( self, event ):
-		# TODO: Implement btnFrietenOnButtonClick
-		pass
-	
-	def btnSnacksOnButtonClick( self, event ):
-		# TODO: Implement btnSnacksOnButtonClick
-		pass
-	
-	def btnDrankOnButtonClick( self, event ):
-		# TODO: Implement btnDrankOnButtonClick
-		pass
-	
-	def btnSausOnButtonClick( self, event ):
-		# TODO: Implement btnSausOnButtonClick
-		pass
-	
-	
+    def __init__( self, parent ):
+        GeneratedGui.MainFrameBase.__init__( self, parent )
+
+    # Handlers for MainFrameBase events.
+    def SetProductPanel(self, panelType):
+        children = self.pnlProducten.GetChildren()
+        for child in children:
+            #self.pnlProducten.RemoveChild(child)
+            child.Destroy()
+
+        self.pnlProducten.Layout()
+
+        bsProducten = wx.BoxSizer(wx.VERTICAL)
+        if panelType == 1:
+            self.ProductPanel = PanelFrieten(self.pnlProducten)
+        elif panelType == 2:
+            self.ProductPanel = PanelSnacks(self.pnlProducten)
+        elif panelType == 3:
+            self.ProductPanel = PanelDrank(self.pnlProducten)
+        elif panelType == 4:
+            self.ProductPanel = PanelSaus(self.pnlProducten)
+        try:
+            bsProducten.Add(self.ProductPanel, 1, wx.EXPAND | wx.ALL, 5)
+
+            self.pnlProducten.SetSizer(bsProducten)
+            self.pnlProducten.Layout()
+            bsProducten.Fit(self.pnlProducten)
+        except:
+            pass
+
+    def btnFrietenOnButtonClick( self, event ):
+        self.SetProductPanel(1)
+
+    def btnSnacksOnButtonClick( self, event ):
+        self.SetProductPanel(2)
+
+    def btnDrankOnButtonClick( self, event ):
+        self.SetProductPanel(3)
+
+    def btnSausOnButtonClick( self, event ):
+        self.SetProductPanel(4)
+
+
