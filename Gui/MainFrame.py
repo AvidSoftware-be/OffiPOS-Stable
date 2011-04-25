@@ -8,9 +8,12 @@ import GeneratedGui
 # Implementing MainFrameBase
 from Gui import *
 from Gui.PanelDrank import PanelDrank
+from Gui.PanelEigenBereidingen import PanelEigenBereidingen
 from Gui.PanelFrieten import PanelFrieten
+from Gui.PanelHamburgers import PanelHamburgers
 from Gui.PanelSaus import PanelSaus
 from Gui.PanelSnacks import PanelSnacks
+from Gui.PanelWarmeSaus import PanelWarmeSaus
 
 class MainFrame( GeneratedGui.MainFrameBase ):
     def __init__( self, parent ):
@@ -24,7 +27,6 @@ class MainFrame( GeneratedGui.MainFrameBase ):
     def SetProductPanel(self, panelType):
         children = self.pnlProducten.GetChildren()
         for child in children:
-            #self.pnlProducten.RemoveChild(child)
             child.Destroy()
 
         self.pnlProducten.Layout()
@@ -38,6 +40,12 @@ class MainFrame( GeneratedGui.MainFrameBase ):
             self.ProductPanel = PanelDrank(self.pnlProducten)
         elif panelType == Koude_sauzen:
             self.ProductPanel = PanelSaus(self.pnlProducten)
+        elif panelType == Warme_sauzen:
+            self.ProductPanel = PanelWarmeSaus(self.pnlProducten)
+        elif panelType == Eigen_bereidingen:
+            self.ProductPanel = PanelEigenBereidingen(self.pnlProducten)
+        elif panelType == Hamburgers:
+            self.ProductPanel = PanelHamburgers(self.pnlProducten)
 
         try:
             bsProducten.Add(self.ProductPanel, 1, wx.EXPAND | wx.ALL, 5)

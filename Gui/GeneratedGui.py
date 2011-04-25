@@ -50,27 +50,50 @@ class MainFrameBase ( wx.Frame ):
 		sbGroepen = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Groepen" ), wx.VERTICAL )
 		
 		self.pnlGroepen = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		bSizer6 = wx.BoxSizer( wx.VERTICAL )
+		bSizer6 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		bSizer8 = wx.BoxSizer( wx.VERTICAL )
 		
 		self.btnFrieten = wx.Button( self.pnlGroepen, wx.ID_ANY, u"Frieten", wx.DefaultPosition, wx.Size( 100,100 ), 0 )
 		self.btnFrieten.SetFont( wx.Font( 15, 70, 90, 90, False, wx.EmptyString ) )
 		
-		bSizer6.Add( self.btnFrieten, 0, wx.ALL, 1 )
+		bSizer8.Add( self.btnFrieten, 0, wx.ALL, 1 )
 		
 		self.btnSnacks = wx.Button( self.pnlGroepen, wx.ID_ANY, u"Snacks", wx.DefaultPosition, wx.Size( 100,100 ), 0 )
 		self.btnSnacks.SetFont( wx.Font( 15, 70, 90, 90, False, wx.EmptyString ) )
 		
-		bSizer6.Add( self.btnSnacks, 0, wx.ALL, 1 )
+		bSizer8.Add( self.btnSnacks, 0, wx.ALL, 1 )
 		
 		self.btnDrank = wx.Button( self.pnlGroepen, wx.ID_ANY, u"Drank", wx.DefaultPosition, wx.Size( 100,100 ), 0 )
 		self.btnDrank.SetFont( wx.Font( 15, 70, 90, 90, False, wx.EmptyString ) )
 		
-		bSizer6.Add( self.btnDrank, 0, wx.ALL, 1 )
+		bSizer8.Add( self.btnDrank, 0, wx.ALL, 1 )
+		
+		self.btnEigenBereidingen = wx.Button( self.pnlGroepen, wx.ID_ANY, u"Eigen\nBer.", wx.DefaultPosition, wx.Size( 100,100 ), 0 )
+		self.btnEigenBereidingen.SetFont( wx.Font( 15, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer8.Add( self.btnEigenBereidingen, 0, wx.ALL, 1 )
+		
+		bSizer6.Add( bSizer8, 1, wx.EXPAND, 5 )
+		
+		bSizer9 = wx.BoxSizer( wx.VERTICAL )
 		
 		self.btnSaus = wx.Button( self.pnlGroepen, wx.ID_ANY, u"Saus", wx.DefaultPosition, wx.Size( 100,100 ), 0 )
 		self.btnSaus.SetFont( wx.Font( 15, 70, 90, 90, False, wx.EmptyString ) )
 		
-		bSizer6.Add( self.btnSaus, 0, wx.ALL, 1 )
+		bSizer9.Add( self.btnSaus, 0, wx.ALL, 1 )
+		
+		self.btnWarmeSaus = wx.Button( self.pnlGroepen, wx.ID_ANY, u"Warme\nSaus", wx.DefaultPosition, wx.Size( 100,100 ), 0 )
+		self.btnWarmeSaus.SetFont( wx.Font( 15, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer9.Add( self.btnWarmeSaus, 0, wx.ALL, 1 )
+		
+		self.btnHamburgers = wx.Button( self.pnlGroepen, wx.ID_ANY, u"Burgers", wx.DefaultPosition, wx.Size( 100,100 ), 0 )
+		self.btnHamburgers.SetFont( wx.Font( 15, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer9.Add( self.btnHamburgers, 0, wx.ALL, 1 )
+		
+		bSizer6.Add( bSizer9, 1, wx.EXPAND, 5 )
 		
 		self.pnlGroepen.SetSizer( bSizer6 )
 		self.pnlGroepen.Layout()
@@ -152,7 +175,10 @@ class MainFrameBase ( wx.Frame ):
 		self.btnFrieten.Bind( wx.EVT_BUTTON, self.btnFrietenOnButtonClick )
 		self.btnSnacks.Bind( wx.EVT_BUTTON, self.btnSnacksOnButtonClick )
 		self.btnDrank.Bind( wx.EVT_BUTTON, self.btnDrankOnButtonClick )
+		self.btnEigenBereidingen.Bind( wx.EVT_BUTTON, self.btnEigenBereidingenOnButtonClick )
 		self.btnSaus.Bind( wx.EVT_BUTTON, self.btnSausOnButtonClick )
+		self.btnWarmeSaus.Bind( wx.EVT_BUTTON, self.btnWarmeSausOnButtonClick )
+		self.btnHamburgers.Bind( wx.EVT_BUTTON, self.btnHamburgersOnButtonClick )
 		self.btnAnnuleren.Bind( wx.EVT_BUTTON, self.btnAnnulerenOnButtonClick )
 		self.btnAfrekeken.Bind( wx.EVT_BUTTON, self.btnAfrekekenOnButtonClick )
 	
@@ -173,7 +199,16 @@ class MainFrameBase ( wx.Frame ):
 	def btnDrankOnButtonClick( self, event ):
 		event.Skip()
 	
+	def btnEigenBereidingenOnButtonClick( self, event ):
+		event.Skip()
+	
 	def btnSausOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnWarmeSausOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnHamburgersOnButtonClick( self, event ):
 		event.Skip()
 	
 	def btnAnnulerenOnButtonClick( self, event ):
@@ -348,6 +383,48 @@ class PanelDrankBase ( wx.Panel ):
 ###########################################################################
 
 class PanelSausBase ( wx.Panel ):
+	
+	def __init__( self, parent ):
+		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.TAB_TRAVERSAL )
+		
+	
+	def __del__( self ):
+		pass
+	
+
+###########################################################################
+## Class PanelEigenBereidingenBase
+###########################################################################
+
+class PanelEigenBereidingenBase ( wx.Panel ):
+	
+	def __init__( self, parent ):
+		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.TAB_TRAVERSAL )
+		
+	
+	def __del__( self ):
+		pass
+	
+
+###########################################################################
+## Class PanelWarmeSausBase
+###########################################################################
+
+class PanelWarmeSausBase ( wx.Panel ):
+	
+	def __init__( self, parent ):
+		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.TAB_TRAVERSAL )
+		
+	
+	def __del__( self ):
+		pass
+	
+
+###########################################################################
+## Class PanelHamburgersBase
+###########################################################################
+
+class PanelHamburgersBase ( wx.Panel ):
 	
 	def __init__( self, parent ):
 		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.TAB_TRAVERSAL )
