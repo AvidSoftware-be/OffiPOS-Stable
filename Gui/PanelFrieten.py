@@ -10,6 +10,7 @@ class PanelFrieten( GeneratedGui.PanelFrietenBase ):
         GeneratedGui.PanelFrietenBase.__init__( self, parent )
 
     def btnFrietGrootOnButtonClick (self, event):
-        product = Product()
+        product = Product(id=1)
+        
 
 

@@ -32,6 +32,7 @@ class MainFrame( GeneratedGui.MainFrameBase ):
             self.ProductPanel = PanelDrank(self.pnlProducten)
         elif panelType == 4:
             self.ProductPanel = PanelSaus(self.pnlProducten)
+
         try:
             bsProducten.Add(self.ProductPanel, 1, wx.EXPAND | wx.ALL, 5)
 
