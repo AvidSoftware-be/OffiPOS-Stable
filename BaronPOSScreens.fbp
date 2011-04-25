@@ -85,7 +85,7 @@
                 <property name="orient">wxHORIZONTAL</property>
                 <property name="permission">none</property>
                 <object class="sizeritem" expanded="1">
-                    <property name="border">5</property>
+                    <property name="border">1</property>
                     <property name="flag">wxEXPAND</property>
                     <property name="proportion">1</property>
                     <object class="wxFlexGridSizer" expanded="1">
@@ -101,7 +101,7 @@
                         <property name="rows">1</property>
                         <property name="vgap">0</property>
                         <object class="sizeritem" expanded="1">
-                            <property name="border">5</property>
+                            <property name="border">1</property>
                             <property name="flag">wxEXPAND</property>
                             <property name="proportion">1</property>
                             <object class="wxStaticBoxSizer" expanded="1">
@@ -113,7 +113,7 @@
                                 <property name="permission">none</property>
                                 <event name="OnUpdateUI"></event>
                                 <object class="sizeritem" expanded="1">
-                                    <property name="border">5</property>
+                                    <property name="border">1</property>
                                     <property name="flag">wxALL</property>
                                     <property name="proportion">0</property>
                                     <object class="wxButton" expanded="1">
@@ -170,7 +170,7 @@
                                     </object>
                                 </object>
                                 <object class="sizeritem" expanded="1">
-                                    <property name="border">5</property>
+                                    <property name="border">1</property>
                                     <property name="flag">wxALL</property>
                                     <property name="proportion">0</property>
                                     <object class="wxButton" expanded="1">
@@ -227,7 +227,7 @@
                                     </object>
                                 </object>
                                 <object class="sizeritem" expanded="1">
-                                    <property name="border">5</property>
+                                    <property name="border">1</property>
                                     <property name="flag">wxALL</property>
                                     <property name="proportion">0</property>
                                     <object class="wxButton" expanded="1">
@@ -237,7 +237,7 @@
                                         <property name="default">0</property>
                                         <property name="enabled">1</property>
                                         <property name="fg"></property>
-                                        <property name="font">,90,90,15,70,0</property>
+                                        <property name="font">,90,90,12,70,0</property>
                                         <property name="hidden">0</property>
                                         <property name="id">wxID_ANY</property>
                                         <property name="label">Nieuw&#x0A;Ticket</property>
@@ -284,7 +284,7 @@
                                     </object>
                                 </object>
                                 <object class="sizeritem" expanded="1">
-                                    <property name="border">5</property>
+                                    <property name="border">1</property>
                                     <property name="flag">wxALL</property>
                                     <property name="proportion">0</property>
                                     <object class="wxButton" expanded="1">
@@ -343,7 +343,7 @@
                             </object>
                         </object>
                         <object class="sizeritem" expanded="1">
-                            <property name="border">5</property>
+                            <property name="border">1</property>
                             <property name="flag">wxEXPAND</property>
                             <property name="proportion">1</property>
                             <object class="wxStaticBoxSizer" expanded="1">
@@ -355,7 +355,7 @@
                                 <property name="permission">none</property>
                                 <event name="OnUpdateUI"></event>
                                 <object class="sizeritem" expanded="1">
-                                    <property name="border">5</property>
+                                    <property name="border">1</property>
                                     <property name="flag">wxEXPAND | wxALL</property>
                                     <property name="proportion">1</property>
                                     <object class="wxPanel" expanded="1">
@@ -411,7 +411,7 @@
                                             <property name="orient">wxHORIZONTAL</property>
                                             <property name="permission">none</property>
                                             <object class="sizeritem" expanded="1">
-                                                <property name="border">5</property>
+                                                <property name="border">1</property>
                                                 <property name="flag">wxEXPAND</property>
                                                 <property name="proportion">1</property>
                                                 <object class="wxBoxSizer" expanded="1">
@@ -430,7 +430,7 @@
                                                             <property name="default">0</property>
                                                             <property name="enabled">1</property>
                                                             <property name="fg"></property>
-                                                            <property name="font">,90,90,15,70,0</property>
+                                                            <property name="font">,90,90,12,70,0</property>
                                                             <property name="hidden">0</property>
                                                             <property name="id">wxID_ANY</property>
                                                             <property name="label">Frieten</property>
@@ -439,7 +439,7 @@
                                                             <property name="name">btnFrieten</property>
                                                             <property name="permission">protected</property>
                                                             <property name="pos"></property>
-                                                            <property name="size">100,100</property>
+                                                            <property name="size">75,75</property>
                                                             <property name="style"></property>
                                                             <property name="subclass"></property>
                                                             <property name="tooltip"></property>
@@ -487,7 +487,7 @@
                                                             <property name="default">0</property>
                                                             <property name="enabled">1</property>
                                                             <property name="fg"></property>
-                                                            <property name="font">,90,90,15,70,0</property>
+                                                            <property name="font">,90,90,12,70,0</property>
                                                             <property name="hidden">0</property>
                                                             <property name="id">wxID_ANY</property>
                                                             <property name="label">Snacks</property>
@@ -496,7 +496,7 @@
                                                             <property name="name">btnSnacks</property>
                                                             <property name="permission">protected</property>
                                                             <property name="pos"></property>
-                                                            <property name="size">100,100</property>
+                                                            <property name="size">75,75</property>
                                                             <property name="style"></property>
                                                             <property name="subclass"></property>
                                                             <property name="tooltip"></property>
@@ -544,7 +544,7 @@
                                                             <property name="default">0</property>
                                                             <property name="enabled">1</property>
                                                             <property name="fg"></property>
-                                                            <property name="font">,90,90,15,70,0</property>
+                                                            <property name="font">,90,90,12,70,0</property>
                                                             <property name="hidden">0</property>
                                                             <property name="id">wxID_ANY</property>
                                                             <property name="label">Drank</property>
@@ -553,7 +553,7 @@
                                                             <property name="name">btnDrank</property>
                                                             <property name="permission">protected</property>
                                                             <property name="pos"></property>
-                                                            <property name="size">100,100</property>
+                                                            <property name="size">75,75</property>
                                                             <property name="style"></property>
                                                             <property name="subclass"></property>
                                                             <property name="tooltip"></property>
@@ -601,7 +601,7 @@
                                                             <property name="default">0</property>
                                                             <property name="enabled">1</property>
                                                             <property name="fg"></property>
-                                                            <property name="font">,90,90,15,70,0</property>
+                                                            <property name="font">,90,90,12,70,0</property>
                                                             <property name="hidden">0</property>
                                                             <property name="id">wxID_ANY</property>
                                                             <property name="label">Eigen&#x0A;Ber.</property>
@@ -610,7 +610,7 @@
                                                             <property name="name">btnEigenBereidingen</property>
                                                             <property name="permission">protected</property>
                                                             <property name="pos"></property>
-                                                            <property name="size">100,100</property>
+                                                            <property name="size">75,75</property>
                                                             <property name="style"></property>
                                                             <property name="subclass"></property>
                                                             <property name="tooltip"></property>
@@ -650,7 +650,7 @@
                                                 </object>
                                             </object>
                                             <object class="sizeritem" expanded="1">
-                                                <property name="border">5</property>
+                                                <property name="border">1</property>
                                                 <property name="flag">wxEXPAND</property>
                                                 <property name="proportion">1</property>
                                                 <object class="wxBoxSizer" expanded="1">
@@ -669,7 +669,7 @@
                                                             <property name="default">0</property>
                                                             <property name="enabled">1</property>
                                                             <property name="fg"></property>
-                                                            <property name="font">,90,90,15,70,0</property>
+                                                            <property name="font">,90,90,12,70,0</property>
                                                             <property name="hidden">0</property>
                                                             <property name="id">wxID_ANY</property>
                                                             <property name="label">Saus</property>
@@ -678,7 +678,7 @@
                                                             <property name="name">btnSaus</property>
                                                             <property name="permission">protected</property>
                                                             <property name="pos"></property>
-                                                            <property name="size">100,100</property>
+                                                            <property name="size">75,75</property>
                                                             <property name="style"></property>
                                                             <property name="subclass"></property>
                                                             <property name="tooltip"></property>
@@ -726,7 +726,7 @@
                                                             <property name="default">0</property>
                                                             <property name="enabled">1</property>
                                                             <property name="fg"></property>
-                                                            <property name="font">,90,90,15,70,0</property>
+                                                            <property name="font">,90,90,12,70,0</property>
                                                             <property name="hidden">0</property>
                                                             <property name="id">wxID_ANY</property>
                                                             <property name="label">Warme&#x0A;Saus</property>
@@ -735,7 +735,7 @@
                                                             <property name="name">btnWarmeSaus</property>
                                                             <property name="permission">protected</property>
                                                             <property name="pos"></property>
-                                                            <property name="size">100,100</property>
+                                                            <property name="size">75,75</property>
                                                             <property name="style"></property>
                                                             <property name="subclass"></property>
                                                             <property name="tooltip"></property>
@@ -783,7 +783,7 @@
                                                             <property name="default">0</property>
                                                             <property name="enabled">1</property>
                                                             <property name="fg"></property>
-                                                            <property name="font">,90,90,15,70,0</property>
+                                                            <property name="font">,90,90,12,70,0</property>
                                                             <property name="hidden">0</property>
                                                             <property name="id">wxID_ANY</property>
                                                             <property name="label">Burgers</property>
@@ -792,7 +792,7 @@
                                                             <property name="name">btnHamburgers</property>
                                                             <property name="permission">protected</property>
                                                             <property name="pos"></property>
-                                                            <property name="size">100,100</property>
+                                                            <property name="size">75,75</property>
                                                             <property name="style"></property>
                                                             <property name="subclass"></property>
                                                             <property name="tooltip"></property>
@@ -837,7 +837,7 @@
                             </object>
                         </object>
                         <object class="sizeritem" expanded="1">
-                            <property name="border">5</property>
+                            <property name="border">1</property>
                             <property name="flag">wxEXPAND</property>
                             <property name="proportion">1</property>
                             <object class="wxStaticBoxSizer" expanded="1">
@@ -849,7 +849,7 @@
                                 <property name="permission">none</property>
                                 <event name="OnUpdateUI"></event>
                                 <object class="sizeritem" expanded="1">
-                                    <property name="border">5</property>
+                                    <property name="border">1</property>
                                     <property name="flag">wxEXPAND | wxALL</property>
                                     <property name="proportion">1</property>
                                     <object class="wxPanel" expanded="1">
@@ -904,7 +904,7 @@
                             </object>
                         </object>
                         <object class="sizeritem" expanded="1">
-                            <property name="border">5</property>
+                            <property name="border">1</property>
                             <property name="flag">wxEXPAND</property>
                             <property name="proportion">1</property>
                             <object class="wxStaticBoxSizer" expanded="1">
@@ -916,7 +916,7 @@
                                 <property name="permission">none</property>
                                 <event name="OnUpdateUI"></event>
                                 <object class="sizeritem" expanded="1">
-                                    <property name="border">5</property>
+                                    <property name="border">1</property>
                                     <property name="flag">wxEXPAND | wxALL</property>
                                     <property name="proportion">1</property>
                                     <object class="wxPanel" expanded="1">
@@ -972,7 +972,7 @@
                                             <property name="orient">wxVERTICAL</property>
                                             <property name="permission">none</property>
                                             <object class="sizeritem" expanded="1">
-                                                <property name="border">5</property>
+                                                <property name="border">1</property>
                                                 <property name="flag">wxALIGN_RIGHT|wxALL</property>
                                                 <property name="proportion">0</property>
                                                 <object class="wxStaticText" expanded="1">
@@ -1028,7 +1028,7 @@
                                                 </object>
                                             </object>
                                             <object class="sizeritem" expanded="1">
-                                                <property name="border">5</property>
+                                                <property name="border">1</property>
                                                 <property name="flag">wxALL</property>
                                                 <property name="proportion">0</property>
                                                 <object class="wxGrid" expanded="1">
@@ -1041,15 +1041,15 @@
                                                     <property name="cell_text"></property>
                                                     <property name="cell_vert_alignment">wxALIGN_TOP</property>
                                                     <property name="col_label_horiz_alignment">wxALIGN_CENTRE</property>
-                                                    <property name="col_label_size">30</property>
-                                                    <property name="col_label_values"></property>
+                                                    <property name="col_label_size">25</property>
+                                                    <property name="col_label_values">&quot;#&quot; &quot;Product&quot; &quot;Prijs&quot;</property>
                                                     <property name="col_label_vert_alignment">wxALIGN_CENTRE</property>
-                                                    <property name="cols">5</property>
-                                                    <property name="column_sizes"></property>
+                                                    <property name="cols">3</property>
+                                                    <property name="column_sizes">50,150,30</property>
                                                     <property name="context_help"></property>
                                                     <property name="context_menu">1</property>
                                                     <property name="drag_col_move">0</property>
-                                                    <property name="drag_col_size">1</property>
+                                                    <property name="drag_col_size">0</property>
                                                     <property name="drag_grid_size">0</property>
                                                     <property name="drag_row_size">1</property>
                                                     <property name="editing">1</property>
@@ -1057,7 +1057,7 @@
                                                     <property name="fg"></property>
                                                     <property name="font"></property>
                                                     <property name="grid_line_color"></property>
-                                                    <property name="grid_lines">1</property>
+                                                    <property name="grid_lines">0</property>
                                                     <property name="hidden">0</property>
                                                     <property name="id">wxID_ANY</property>
                                                     <property name="label_bg"></property>
@@ -1071,11 +1071,11 @@
                                                     <property name="permission">protected</property>
                                                     <property name="pos"></property>
                                                     <property name="row_label_horiz_alignment">wxALIGN_CENTRE</property>
-                                                    <property name="row_label_size">80</property>
+                                                    <property name="row_label_size">0</property>
                                                     <property name="row_label_values"></property>
                                                     <property name="row_label_vert_alignment">wxALIGN_CENTRE</property>
                                                     <property name="row_sizes"></property>
-                                                    <property name="rows">5</property>
+                                                    <property name="rows">15</property>
                                                     <property name="size"></property>
                                                     <property name="subclass"></property>
                                                     <property name="tooltip"></property>
@@ -1144,7 +1144,7 @@
                                                 </object>
                                             </object>
                                             <object class="sizeritem" expanded="1">
-                                                <property name="border">5</property>
+                                                <property name="border">1</property>
                                                 <property name="flag">wxALIGN_CENTER_HORIZONTAL|wxALL</property>
                                                 <property name="proportion">0</property>
                                                 <object class="wxButton" expanded="1">
@@ -1154,7 +1154,7 @@
                                                     <property name="default">0</property>
                                                     <property name="enabled">1</property>
                                                     <property name="fg"></property>
-                                                    <property name="font">,90,90,15,70,0</property>
+                                                    <property name="font">,90,90,12,70,0</property>
                                                     <property name="hidden">0</property>
                                                     <property name="id">wxID_ANY</property>
                                                     <property name="label">Annuleren</property>
@@ -1201,7 +1201,7 @@
                                                 </object>
                                             </object>
                                             <object class="sizeritem" expanded="1">
-                                                <property name="border">5</property>
+                                                <property name="border">1</property>
                                                 <property name="flag">wxALIGN_CENTER_HORIZONTAL|wxALL</property>
                                                 <property name="proportion">0</property>
                                                 <object class="wxButton" expanded="1">
@@ -1211,7 +1211,7 @@
                                                     <property name="default">0</property>
                                                     <property name="enabled">1</property>
                                                     <property name="fg"></property>
-                                                    <property name="font">,90,90,15,70,0</property>
+                                                    <property name="font">,90,90,12,70,0</property>
                                                     <property name="hidden">0</property>
                                                     <property name="id">wxID_ANY</property>
                                                     <property name="label">Afrekenen</property>
@@ -1335,7 +1335,7 @@
                         <property name="permission">none</property>
                         <property name="vgap">0</property>
                         <object class="gbsizeritem" expanded="0">
-                            <property name="border">5</property>
+                            <property name="border">1</property>
                             <property name="colspan">1</property>
                             <property name="column">0</property>
                             <property name="flag">wxALL</property>
@@ -1348,7 +1348,7 @@
                                 <property name="default">0</property>
                                 <property name="enabled">1</property>
                                 <property name="fg"></property>
-                                <property name="font">,90,90,15,70,0</property>
+                                <property name="font">,90,90,12,70,0</property>
                                 <property name="hidden">0</property>
                                 <property name="id">wxID_ANY</property>
                                 <property name="label">Groot</property>
@@ -1357,7 +1357,7 @@
                                 <property name="name">btnFrietGroot</property>
                                 <property name="permission">protected</property>
                                 <property name="pos"></property>
-                                <property name="size">100,100</property>
+                                <property name="size">75,75</property>
                                 <property name="style"></property>
                                 <property name="subclass"></property>
                                 <property name="tooltip"></property>
@@ -1395,7 +1395,7 @@
                             </object>
                         </object>
                         <object class="gbsizeritem" expanded="0">
-                            <property name="border">5</property>
+                            <property name="border">1</property>
                             <property name="colspan">1</property>
                             <property name="column">1</property>
                             <property name="flag">wxALL</property>
@@ -1408,7 +1408,7 @@
                                 <property name="default">0</property>
                                 <property name="enabled">1</property>
                                 <property name="fg"></property>
-                                <property name="font">,90,90,15,70,0</property>
+                                <property name="font">,90,90,12,70,0</property>
                                 <property name="hidden">0</property>
                                 <property name="id">wxID_ANY</property>
                                 <property name="label">Midden</property>
@@ -1417,7 +1417,7 @@
                                 <property name="name">btnFrietMidden</property>
                                 <property name="permission">protected</property>
                                 <property name="pos"></property>
-                                <property name="size">100,100</property>
+                                <property name="size">75,75</property>
                                 <property name="style"></property>
                                 <property name="subclass"></property>
                                 <property name="tooltip"></property>
@@ -1455,7 +1455,7 @@
                             </object>
                         </object>
                         <object class="gbsizeritem" expanded="0">
-                            <property name="border">5</property>
+                            <property name="border">1</property>
                             <property name="colspan">1</property>
                             <property name="column">2</property>
                             <property name="flag">wxALL</property>
@@ -1468,7 +1468,7 @@
                                 <property name="default">0</property>
                                 <property name="enabled">1</property>
                                 <property name="fg"></property>
-                                <property name="font">,90,90,15,70,0</property>
+                                <property name="font">,90,90,12,70,0</property>
                                 <property name="hidden">0</property>
                                 <property name="id">wxID_ANY</property>
                                 <property name="label">Klein</property>
@@ -1477,7 +1477,7 @@
                                 <property name="name">btnFrietKlein</property>
                                 <property name="permission">protected</property>
                                 <property name="pos"></property>
-                                <property name="size">100,100</property>
+                                <property name="size">75,75</property>
                                 <property name="style"></property>
                                 <property name="subclass"></property>
                                 <property name="tooltip"></property>
@@ -1515,7 +1515,7 @@
                             </object>
                         </object>
                         <object class="gbsizeritem" expanded="0">
-                            <property name="border">5</property>
+                            <property name="border">1</property>
                             <property name="colspan">1</property>
                             <property name="column">3</property>
                             <property name="flag">wxALL</property>
@@ -1528,7 +1528,7 @@
                                 <property name="default">0</property>
                                 <property name="enabled">1</property>
                                 <property name="fg"></property>
-                                <property name="font">,90,90,15,70,0</property>
+                                <property name="font">,90,90,12,70,0</property>
                                 <property name="hidden">0</property>
                                 <property name="id">wxID_ANY</property>
                                 <property name="label">Familie</property>
@@ -1537,7 +1537,7 @@
                                 <property name="name">btnFrietFamilie</property>
                                 <property name="permission">protected</property>
                                 <property name="pos"></property>
-                                <property name="size">100,100</property>
+                                <property name="size">75,75</property>
                                 <property name="style"></property>
                                 <property name="subclass"></property>
                                 <property name="tooltip"></property>
@@ -1632,7 +1632,7 @@
                 <property name="orient">wxVERTICAL</property>
                 <property name="permission">none</property>
                 <object class="sizeritem" expanded="1">
-                    <property name="border">5</property>
+                    <property name="border">1</property>
                     <property name="flag">wxEXPAND</property>
                     <property name="proportion">1</property>
                     <object class="wxFlexGridSizer" expanded="1">
@@ -1648,7 +1648,7 @@
                         <property name="rows">2</property>
                         <property name="vgap">0</property>
                         <object class="sizeritem" expanded="1">
-                            <property name="border">5</property>
+                            <property name="border">1</property>
                             <property name="flag">wxEXPAND</property>
                             <property name="proportion">1</property>
                             <object class="wxBoxSizer" expanded="1">
@@ -1657,7 +1657,7 @@
                                 <property name="orient">wxHORIZONTAL</property>
                                 <property name="permission">none</property>
                                 <object class="sizeritem" expanded="1">
-                                    <property name="border">5</property>
+                                    <property name="border">1</property>
                                     <property name="flag">wxALL</property>
                                     <property name="proportion">0</property>
                                     <object class="wxButton" expanded="1">
@@ -1667,7 +1667,7 @@
                                         <property name="default">0</property>
                                         <property name="enabled">1</property>
                                         <property name="fg"></property>
-                                        <property name="font">,90,90,15,70,0</property>
+                                        <property name="font">,90,90,12,70,0</property>
                                         <property name="hidden">0</property>
                                         <property name="id">wxID_ANY</property>
                                         <property name="label">Frikandel</property>
@@ -1676,7 +1676,7 @@
                                         <property name="name">btnFrikandel</property>
                                         <property name="permission">protected</property>
                                         <property name="pos"></property>
-                                        <property name="size">120,100</property>
+                                        <property name="size">90,90</property>
                                         <property name="style"></property>
                                         <property name="subclass"></property>
                                         <property name="tooltip"></property>
@@ -1714,7 +1714,7 @@
                                     </object>
                                 </object>
                                 <object class="sizeritem" expanded="1">
-                                    <property name="border">5</property>
+                                    <property name="border">1</property>
                                     <property name="flag">wxALL</property>
                                     <property name="proportion">0</property>
                                     <object class="wxButton" expanded="1">
@@ -1724,7 +1724,7 @@
                                         <property name="default">0</property>
                                         <property name="enabled">1</property>
                                         <property name="fg"></property>
-                                        <property name="font">,90,90,15,70,0</property>
+                                        <property name="font">,90,90,12,70,0</property>
                                         <property name="hidden">0</property>
                                         <property name="id">wxID_ANY</property>
                                         <property name="label">Mexicano</property>
@@ -1733,7 +1733,7 @@
                                         <property name="name">btnMexicano</property>
                                         <property name="permission">protected</property>
                                         <property name="pos"></property>
-                                        <property name="size">120,100</property>
+                                        <property name="size">90,90</property>
                                         <property name="style"></property>
                                         <property name="subclass"></property>
                                         <property name="tooltip"></property>
@@ -1771,7 +1771,7 @@
                                     </object>
                                 </object>
                                 <object class="sizeritem" expanded="1">
-                                    <property name="border">5</property>
+                                    <property name="border">1</property>
                                     <property name="flag">wxALL</property>
                                     <property name="proportion">0</property>
                                     <object class="wxButton" expanded="1">
@@ -1781,7 +1781,7 @@
                                         <property name="default">0</property>
                                         <property name="enabled">1</property>
                                         <property name="fg"></property>
-                                        <property name="font">,90,90,15,70,0</property>
+                                        <property name="font">,90,90,12,70,0</property>
                                         <property name="hidden">0</property>
                                         <property name="id">wxID_ANY</property>
                                         <property name="label">Kippets</property>
@@ -1790,7 +1790,7 @@
                                         <property name="name">btnKippets</property>
                                         <property name="permission">protected</property>
                                         <property name="pos"></property>
-                                        <property name="size">120,100</property>
+                                        <property name="size">90,90</property>
                                         <property name="style"></property>
                                         <property name="subclass"></property>
                                         <property name="tooltip"></property>
@@ -1828,7 +1828,7 @@
                                     </object>
                                 </object>
                                 <object class="sizeritem" expanded="1">
-                                    <property name="border">5</property>
+                                    <property name="border">1</property>
                                     <property name="flag">wxALL</property>
                                     <property name="proportion">0</property>
                                     <object class="wxButton" expanded="1">
@@ -1838,7 +1838,7 @@
                                         <property name="default">0</property>
                                         <property name="enabled">1</property>
                                         <property name="fg"></property>
-                                        <property name="font">,90,90,15,70,0</property>
+                                        <property name="font">,90,90,12,70,0</property>
                                         <property name="hidden">0</property>
                                         <property name="id">wxID_ANY</property>
                                         <property name="label">Mammoet</property>
@@ -1847,7 +1847,7 @@
                                         <property name="name">btnMammoet</property>
                                         <property name="permission">protected</property>
                                         <property name="pos"></property>
-                                        <property name="size">120,100</property>
+                                        <property name="size">90,90</property>
                                         <property name="style"></property>
                                         <property name="subclass"></property>
                                         <property name="tooltip"></property>
@@ -1887,7 +1887,7 @@
                             </object>
                         </object>
                         <object class="sizeritem" expanded="1">
-                            <property name="border">5</property>
+                            <property name="border">1</property>
                             <property name="flag">wxEXPAND</property>
                             <property name="proportion">1</property>
                             <object class="wxBoxSizer" expanded="1">
@@ -1896,7 +1896,7 @@
                                 <property name="orient">wxHORIZONTAL</property>
                                 <property name="permission">none</property>
                                 <object class="sizeritem" expanded="1">
-                                    <property name="border">5</property>
+                                    <property name="border">1</property>
                                     <property name="flag">wxALL</property>
                                     <property name="proportion">0</property>
                                     <object class="wxButton" expanded="1">
@@ -1906,7 +1906,7 @@
                                         <property name="default">0</property>
                                         <property name="enabled">1</property>
                                         <property name="fg"></property>
-                                        <property name="font">,90,90,15,70,0</property>
+                                        <property name="font">,90,90,12,70,0</property>
                                         <property name="hidden">0</property>
                                         <property name="id">wxID_ANY</property>
                                         <property name="label">Frikandel</property>
@@ -1915,7 +1915,7 @@
                                         <property name="name">btnFrikandel4</property>
                                         <property name="permission">protected</property>
                                         <property name="pos"></property>
-                                        <property name="size">120,100</property>
+                                        <property name="size">90,90</property>
                                         <property name="style"></property>
                                         <property name="subclass"></property>
                                         <property name="tooltip"></property>
@@ -1953,7 +1953,7 @@
                                     </object>
                                 </object>
                                 <object class="sizeritem" expanded="1">
-                                    <property name="border">5</property>
+                                    <property name="border">1</property>
                                     <property name="flag">wxALL</property>
                                     <property name="proportion">0</property>
                                     <object class="wxButton" expanded="1">
@@ -1963,7 +1963,7 @@
                                         <property name="default">0</property>
                                         <property name="enabled">1</property>
                                         <property name="fg"></property>
-                                        <property name="font">,90,90,15,70,0</property>
+                                        <property name="font">,90,90,12,70,0</property>
                                         <property name="hidden">0</property>
                                         <property name="id">wxID_ANY</property>
                                         <property name="label">Frikandel</property>
@@ -1972,7 +1972,7 @@
                                         <property name="name">btnFrikandel5</property>
                                         <property name="permission">protected</property>
                                         <property name="pos"></property>
-                                        <property name="size">120,100</property>
+                                        <property name="size">90,90</property>
                                         <property name="style"></property>
                                         <property name="subclass"></property>
                                         <property name="tooltip"></property>
