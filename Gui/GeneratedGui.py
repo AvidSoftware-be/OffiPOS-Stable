@@ -49,25 +49,33 @@ class MainFrameBase ( wx.Frame ):
 		
 		sbGroepen = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Groepen" ), wx.VERTICAL )
 		
-		self.btnFrieten = wx.Button( self, wx.ID_ANY, u"Frieten", wx.DefaultPosition, wx.Size( 100,100 ), 0 )
+		self.pnlGroepen = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		bSizer6 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.btnFrieten = wx.Button( self.pnlGroepen, wx.ID_ANY, u"Frieten", wx.DefaultPosition, wx.Size( 100,100 ), 0 )
 		self.btnFrieten.SetFont( wx.Font( 15, 70, 90, 90, False, wx.EmptyString ) )
 		
-		sbGroepen.Add( self.btnFrieten, 0, wx.ALL, 1 )
+		bSizer6.Add( self.btnFrieten, 0, wx.ALL, 1 )
 		
-		self.btnSnacks = wx.Button( self, wx.ID_ANY, u"Snacks", wx.DefaultPosition, wx.Size( 100,100 ), 0 )
+		self.btnSnacks = wx.Button( self.pnlGroepen, wx.ID_ANY, u"Snacks", wx.DefaultPosition, wx.Size( 100,100 ), 0 )
 		self.btnSnacks.SetFont( wx.Font( 15, 70, 90, 90, False, wx.EmptyString ) )
 		
-		sbGroepen.Add( self.btnSnacks, 0, wx.ALL, 1 )
+		bSizer6.Add( self.btnSnacks, 0, wx.ALL, 1 )
 		
-		self.btnDrank = wx.Button( self, wx.ID_ANY, u"Drank", wx.DefaultPosition, wx.Size( 100,100 ), 0 )
+		self.btnDrank = wx.Button( self.pnlGroepen, wx.ID_ANY, u"Drank", wx.DefaultPosition, wx.Size( 100,100 ), 0 )
 		self.btnDrank.SetFont( wx.Font( 15, 70, 90, 90, False, wx.EmptyString ) )
 		
-		sbGroepen.Add( self.btnDrank, 0, wx.ALL, 1 )
+		bSizer6.Add( self.btnDrank, 0, wx.ALL, 1 )
 		
-		self.btnSaus = wx.Button( self, wx.ID_ANY, u"Saus", wx.DefaultPosition, wx.Size( 100,100 ), 0 )
+		self.btnSaus = wx.Button( self.pnlGroepen, wx.ID_ANY, u"Saus", wx.DefaultPosition, wx.Size( 100,100 ), 0 )
 		self.btnSaus.SetFont( wx.Font( 15, 70, 90, 90, False, wx.EmptyString ) )
 		
-		sbGroepen.Add( self.btnSaus, 0, wx.ALL, 1 )
+		bSizer6.Add( self.btnSaus, 0, wx.ALL, 1 )
+		
+		self.pnlGroepen.SetSizer( bSizer6 )
+		self.pnlGroepen.Layout()
+		bSizer6.Fit( self.pnlGroepen )
+		sbGroepen.Add( self.pnlGroepen, 1, wx.EXPAND |wx.ALL, 5 )
 		
 		fgSizer1.Add( sbGroepen, 1, wx.EXPAND, 5 )
 		
@@ -80,13 +88,16 @@ class MainFrameBase ( wx.Frame ):
 		
 		sbRekening = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Rekening" ), wx.VERTICAL )
 		
-		self.lblTotal = wx.StaticText( self, wx.ID_ANY, u"€ 00,00", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.pnlRekening = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		bSizer7 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.lblTotal = wx.StaticText( self.pnlRekening, wx.ID_ANY, u"€ 00,00", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.lblTotal.Wrap( -1 )
 		self.lblTotal.SetFont( wx.Font( 20, 70, 90, 90, False, wx.EmptyString ) )
 		
-		sbRekening.Add( self.lblTotal, 0, wx.ALIGN_RIGHT|wx.ALL, 5 )
+		bSizer7.Add( self.lblTotal, 0, wx.ALIGN_RIGHT|wx.ALL, 5 )
 		
-		self.gOrder = wx.grid.Grid( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.gOrder = wx.grid.Grid( self.pnlRekening, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
 		
 		# Grid
 		self.gOrder.CreateGrid( 5, 5 )
@@ -110,17 +121,22 @@ class MainFrameBase ( wx.Frame ):
 		
 		# Cell Defaults
 		self.gOrder.SetDefaultCellAlignment( wx.ALIGN_LEFT, wx.ALIGN_TOP )
-		sbRekening.Add( self.gOrder, 0, wx.ALL, 5 )
+		bSizer7.Add( self.gOrder, 0, wx.ALL, 5 )
 		
-		self.btnAnnuleren = wx.Button( self, wx.ID_ANY, u"Annuleren", wx.DefaultPosition, wx.Size( 200,50 ), 0 )
+		self.btnAnnuleren = wx.Button( self.pnlRekening, wx.ID_ANY, u"Annuleren", wx.DefaultPosition, wx.Size( 200,50 ), 0 )
 		self.btnAnnuleren.SetFont( wx.Font( 15, 70, 90, 90, False, wx.EmptyString ) )
 		
-		sbRekening.Add( self.btnAnnuleren, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 5 )
+		bSizer7.Add( self.btnAnnuleren, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 5 )
 		
-		self.btnAfrekeken = wx.Button( self, wx.ID_ANY, u"Afrekenen", wx.DefaultPosition, wx.Size( 200,100 ), 0 )
+		self.btnAfrekeken = wx.Button( self.pnlRekening, wx.ID_ANY, u"Afrekenen", wx.DefaultPosition, wx.Size( 200,100 ), 0 )
 		self.btnAfrekeken.SetFont( wx.Font( 15, 70, 90, 90, False, wx.EmptyString ) )
 		
-		sbRekening.Add( self.btnAfrekeken, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 5 )
+		bSizer7.Add( self.btnAfrekeken, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 5 )
+		
+		self.pnlRekening.SetSizer( bSizer7 )
+		self.pnlRekening.Layout()
+		bSizer7.Fit( self.pnlRekening )
+		sbRekening.Add( self.pnlRekening, 1, wx.EXPAND |wx.ALL, 5 )
 		
 		fgSizer1.Add( sbRekening, 1, wx.EXPAND, 5 )
 		
@@ -132,16 +148,22 @@ class MainFrameBase ( wx.Frame ):
 		self.Centre( wx.BOTH )
 		
 		# Connect Events
+		self.btnNieuwTicket.Bind( wx.EVT_BUTTON, self.btnNieuwTicketOnButtonClick )
 		self.btnFrieten.Bind( wx.EVT_BUTTON, self.btnFrietenOnButtonClick )
 		self.btnSnacks.Bind( wx.EVT_BUTTON, self.btnSnacksOnButtonClick )
 		self.btnDrank.Bind( wx.EVT_BUTTON, self.btnDrankOnButtonClick )
 		self.btnSaus.Bind( wx.EVT_BUTTON, self.btnSausOnButtonClick )
+		self.btnAnnuleren.Bind( wx.EVT_BUTTON, self.btnAnnulerenOnButtonClick )
+		self.btnAfrekeken.Bind( wx.EVT_BUTTON, self.btnAfrekekenOnButtonClick )
 	
 	def __del__( self ):
 		pass
 	
 	
 	# Virtual event handlers, overide them in your derived class
+	def btnNieuwTicketOnButtonClick( self, event ):
+		event.Skip()
+	
 	def btnFrietenOnButtonClick( self, event ):
 		event.Skip()
 	
@@ -152,6 +174,12 @@ class MainFrameBase ( wx.Frame ):
 		event.Skip()
 	
 	def btnSausOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnAnnulerenOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnAfrekekenOnButtonClick( self, event ):
 		event.Skip()
 	
 

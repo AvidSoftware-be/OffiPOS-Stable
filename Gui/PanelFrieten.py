@@ -2,6 +2,8 @@
 
 import wx
 from DataModel.Product import Product
+from DataModel.ProductConstants import BaronProducts
+from DataModel.Ticket import Ticket
 import GeneratedGui
 
 # Implementing PanelFrietenBase
@@ -10,7 +12,8 @@ class PanelFrieten( GeneratedGui.PanelFrietenBase ):
         GeneratedGui.PanelFrietenBase.__init__( self, parent )
 
     def btnFrietGrootOnButtonClick (self, event):
-        product = Product(id=1)
+        ticket = Ticket()
+        ticket.AddTicketLine(BaronProducts["Frieten_Groot"])
         
 
 

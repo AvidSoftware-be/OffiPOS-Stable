@@ -1,6 +1,8 @@
 __author__ = 'dennis'
 
 class TicketLine():
-    ticketId=0
-    Product=''
+    def __init__(self):
+        pass
+
+
     

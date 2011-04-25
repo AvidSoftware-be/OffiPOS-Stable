@@ -6,10 +6,8 @@ import sqlite3
 
 class Product:
 
-    id=0
-    group=0
-    Name=''
-    Price=0
-
-    def __init__(self):
-        pass
+    def __init__(self, id, price, name, group):
+        self.price = price
+        self.id = id
+        self.name = name
+        self.group = group
