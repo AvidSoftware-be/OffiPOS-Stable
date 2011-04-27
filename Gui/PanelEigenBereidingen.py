@@ -7,4 +7,5 @@ import GeneratedGui
 class PanelEigenBereidingen( GeneratedGui.PanelEigenBereidingenBase ):
 	def __init__( self, parent ):
 		GeneratedGui.PanelEigenBereidingenBase.__init__( self, parent )
+        
 	
