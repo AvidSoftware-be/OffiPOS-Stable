@@ -4,10 +4,9 @@ import wx
 from Gui.MainFrame import MainFrame
 
 import logging
+import ini
 
-LOG_FILENAME = 'BaronPOS.log'
-
-logging.basicConfig(filename=LOG_FILENAME,level=logging.DEBUG)
+logging.basicConfig(filename=ini.LOG_FILENAME,level=logging.DEBUG)
 log=logging.getLogger(__name__)
 
 class BaronPOSApp(wx.App):
