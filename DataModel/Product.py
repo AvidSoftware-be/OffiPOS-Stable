@@ -33,10 +33,12 @@ class Product:
         cur = conn.cursor()
         cur.execute("select * from product where id=?", (self.id,))
         prod= cur.fetchone()
-        self.id=prod[0]
-        self.name=prod[1]
-        self.price=prod[2]
-        self.group=prod[3]
-        self.vatCodeIn=prod[4]
-        self.vatCodeOut=prod[5]
+
+        if prod is not None:
+            self.id=prod[0]
+            self.name=prod[1]
+            self.price=prod[2]
+            self.group=prod[3]
+            self.vatCodeIn=prod[4]
+            self.vatCodeOut=prod[5]
 

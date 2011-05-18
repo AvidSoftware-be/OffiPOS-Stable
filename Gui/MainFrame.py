@@ -10,118 +10,131 @@ import GeneratedGui
 # Implementing MainFrameBase
 from Gui import *
 
-class MainFrame( GeneratedGui.MainFrameBase ):
-    _selectedGroup=0
+class MainFrame(GeneratedGui.MainFrameBase):
+    _selectedGroup = 1
 
     def __init__( self, parent ):
-        GeneratedGui.MainFrameBase.__init__( self, parent)
-        self.pnlGroepen.Enabled=False
-        self.pnlProducten.Enabled=False
-        self.pnlRekening.Enabled=False
-        self.pnlRekening.Enabled=False
-        self.btnNieuwTicket.Enabled=True
+        GeneratedGui.MainFrameBase.__init__(self, parent)
+        self.pnlGroepen.Enabled = False
+        self.pnlProducten.Enabled = False
+        self.pnlRekening.Enabled = False
+        self.pnlRekening.Enabled = False
+        self.btnNieuwTicket.Enabled = True
 
         #fill group buttons
-        self.btnGroupOne.Enabled =False
+        self.btnGroupOne.Enabled = False
         self.btnGroupOne.SetLabel("")
-        self.btnGroupTwo.Enabled=False
+        self.btnGroupTwo.Enabled = False
         self.btnGroupTwo.SetLabel("")
-        self.btnGroupThree.Enabled=False
+        self.btnGroupThree.Enabled = False
         self.btnGroupThree.SetLabel("")
-        self.btnGroupFour.Enabled=False
+        self.btnGroupFour.Enabled = False
         self.btnGroupFour.SetLabel("")
-        self.btnGroupFive.Enabled=False
+        self.btnGroupFive.Enabled = False
         self.btnGroupFive.SetLabel("")
-        self.btnGroupSix.Enabled=False
+        self.btnGroupSix.Enabled = False
         self.btnGroupSix.SetLabel("")
-        self.btnGroupSeven.Enabled=False
+        self.btnGroupSeven.Enabled = False
         self.btnGroupSeven.SetLabel("")
 
-        i=1
+        i = 1
         for name in ScreenGroup().fetchall():
-            if i==1:
+            if i == 1:
                 self.btnGroupOne.SetLabel(name[1])
-            elif i==2:
+            elif i == 2:
                 self.btnGroupTwo.SetLabel(name[1])
-            elif i==3:
+            elif i == 3:
                 self.btnGroupThree.SetLabel(name[1])
-            elif i==4:
+            elif i == 4:
                 self.btnGroupFour.SetLabel(name[1])
-            elif i==5:
+            elif i == 5:
                 self.btnGroupFive.SetLabel(name[1])
-            elif i==6:
+            elif i == 6:
                 self.btnGroupSix.SetLabel(name[1])
-            elif i==7:
+            elif i == 7:
                 self.btnGroupSeven.SetLabel(name[1])
 
-            i=i+1
+            i = i + 1
 
+        self._updateProductButtons()
 
 
     # Handlers for MainFrameBase events.
     def btnNieuwTicketOnButtonClick( self, event ):
-        self.pnlGroepen.Enabled=True
-        self.pnlProducten.Enabled=True
-        self.pnlRekening.Enabled=True
-        self.btnNieuwTicket.Enabled=False
+        self.pnlGroepen.Enabled = True
+        self.pnlProducten.Enabled = True
+        self.pnlRekening.Enabled = True
+        self.btnNieuwTicket.Enabled = False
         ticket = Ticket()
         ticket.CreateNewTicket()
 
     def btnAnnulerenOnButtonClick( self, event ):
-        self.pnlGroepen.Enabled=False
-        self.pnlProducten.Enabled=False
-        self.pnlRekening.Enabled=False
-        self.btnNieuwTicket.Enabled=True
+        self.pnlGroepen.Enabled = False
+        self.pnlProducten.Enabled = False
+        self.pnlRekening.Enabled = False
+        self.btnNieuwTicket.Enabled = True
         ticket = Ticket()
         ticket.CancelTicket()
 
     def btnAfrekekenOnButtonClick( self, event ):
-        self.pnlGroepen.Enabled=False
-        self.pnlProducten.Enabled=False
-        self.pnlRekening.Enabled=False
-        self.btnNieuwTicket.Enabled=True
+        self.pnlGroepen.Enabled = False
+        self.pnlProducten.Enabled = False
+        self.pnlRekening.Enabled = False
+        self.btnNieuwTicket.Enabled = True
         ticket = Ticket()
         ticket.PayTicket()
 
     def btnGroupOneOnButtonClick( self, event ):
-        self._selectedGroup=1
+        self._selectedGroup = 1
         self._updateProductButtons()
 
     def btnGroupTwoOnButtonClick( self, event ):
-        self._selectedGroup=2
+        self._selectedGroup = 2
         self._updateProductButtons()
 
     def btnGroupThreeOnButtonClick( self, event ):
-        self._selectedGroup=3
+        self._selectedGroup = 3
         self._updateProductButtons()
 
     def btnGroupFourOnButtonClick( self, event ):
-        self._selectedGroup=4
+        self._selectedGroup = 4
         self._updateProductButtons()
 
     def btnGroupFiveOnButtonClick( self, event ):
-        self._selectedGroup=5
+        self._selectedGroup = 5
         self._updateProductButtons()
 
     def btnGroupSixOnButtonClick( self, event ):
-        self._selectedGroup=6
+        self._selectedGroup = 6
         self._updateProductButtons()
 
     def btnGroupSevenOnButtonClick( self, event ):
-        self._selectedGroup=7
+        self._selectedGroup = 7
         self._updateProductButtons()
 
-    def _updateProductButtons(self):
+    def btnProductOnButtonClick( self, event ):
+        pass
 
-        productsInScreen= ProductScreen().GetProductsForScreen(self._selectedGroup)
+    def _updateProductButtons(self):
+        r = 1
+        c = 1
+        for i in range(1, 37):
+            buttonNo = c + r * 10
+            control = getattr(self, "btnProduct%s" % (str(buttonNo)))
+            control.SetLabel("")
+            c = c + 1
+            if c == 7:
+                c = 1
+                r = r + 1
+
+        productsInScreen = ProductScreen().GetProductsForScreen(self._selectedGroup)
 
         for productLine in productsInScreen:
-            product = Product(id=productLine[2],group=0,name="",price=0,vatCodeIn=0,vatCodeOut=0)
+            product = Product(id=productLine[2], group=0, name="", price=0, vatCodeIn=0, vatCodeOut=0)
             product.fill()
-            if productLine[3]==11:
-                self.btnProduct11.SetLabel(product.name)
-            elif productLine[3]==12:
-                self.btnProduct12.SetLabel(product.name)
+
+            control = getattr(self, "btnProduct%s" % (str(productLine[3])))
+            control.SetLabel(product.name.strip())
 
 
 
