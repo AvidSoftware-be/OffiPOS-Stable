@@ -20,5 +20,5 @@ for plu in root.getiterator("PLU"):
 
 print prod.fetchall()
 
-print Product(id=1,price=0,group=0,name="",vatCodeIn=0,vatCodeOut=0).fetch()
+print Product(id=1,price=0,group=0,name="",vatCodeIn=0,vatCodeOut=0).fill()
   
