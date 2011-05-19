@@ -45,6 +45,11 @@ class MainFrameBase ( wx.Frame ):
 		self.btnAdmin = wx.Button( self, wx.ID_ANY, u"Admin", wx.DefaultPosition, wx.Size( 80,-1 ), 0 )
 		sbFuncties.Add( self.btnAdmin, 0, wx.ALL, 1 )
 		
+		self.btnInOutToggle = wx.ToggleButton( self, wx.ID_ANY, u"In/Out", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnInOutToggle.SetFont( wx.Font( 10, 70, 90, 90, False, wx.EmptyString ) )
+		
+		sbFuncties.Add( self.btnInOutToggle, 0, wx.ALL, 1 )
+		
 		fgSizer1.Add( sbFuncties, 1, wx.EXPAND, 1 )
 		
 		sbGroepen = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Groepen" ), wx.VERTICAL )
@@ -413,6 +418,7 @@ class MainFrameBase ( wx.Frame ):
 		
 		# Connect Events
 		self.btnNieuwTicket.Bind( wx.EVT_BUTTON, self.btnNieuwTicketOnButtonClick )
+		self.btnInOutToggle.Bind( wx.EVT_TOGGLEBUTTON, self.btnInOutToggleOnToggleButton )
 		self.btnGroupOne.Bind( wx.EVT_BUTTON, self.btnGroupOneOnButtonClick )
 		self.btnGroupThree.Bind( wx.EVT_BUTTON, self.btnGroupThreeOnButtonClick )
 		self.btnGroupFive.Bind( wx.EVT_BUTTON, self.btnGroupFiveOnButtonClick )
@@ -467,6 +473,9 @@ class MainFrameBase ( wx.Frame ):
 	
 	# Virtual event handlers, overide them in your derived class
 	def btnNieuwTicketOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnInOutToggleOnToggleButton( self, event ):
 		event.Skip()
 	
 	def btnGroupOneOnButtonClick( self, event ):

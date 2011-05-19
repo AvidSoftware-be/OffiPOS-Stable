@@ -15,13 +15,56 @@ class MainFrame(GeneratedGui.MainFrameBase):
 
     def __init__( self, parent ):
         GeneratedGui.MainFrameBase.__init__(self, parent)
+
+        self.ticket = Ticket()
+
+        #add product buttons to dictionary for later reference
+        self.buttonDict = {
+            self.btnProduct11:11,
+            self.btnProduct12:12,
+            self.btnProduct13:13,
+            self.btnProduct14:14,
+            self.btnProduct15:15,
+            self.btnProduct16:16,
+            self.btnProduct21:21,
+            self.btnProduct22:22,
+            self.btnProduct23:23,
+            self.btnProduct24:24,
+            self.btnProduct25:25,
+            self.btnProduct26:26,
+            self.btnProduct31:31,
+            self.btnProduct32:32,
+            self.btnProduct33:33,
+            self.btnProduct34:34,
+            self.btnProduct35:35,
+            self.btnProduct36:36,
+            self.btnProduct41:41,
+            self.btnProduct42:42,
+            self.btnProduct43:43,
+            self.btnProduct44:44,
+            self.btnProduct45:45,
+            self.btnProduct46:46,
+            self.btnProduct51:51,
+            self.btnProduct52:52,
+            self.btnProduct53:53,
+            self.btnProduct54:54,
+            self.btnProduct55:55,
+            self.btnProduct56:56,
+            self.btnProduct61:61,
+            self.btnProduct62:62,
+            self.btnProduct63:63,
+            self.btnProduct64:64,
+            self.btnProduct65:65,
+            self.btnProduct66:66
+        }
+
         self.pnlGroepen.Enabled = False
         self.pnlProducten.Enabled = False
         self.pnlRekening.Enabled = False
         self.pnlRekening.Enabled = False
         self.btnNieuwTicket.Enabled = True
 
-        #fill group buttons
+        #Empty out Group Buttons
         self.btnGroupOne.Enabled = False
         self.btnGroupOne.SetLabel("")
         self.btnGroupTwo.Enabled = False
@@ -37,6 +80,7 @@ class MainFrame(GeneratedGui.MainFrameBase):
         self.btnGroupSeven.Enabled = False
         self.btnGroupSeven.SetLabel("")
 
+        #fill group buttons
         i = 1
         for name in ScreenGroup().fetchall():
             if i == 1:
@@ -65,24 +109,29 @@ class MainFrame(GeneratedGui.MainFrameBase):
         self.pnlProducten.Enabled = True
         self.pnlRekening.Enabled = True
         self.btnNieuwTicket.Enabled = False
-        ticket = Ticket()
-        ticket.CreateNewTicket()
+
+        self.ticket.CreateNewTicket()
+        if self.ticket.eatInOut=="O":
+            self.btnInOutToggle.SetValue(0)
+        else:
+            self.btnInOutToggle.SetValue(1)
+
+        self._selectedGroup=1
+        self._updateProductButtons()
 
     def btnAnnulerenOnButtonClick( self, event ):
         self.pnlGroepen.Enabled = False
         self.pnlProducten.Enabled = False
         self.pnlRekening.Enabled = False
         self.btnNieuwTicket.Enabled = True
-        ticket = Ticket()
-        ticket.CancelTicket()
+        self.ticket.CancelTicket()
 
     def btnAfrekekenOnButtonClick( self, event ):
         self.pnlGroepen.Enabled = False
         self.pnlProducten.Enabled = False
         self.pnlRekening.Enabled = False
         self.btnNieuwTicket.Enabled = True
-        ticket = Ticket()
-        ticket.PayTicket()
+        self.ticket.PayTicket()
 
     def btnGroupOneOnButtonClick( self, event ):
         self._selectedGroup = 1
@@ -113,7 +162,18 @@ class MainFrame(GeneratedGui.MainFrameBase):
         self._updateProductButtons()
 
     def btnProductOnButtonClick( self, event ):
-        pass
+        thisButton = event.GetEventObject()
+        buttonNoPressed= self.buttonDict[thisButton]
+
+        self.ticket.AddTicketLine(ProductScreen().GetProductNoOnButton(buttonNoPressed,self._selectedGroup))
+
+    def btnInOutToggleOnToggleButton( self, event ):
+        button = event.GetEventObject()
+        if button.GetValue():
+            self.ticket.SetEatInOut("I")
+        else:
+            self.ticket.SetEatInOut("O")
+
 
     def _updateProductButtons(self):
         r = 1

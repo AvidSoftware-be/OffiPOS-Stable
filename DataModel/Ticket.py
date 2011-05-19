@@ -1,23 +1,56 @@
 __author__ = 'dennis'
 
 import sqlite3
+import ini
 
 class Ticket:
-
-    id=0
-    TicketLines=[]
-
     def __init__(self):
-        pass
+        self.no=0
+        self.eatInOut="O"
+        self.conn = sqlite3.connect(ini.DB_NAME)
 
-    def AddTicketLine(self, product):
+    def AddTicketLine(self, productId):
+        val = (self.no, productId, self.eatInOut)
+
+        cur = self.conn.cursor()
+
+        cur.execute("insert into ticketLine (ticketNo,productId,eatInOut) values (?,?,?)", val)
+
+        self.conn.commit()
         pass
 
     def CreateNewTicket(self):
-        pass
+        cur = self.conn.cursor()
+        cur.execute("select max(ticketNo) from ticketLine")
+        line = cur.fetchone()
+        if line is None:
+            self.no=1
+        else:
+            self.no=line[0]+1
+
+        self.eatInOut="O"
 
     def CancelTicket(self):
-        pass
+        cur = self.conn.cursor()
+
+        cur.execute("delete from ticketLine where ticketNo=?",(self.no,))
+
+        self.conn.commit()
 
     def PayTicket(self):
-        pass
+        cur = self.conn.cursor()
+
+        cur.execute("update ticketLine set paid=1 where ticketNo=?",(self.no,))
+
+        self.conn.commit()
+
+    def SetEatInOut(self, code):
+
+        cur = self.conn.cursor()
+
+        cur.execute("update ticketLine set eatInOut=? where ticketNo=?",(code, self.no,))
+
+        self.conn.commit()
+
+        self.eatInOut = code
+
