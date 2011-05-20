@@ -54,3 +54,9 @@ class Ticket:
 
         self.eatInOut = code
 
+    def GetTicketLines(self):
+        cur = self.conn.cursor()
+        cur.execute("select product.name, product.price from ticketLine, product where ticketline.productId=product.id and ticketline.ticketNo=?",(self.no,))
+        lines = cur.fetchall()
+        return lines
+

@@ -126,6 +126,8 @@ class MainFrame(GeneratedGui.MainFrameBase):
         self.btnNieuwTicket.Enabled = True
         self.ticket.CancelTicket()
 
+        self._updateGrid()
+
     def btnAfrekekenOnButtonClick( self, event ):
         self.pnlGroepen.Enabled = False
         self.pnlProducten.Enabled = False
@@ -167,6 +169,8 @@ class MainFrame(GeneratedGui.MainFrameBase):
 
         self.ticket.AddTicketLine(ProductScreen().GetProductNoOnButton(buttonNoPressed,self._selectedGroup))
 
+        self._updateGrid()
+
     def btnInOutToggleOnToggleButton( self, event ):
         button = event.GetEventObject()
         if button.GetValue():
@@ -196,6 +200,42 @@ class MainFrame(GeneratedGui.MainFrameBase):
             control = getattr(self, "btnProduct%s" % (str(productLine[3])))
             control.SetLabel(product.name.strip())
 
+    def _updateGrid(self):
+        ticketLines = self.ticket.GetTicketLines()
 
+        grid = self.gOrder
+        table = OrderTable(ticket=self.ticket)
+        grid.SetTable(table)
 
+class OrderTable(wx.grid.PyGridTableBase):
+    def __init__(self, ticket):
+        wx.grid.PyGridTableBase.__init__(self)
+        self.colLabels = ["#", "Product", "Prijs"]
+
+        self.ticketLines = ticket.GetTicketLines()
+
+    def GetNumberRows(self):
+        return len(self.ticketLines)
+
+    def GetNumberCols(self):
+        return 3
+
+    def IsEmptyCell(self, row, col):
+        return False
+
+    def GetValue(self, row, col):
+        if col==0:
+            return "%s" % (row+1)
+        else:
+            return "%s" % self.ticketLines[row][col-1]
+
+    def SetValue(self, row, col, value):
+        pass
+
+    def GetColLabelValue(self, col):
+        return self.colLabels[col]
+
+    def GetRowLabelValue(self, row):
+        return self.rowLabels[row]
+        
 

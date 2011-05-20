@@ -344,15 +344,10 @@ class MainFrameBase ( wx.Frame ):
 		self.gOrder.SetMargins( 0, 0 )
 		
 		# Columns
-		self.gOrder.SetColSize( 0, 50 )
-		self.gOrder.SetColSize( 1, 150 )
-		self.gOrder.SetColSize( 2, 30 )
+		self.gOrder.AutoSizeColumns()
 		self.gOrder.EnableDragColMove( False )
-		self.gOrder.EnableDragColSize( False )
+		self.gOrder.EnableDragColSize( True )
 		self.gOrder.SetColLabelSize( 25 )
-		self.gOrder.SetColLabelValue( 0, u"#" )
-		self.gOrder.SetColLabelValue( 1, u"Product" )
-		self.gOrder.SetColLabelValue( 2, u"Prijs" )
 		self.gOrder.SetColLabelAlignment( wx.ALIGN_CENTRE, wx.ALIGN_CENTRE )
 		
 		# Rows
