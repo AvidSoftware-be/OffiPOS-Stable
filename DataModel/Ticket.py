@@ -47,6 +47,7 @@ class Ticket:
         cur.execute("update ticketLine set paid=1 where ticketNo=?",(self.no,))
 
         self.conn.commit()
+        self._printTicket()
 
     def SetEatInOut(self, code):
 
