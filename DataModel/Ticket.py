@@ -73,7 +73,7 @@ class Ticket:
         body = ""
 
         for line in self.GetTicketLines():
-            body = "{0:>s}{1[0]:>30}{1[1]:<8.2}\x0D\x0A".format(body, line)
+            body = "{0:>s}{1[0]:<30}{1[1]:>8.2}\x0D\x0A".format(body, line)
 
         POSEquipment.TicketPrinter.PrintBill(body)
 
