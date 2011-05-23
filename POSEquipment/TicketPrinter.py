@@ -15,14 +15,16 @@ def Print(stringToPrint):
          rtscts=0,              # enable RTS/CTS flow control
     )
     s.setRTS(1)
-    s.setDTR(0)
+    s.setDTR(1)
     s.flushInput()
     s.flushOutput()
 
     s.close()
     s.open()
 
-    s.write('\x1b\x40{0}\x1B\x69\x0D\x1B\x40\x0D\x0D'.format(stringToPrint))
+    s.write('\x1b\x40\x0D\x0D\x1B\x21\x30\x1B\x33\x50')
+    s.write('{0}'.format(stringToPrint))
+    s.write('\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x1B\x69\x1B\x70\x00\xFF\x0A\x0D\x0A')
 
     s.close()
 
