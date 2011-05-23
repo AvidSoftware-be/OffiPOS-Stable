@@ -69,5 +69,5 @@ class Ticket:
         POSEquipment.CustomerDisplay.Print("test1".ljust(20,' ') + "test".ljust(20,' '))
 
     def _printTicket(self):
-        POSEquipment.TicketPrinter.Print("test1")
+        POSEquipment.TicketPrinter.PrintBill("test1")
 
