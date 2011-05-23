@@ -1,4 +1,5 @@
 import POSEquipment.CustomerDisplay
+import POSEquipment.TicketPrinter
 
 __author__ = 'dennis'
 
@@ -65,4 +66,7 @@ class Ticket:
 
     def _display(self):
         POSEquipment.CustomerDisplay.Print("test1".ljust(20,' ') + "test".ljust(20,' '))
+
+    def _printTicket(self):
+        POSEquipment.TicketPrinter.Print("test1")
 

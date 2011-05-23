@@ -20,9 +20,8 @@ def Print(stringToPrint):
     s.flushOutput()
 
     s.close()
-
     s.open()
 
-    s.write('\x01\x0b{0}'.format(stringToPrint))
+    s.write('\x01\x0b{0}\x1B\x40\x0D\x0D'.format(stringToPrint))
 
     s.close()
