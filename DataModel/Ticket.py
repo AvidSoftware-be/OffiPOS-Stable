@@ -69,5 +69,11 @@ class Ticket:
         POSEquipment.CustomerDisplay.Print("test1".ljust(20,' ') + "test".ljust(20,' '))
 
     def _printTicket(self):
-        POSEquipment.TicketPrinter.PrintBill("test1")
+
+        body = ""
+
+        for line in self.GetTicketLines():
+            body = body + str(line[0]).rjus(20," ") + str(line[1]).ljust(6," ") + "\x0D\x0A"
+
+        POSEquipment.TicketPrinter.PrintBill(body)
 
