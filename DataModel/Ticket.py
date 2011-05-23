@@ -1,3 +1,5 @@
+import POSEquipment
+
 __author__ = 'dennis'
 
 import sqlite3
@@ -17,7 +19,8 @@ class Ticket:
         cur.execute("insert into ticketLine (ticketNo,productId,eatInOut) values (?,?,?)", val)
 
         self.conn.commit()
-        pass
+
+        self._display()
 
     def CreateNewTicket(self):
         cur = self.conn.cursor()
@@ -59,4 +62,7 @@ class Ticket:
         cur.execute("select product.name, product.price from ticketLine, product where ticketline.productId=product.id and ticketline.ticketNo=?",(self.no,))
         lines = cur.fetchall()
         return lines
+
+    def _display(self):
+        POSEquipment.CustomerDisplay.Print("hello world\ntest")
 
