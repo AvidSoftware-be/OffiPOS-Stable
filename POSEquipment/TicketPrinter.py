@@ -5,7 +5,7 @@ __author__ = 'dennis'
 
 import serial
 
-def PrintBill(stringToPrint):
+def PrintBill(stringToPrint, total):
     s = serial.Serial(1,
          baudrate=9600,        # baudrate
          bytesize=8,    # number of databits
@@ -33,6 +33,7 @@ def PrintBill(stringToPrint):
     s.write('-----------------------------------------\x0D\x0A')
     s.write('{0}\x0d\x0a'.format(stringToPrint))
     s.write('-----------------------------------------\x0D\x0A')
+    s.write('\x1B\x21\x30Totaal:{0:>30}\x0D\x0A\x1B\x21\x00'.format(total))
     s.write('*****************************************\x0D\x0A\x1B\x21\x08')
     s.write('Smakelijk!\x0D\x0A\x1B\x21\x00')
     s.write('\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x1B\x69\x1B\x70\x00\xFF\x0A\x0D\x0A')
