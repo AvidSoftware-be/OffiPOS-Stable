@@ -22,7 +22,7 @@ def Print(stringToPrint):
     s.close()
     s.open()
 
-    s.write('\x1b\x40{0}'.format(stringToPrint))
+    s.write('\x1b\x40{0}\x1B\x69\x0D\x1B\x40\x0D\x0D'.format(stringToPrint))
 
     s.close()
 
