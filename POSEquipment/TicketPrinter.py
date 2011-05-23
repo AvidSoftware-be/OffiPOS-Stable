@@ -15,7 +15,7 @@ def Print(stringToPrint):
          rtscts=0,              # enable RTS/CTS flow control
     )
     s.setRTS(1)
-    s.setDTR(0)
+    s.setDTR(1)
     s.flushInput()
     s.flushOutput()
 
