@@ -6,7 +6,7 @@ import serial
 
 def Print(stringToPrint):
     s = serial.Serial(0,
-         baudrate=19200,        # baudrate
+         baudrate=9600,        # baudrate
          bytesize=8,    # number of databits
          parity=PARITY_NONE,    # enable parity checking
          stopbits=1, # number of stopbits
@@ -19,8 +19,10 @@ def Print(stringToPrint):
     s.flushInput()
     s.flushOutput()
 
+    s.close()
+
     s.open()
 
-    s.write('\x1b\x40{0}'.format(stringToPrint))
+    s.write('\x01\x0b{0}'.format(stringToPrint))
 
     s.close()

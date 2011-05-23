@@ -64,5 +64,5 @@ class Ticket:
         return lines
 
     def _display(self):
-        POSEquipment.CustomerDisplay.Print("hello world")
+        POSEquipment.CustomerDisplay.Print("test1".ljust(20,' ') + "test".ljust(20,' '))
 
