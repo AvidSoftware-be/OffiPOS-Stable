@@ -1,3 +1,4 @@
+from datetime import date
 from serial.serialutil import PARITY_NONE
 
 __author__ = 'dennis'
@@ -28,7 +29,12 @@ def PrintBill(stringToPrint):
     s.write('*****************************************\x0D\x0A\x1B\x21\x08')
     s.write('Rekening\x0D\x0A\x1B\x21\x00')
     s.write('*****************************************\x0D\x0A')
-    s.write('{0}'.format(stringToPrint))
+    s.write('{0}     {1}\x0D\x0A'.format(date.today().strftime('%d/%m/%Y'),date.today().strftime('%H:%M')))
+    s.write('-----------------------------------------\x0D\x0A')
+    s.write('{0}\x0d\x0a'.format(stringToPrint))
+    s.write('-----------------------------------------\x0D\x0A')
+    s.write('*****************************************\x0D\x0A\x1B\x21\x08')
+    s.write('Smakelijk!\x0D\x0A\x1B\x21\x00')
     s.write('\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x1B\x69\x1B\x70\x00\xFF\x0A\x0D\x0A')
 
     s.close()
