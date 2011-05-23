@@ -1,3 +1,5 @@
+from serial.serialutil import PARITY_NONE
+
 __author__ = 'dennis'
 
 import serial
@@ -5,9 +7,9 @@ import serial
 def Print(stringToPrint):
     s = serial.Serial(0,
          baudrate=19200,        # baudrate
-         bytesize=EIGHTBITS,    # number of databits
-         parity=PARITY_EVEN,    # enable parity checking
-         stopbits=STOPBITS_ONE, # number of stopbits
+         bytesize=8,    # number of databits
+         parity=PARITY_NONE,    # enable parity checking
+         stopbits=1, # number of stopbits
          timeout=3,             # set a timeout value, None for waiting forever
          xonxoff=0,             # enable software flow control
          rtscts=0,              # enable RTS/CTS flow control
@@ -19,6 +21,6 @@ def Print(stringToPrint):
 
     s.open()
 
-    s.write('\x01\x0b{0}'.format(stringToPrint))
+    s.write('\x1b\x40{0}'.format(stringToPrint))
 
     s.close()

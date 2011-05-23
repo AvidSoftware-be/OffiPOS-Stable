@@ -1,4 +1,4 @@
-import POSEquipment
+import POSEquipment.CustomerDisplay
 
 __author__ = 'dennis'
 
@@ -64,5 +64,5 @@ class Ticket:
         return lines
 
     def _display(self):
-        POSEquipment.CustomerDisplay.Print("hello world\ntest")
+        POSEquipment.CustomerDisplay.Print("hello world")
 
