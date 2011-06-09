@@ -68,9 +68,9 @@ class Ticket:
     def _display(self):
         lines = self.GetTicketLines()
 
-        lastline = lines[len(lines)]
+        lastline = lines[len(lines)-1]
 
-        POSEquipment.CustomerDisplay.Print("%s".format(lastline[0]).ljust(16,' ') + "%s".format(lastline[1]).ljust(4,' ') + "test".ljust(20,' '))
+        POSEquipment.CustomerDisplay.Print("{0:s}".format(lastline[0]).ljust(16,' ') + "{0:.2f}".format(lastline[1]).ljust(4,' ') + "test".ljust(20,' '))
 
     def _printTicket(self):
 
