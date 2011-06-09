@@ -64,30 +64,15 @@ class MainFrameBase ( wx.Frame ):
 		
 		bSizer8.Add( self.btnGroupOne, 0, wx.ALL, 1 )
 		
-		self.btnGroupTwo = wx.Button( self.pnlGroepen, wx.ID_ANY, u"Saus", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnGroupTwo.SetFont( wx.Font( 10, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer8.Add( self.btnGroupTwo, 0, wx.ALL, 1 )
-		
 		self.btnGroupThree = wx.Button( self.pnlGroepen, wx.ID_ANY, u"Snacks", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
 		self.btnGroupThree.SetFont( wx.Font( 10, 70, 90, 90, False, wx.EmptyString ) )
 		
 		bSizer8.Add( self.btnGroupThree, 0, wx.ALL, 1 )
 		
-		self.btnGroupFour = wx.Button( self.pnlGroepen, wx.ID_ANY, u"Warme\nSaus", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnGroupFour.SetFont( wx.Font( 10, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer8.Add( self.btnGroupFour, 0, wx.ALL, 1 )
-		
 		self.btnGroupFive = wx.Button( self.pnlGroepen, wx.ID_ANY, u"Drank", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
 		self.btnGroupFive.SetFont( wx.Font( 10, 70, 90, 90, False, wx.EmptyString ) )
 		
 		bSizer8.Add( self.btnGroupFive, 0, wx.ALL, 1 )
-		
-		self.btnGroupSix = wx.Button( self.pnlGroepen, wx.ID_ANY, u"Burgers", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnGroupSix.SetFont( wx.Font( 10, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer8.Add( self.btnGroupSix, 0, wx.ALL, 1 )
 		
 		self.btnGroupSeven = wx.Button( self.pnlGroepen, wx.ID_ANY, u"Eigen\nBer.", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
 		self.btnGroupSeven.SetFont( wx.Font( 10, 70, 90, 90, False, wx.EmptyString ) )
@@ -95,6 +80,25 @@ class MainFrameBase ( wx.Frame ):
 		bSizer8.Add( self.btnGroupSeven, 0, wx.ALL, 1 )
 		
 		bSizer6.Add( bSizer8, 1, wx.EXPAND, 1 )
+		
+		bSizer9 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.btnGroupTwo = wx.Button( self.pnlGroepen, wx.ID_ANY, u"Saus", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnGroupTwo.SetFont( wx.Font( 10, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer9.Add( self.btnGroupTwo, 0, wx.ALL, 1 )
+		
+		self.btnGroupFour = wx.Button( self.pnlGroepen, wx.ID_ANY, u"Warme\nSaus", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnGroupFour.SetFont( wx.Font( 10, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer9.Add( self.btnGroupFour, 0, wx.ALL, 1 )
+		
+		self.btnGroupSix = wx.Button( self.pnlGroepen, wx.ID_ANY, u"Burgers", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnGroupSix.SetFont( wx.Font( 10, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer9.Add( self.btnGroupSix, 0, wx.ALL, 1 )
+		
+		bSizer6.Add( bSizer9, 1, wx.EXPAND, 1 )
 		
 		self.pnlGroepen.SetSizer( bSizer6 )
 		self.pnlGroepen.Layout()
@@ -334,25 +338,19 @@ class MainFrameBase ( wx.Frame ):
 		
 		# Grid
 		self.gOrder.CreateGrid( 15, 3 )
-		self.gOrder.EnableEditing( False )
-		self.gOrder.EnableGridLines( True )
+		self.gOrder.EnableEditing( True )
+		self.gOrder.EnableGridLines( False )
 		self.gOrder.EnableDragGridSize( False )
 		self.gOrder.SetMargins( 0, 0 )
 		
 		# Columns
-		self.gOrder.SetColSize( 0, 25 )
-		self.gOrder.SetColSize( 1, 175 )
-		self.gOrder.SetColSize( 2, 40 )
 		self.gOrder.EnableDragColMove( False )
 		self.gOrder.EnableDragColSize( False )
 		self.gOrder.SetColLabelSize( 25 )
-		self.gOrder.SetColLabelValue( 0, u"#" )
-		self.gOrder.SetColLabelValue( 1, u"Product" )
-		self.gOrder.SetColLabelValue( 2, u"Prijs" )
 		self.gOrder.SetColLabelAlignment( wx.ALIGN_CENTRE, wx.ALIGN_CENTRE )
 		
 		# Rows
-		self.gOrder.EnableDragRowSize( False )
+		self.gOrder.EnableDragRowSize( True )
 		self.gOrder.SetRowLabelSize( 0 )
 		self.gOrder.SetRowLabelAlignment( wx.ALIGN_CENTRE, wx.ALIGN_CENTRE )
 		
@@ -416,12 +414,12 @@ class MainFrameBase ( wx.Frame ):
 		self.btnNieuwTicket.Bind( wx.EVT_BUTTON, self.btnNieuwTicketOnButtonClick )
 		self.btnInOutToggle.Bind( wx.EVT_TOGGLEBUTTON, self.btnInOutToggleOnToggleButton )
 		self.btnGroupOne.Bind( wx.EVT_BUTTON, self.btnGroupOneOnButtonClick )
-		self.btnGroupTwo.Bind( wx.EVT_BUTTON, self.btnGroupTwoOnButtonClick )
 		self.btnGroupThree.Bind( wx.EVT_BUTTON, self.btnGroupThreeOnButtonClick )
-		self.btnGroupFour.Bind( wx.EVT_BUTTON, self.btnGroupFourOnButtonClick )
 		self.btnGroupFive.Bind( wx.EVT_BUTTON, self.btnGroupFiveOnButtonClick )
-		self.btnGroupSix.Bind( wx.EVT_BUTTON, self.btnGroupSixOnButtonClick )
 		self.btnGroupSeven.Bind( wx.EVT_BUTTON, self.btnGroupSevenOnButtonClick )
+		self.btnGroupTwo.Bind( wx.EVT_BUTTON, self.btnGroupTwoOnButtonClick )
+		self.btnGroupFour.Bind( wx.EVT_BUTTON, self.btnGroupFourOnButtonClick )
+		self.btnGroupSix.Bind( wx.EVT_BUTTON, self.btnGroupSixOnButtonClick )
 		self.btnProduct11.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
 		self.btnProduct12.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
 		self.btnProduct13.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
@@ -477,22 +475,22 @@ class MainFrameBase ( wx.Frame ):
 	def btnGroupOneOnButtonClick( self, event ):
 		event.Skip()
 	
-	def btnGroupTwoOnButtonClick( self, event ):
-		event.Skip()
-	
 	def btnGroupThreeOnButtonClick( self, event ):
-		event.Skip()
-	
-	def btnGroupFourOnButtonClick( self, event ):
 		event.Skip()
 	
 	def btnGroupFiveOnButtonClick( self, event ):
 		event.Skip()
 	
-	def btnGroupSixOnButtonClick( self, event ):
+	def btnGroupSevenOnButtonClick( self, event ):
 		event.Skip()
 	
-	def btnGroupSevenOnButtonClick( self, event ):
+	def btnGroupTwoOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnGroupFourOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnGroupSixOnButtonClick( self, event ):
 		event.Skip()
 	
 	def btnProductOnButtonClick( self, event ):
@@ -543,6 +541,166 @@ class MainFrameBase ( wx.Frame ):
 		event.Skip()
 	
 	def btnQtyMinOnButtonClick( self, event ):
+		event.Skip()
+	
+
+###########################################################################
+## Class PaymentFrameBase
+###########################################################################
+
+class PaymentFrameBase ( wx.Frame ):
+	
+	def __init__( self, parent ):
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Betaling", pos = wx.DefaultPosition, size = wx.Size( -1,-1 ), style = wx.STAY_ON_TOP|wx.TAB_TRAVERSAL )
+		
+		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
+		
+		bSizer15 = wx.BoxSizer( wx.VERTICAL )
+		
+		fgSizer3 = wx.FlexGridSizer( 2, 2, 0, 0 )
+		fgSizer3.SetFlexibleDirection( wx.BOTH )
+		fgSizer3.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
+		
+		gSizer2 = wx.GridSizer( 4, 3, 0, 0 )
+		
+		self.btnSeven = wx.Button( self, wx.ID_ANY, u"7", wx.DefaultPosition, wx.Size( 60,60 ), 0 )
+		gSizer2.Add( self.btnSeven, 0, wx.ALL, 0 )
+		
+		self.btnEight = wx.Button( self, wx.ID_ANY, u"8", wx.DefaultPosition, wx.Size( 60,60 ), 0 )
+		gSizer2.Add( self.btnEight, 0, wx.ALL, 0 )
+		
+		self.btnNine = wx.Button( self, wx.ID_ANY, u"9", wx.DefaultPosition, wx.Size( 60,60 ), 0 )
+		gSizer2.Add( self.btnNine, 0, wx.ALL, 0 )
+		
+		self.btnFour = wx.Button( self, wx.ID_ANY, u"4", wx.DefaultPosition, wx.Size( 60,60 ), 0 )
+		gSizer2.Add( self.btnFour, 0, wx.ALL, 0 )
+		
+		self.btnFive = wx.Button( self, wx.ID_ANY, u"5", wx.DefaultPosition, wx.Size( 60,60 ), 0 )
+		gSizer2.Add( self.btnFive, 0, wx.ALL, 0 )
+		
+		self.btnSix = wx.Button( self, wx.ID_ANY, u"6", wx.DefaultPosition, wx.Size( 60,60 ), 0 )
+		gSizer2.Add( self.btnSix, 0, wx.ALL, 0 )
+		
+		self.btnOne = wx.Button( self, wx.ID_ANY, u"1", wx.DefaultPosition, wx.Size( 60,60 ), 0 )
+		gSizer2.Add( self.btnOne, 0, wx.ALL, 0 )
+		
+		self.btnTwo = wx.Button( self, wx.ID_ANY, u"2", wx.DefaultPosition, wx.Size( 60,60 ), 0 )
+		gSizer2.Add( self.btnTwo, 0, wx.ALL, 0 )
+		
+		self.btnThree = wx.Button( self, wx.ID_ANY, u"3", wx.DefaultPosition, wx.Size( 60,60 ), 0 )
+		gSizer2.Add( self.btnThree, 0, wx.ALL, 0 )
+		
+		self.btnDot = wx.Button( self, wx.ID_ANY, u".", wx.DefaultPosition, wx.Size( 60,60 ), 0 )
+		gSizer2.Add( self.btnDot, 0, wx.ALL, 0 )
+		
+		self.btnZero = wx.Button( self, wx.ID_ANY, u"0", wx.DefaultPosition, wx.Size( 60,60 ), 0 )
+		gSizer2.Add( self.btnZero, 0, wx.ALL, 0 )
+		
+		self.btnEnter = wx.Button( self, wx.ID_ANY, u"Ok", wx.DefaultPosition, wx.Size( 60,60 ), 0 )
+		gSizer2.Add( self.btnEnter, 0, wx.ALL, 0 )
+		
+		fgSizer3.Add( gSizer2, 1, wx.EXPAND, 0 )
+		
+		gSizer5 = wx.GridSizer( 5, 2, 0, 0 )
+		
+		self.m_staticText3 = wx.StaticText( self, wx.ID_ANY, u"Te Betalen:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText3.Wrap( -1 )
+		gSizer5.Add( self.m_staticText3, 0, wx.ALIGN_RIGHT|wx.ALL, 5 )
+		
+		self.txtTotalToPay = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_READONLY )
+		gSizer5.Add( self.txtTotalToPay, 0, wx.ALL, 0 )
+		
+		self.m_staticText4 = wx.StaticText( self, wx.ID_ANY, u"Betaald:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText4.Wrap( -1 )
+		gSizer5.Add( self.m_staticText4, 0, wx.ALIGN_RIGHT|wx.ALL, 5 )
+		
+		self.txtPayed = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_READONLY )
+		gSizer5.Add( self.txtPayed, 0, wx.ALL, 0 )
+		
+		self.m_staticText5 = wx.StaticText( self, wx.ID_ANY, u"Terug te geven", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText5.Wrap( -1 )
+		gSizer5.Add( self.m_staticText5, 0, wx.ALIGN_RIGHT|wx.ALL, 5 )
+		
+		self.txtReturn = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_READONLY )
+		gSizer5.Add( self.txtReturn, 0, wx.ALL, 0 )
+		
+		self.btnCash = wx.Button( self, wx.ID_ANY, u"Cash", wx.DefaultPosition, wx.Size( 60,60 ), 0 )
+		gSizer5.Add( self.btnCash, 0, wx.ALIGN_RIGHT|wx.ALL, 0 )
+		
+		self.btnAtos = wx.Button( self, wx.ID_ANY, u"Atos", wx.DefaultPosition, wx.Size( 60,60 ), 0 )
+		gSizer5.Add( self.btnAtos, 0, wx.ALL, 0 )
+		
+		fgSizer3.Add( gSizer5, 1, wx.EXPAND, 0 )
+		
+		bSizer15.Add( fgSizer3, 1, wx.EXPAND, 0 )
+		
+		self.SetSizer( bSizer15 )
+		self.Layout()
+		bSizer15.Fit( self )
+		
+		self.Centre( wx.BOTH )
+		
+		# Connect Events
+		self.btnSeven.Bind( wx.EVT_BUTTON, self.btnSevenOnButtonClick )
+		self.btnEight.Bind( wx.EVT_BUTTON, self.btnEightOnButtonClick )
+		self.btnNine.Bind( wx.EVT_BUTTON, self.btnNineOnButtonClick )
+		self.btnFour.Bind( wx.EVT_BUTTON, self.btnFourOnButtonClick )
+		self.btnFive.Bind( wx.EVT_BUTTON, self.btnFiveOnButtonClick )
+		self.btnSix.Bind( wx.EVT_BUTTON, self.btnSixOnButtonClick )
+		self.btnOne.Bind( wx.EVT_BUTTON, self.btnOneOnButtonClick )
+		self.btnTwo.Bind( wx.EVT_BUTTON, self.btnTwoOnButtonClick )
+		self.btnThree.Bind( wx.EVT_BUTTON, self.btnThreeOnButtonClick )
+		self.btnDot.Bind( wx.EVT_BUTTON, self.btnDotOnButtonClick )
+		self.btnZero.Bind( wx.EVT_BUTTON, self.btnZeroOnButtonClick )
+		self.btnEnter.Bind( wx.EVT_BUTTON, self.btnEnterOnButtonClick )
+		self.btnCash.Bind( wx.EVT_BUTTON, self.btnCashOnButtonClick )
+		self.btnAtos.Bind( wx.EVT_BUTTON, self.btnAtosOnButtonClick )
+	
+	def __del__( self ):
+		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def btnSevenOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnEightOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnNineOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnFourOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnFiveOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnSixOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnOneOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnTwoOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnThreeOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnDotOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnZeroOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnEnterOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnCashOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnAtosOnButtonClick( self, event ):
 		event.Skip()
 	
 

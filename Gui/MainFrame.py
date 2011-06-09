@@ -9,6 +9,7 @@ import GeneratedGui
 
 # Implementing MainFrameBase
 from Gui import *
+from Gui.PaymentFrame import PaymentFrame
 
 class MainFrame(GeneratedGui.MainFrameBase):
     _selectedGroup = 1
@@ -127,6 +128,7 @@ class MainFrame(GeneratedGui.MainFrameBase):
         self.pnlProducten.Enabled = False
         self.pnlRekening.Enabled = False
         self.btnNieuwTicket.Enabled = True
+
         self.ticket.CancelTicket()
 
         self._updateGrid()
@@ -136,7 +138,12 @@ class MainFrame(GeneratedGui.MainFrameBase):
         self.pnlProducten.Enabled = False
         self.pnlRekening.Enabled = False
         self.btnNieuwTicket.Enabled = True
-        self.ticket.PayTicket()
+
+        #self.ticket.PayTicket()
+        frmPayment = PaymentFrame(self)
+        frmPayment.SetTicket(self.ticket)
+        frmPayment.Show()
+
 
     def btnGroupOneOnButtonClick( self, event ):
         self._selectedGroup = 1
