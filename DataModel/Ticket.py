@@ -21,7 +21,13 @@ class Ticket:
 
         self.conn.commit()
 
-        self._display()
+
+        lines = self.GetTicketLines()
+        totalAmt = self.GetTotalAmt()
+        lastline = lines[len(lines)-1]
+
+        self._displayMessage("{0:s}".format(lastline[0]).ljust(15,' ') + "{0:.2f}".format(lastline[1]).ljust(5,' ') +
+                                           "Subtotaal:".ljust(15,' ') + "{0:.2f}".format(totalAmt).ljust(5,' '))
 
     def CreateNewTicket(self):
         cur = self.conn.cursor()
@@ -34,12 +40,18 @@ class Ticket:
 
         self.eatInOut="O"
 
+        self._displayMessage("                    " +
+                             "       Welkom       ")
+
     def CancelTicket(self):
         cur = self.conn.cursor()
 
         cur.execute("delete from ticketLine where ticketNo=?",(self.no,))
 
         self.conn.commit()
+
+        self._displayMessage("                    " +
+                             "   Tot weerziens!   ")
 
     def PayTicket(self):
         cur = self.conn.cursor()
@@ -48,6 +60,9 @@ class Ticket:
 
         self.conn.commit()
         self._printTicket()
+
+        self._displayMessage("                    " +
+                             "   Tot weerziens!   ")
 
     def SetEatInOut(self, code):
 
@@ -65,14 +80,9 @@ class Ticket:
         lines = cur.fetchall()
         return lines
 
-    def _display(self):
-        lines = self.GetTicketLines()
-        totalAmt = self.GetTotalAmt()
+    def _displayMessage(self, message):
 
-        lastline = lines[len(lines)-1]
-
-        POSEquipment.CustomerDisplay.Print("{0:s}".format(lastline[0]).ljust(16,' ') + "{0:.2f}".format(lastline[1]).ljust(4,' ') +
-                                           "Subtotaal:".ljust(16,' ') + "{0:.2f}".format(totalAmt).ljust(4,' '))
+        POSEquipment.CustomerDisplay.Print(message)
 
     def _printTicket(self):
 
