@@ -51,4 +51,24 @@ class PaymentFrame(GeneratedGui.PaymentFrameBase):
     def btnDotOnButtonClick( self, event ):
         self.txtPayed.Value = self.txtPayed.Value + "."
 
+    def btnCashOnButtonClick( self, event ):
+        payed = float(self.txtPayed.Value)
+        toReturn = float(self.txtTotalToPay.Value) - payed
+
+        self.txtReturn.Value = "%.2f" % toReturn
+
+    def btnAtosOnButtonClick( self, event ):
+        self.txtPayed.Value = self.txtTotalToPay.Value
+
+        payed = float(self.txtPayed.Value)
+        toReturn = float(self.txtTotalToPay.Value) - payed
+
+        self.txtReturn.Value = "%.2f" % toReturn
+
+    def btnEnterOnButtonClick( self, event ):
+        self.ticket.PayTicket()
+
+        self.Close()
+
+
   
