@@ -111,6 +111,7 @@ class MainFrame(GeneratedGui.MainFrameBase):
         self.btnNieuwTicket.Enabled = False
 
         self.ticket.CreateNewTicket()
+
         if self.ticket.eatInOut=="O":
             self.btnInOutToggle.SetValue(0)
         else:
@@ -118,6 +119,8 @@ class MainFrame(GeneratedGui.MainFrameBase):
 
         self._selectedGroup=1
         self._updateProductButtons()
+
+        self._updateGrid()
 
     def btnAnnulerenOnButtonClick( self, event ):
         self.pnlGroepen.Enabled = False

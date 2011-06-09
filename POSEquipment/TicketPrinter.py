@@ -34,7 +34,7 @@ def PrintBill(stringToPrint, total):
         s.write('-----------------------------------------\x0D\x0A')
         s.write('{0}\x0d\x0a'.format(stringToPrint))
         s.write('-----------------------------------------\x0D\x0A')
-        s.write('\x1B\x21\x30Totaal:{0:>30}\x0D\x0A\x1B\x21\x00'.format(total))
+        s.write(u"\x1B\x21\x30Totaal: \u20AC{0:.2f>10}\x0D\x0A\x1B\x21\x00".format(total))
         s.write('*****************************************\x0D\x0A\x1B\x21\x08')
         s.write('Smakelijk!\x0D\x0A\x1B\x21\x00')
         s.write('\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x1B\x69\x1B\x70\x00\xFF\x0A\x0D\x0A')

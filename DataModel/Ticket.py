@@ -81,7 +81,6 @@ class Ticket:
         return lines
 
     def _displayMessage(self, message):
-
         POSEquipment.CustomerDisplay.Print(message)
 
     def _printTicket(self):
@@ -89,7 +88,7 @@ class Ticket:
         body = ""
 
         for line in self.GetTicketLines():
-            body = "{0:>s}{1[0]:<30}{1[1]:>8.2}\x0D\x0A".format(body, line)
+            body = "{0:>s}{1[0]:<30}{1[1]:>8.2f}\x0D\x0A".format(body, line)
 
         POSEquipment.TicketPrinter.PrintBill(body, self.GetTotalAmt())
 
