@@ -66,16 +66,28 @@ class Ticket:
         return lines
 
     def _display(self):
-        POSEquipment.CustomerDisplay.Print("test1".ljust(20,' ') + "test".ljust(20,' '))
+        lines = self.GetTicketLines()
+
+        lastline = lines[len(lines)]
+
+        POSEquipment.CustomerDisplay.Print("%s".format(lastline[0]).ljust(16,' ') + "%s".format(lastline[1]).ljust(4,' ') + "test".ljust(20,' '))
 
     def _printTicket(self):
 
         body = ""
-        total=0
 
         for line in self.GetTicketLines():
-            total = total + line[1]
             body = "{0:>s}{1[0]:<30}{1[1]:>8.2}\x0D\x0A".format(body, line)
 
-        POSEquipment.TicketPrinter.PrintBill(body, total)
+        POSEquipment.TicketPrinter.PrintBill(body, self.GetTotalAmt())
+
+    def GetTotalAmt(self):
+
+        ticketLines = self.GetTicketLines()
+        total = 0
+
+        for line in ticketLines:
+            total = total + line[1]
+
+        return total
 
