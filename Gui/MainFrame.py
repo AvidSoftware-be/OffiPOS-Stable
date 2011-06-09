@@ -201,11 +201,22 @@ class MainFrame(GeneratedGui.MainFrameBase):
             control.SetLabel(product.name.strip())
 
     def _updateGrid(self):
-        ticketLines = self.ticket.GetTicketLines()
 
         grid = self.gOrder
         table = OrderTable(ticket=self.ticket)
         grid.SetTable(table)
+        grid.EnableEditing(False)
+        grid.SetSelectionMode(wx.grid.Grid.SelectRows)
+        grid.SetRowLabelSize(0)
+        grid.AutoSizeColumns()
+
+        self._updateTotal()
+
+    def _updateTotal(self):
+        total = self.ticket.GetTotalAmt()
+
+        self.lblTotal.SetLabel(u"\u20AC %.2f" % total)
+
 
 class OrderTable(wx.grid.PyGridTableBase):
     def __init__(self, ticket):
@@ -218,7 +229,7 @@ class OrderTable(wx.grid.PyGridTableBase):
         return len(self.ticketLines)
 
     def GetNumberCols(self):
-        return 3
+        return len(self.colLabels)
 
     def IsEmptyCell(self, row, col):
         return False
@@ -226,6 +237,8 @@ class OrderTable(wx.grid.PyGridTableBase):
     def GetValue(self, row, col):
         if col==0:
             return "%s" % (row+1)
+        elif col==2:
+            return "%.2f" % self.ticketLines[row][col-1]
         else:
             return "%s" % self.ticketLines[row][col-1]
 
