@@ -89,7 +89,7 @@ class PaymentFrame(GeneratedGui.PaymentFrameBase):
         self.txtPayed.Value = ""
 
     def btnClsOnButtonClick( self, event ):
-        self.cancelled = true
+        self.cancelled = True
         self.Close()
 
 

@@ -142,7 +142,7 @@ class MainFrame(GeneratedGui.MainFrameBase):
         #self.ticket.PayTicket()
         frmPayment = PaymentFrame(self)
         frmPayment.SetTicket(self.ticket)
-        frmPayment.Show()
+        frmPayment.ShowModal()
 
         if frmPayment.cancelled:
             self.pnlGroepen.Enabled = True

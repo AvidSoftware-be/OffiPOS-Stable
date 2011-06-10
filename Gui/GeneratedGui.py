@@ -548,10 +548,10 @@ class MainFrameBase ( wx.Frame ):
 ## Class PaymentFrameBase
 ###########################################################################
 
-class PaymentFrameBase ( wx.Frame ):
+class PaymentFrameBase ( wx.Dialog ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Betaling", pos = wx.DefaultPosition, size = wx.Size( -1,-1 ), style = wx.STAY_ON_TOP|wx.TAB_TRAVERSAL )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.DefaultSize, style = 0 )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		
