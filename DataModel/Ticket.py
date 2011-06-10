@@ -6,6 +6,9 @@ __author__ = 'dennis'
 import sqlite3
 import ini
 
+paymentMethodCash=1
+paymentMethodAtos=2
+
 class Ticket:
     def __init__(self):
         self.no=0
@@ -53,13 +56,14 @@ class Ticket:
         self._displayMessage("                    " +
                              "   Tot weerziens!   ")
 
-    def PayTicket(self):
+    def PayTicket(self, paymentMethod, paidAmt, returnAmt):
         cur = self.conn.cursor()
 
-        cur.execute("update ticketLine set paid=1 where ticketNo=?",(self.no,))
+        cur.execute("update ticketLine set paid=? where ticketNo=?",(paymentMethod, self.no,))
 
         self.conn.commit()
-        self._printTicket()
+        self._printTicket(paymentMethod, paidAmt, returnAmt)
+        self._printKitchen()
 
         self._displayMessage("                    " +
                              "   Tot weerziens!   ")
@@ -83,14 +87,22 @@ class Ticket:
     def _displayMessage(self, message):
         POSEquipment.CustomerDisplay.Print(message)
 
-    def _printTicket(self):
+    def _printTicket(self, paymentMethod, paidAmt, returnAmt):
 
         body = ""
 
         for line in self.GetTicketLines():
             body = "{0:>s}{1[0]:<30}{1[1]:>8.2f}\x0D\x0A".format(body, line)
 
-        POSEquipment.TicketPrinter.PrintBill(body, self.GetTotalAmt())
+        POSEquipment.TicketPrinter.PrintBill(body, paymentMethod, self.GetTotalAmt(), paidAmt, returnAmt )
+
+    def _printKitchen(self):
+        body = ""
+
+        for line in self.GetTicketLines():
+            body = "{0:>s}{1[0]:<30}\x0D\x0A".format(body, line)
+
+        POSEquipment.TicketPrinter.PrintKitchenBill(body)
 
     def GetTotalAmt(self):
 

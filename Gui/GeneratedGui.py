@@ -601,6 +601,8 @@ class PaymentFrameBase ( wx.Frame ):
 		
 		fgSizer3.Add( gSizer2, 1, wx.EXPAND, 0 )
 		
+		bSizer17 = wx.BoxSizer( wx.VERTICAL )
+		
 		gSizer5 = wx.GridSizer( 5, 2, 0, 0 )
 		
 		self.m_staticText3 = wx.StaticText( self, wx.ID_ANY, u"Te Betalen:", wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -624,13 +626,22 @@ class PaymentFrameBase ( wx.Frame ):
 		self.txtReturn = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_READONLY )
 		gSizer5.Add( self.txtReturn, 0, wx.ALL, 0 )
 		
+		bSizer17.Add( gSizer5, 1, wx.EXPAND, 0 )
+		
+		gSizer3 = wx.GridSizer( 2, 2, 0, 0 )
+		
 		self.btnCash = wx.Button( self, wx.ID_ANY, u"Cash", wx.DefaultPosition, wx.Size( 60,60 ), 0 )
-		gSizer5.Add( self.btnCash, 0, wx.ALIGN_RIGHT|wx.ALL, 0 )
+		gSizer3.Add( self.btnCash, 0, wx.ALIGN_RIGHT|wx.ALL, 0 )
 		
 		self.btnAtos = wx.Button( self, wx.ID_ANY, u"Atos", wx.DefaultPosition, wx.Size( 60,60 ), 0 )
-		gSizer5.Add( self.btnAtos, 0, wx.ALL, 0 )
+		gSizer3.Add( self.btnAtos, 0, wx.ALL, 0 )
 		
-		fgSizer3.Add( gSizer5, 1, wx.EXPAND, 0 )
+		self.btnClr = wx.Button( self, wx.ID_ANY, u"Clr", wx.DefaultPosition, wx.Size( 40,30 ), 0 )
+		gSizer3.Add( self.btnClr, 0, wx.ALIGN_BOTTOM|wx.ALIGN_LEFT|wx.ALL, 0 )
+		
+		bSizer17.Add( gSizer3, 1, wx.EXPAND, 5 )
+		
+		fgSizer3.Add( bSizer17, 1, wx.EXPAND, 5 )
 		
 		bSizer15.Add( fgSizer3, 1, wx.EXPAND, 0 )
 		
@@ -655,6 +666,7 @@ class PaymentFrameBase ( wx.Frame ):
 		self.btnEnter.Bind( wx.EVT_BUTTON, self.btnEnterOnButtonClick )
 		self.btnCash.Bind( wx.EVT_BUTTON, self.btnCashOnButtonClick )
 		self.btnAtos.Bind( wx.EVT_BUTTON, self.btnAtosOnButtonClick )
+		self.btnClr.Bind( wx.EVT_BUTTON, self.btnClrOnButtonClick )
 	
 	def __del__( self ):
 		pass
@@ -701,6 +713,9 @@ class PaymentFrameBase ( wx.Frame ):
 		event.Skip()
 	
 	def btnAtosOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnClrOnButtonClick( self, event ):
 		event.Skip()
 	
 

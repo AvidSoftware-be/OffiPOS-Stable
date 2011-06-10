@@ -1,3 +1,4 @@
+import DataModel
 from DataModel.Ticket import Ticket
 
 __author__ = 'dennis'
@@ -12,6 +13,7 @@ class PaymentFrame(GeneratedGui.PaymentFrameBase):
         GeneratedGui.PaymentFrameBase.__init__(self, parent)
 
         self.ticket = Ticket()
+        self.paymentMethod=0
 
     def SetTicket(self, ticket):
         self.ticket = ticket
@@ -57,6 +59,8 @@ class PaymentFrame(GeneratedGui.PaymentFrameBase):
 
         self.txtReturn.Value = "%.2f" % toReturn
 
+        self.paymentMethod = DataModel.Ticket.paymentMethodCash
+
     def btnAtosOnButtonClick( self, event ):
         self.txtPayed.Value = self.txtTotalToPay.Value
 
@@ -65,10 +69,24 @@ class PaymentFrame(GeneratedGui.PaymentFrameBase):
 
         self.txtReturn.Value = "%.2f" % toReturn
 
-    def btnEnterOnButtonClick( self, event ):
-        self.ticket.PayTicket()
+        self.paymentMethod = DataModel.Ticket.paymentMethodAtos
+        
+        self.ticket.PayTicket(self.paymentMethod, payed, toReturn)
 
         self.Close()
+
+    def btnEnterOnButtonClick( self, event ):
+        payed = float(self.txtPayed.Value)
+        toReturn = float(self.txtTotalToPay.Value) - payed
+
+        self.ticket.PayTicket(self.paymentMethod, payed, toReturn)
+
+        self.Close()
+
+    def btnClrOnButtonClick( self, event ):
+        self.txtReturn.Value = ""
+        self.txtPayed.Value = ""
+
 
 
   
