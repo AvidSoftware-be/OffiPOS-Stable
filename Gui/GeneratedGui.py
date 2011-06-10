@@ -639,6 +639,9 @@ class PaymentFrameBase ( wx.Frame ):
 		self.btnClr = wx.Button( self, wx.ID_ANY, u"Clr", wx.DefaultPosition, wx.Size( 40,30 ), 0 )
 		gSizer3.Add( self.btnClr, 0, wx.ALIGN_BOTTOM|wx.ALIGN_LEFT|wx.ALL, 0 )
 		
+		self.btnCls = wx.Button( self, wx.ID_ANY, u"Cls", wx.DefaultPosition, wx.Size( 40,30 ), 0 )
+		gSizer3.Add( self.btnCls, 0, wx.ALIGN_BOTTOM|wx.ALIGN_RIGHT|wx.ALL, 0 )
+		
 		bSizer17.Add( gSizer3, 1, wx.EXPAND, 5 )
 		
 		fgSizer3.Add( bSizer17, 1, wx.EXPAND, 5 )
@@ -667,6 +670,7 @@ class PaymentFrameBase ( wx.Frame ):
 		self.btnCash.Bind( wx.EVT_BUTTON, self.btnCashOnButtonClick )
 		self.btnAtos.Bind( wx.EVT_BUTTON, self.btnAtosOnButtonClick )
 		self.btnClr.Bind( wx.EVT_BUTTON, self.btnClrOnButtonClick )
+		self.btnCls.Bind( wx.EVT_BUTTON, self.btnClsOnButtonClick )
 	
 	def __del__( self ):
 		pass
@@ -716,6 +720,9 @@ class PaymentFrameBase ( wx.Frame ):
 		event.Skip()
 	
 	def btnClrOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnClsOnButtonClick( self, event ):
 		event.Skip()
 	
 

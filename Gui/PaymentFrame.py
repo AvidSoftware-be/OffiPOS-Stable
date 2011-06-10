@@ -13,7 +13,8 @@ class PaymentFrame(GeneratedGui.PaymentFrameBase):
         GeneratedGui.PaymentFrameBase.__init__(self, parent)
 
         self.ticket = Ticket()
-        self.paymentMethod=0
+        self.paymentMethod = 0
+        self.cancelled = False
 
     def SetTicket(self, ticket):
         self.ticket = ticket
@@ -70,7 +71,7 @@ class PaymentFrame(GeneratedGui.PaymentFrameBase):
         self.txtReturn.Value = "%.2f" % toReturn
 
         self.paymentMethod = DataModel.Ticket.paymentMethodAtos
-        
+
         self.ticket.PayTicket(self.paymentMethod, payed, toReturn)
 
         self.Close()
@@ -86,6 +87,9 @@ class PaymentFrame(GeneratedGui.PaymentFrameBase):
     def btnClrOnButtonClick( self, event ):
         self.txtReturn.Value = ""
         self.txtPayed.Value = ""
+
+    def btnClsOnButtonClick( self, event ):
+        self.cancelled = true
 
 
 

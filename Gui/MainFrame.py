@@ -144,6 +144,12 @@ class MainFrame(GeneratedGui.MainFrameBase):
         frmPayment.SetTicket(self.ticket)
         frmPayment.Show()
 
+        if frmPayment.cancelled:
+            self.pnlGroepen.Enabled = True
+            self.pnlProducten.Enabled = True
+            self.pnlRekening.Enabled = True
+            self.btnNieuwTicket.Enabled = False
+
 
     def btnGroupOneOnButtonClick( self, event ):
         self._selectedGroup = 1

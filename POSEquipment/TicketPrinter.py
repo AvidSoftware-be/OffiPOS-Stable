@@ -37,7 +37,7 @@ def PrintBill(body, paymentMethod, totalAmt, paidAmt, returnAmt):
         s.write(u"\x1B\x21\x30Totaal: {0:>10.2f}\x0D\x0A\x1B\x21\x00".format(totalAmt))
         s.write(u"\x1B\x21\x30Betaald:{0:>10.2f}\x0D\x0A\x1B\x21\x00".format(paidAmt))
         s.write(u"\x1B\x21\x30Terug:  {0:>10.2f}\x0D\x0A\x1B\x21\x00".format(returnAmt))
-        s.write('Betalingswijze: %s\x0D\x0A\x1B\x21\x08' % "Cash" if paymentMethod==1 else "Atos")
+        s.write('Betalingswijze: %s\x0D\x0A\x1B\x21\x08' % ("Cash" if paymentMethod==1 else "Atos"))
         s.write('*****************************************\x0D\x0A\x1B\x21\x08')
         s.write('Smakelijk!\x0D\x0A\x1B\x21\x00')
         s.write('\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x1B\x69\x1B\x70\x00\xFF\x0A\x0D\x0A')
@@ -71,7 +71,7 @@ def PrintKitchenBill(body):
         s.write('*****************************************\x0D\x0A')
         s.write('{0}     {1}\x0D\x0A'.format(date.today().strftime('%d/%m/%Y'), datetime.today().strftime('%H:%M')))
         s.write('-----------------------------------------\x0D\x0A')
-        s.write('{0}\x0d\x0a'.format(body))
+        s.write('\x1B\x21\x30{0}\x1B\x21\x00\x0d\x0a'.format(body))
         s.write('-----------------------------------------\x0D\x0A')
         s.write('\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x1B\x69\x1B\x70\x00\xFF\x0A\x0D\x0A')
 
