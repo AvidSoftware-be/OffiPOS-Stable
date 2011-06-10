@@ -90,6 +90,7 @@ class PaymentFrame(GeneratedGui.PaymentFrameBase):
 
     def btnClsOnButtonClick( self, event ):
         self.cancelled = true
+        self.Close()
 
 
 
