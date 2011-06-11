@@ -142,7 +142,7 @@ def PrintDayTotals(dayParam):
         for VATLine in dayParam['VATLines']:
             s.write(escPrintNormal + '    %s         %s       %s      %s' % VATLine + escNewLine)
         s.write(escPrintNormal + '        ---------   -------   ---------' + escNewLine)
-        s.write(escPrintNormal + '        %s         %s       %s      %s' % dayParam['VATLines']['totals'] + escNewLine)
+        s.write(escPrintNormal + '                   %s       %s      %s' % dayParam['VATTotals'] + escNewLine)
         s.write(escNewLine + escNewLine)
         s.write(escPrintNormal + '========================================' + escNewLine)
         s.write(escPrintNormal + '    AFDRUKKEN OP %s OM %s' % (
