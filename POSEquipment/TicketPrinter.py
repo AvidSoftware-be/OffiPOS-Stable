@@ -5,6 +5,13 @@ __author__ = 'dennis'
 
 import serial
 
+escInitPrinter = "\x1b\x40\x0D\x0D"
+escPrintNormal = "\x1B\x21\x00"
+escPrintBig = "\x1B\x21\x30\x1B\x33\x50"
+escPrintBold = "\x1B\x21\x08"
+escNewLine = "\x0D\x0A"
+escEndAndCut = "\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x1B\x69\x1B\x70\x00\xFF\x0A\x0D\x0A"
+
 def PrintBill(body, paymentMethod, totalAmt, paidAmt, returnAmt):
     try:
         s = serial.Serial(1,
@@ -24,27 +31,29 @@ def PrintBill(body, paymentMethod, totalAmt, paidAmt, returnAmt):
         s.close()
         s.open()
 
-        s.write('\x1b\x40\x0D\x0D\x1B\x21\x30\x1B\x33\x50')
-        s.write('Frituur\x0D\x0A')
-        s.write('Den Baron\x0D\x0A\x1B\x21\x00')
-        s.write('*****************************************\x0D\x0A\x1B\x21\x08')
-        s.write('Rekening\x0D\x0A\x1B\x21\x00')
-        s.write('*****************************************\x0D\x0A')
-        s.write('{0}     {1}\x0D\x0A'.format(date.today().strftime('%d/%m/%Y'), datetime.today().strftime('%H:%M')))
-        s.write('-----------------------------------------\x0D\x0A')
-        s.write('{0}\x0d\x0a'.format(body))
-        s.write('-----------------------------------------\x0D\x0A')
-        s.write(u"\x1B\x21\x30Totaal: {0:>10.2f}\x0D\x0A\x1B\x21\x00".format(totalAmt))
-        s.write(u"\x1B\x21\x30Betaald:{0:>10.2f}\x0D\x0A\x1B\x21\x00".format(paidAmt))
-        s.write(u"\x1B\x21\x30Terug:  {0:>10.2f}\x0D\x0A\x1B\x21\x00".format(returnAmt))
-        s.write('Betalingswijze: %s\x0D\x0A\x1B\x21\x08' % ("Cash" if paymentMethod==1 else "Atos"))
-        s.write('*****************************************\x0D\x0A\x1B\x21\x08')
-        s.write('Smakelijk!\x0D\x0A\x1B\x21\x00')
-        s.write('\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x1B\x69\x1B\x70\x00\xFF\x0A\x0D\x0A')
+        s.write(escInitPrinter + escPrintBig)
+        s.write('Frituur' + escNewLine)
+        s.write('Den Baron' + escNewLine)
+        s.write(escPrintNormal + '*****************************************' + escNewLine)
+        s.write(escPrintBold + 'Rekening' + escNewLine)
+        s.write(escPrintNormal + '*****************************************' + escNewLine)
+        s.write(
+            '{0}     {1}'.format(date.today().strftime('%d/%m/%Y'), datetime.today().strftime('%H:%M')) + escNewLine)
+        s.write('-----------------------------------------' + escNewLine)
+        s.write('{0}'.format(body))
+        s.write('-----------------------------------------' + escNewLine)
+        s.write(escPrintBig + u"Totaal: {0:>10.2f}".format(totalAmt) + escNewLine)
+        s.write(u"Betaald:{0:>10.2f}".format(paidAmt) + escNewLine)
+        s.write(u"Terug:  {0:>10.2f}".format(returnAmt) + escNewLine)
+        s.write(escPrintNormal + 'Betalingswijze: %s' % ("Cash" if paymentMethod == 1 else "Atos") + escNewLine)
+        s.write('*****************************************' + escNewLine)
+        s.write(escPrintBold + 'Smakelijk!' + escPrintNormal + escNewLine)
+        s.write(escEndAndCut)
 
         s.close()
     except serial.serialutil.SerialException:
         pass
+
 
 def PrintKitchenBill(body):
     try:
@@ -65,22 +74,74 @@ def PrintKitchenBill(body):
         s.close()
         s.open()
 
-        s.write('\x1b\x40\x0D\x0D\x1B\x21\x00')
-        s.write('*****************************************\x0D\x0A\x1B\x21\x08')
-        s.write('Keukenbon\x0D\x0A\x1B\x21\x00')
-        s.write('*****************************************\x0D\x0A')
-        s.write('{0}     {1}\x0D\x0A'.format(date.today().strftime('%d/%m/%Y'), datetime.today().strftime('%H:%M')))
-        s.write('-----------------------------------------\x0D\x0A')
-        s.write('\x1B\x21\x30{0}\x1B\x21\x00\x0d\x0a'.format(body))
-        s.write('-----------------------------------------\x0D\x0A')
-        s.write('\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x1B\x69\x1B\x70\x00\xFF\x0A\x0D\x0A')
+        s.write(escInitPrinter + escPrintNormal)
+        s.write('*****************************************' + escNewLine)
+        s.write(escPrintBold + 'Keukenbon' + escNewLine)
+        s.write(escPrintNormal + '*****************************************' + escNewLine)
+        s.write(
+            '{0}     {1}'.format(date.today().strftime('%d/%m/%Y'), datetime.today().strftime('%H:%M')) + escNewLine)
+        s.write('-----------------------------------------' + escNewLine)
+        s.write(escPrintBig + body)
+        s.write(escPrintNormal + '-----------------------------------------' + escNewLine)
+        s.write(escEndAndCut)
 
         s.close()
     except serial.serialutil.SerialException:
         pass
 
 
-#1B 40 0D 0D 1B 21 30 1B 33 50 0D 0D 0A 1B 21 00   .@...!0.3P....!.
-#1B 32 0D 1B 21 00 1B 32 1D 42 00 0D 2A 2A 2A 2A   .2..!..2.B..****
-#2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A   ****************
-#0D 0A
+def PrintDayTotals():
+    try:
+        s = serial.Serial(1,
+                          baudrate=9600, # baudrate
+                          bytesize=8, # number of databits
+                          parity=PARITY_NONE, # enable parity checking
+                          stopbits=1, # number of stopbits
+                          timeout=3, # set a timeout value, None for waiting forever
+                          xonxoff=0, # enable software flow control
+                          rtscts=0, # enable RTS/CTS flow control
+        )
+        s.setRTS(1)
+        s.setDTR(1)
+        s.flushInput()
+        s.flushOutput()
+
+        s.close()
+        s.open()
+
+        s.write(escInitPrinter)
+        s.write(escPrintNormal + '----------------------------------------' + escNewLine)
+        s.write(escPrintNormal + 'Maatsch. :ML SOLUTIONS BVBA' + escNewLine)
+        s.write(escPrintNormal + 'B.T.W. :BE0886.290.879' + escNewLine)
+        s.write(escPrintNormal + 'Site : DEN BARON' + escNewLine)
+        s.write(escPrintNormal + 'Eerste bestelling : ' + escNewLine)
+        s.write(escPrintNormal + 'Laatste bestelling : ' + escNewLine)
+        s.write(escPrintNormal + 'Eerste bestelling : ' + escNewLine)
+        s.write(escPrintNormal + 'Laatste bestelling : ' + escNewLine)
+        s.write(escPrintNormal + '----------------------------------------' + escNewLine)
+
+        s.write(escPrintBig + '  BETALINGSBEWIJZEN' + escNewLine)
+        s.write(escPrintBig + '  -----------------' + escNewLine + escPrintNormal + escNewLine)
+
+        s.write(escPrintNormal + 'CASH' + escNewLine)
+        s.write(escPrintNormal + 'ATOS' + escNewLine)
+        s.write(escPrintNormal + '                              -----------' + escNewLine)
+        s.write(escPrintNormal + 'TOTAAL' + escNewLine)
+        s.write(escPrintNormal + '                              ===========' + escNewLine)
+        s.write(escPrintNormal + 'Algemeen Totaal' + escNewLine + escNewLine)
+
+        s.write(escPrintBig + '       B T W' + escNewLine)
+        s.write(escPrintBig + '       -----' + escNewLine + escNewLine)
+        s.write(escPrintNormal + '    %         EBTW       BTW      TOTAAL' + escNewLine)
+        s.write(escPrintNormal + '----------------------------------------' + escNewLine)
+        s.write(escPrintNormal + 'BTW uitsplitsing' + escNewLine)
+        s.write(escPrintNormal + '        ---------   -------   ---------' + escNewLine)
+        s.write(escNewLine+escNewLine)
+        s.write(escPrintNormal + '========================================' + escNewLine)
+        s.write(escPrintNormal + '    AFDRUKKEN OP xx/xx/xx OM xx:xx' + escNewLine)
+        s.write(escPrintNormal + '========================================' + escNewLine)
+
+        s.close()
+    except serial.serialutil.SerialException:
+        pass
+
