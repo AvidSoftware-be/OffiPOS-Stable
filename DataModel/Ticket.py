@@ -24,12 +24,19 @@ class Ticket:
         if isOption:
             product.price = product.price - (product.price * (product.discountIfOption) / 100)
 
-        val = (self.no, productId, product.name, product.price, self.eatInOut, isOption, datetime.datetime.now())
+        vatcode = 0
+        if self.eatInOut == "O":
+            vatcode = product.vatCodeOut
+        elif self.eatInOut == "I":
+            vatcode = product.vatCodeIn
+
+        val = (
+        self.no, productId, product.name, product.price, self.eatInOut, isOption, datetime.datetime.now(), vatcode)
 
         cur = self.conn.cursor()
 
         cur.execute(
-            "insert into ticketLine (ticketNo,productId,productName,price,eatInOut,isOption,dateRegistered) values (?,?,?,?,?,?,?)"
+            "insert into ticketLine (ticketNo,productId,productName,price,eatInOut,isOption,dateRegistered,vatCode) values (?,?,?,?,?,?,?,?)"
             , val)
 
         self.conn.commit()
@@ -156,3 +163,33 @@ class Ticket:
         line = cur.fetchone()
         return ParseDateTimeUTC(line[0])
 
+    def GetPaymentTotal(self, paymentType):
+        cur = self.conn.cursor()
+        cur.execute("select SUM(price) from ticketLine where paid=?", (paymentType,))
+        line = cur.fetchone()
+        return line[0]
+
+    def GetVATLines(self):
+        cur = self.conn.cursor()
+        cur.execute("select * from vatCode")
+        lines = cur.fetchall()
+
+        VATLines = []
+
+        for line in lines:
+            vatPct = line[2]
+            cur.execute("select SUM(price) from ticketLine where vatCode=?", (line[0],))
+            totAmt = cur.fetchone()
+
+            if totAmt[0]:
+                vat = totAmt[0] * (vatPct / 100)
+                evat = totAmt[0] - vat
+                tot = totAmt[0]
+            else:
+                vat = 0
+                evat = 0
+                tot = 0
+
+            VATLines.append([vatPct, evat, vat, tot])
+
+        return VATLines
