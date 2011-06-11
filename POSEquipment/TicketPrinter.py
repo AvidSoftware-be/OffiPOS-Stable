@@ -147,7 +147,7 @@ def PrintDayTotals(dayParam):
         s.write(escNewLine + escNewLine)
         s.write(escPrintNormal + '========================================' + escNewLine)
         s.write(escPrintNormal + '    AFDRUKKEN OP %s OM %s' % (
-        datetime.now().strftime('%d/%m/%Y'), datetime.now().str('%H:%M')) + escNewLine)
+        datetime.now().strftime('%d/%m/%Y'), datetime.now().strftime('%H:%M')) + escNewLine)
         s.write(escPrintNormal + '========================================' + escNewLine)
 
         s.write(escEndAndCut)
