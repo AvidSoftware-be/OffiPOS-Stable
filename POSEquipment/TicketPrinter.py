@@ -143,7 +143,7 @@ def PrintDayTotals(dayParam):
             s.write(
                 escPrintNormal + '{0[0]:>10.2f}{0[1]:>510.2f}{0[2]:>10.2f}{0[3]:>10.2f}'.format(VATLine) + escNewLine)
         s.write(escPrintNormal + '        ---------   -------   ---------' + escNewLine)
-        s.write(escPrintNormal + '{0[0]:>20.2f}{0[1]:>10.2f}{2:>510.2f}'.format(dayParam['VATTotals']) + escNewLine)
+        s.write(escPrintNormal + '{0[0]:>20.2f}{0[1]:>10.2f}{0[2]:>10.2f}'.format(dayParam['VATTotals']) + escNewLine)
         s.write(escNewLine + escNewLine)
         s.write(escPrintNormal + '========================================' + escNewLine)
         s.write(escPrintNormal + '    AFDRUKKEN OP %s OM %s' % (
