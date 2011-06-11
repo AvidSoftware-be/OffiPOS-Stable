@@ -4,9 +4,7 @@ import POSEquipment
 __author__ = 'dennis'
 
 def DoEndOfDay():
-    dayparam =
-    dayparam['firstOrder'] = Ticket().GetFirstOrderDate()
-    dayparam['lastOrder'] = Ticket().GetLastOrderDate()
+    dayparam ={'firstOrder' : Ticket().GetFirstOrderDate(),'lastOrder' : Ticket().GetLastOrderDate()}
     dayparam['payedAmts'] = {'Cash': 0, 'Atos': 0}
     dayparam['VATLines'] = (("21,00%", "00.00", "00.00", "00.00"),
                             ("12,00%", "00.00", "00.00", "00.00"),

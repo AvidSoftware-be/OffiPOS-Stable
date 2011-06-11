@@ -2,6 +2,7 @@ import datetime
 from DataModel.Product import Product
 import POSEquipment.CustomerDisplay
 import POSEquipment.TicketPrinter
+from mx.DateTime.ISO import ParseDateTimeUTC
 
 __author__ = 'dennis'
 
@@ -147,11 +148,11 @@ class Ticket:
         cur = self.conn.cursor()
         cur.execute("select MIN(dateRegistered) from ticketLine")
         line = cur.fetchone()
-        return line[0]
+        return ParseDateTimeUTC(line[0])
 
     def GetLastOrderDate(self):
         cur = self.conn.cursor()
         cur.execute("select MAX(dateRegistered) from ticketLine")
         line = cur.fetchone()
-        return line[0]
+        return ParseDateTimeUTC(line[0])
 
