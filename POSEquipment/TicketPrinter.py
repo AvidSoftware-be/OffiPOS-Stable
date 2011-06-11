@@ -128,10 +128,10 @@ def PrintDayTotals(dayParam):
         s.write(escPrintBig + '  BETALINGSBEWIJZEN' + escNewLine)
         s.write(escPrintBig + '  -----------------' + escNewLine + escPrintNormal + escNewLine)
 
-        s.write(escPrintNormal + 'CASH' + "%s" % dayParam['payedAmts']["Cash"] + escNewLine)
-        s.write(escPrintNormal + 'ATOS' + "%s" % dayParam['payedAmts']["Atos"] + escNewLine)
+        s.write(escPrintNormal + 'CASH' + "{0:>36.2f}".format(dayParam['payedAmts']["Cash"]) + escNewLine)
+        s.write(escPrintNormal + 'ATOS' + "{0:>36.2f}".format(dayParam['payedAmts']["Atos"]) + escNewLine)
         s.write(escPrintNormal + '                              -----------' + escNewLine)
-        s.write(escPrintNormal + 'TOTAAL' + "%s" % dayParam['payedAmts']["Total"] + escNewLine)
+        s.write(escPrintNormal + 'TOTAAL' + "{0:>34.2f}".format(dayParam['payedAmts']["Total"]) + escNewLine)
         s.write(escPrintNormal + '                              ===========' + escNewLine)
         s.write(escPrintNormal + 'Algemeen Totaal' + "%s" % dayParam['payedAmts']["Total"] + escNewLine + escNewLine)
 
@@ -140,9 +140,10 @@ def PrintDayTotals(dayParam):
         s.write(escPrintNormal + '    %         EBTW       BTW      TOTAAL' + escNewLine)
         s.write(escPrintNormal + '----------------------------------------' + escNewLine)
         for VATLine in dayParam['VATLines']:
-            s.write(escPrintNormal + '    {0[0]:>.2f}         {0[1]:>.2f}       {0[2]:>s.2f}      {0[3]:>s}'.format(VATLine) + escNewLine)
+            s.write(
+                escPrintNormal + '{0[0]:>10.2f}{0[1]:>510.2f}{0[2]:>10.2f}{0[3]:>10.2f}'.format(VATLine) + escNewLine)
         s.write(escPrintNormal + '        ---------   -------   ---------' + escNewLine)
-        s.write(escPrintNormal +     '                   {0[0]:>.2f}       {0[1]:>.2f}      {2:>02f}'.format(dayParam['VATTotals']) + escNewLine)
+        s.write(escPrintNormal + '{0[0]:>20.2f}{0[1]:>10.2f}{2:>510.2f}'.format(dayParam['VATTotals']) + escNewLine)
         s.write(escNewLine + escNewLine)
         s.write(escPrintNormal + '========================================' + escNewLine)
         s.write(escPrintNormal + '    AFDRUKKEN OP %s OM %s' % (
