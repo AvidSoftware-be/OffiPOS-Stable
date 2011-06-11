@@ -198,7 +198,7 @@ class MainFrame(GeneratedGui.MainFrameBase):
             #dit is een optie
             ticketLines = self.ticket.GetTicketLines()
             productNo = ProductScreen().GetOptionProductNoOnButton(buttonNoPressed,
-                                                                   ticketLines[len(ticketLines)-1][5])
+                                                                   ticketLines[len(ticketLines)-1][3])
             isOption=True
         else:
             productNo = ProductScreen().GetProductNoOnButton(buttonNoPressed, self._selectedGroup)
@@ -231,7 +231,7 @@ class MainFrame(GeneratedGui.MainFrameBase):
         self._clearButtonNames()
 
         for option in options:
-            product = Product(id=option[2], group=0, name="", price=0, vatCodeIn=0, vatCodeOut=0)
+            product = Product(id=option[2])
             product.fill()
 
             control = getattr(self, "btnProduct%s" % (str(option[3])))
@@ -246,7 +246,7 @@ class MainFrame(GeneratedGui.MainFrameBase):
         productsInScreen = ProductScreen().GetProductsForScreen(self._selectedGroup)
 
         for productLine in productsInScreen:
-            product = Product(id=productLine[2], group=0, name="", price=0, vatCodeIn=0, vatCodeOut=0)
+            product = Product(id=productLine[2])
             product.fill()
 
             control = getattr(self, "btnProduct%s" % (str(productLine[3])))

@@ -1,3 +1,5 @@
+import datetime
+from DataModel.Product import Product
 import POSEquipment.CustomerDisplay
 import POSEquipment.TicketPrinter
 
@@ -6,8 +8,7 @@ __author__ = 'dennis'
 import sqlite3
 import ini
 
-paymentMethodCash = 1
-paymentMethodAtos = 2
+paymentMethods = dict(Cash=1, Atos=2)
 
 class Ticket:
     def __init__(self):
@@ -16,11 +17,19 @@ class Ticket:
         self.conn = sqlite3.connect(ini.DB_NAME)
 
     def AddTicketLine(self, productId, isOption):
-        val = (self.no, productId, self.eatInOut, isOption)
+        product = Product(productId)
+        product.fill()
+
+        if isOption:
+            product.price = product.price - (product.price * (product.discountIfOption) / 100)
+
+        val = (self.no, productId, product.name, product.price, self.eatInOut, isOption, datetime.datetime.now())
 
         cur = self.conn.cursor()
 
-        cur.execute("insert into ticketLine (ticketNo,productId,eatInOut,isOption) values (?,?,?,?)", val)
+        cur.execute(
+            "insert into ticketLine (ticketNo,productId,productName,price,eatInOut,isOption,dateRegistered) values (?,?,?,?,?,?,?)"
+            , val)
 
         self.conn.commit()
 
@@ -35,7 +44,7 @@ class Ticket:
         cur = self.conn.cursor()
         cur.execute("select max(ticketNo) from ticketLine")
         line = cur.fetchone()
-        if line is None:
+        if not line:
             self.no = 1
         else:
             self.no = line[0] + 1
@@ -79,31 +88,32 @@ class Ticket:
     def GetTicketLines(self):
         cur = self.conn.cursor()
         cur.execute(
-            "select product.name, product.price, ticketLine.isOption, product.discountIfOption, product.id from ticketLine, product where ticketline.productId=product.id and ticketline.ticketNo=?"
+            #"select product.name, product.price, ticketLine.isOption, product.discountIfOption, product.id from ticketLine, product where ticketline.productId=product.id and ticketline.ticketNo=?"
+            "select productName, price, isOption, productId from ticketLine where ticketline.ticketNo=?"
             , (self.no,))
         lines = cur.fetchall()
 
-        result=[]
+        result = []
 
-        for line in lines:
-            #ik kopieer de waardes want een tuple kan je niet wijzigen
-            newline = []
-            newline.append(line[0])
+        #        for line in lines:
+        #            #ik kopieer de waardes want een tuple kan je niet wijzigen
+        #            newline = []
+        #            newline.append(line[0])
+        #
+        #            if line[2] == 1:
+        #                #prijs uit opties halen, korting toepassen dus
+        #                newline.append(line[1] - (line[1] * (line[3]) / 100))
+        #            else:
+        #                newline.append(line[1])
+        #
+        #            newline.append(line[2])
+        #            newline.append(line[2])
+        #            newline.append(line[3])
+        #            newline.append(line[4])
+        #
+        #            result.append(newline)
 
-            if line[2] == 1:
-                #prijs uit opties halen, korting toepassen dus
-                newline.append(line[1] - (line[1] * (line[3]) / 100))
-            else:
-                newline.append(line[1])
-
-            newline.append(line[2])
-            newline.append(line[2])
-            newline.append(line[3])
-            newline.append(line[4])
-
-            result.append(newline)
-
-        return result
+        return lines
 
     def _displayMessage(self, message):
         POSEquipment.CustomerDisplay.Print(message)
@@ -112,7 +122,7 @@ class Ticket:
         body = ""
 
         for line in self.GetTicketLines():
-            body += "{0[0]:<30}{0[1]:>8.2f}".format(line) + POSEquipment.TicketPrinter.escNewLine
+            body += "%s%s" % ("{0[0]:<30}{0[1]:>8.2f}".format(line), POSEquipment.TicketPrinter.escNewLine)
 
         POSEquipment.TicketPrinter.PrintBill(body, paymentMethod, self.GetTotalAmt(), paidAmt, returnAmt)
 
@@ -120,7 +130,7 @@ class Ticket:
         body = ""
 
         for line in self.GetTicketLines():
-            body += line + POSEquipment.TicketPrinter.escNewLine
+            body += "%s%s" % (line[0], POSEquipment.TicketPrinter.escNewLine)
 
         POSEquipment.TicketPrinter.PrintKitchenBill(body)
 
@@ -132,4 +142,16 @@ class Ticket:
             total = total + line[1]
 
         return total
+
+    def GetFirstOrderDate(self):
+        cur = self.conn.cursor()
+        cur.execute("select MIN(dateRegistered) from ticketLine")
+        line = cur.fetchone()
+        return line[0]
+
+    def GetLastOrderDate(self):
+        cur = self.conn.cursor()
+        cur.execute("select MAX(dateRegistered) from ticketLine")
+        line = cur.fetchone()
+        return line[0]
 

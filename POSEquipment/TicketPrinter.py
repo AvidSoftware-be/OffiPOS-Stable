@@ -90,7 +90,7 @@ def PrintKitchenBill(body):
         pass
 
 
-def PrintDayTotals():
+def PrintDayTotals(dayParam):
     try:
         s = serial.Serial(1,
                           baudrate=9600, # baudrate
@@ -114,32 +114,42 @@ def PrintDayTotals():
         s.write(escPrintNormal + 'Maatsch. :ML SOLUTIONS BVBA' + escNewLine)
         s.write(escPrintNormal + 'B.T.W. :BE0886.290.879' + escNewLine)
         s.write(escPrintNormal + 'Site : DEN BARON' + escNewLine)
-        s.write(escPrintNormal + 'Eerste bestelling : ' + escNewLine)
-        s.write(escPrintNormal + 'Laatste bestelling : ' + escNewLine)
-        s.write(escPrintNormal + 'Eerste bestelling : ' + escNewLine)
-        s.write(escPrintNormal + 'Laatste bestelling : ' + escNewLine)
+        s.write(escPrintNormal + 'Kassa Nr : 1' + escNewLine)
+        s.write(
+            escPrintNormal + 'Eerste bestelling : ' + "%s" % dayParam['firstOrder'].strftime('%d/%m/%Y') + escNewLine)
+        s.write(
+            escPrintNormal + 'Laatste bestelling : ' + "%s" % dayParam['lastOrder'].strftime('%d/%m/%Y') + escNewLine)
+        s.write(
+            escPrintNormal + 'Eerste bestelling : ' + "%s" % dayParam['firstOrder'].strftime('%H:%M') + escNewLine)
+        s.write(
+            escPrintNormal + 'Laatste bestelling : ' + "%s" % dayParam['lastOrder'].strftime('%H:%M') + escNewLine)
         s.write(escPrintNormal + '----------------------------------------' + escNewLine)
 
         s.write(escPrintBig + '  BETALINGSBEWIJZEN' + escNewLine)
         s.write(escPrintBig + '  -----------------' + escNewLine + escPrintNormal + escNewLine)
 
-        s.write(escPrintNormal + 'CASH' + escNewLine)
-        s.write(escPrintNormal + 'ATOS' + escNewLine)
+        s.write(escPrintNormal + 'CASH' + "%s" % dayParam['payedAmts']["Cash"] + escNewLine)
+        s.write(escPrintNormal + 'ATOS' + "%s" % dayParam['payedAmts']["Atos"] + escNewLine)
         s.write(escPrintNormal + '                              -----------' + escNewLine)
-        s.write(escPrintNormal + 'TOTAAL' + escNewLine)
+        s.write(escPrintNormal + 'TOTAAL' + "%s" % dayParam['payedAmts']["Total"] + escNewLine)
         s.write(escPrintNormal + '                              ===========' + escNewLine)
-        s.write(escPrintNormal + 'Algemeen Totaal' + escNewLine + escNewLine)
+        s.write(escPrintNormal + 'Algemeen Totaal' + "%s" % dayParam['payedAmts']["Total"] + escNewLine + escNewLine)
 
         s.write(escPrintBig + '       B T W' + escNewLine)
         s.write(escPrintBig + '       -----' + escNewLine + escNewLine)
         s.write(escPrintNormal + '    %         EBTW       BTW      TOTAAL' + escNewLine)
         s.write(escPrintNormal + '----------------------------------------' + escNewLine)
-        s.write(escPrintNormal + 'BTW uitsplitsing' + escNewLine)
+        for VATLine in dayParam['VATLines']:
+            s.write(escPrintNormal + '    %s         %s       %s      %s' % VATLine + escNewLine)
         s.write(escPrintNormal + '        ---------   -------   ---------' + escNewLine)
-        s.write(escNewLine+escNewLine)
+        s.write(escPrintNormal + '        %s         %s       %s      %s' % dayParam['VATLines']['totals'] + escNewLine)
+        s.write(escNewLine + escNewLine)
         s.write(escPrintNormal + '========================================' + escNewLine)
-        s.write(escPrintNormal + '    AFDRUKKEN OP xx/xx/xx OM xx:xx' + escNewLine)
+        s.write(escPrintNormal + '    AFDRUKKEN OP %s OM %s' % (
+        datetime.now().strftime('%d/%m/%Y'), datetime.now().str('%H:%M')) + escNewLine)
         s.write(escPrintNormal + '========================================' + escNewLine)
+
+        s.write(escEndAndCut)
 
         s.close()
     except serial.serialutil.SerialException:

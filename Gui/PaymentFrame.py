@@ -16,6 +16,8 @@ class PaymentFrame(GeneratedGui.PaymentFrameBase):
         self.paymentMethod = 0
         self.cancelled = False
 
+        self.btnEnter.Enabled=False
+
     def SetTicket(self, ticket):
         self.ticket = ticket
 
@@ -55,12 +57,18 @@ class PaymentFrame(GeneratedGui.PaymentFrameBase):
         self.txtPayed.Value = self.txtPayed.Value + "."
 
     def btnCashOnButtonClick( self, event ):
+        if not self.txtPayed.Value:
+            #correct bedrag gegeven
+            self.txtPayed.Value = self.txtTotalToPay.Value
+
         payed = float(self.txtPayed.Value)
         toReturn = float(self.txtTotalToPay.Value) - payed
 
         self.txtReturn.Value = "%.2f" % toReturn
 
-        self.paymentMethod = DataModel.Ticket.paymentMethodCash
+        self.paymentMethod = DataModel.Ticket.paymentMethods["Cash"]
+        
+        self.btnEnter.Enabled=True
 
     def btnAtosOnButtonClick( self, event ):
         self.txtPayed.Value = self.txtTotalToPay.Value
@@ -70,7 +78,7 @@ class PaymentFrame(GeneratedGui.PaymentFrameBase):
 
         self.txtReturn.Value = "%.2f" % toReturn
 
-        self.paymentMethod = DataModel.Ticket.paymentMethodAtos
+        self.paymentMethod = DataModel.Ticket.paymentMethods["Atos"]
 
         self.ticket.PayTicket(self.paymentMethod, payed, toReturn)
 
