@@ -112,7 +112,7 @@ class Ticket:
         body = ""
 
         for line in self.GetTicketLines():
-            body = "{0:>s}{1[0]:<30}{1[1]:>8.2f}\x0D\x0A".format(body, line)
+            body += "{0[0]:<30}{0[1]:>8.2f}".format(line) + POSEquipment.TicketPrinter.escNewLine
 
         POSEquipment.TicketPrinter.PrintBill(body, paymentMethod, self.GetTotalAmt(), paidAmt, returnAmt)
 
@@ -120,7 +120,7 @@ class Ticket:
         body = ""
 
         for line in self.GetTicketLines():
-            body = "{0:>s}{1[0]:<30}\x0D\x0A".format(body, line)
+            body += line + POSEquipment.TicketPrinter.escNewLine
 
         POSEquipment.TicketPrinter.PrintKitchenBill(body)
 
