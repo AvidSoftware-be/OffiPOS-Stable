@@ -10,6 +10,8 @@ def DoEndOfDay():
     dayparam['payedAmts'] = {'Cash': Ticket().GetPaymentTotal(DataModel.Ticket.paymentMethods['Cash']),
                              'Atos': Ticket().GetPaymentTotal(DataModel.Ticket.paymentMethods['Atos'])}
 
+    dayparam['payedAmts']['Total'] = dayparam['payedAmts']['Cash'] + dayparam['payedAmts']['Atos']
+
     dayparam['VATLines'] = Ticket().GetVATLines()
 
     dayparam['VATTotals'] = [0,0,0]
