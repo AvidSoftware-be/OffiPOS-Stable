@@ -6,16 +6,30 @@ import sqlite3
 import ini
 
 class ProductScreen:
-
-    def GetProductsForScreen(self,screenCategory):
+    def GetProductsForScreen(self, screenCategory):
         conn = sqlite3.connect(ini.DB_NAME)
         cur = conn.cursor()
-        cur.execute("select * from product_screen where screenCategoryId=? order by buttonNo ASC",(screenCategory,))
+        cur.execute("select * from product_screen where screenCategoryId=? order by buttonNo ASC", (screenCategory,))
         return cur.fetchall()
 
-    def GetProductNoOnButton(self,buttonNo,screenCategory):
+    def GetProductNoOnButton(self, buttonNo, screenCategory):
         conn = sqlite3.connect(ini.DB_NAME)
         cur = conn.cursor()
-        cur.execute("select productId from product_screen where screenCategoryId=? and buttonNo=?",(screenCategory,buttonNo))
+        cur.execute("select productId from product_screen where screenCategoryId=? and buttonNo=?",
+                    (screenCategory, buttonNo))
         result = cur.fetchone()
         return result[0]
+
+    def GetOptionProductNoOnButton(self, buttonNo, productId):
+        conn = sqlite3.connect(ini.DB_NAME)
+        cur = conn.cursor()
+        cur.execute("select optionProductId from menuOption where productId=? and buttonNo=?",
+                    (productId, buttonNo))
+        result = cur.fetchone()
+        return result[0]
+
+    def GetOptionsForProduct(self, productNo):
+        conn = sqlite3.connect(ini.DB_NAME)
+        cur = conn.cursor()
+        cur.execute("select * from menuOption where productId = ?", (productNo,))
+        return cur.fetchall()

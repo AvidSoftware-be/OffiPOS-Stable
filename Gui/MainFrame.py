@@ -9,6 +9,7 @@ import GeneratedGui
 
 # Implementing MainFrameBase
 from Gui import *
+from Gui.AdminDialog import AdminDialog
 from Gui.PaymentFrame import PaymentFrame
 
 class MainFrame(GeneratedGui.MainFrameBase):
@@ -21,42 +22,42 @@ class MainFrame(GeneratedGui.MainFrameBase):
 
         #add product buttons to dictionary for later reference
         self.buttonDict = {
-            self.btnProduct11:11,
-            self.btnProduct12:12,
-            self.btnProduct13:13,
-            self.btnProduct14:14,
-            self.btnProduct15:15,
-            self.btnProduct16:16,
-            self.btnProduct21:21,
-            self.btnProduct22:22,
-            self.btnProduct23:23,
-            self.btnProduct24:24,
-            self.btnProduct25:25,
-            self.btnProduct26:26,
-            self.btnProduct31:31,
-            self.btnProduct32:32,
-            self.btnProduct33:33,
-            self.btnProduct34:34,
-            self.btnProduct35:35,
-            self.btnProduct36:36,
-            self.btnProduct41:41,
-            self.btnProduct42:42,
-            self.btnProduct43:43,
-            self.btnProduct44:44,
-            self.btnProduct45:45,
-            self.btnProduct46:46,
-            self.btnProduct51:51,
-            self.btnProduct52:52,
-            self.btnProduct53:53,
-            self.btnProduct54:54,
-            self.btnProduct55:55,
-            self.btnProduct56:56,
-            self.btnProduct61:61,
-            self.btnProduct62:62,
-            self.btnProduct63:63,
-            self.btnProduct64:64,
-            self.btnProduct65:65,
-            self.btnProduct66:66
+            self.btnProduct11: 11,
+            self.btnProduct12: 12,
+            self.btnProduct13: 13,
+            self.btnProduct14: 14,
+            self.btnProduct15: 15,
+            self.btnProduct16: 16,
+            self.btnProduct21: 21,
+            self.btnProduct22: 22,
+            self.btnProduct23: 23,
+            self.btnProduct24: 24,
+            self.btnProduct25: 25,
+            self.btnProduct26: 26,
+            self.btnProduct31: 31,
+            self.btnProduct32: 32,
+            self.btnProduct33: 33,
+            self.btnProduct34: 34,
+            self.btnProduct35: 35,
+            self.btnProduct36: 36,
+            self.btnProduct41: 41,
+            self.btnProduct42: 42,
+            self.btnProduct43: 43,
+            self.btnProduct44: 44,
+            self.btnProduct45: 45,
+            self.btnProduct46: 46,
+            self.btnProduct51: 51,
+            self.btnProduct52: 52,
+            self.btnProduct53: 53,
+            self.btnProduct54: 54,
+            self.btnProduct55: 55,
+            self.btnProduct56: 56,
+            self.btnProduct61: 61,
+            self.btnProduct62: 62,
+            self.btnProduct63: 63,
+            self.btnProduct64: 64,
+            self.btnProduct65: 65,
+            self.btnProduct66: 66
         }
 
         self.pnlGroepen.Enabled = False
@@ -80,24 +81,28 @@ class MainFrame(GeneratedGui.MainFrameBase):
         self.btnGroupSix.SetLabel("")
         self.btnGroupSeven.Enabled = False
         self.btnGroupSeven.SetLabel("")
+        self.btnGroupEight.Enabled = False
+        self.btnGroupEight.SetLabel("")
 
         #fill group buttons
         i = 1
         for name in ScreenGroup().fetchall():
             if i == 1:
-                self.btnGroupOne.SetLabel(name[1])
+                self.btnGroupOne.SetLabel(name[1].replace(" ","\n"))
             elif i == 2:
-                self.btnGroupTwo.SetLabel(name[1])
+                self.btnGroupTwo.SetLabel(name[1].replace(" ","\n"))
             elif i == 3:
-                self.btnGroupThree.SetLabel(name[1])
+                self.btnGroupThree.SetLabel(name[1].replace(" ","\n"))
             elif i == 4:
-                self.btnGroupFour.SetLabel(name[1])
+                self.btnGroupFour.SetLabel(name[1].replace(" ","\n"))
             elif i == 5:
-                self.btnGroupFive.SetLabel(name[1])
+                self.btnGroupFive.SetLabel(name[1].replace(" ","\n"))
             elif i == 6:
-                self.btnGroupSix.SetLabel(name[1])
+                self.btnGroupSix.SetLabel(name[1].replace(" ","\n"))
             elif i == 7:
-                self.btnGroupSeven.SetLabel(name[1])
+                self.btnGroupSeven.SetLabel(name[1].replace(" ","\n"))
+            elif i == 8:
+                self.btnGroupSeven.SetLabel(name[1].replace(" ","\n"))
 
             i = i + 1
 
@@ -113,12 +118,12 @@ class MainFrame(GeneratedGui.MainFrameBase):
 
         self.ticket.CreateNewTicket()
 
-        if self.ticket.eatInOut=="O":
+        if self.ticket.eatInOut == "O":
             self.btnInOutToggle.SetValue(0)
         else:
             self.btnInOutToggle.SetValue(1)
 
-        self._selectedGroup=1
+        self._selectedGroup = 1
         self._updateProductButtons()
 
         self._updateGrid()
@@ -179,12 +184,36 @@ class MainFrame(GeneratedGui.MainFrameBase):
         self._selectedGroup = 7
         self._updateProductButtons()
 
+    def btnGroupEightOnButtonClick( self, event ):
+        self._selectedGroup = 8
+        self._updateProductButtons()
+
     def btnProductOnButtonClick( self, event ):
         thisButton = event.GetEventObject()
-        buttonNoPressed= self.buttonDict[thisButton]
+        buttonNoPressed = self.buttonDict[thisButton]
 
-        self.ticket.AddTicketLine(ProductScreen().GetProductNoOnButton(buttonNoPressed,self._selectedGroup))
+        productNo = 0
+        isOption = False
+        if self._selectedGroup == 0:
+            #dit is een optie
+            ticketLines = self.ticket.GetTicketLines()
+            productNo = ProductScreen().GetOptionProductNoOnButton(buttonNoPressed,
+                                                                   ticketLines[len(ticketLines)-1][5])
+            isOption=True
+        else:
+            productNo = ProductScreen().GetProductNoOnButton(buttonNoPressed, self._selectedGroup)
 
+        self.ticket.AddTicketLine(productNo, isOption)
+
+        options = ProductScreen().GetOptionsForProduct(productNo)
+
+        if options:
+            self._updateProductButtonsForOption(productNo, options)
+
+        if isOption:
+            self._selectedGroup=1
+            self._updateProductButtons()
+            
         self._updateGrid()
 
     def btnInOutToggleOnToggleButton( self, event ):
@@ -194,8 +223,36 @@ class MainFrame(GeneratedGui.MainFrameBase):
         else:
             self.ticket.SetEatInOut("O")
 
+    def btnAdminOnButtonClick( self, event ):
+        adminMenu = AdminDialog(self)
+        adminMenu.ShowModal()
+
+    def _updateProductButtonsForOption(self, productId, options):
+        self._clearButtonNames()
+
+        for option in options:
+            product = Product(id=option[2], group=0, name="", price=0, vatCodeIn=0, vatCodeOut=0)
+            product.fill()
+
+            control = getattr(self, "btnProduct%s" % (str(option[3])))
+            control.SetLabel(product.name.strip())
+
+        self._selectedGroup = 0
+
 
     def _updateProductButtons(self):
+        self._clearButtonNames()
+
+        productsInScreen = ProductScreen().GetProductsForScreen(self._selectedGroup)
+
+        for productLine in productsInScreen:
+            product = Product(id=productLine[2], group=0, name="", price=0, vatCodeIn=0, vatCodeOut=0)
+            product.fill()
+
+            control = getattr(self, "btnProduct%s" % (str(productLine[3])))
+            control.SetLabel(product.name.strip().replace(" ","\n"))
+
+    def _clearButtonNames(self):
         r = 1
         c = 1
         for i in range(1, 37):
@@ -207,17 +264,7 @@ class MainFrame(GeneratedGui.MainFrameBase):
                 c = 1
                 r = r + 1
 
-        productsInScreen = ProductScreen().GetProductsForScreen(self._selectedGroup)
-
-        for productLine in productsInScreen:
-            product = Product(id=productLine[2], group=0, name="", price=0, vatCodeIn=0, vatCodeOut=0)
-            product.fill()
-
-            control = getattr(self, "btnProduct%s" % (str(productLine[3])))
-            control.SetLabel(product.name.strip())
-
     def _updateGrid(self):
-
         grid = self.gOrder
         table = OrderTable(ticket=self.ticket)
         grid.SetTable(table)
@@ -251,12 +298,12 @@ class OrderTable(wx.grid.PyGridTableBase):
         return False
 
     def GetValue(self, row, col):
-        if col==0:
-            return "%s" % (row+1)
-        elif col==2:
-            return "%.2f" % self.ticketLines[row][col-1]
+        if col == 0:
+            return "%s" % (row + 1)
+        elif col == 2:
+            return "%.2f" % self.ticketLines[row][col - 1]
         else:
-            return "%s" % self.ticketLines[row][col-1]
+            return "%s" % self.ticketLines[row][col - 1]
 
     def SetValue(self, row, col, value):
         pass
