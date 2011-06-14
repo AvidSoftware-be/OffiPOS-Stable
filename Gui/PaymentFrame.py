@@ -21,7 +21,8 @@ class PaymentFrame(GeneratedGui.PaymentFrameBase):
     def SetTicket(self, ticket):
         self.ticket = ticket
 
-        self.txtTotalToPay.Value = "%.2f" % self.ticket.GetTotalAmt()
+        self.txtTotal.Value = "%.2f" % self.ticket.GetTotalAmt()
+        self.txtTotalToPay.Value = self.txtTotal.Value
 
     def btnOneOnButtonClick( self, event ):
         self.txtPayed.Value = self.txtPayed.Value + "1"

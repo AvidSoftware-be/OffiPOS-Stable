@@ -10,11 +10,13 @@ import sqlite3
 import ini
 
 paymentMethods = dict(Cash=1, Atos=2)
+priceModes = dict(pos=1, neg=2)
 
 class Ticket:
     def __init__(self):
         self.no = 0
         self.eatInOut = "O"
+        self.priceMode = priceModes["pos"]
         self.conn = sqlite3.connect(ini.DB_NAME)
 
     def AddTicketLine(self, productId, isOption):
@@ -23,6 +25,9 @@ class Ticket:
 
         if isOption:
             product.price = product.price - (product.price * (product.discountIfOption) / 100)
+
+        if self.priceMode == priceModes["neg"]:
+            product.price = product.price * -1
 
         vatcode = 0
         if self.eatInOut == "O":
@@ -97,31 +102,18 @@ class Ticket:
         cur = self.conn.cursor()
         cur.execute(
             #"select product.name, product.price, ticketLine.isOption, product.discountIfOption, product.id from ticketLine, product where ticketline.productId=product.id and ticketline.ticketNo=?"
-            "select productName, price, isOption, productId from ticketLine where ticketline.ticketNo=?"
+            "select productName, price, isOption, productId, entryNo from ticketLine where ticketline.ticketNo=?"
             , (self.no,))
         lines = cur.fetchall()
 
-        result = []
-
-        #        for line in lines:
-        #            #ik kopieer de waardes want een tuple kan je niet wijzigen
-        #            newline = []
-        #            newline.append(line[0])
-        #
-        #            if line[2] == 1:
-        #                #prijs uit opties halen, korting toepassen dus
-        #                newline.append(line[1] - (line[1] * (line[3]) / 100))
-        #            else:
-        #                newline.append(line[1])
-        #
-        #            newline.append(line[2])
-        #            newline.append(line[2])
-        #            newline.append(line[3])
-        #            newline.append(line[4])
-        #
-        #            result.append(newline)
-
         return lines
+
+    def DeleteTickeLine(self, entryNo):
+        cur = self.conn.cursor()
+
+        cur.execute("delete from ticketLine where entryNo=?", (entryNo,))
+
+        self.conn.commit()
 
     def _displayMessage(self, message):
         POSEquipment.CustomerDisplay.Print(message)
