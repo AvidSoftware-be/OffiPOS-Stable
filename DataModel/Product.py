@@ -12,6 +12,7 @@ class Product:
         self.group = 0
         self.vatCodeIn = 0
         self.vatCodeOut = 0
+        self.askForPrice = 0
 
     #    def save(self):
     #        conn = sqlite3.connect(ini.DB_NAME)
@@ -43,4 +44,5 @@ class Product:
             self.group = prod[4]
             self.vatCodeIn = prod[5]
             self.vatCodeOut = prod[6]
+            self.askForPrice = prod[7]
 

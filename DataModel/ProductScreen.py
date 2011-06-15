@@ -9,7 +9,11 @@ class ProductScreen:
     def GetProductsForScreen(self, screenCategory):
         conn = sqlite3.connect(ini.DB_NAME)
         cur = conn.cursor()
-        cur.execute("select * from product_screen where screenCategoryId=? order by buttonNo ASC", (screenCategory,))
+
+        cur.execute("select id from screen_group where screenOrder=?",(screenCategory,))
+        res = cur.fetchone()
+        
+        cur.execute("select * from product_screen where screenCategoryId=? order by buttonNo ASC", (res[0],))
         return cur.fetchall()
 
     def GetProductNoOnButton(self, buttonNo, screenCategory):
@@ -23,7 +27,7 @@ class ProductScreen:
     def GetOptionProductNoOnButton(self, buttonNo, productId):
         conn = sqlite3.connect(ini.DB_NAME)
         cur = conn.cursor()
-        cur.execute("select optionProductId from menuOption where productId=? and buttonNo=?",
+        cur.execute("select optionProductId from productOption where productId=? and buttonNo=?",
                     (productId, buttonNo))
         result = cur.fetchone()
         return result[0]
@@ -31,5 +35,5 @@ class ProductScreen:
     def GetOptionsForProduct(self, productNo):
         conn = sqlite3.connect(ini.DB_NAME)
         cur = conn.cursor()
-        cur.execute("select * from menuOption where productId = ?", (productNo,))
+        cur.execute("select * from productOption where productId = ?", (productNo,))
         return cur.fetchall()

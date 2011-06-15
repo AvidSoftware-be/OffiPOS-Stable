@@ -19,9 +19,12 @@ class Ticket:
         self.priceMode = priceModes["pos"]
         self.conn = sqlite3.connect(ini.DB_NAME)
 
-    def AddTicketLine(self, productId, isOption):
+    def AddTicketLine(self, productId, isOption, price=0):
         product = Product(productId)
         product.fill()
+
+        if price:
+            product.price = price #er werd een prijs meegegeven die de productprijs vervangt
 
         if isOption:
             product.price = product.price - (product.price * (product.discountIfOption) / 100)

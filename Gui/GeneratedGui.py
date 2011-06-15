@@ -579,6 +579,20 @@ class MainFrameBase ( wx.Frame ):
 	
 
 ###########################################################################
+## Class pnlNumPadBase
+###########################################################################
+
+class pnlNumPadBase ( wx.Panel ):
+	
+	def __init__( self, parent ):
+		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( -1,-1 ), style = wx.TAB_TRAVERSAL )
+		
+	
+	def __del__( self ):
+		pass
+	
+
+###########################################################################
 ## Class PaymentFrameBase
 ###########################################################################
 
@@ -643,7 +657,7 @@ class PaymentFrameBase ( wx.Dialog ):
 		self.m_staticText10.Wrap( -1 )
 		gSizer5.Add( self.m_staticText10, 0, wx.ALL, 5 )
 		
-		self.txtTotal = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.txtTotal = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_READONLY )
 		gSizer5.Add( self.txtTotal, 0, wx.ALL, 0 )
 		
 		self.m_staticText3 = wx.StaticText( self, wx.ID_ANY, u"Te Betalen:", wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -833,6 +847,133 @@ class AdminDialogBase ( wx.Dialog ):
 	
 	# Virtual event handlers, overide them in your derived class
 	def btnKasAfsluitenOnButtonClick( self, event ):
+		event.Skip()
+	
+
+###########################################################################
+## Class dlgAskForPriceBase
+###########################################################################
+
+class dlgAskForPriceBase ( wx.Dialog ):
+	
+	def __init__( self, parent ):
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Prijs ingeven", pos = wx.DefaultPosition, size = wx.Size( -1,-1 ), style = wx.CAPTION )
+		
+		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
+		
+		bSizer20 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.txtPrice = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( -1,50 ), wx.TE_READONLY|wx.TE_RIGHT )
+		self.txtPrice.SetFont( wx.Font( 20, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer20.Add( self.txtPrice, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		gSizer2 = wx.GridSizer( 4, 3, 0, 0 )
+		
+		self.btnSeven = wx.Button( self, wx.ID_ANY, u"7", wx.DefaultPosition, wx.Size( 60,60 ), 0 )
+		gSizer2.Add( self.btnSeven, 0, wx.ALL, 0 )
+		
+		self.btnEight = wx.Button( self, wx.ID_ANY, u"8", wx.DefaultPosition, wx.Size( 60,60 ), 0 )
+		gSizer2.Add( self.btnEight, 0, wx.ALL, 0 )
+		
+		self.btnNine = wx.Button( self, wx.ID_ANY, u"9", wx.DefaultPosition, wx.Size( 60,60 ), 0 )
+		gSizer2.Add( self.btnNine, 0, wx.ALL, 0 )
+		
+		self.btnFour = wx.Button( self, wx.ID_ANY, u"4", wx.DefaultPosition, wx.Size( 60,60 ), 0 )
+		gSizer2.Add( self.btnFour, 0, wx.ALL, 0 )
+		
+		self.btnFive = wx.Button( self, wx.ID_ANY, u"5", wx.DefaultPosition, wx.Size( 60,60 ), 0 )
+		gSizer2.Add( self.btnFive, 0, wx.ALL, 0 )
+		
+		self.btnSix = wx.Button( self, wx.ID_ANY, u"6", wx.DefaultPosition, wx.Size( 60,60 ), 0 )
+		gSizer2.Add( self.btnSix, 0, wx.ALL, 0 )
+		
+		self.btnOne = wx.Button( self, wx.ID_ANY, u"1", wx.DefaultPosition, wx.Size( 60,60 ), 0 )
+		gSizer2.Add( self.btnOne, 0, wx.ALL, 0 )
+		
+		self.btnTwo = wx.Button( self, wx.ID_ANY, u"2", wx.DefaultPosition, wx.Size( 60,60 ), 0 )
+		gSizer2.Add( self.btnTwo, 0, wx.ALL, 0 )
+		
+		self.btnThree = wx.Button( self, wx.ID_ANY, u"3", wx.DefaultPosition, wx.Size( 60,60 ), 0 )
+		gSizer2.Add( self.btnThree, 0, wx.ALL, 0 )
+		
+		self.btnDot = wx.Button( self, wx.ID_ANY, u".", wx.DefaultPosition, wx.Size( 60,60 ), 0 )
+		gSizer2.Add( self.btnDot, 0, wx.ALL, 0 )
+		
+		self.btnZero = wx.Button( self, wx.ID_ANY, u"0", wx.DefaultPosition, wx.Size( 60,60 ), 0 )
+		gSizer2.Add( self.btnZero, 0, wx.ALL, 0 )
+		
+		self.btnEnter = wx.Button( self, wx.ID_ANY, u"Ok", wx.DefaultPosition, wx.Size( 60,60 ), 0 )
+		gSizer2.Add( self.btnEnter, 0, wx.ALL, 0 )
+		
+		bSizer20.Add( gSizer2, 1, wx.EXPAND, 5 )
+		
+		self.btnClear = wx.Button( self, wx.ID_ANY, u"Clr", wx.DefaultPosition, wx.Size( 175,-1 ), 0 )
+		bSizer20.Add( self.btnClear, 0, wx.ALL, 0 )
+		
+		self.SetSizer( bSizer20 )
+		self.Layout()
+		bSizer20.Fit( self )
+		
+		self.Centre( wx.BOTH )
+		
+		# Connect Events
+		self.btnSeven.Bind( wx.EVT_BUTTON, self.btnSevenOnButtonClick )
+		self.btnEight.Bind( wx.EVT_BUTTON, self.btnEightOnButtonClick )
+		self.btnNine.Bind( wx.EVT_BUTTON, self.btnNineOnButtonClick )
+		self.btnFour.Bind( wx.EVT_BUTTON, self.btnFourOnButtonClick )
+		self.btnFive.Bind( wx.EVT_BUTTON, self.btnFiveOnButtonClick )
+		self.btnSix.Bind( wx.EVT_BUTTON, self.btnSixOnButtonClick )
+		self.btnOne.Bind( wx.EVT_BUTTON, self.btnOneOnButtonClick )
+		self.btnTwo.Bind( wx.EVT_BUTTON, self.btnTwoOnButtonClick )
+		self.btnThree.Bind( wx.EVT_BUTTON, self.btnThreeOnButtonClick )
+		self.btnDot.Bind( wx.EVT_BUTTON, self.btnDotOnButtonClick )
+		self.btnZero.Bind( wx.EVT_BUTTON, self.btnZeroOnButtonClick )
+		self.btnEnter.Bind( wx.EVT_BUTTON, self.btnEnterOnButtonClick )
+		self.btnClear.Bind( wx.EVT_BUTTON, self.btnClearOnButtonClick )
+	
+	def __del__( self ):
+		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def btnSevenOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnEightOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnNineOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnFourOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnFiveOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnSixOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnOneOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnTwoOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnThreeOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnDotOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnZeroOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnEnterOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnClearOnButtonClick( self, event ):
 		event.Skip()
 	
 

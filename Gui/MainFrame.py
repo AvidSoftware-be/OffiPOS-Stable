@@ -12,6 +12,7 @@ import GeneratedGui
 from Gui import *
 from Gui.AdminDialog import AdminDialog
 from Gui.PaymentFrame import PaymentFrame
+from Gui.dlgAskForPrice import dlgAskForPrice
 
 class MainFrame(GeneratedGui.MainFrameBase):
     _selectedGroup = 1
@@ -86,26 +87,23 @@ class MainFrame(GeneratedGui.MainFrameBase):
         self.btnGroupEight.SetLabel("")
 
         #fill group buttons
-        i = 1
         for name in ScreenGroup().fetchall():
-            if i == 1:
+            if name[2] == 1:
                 self.btnGroupOne.SetLabel(name[1].replace(" ","\n"))
-            elif i == 2:
+            elif name[2] == 2:
                 self.btnGroupTwo.SetLabel(name[1].replace(" ","\n"))
-            elif i == 3:
+            elif name[2] == 3:
                 self.btnGroupThree.SetLabel(name[1].replace(" ","\n"))
-            elif i == 4:
+            elif name[2] == 4:
                 self.btnGroupFour.SetLabel(name[1].replace(" ","\n"))
-            elif i == 5:
+            elif name[2] == 5:
                 self.btnGroupFive.SetLabel(name[1].replace(" ","\n"))
-            elif i == 6:
+            elif name[2] == 6:
                 self.btnGroupSix.SetLabel(name[1].replace(" ","\n"))
-            elif i == 7:
+            elif name[2] == 7:
                 self.btnGroupSeven.SetLabel(name[1].replace(" ","\n"))
-            elif i == 8:
+            elif name[2] == 8:
                 self.btnGroupSeven.SetLabel(name[1].replace(" ","\n"))
-
-            i = i + 1
 
         self._updateProductButtons()
 
@@ -205,6 +203,14 @@ class MainFrame(GeneratedGui.MainFrameBase):
             isOption=True
         else:
             productNo = ProductScreen().GetProductNoOnButton(buttonNoPressed, self._selectedGroup)
+
+        product = Product(productNo)
+        product.fill()
+        
+        if product.askForPrice:
+            #prijs ophalen
+            askForPriceForm = dlgAskForPrice(self)
+            askForPriceForm.ShowModal()
 
         self.ticket.AddTicketLine(productNo, isOption)
 
