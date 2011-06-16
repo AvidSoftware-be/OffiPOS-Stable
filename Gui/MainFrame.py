@@ -156,6 +156,7 @@ class MainFrame(GeneratedGui.MainFrameBase):
             self.pnlRekening.Enabled = True
             self.btnNieuwTicket.Enabled = False
 
+        self.btnRetour.Value = 0
 
     def btnGroupOneOnButtonClick( self, event ):
         self._selectedGroup = 1
