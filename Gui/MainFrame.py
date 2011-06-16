@@ -89,21 +89,21 @@ class MainFrame(GeneratedGui.MainFrameBase):
         #fill group buttons
         for name in ScreenGroup().fetchall():
             if name[2] == 1:
-                self.btnGroupOne.SetLabel(name[1].replace(" ","\n"))
+                self.btnGroupOne.SetLabel(name[1].replace(" ", "\n"))
             elif name[2] == 2:
-                self.btnGroupTwo.SetLabel(name[1].replace(" ","\n"))
+                self.btnGroupTwo.SetLabel(name[1].replace(" ", "\n"))
             elif name[2] == 3:
-                self.btnGroupThree.SetLabel(name[1].replace(" ","\n"))
+                self.btnGroupThree.SetLabel(name[1].replace(" ", "\n"))
             elif name[2] == 4:
-                self.btnGroupFour.SetLabel(name[1].replace(" ","\n"))
+                self.btnGroupFour.SetLabel(name[1].replace(" ", "\n"))
             elif name[2] == 5:
-                self.btnGroupFive.SetLabel(name[1].replace(" ","\n"))
+                self.btnGroupFive.SetLabel(name[1].replace(" ", "\n"))
             elif name[2] == 6:
-                self.btnGroupSix.SetLabel(name[1].replace(" ","\n"))
+                self.btnGroupSix.SetLabel(name[1].replace(" ", "\n"))
             elif name[2] == 7:
-                self.btnGroupSeven.SetLabel(name[1].replace(" ","\n"))
+                self.btnGroupSeven.SetLabel(name[1].replace(" ", "\n"))
             elif name[2] == 8:
-                self.btnGroupSeven.SetLabel(name[1].replace(" ","\n"))
+                self.btnGroupSeven.SetLabel(name[1].replace(" ", "\n"))
 
         self._updateProductButtons()
 
@@ -199,20 +199,22 @@ class MainFrame(GeneratedGui.MainFrameBase):
             #dit is een optie
             ticketLines = self.ticket.GetTicketLines()
             productNo = ProductScreen().GetOptionProductNoOnButton(buttonNoPressed,
-                                                                   ticketLines[len(ticketLines)-1][3])
-            isOption=True
+                                                                   ticketLines[len(ticketLines) - 1][3])
+            isOption = True
         else:
             productNo = ProductScreen().GetProductNoOnButton(buttonNoPressed, self._selectedGroup)
 
         product = Product(productNo)
         product.fill()
-        
+        prodPrice = 0
         if product.askForPrice:
             #prijs ophalen
             askForPriceForm = dlgAskForPrice(self)
             askForPriceForm.ShowModal()
 
-        self.ticket.AddTicketLine(productNo, isOption)
+            prodPrice = askForPriceForm.Value
+
+        self.ticket.AddTicketLine(productNo, isOption, prodPrice)
 
         options = ProductScreen().GetOptionsForProduct(productNo)
 
@@ -220,9 +222,9 @@ class MainFrame(GeneratedGui.MainFrameBase):
             self._updateProductButtonsForOption(productNo, options)
 
         if isOption:
-            self._selectedGroup=1
+            self._selectedGroup = 1
             self._updateProductButtons()
-            
+
         self._updateGrid()
 
     def btnInOutToggleOnToggleButton( self, event ):
@@ -253,7 +255,7 @@ class MainFrame(GeneratedGui.MainFrameBase):
         self.ticket.DeleteTickeLine(entryNo)
 
         self._updateGrid()
-        
+
 
     def _updateProductButtonsForOption(self, productId, options):
         self._clearButtonNames()
@@ -278,7 +280,7 @@ class MainFrame(GeneratedGui.MainFrameBase):
             product.fill()
 
             control = getattr(self, "btnProduct%s" % (str(productLine[3])))
-            control.SetLabel(product.name.strip().replace(" ","\n"))
+            control.SetLabel(product.name.strip().replace(" ", "\n"))
 
     def _clearButtonNames(self):
         r = 1
