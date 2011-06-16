@@ -137,7 +137,7 @@ class Ticket:
         body = ""
 
         for line in self.GetTicketLinesGrouped():
-            body += "%s%s" % ("{0[0]:<30}{0[1]:>8.2f}".format(line), POSEquipment.TicketPrinter.escNewLine)
+            body += "{0[0]:<4s} {0[1]:<26s}{0[2]:>8.2f}{1:>s}".format(line, POSEquipment.TicketPrinter.escNewLine)
 
         POSEquipment.TicketPrinter.PrintBill(body, paymentMethod, self.GetTotalAmt(), paidAmt, returnAmt)
 
