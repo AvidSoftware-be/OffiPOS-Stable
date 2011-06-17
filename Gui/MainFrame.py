@@ -59,7 +59,13 @@ class MainFrame(GeneratedGui.MainFrameBase):
             self.btnProduct63: 63,
             self.btnProduct64: 64,
             self.btnProduct65: 65,
-            self.btnProduct66: 66
+            self.btnProduct66: 66,
+            self.btnProduct61: 71,
+            self.btnProduct62: 72,
+            self.btnProduct63: 73,
+            self.btnProduct64: 74,
+            self.btnProduct65: 75,
+            self.btnProduct66: 76
         }
 
         self.pnlGroepen.Enabled = False
@@ -267,8 +273,8 @@ class MainFrame(GeneratedGui.MainFrameBase):
 
             control = getattr(self, "btnProduct%s" % (str(option[3])))
             control.SetLabel(product.screenName.strip().replace(" ", "\n"))
-            #control.SetBackgroundColor(wx.Colour(0,255,0))
-            #control.Refresh()
+            control.SetBackgroundColour(option[5])
+            control.Refresh()
 
         self._selectedGroup = 0
 
@@ -290,7 +296,7 @@ class MainFrame(GeneratedGui.MainFrameBase):
     def _clearButtonNames(self):
         r = 1
         c = 1
-        for i in range(1, 37):
+        for i in range(1, 43):
             buttonNo = c + r * 10
             control = getattr(self, "btnProduct%s" % (str(buttonNo)))
             control.SetLabel("")

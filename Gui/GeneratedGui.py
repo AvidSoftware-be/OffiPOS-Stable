@@ -333,6 +333,40 @@ class MainFrameBase ( wx.Frame ):
 		
 		bSizer121.Add( bSizer15, 1, wx.EXPAND, 5 )
 		
+		bSizer16 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.btnProduct71 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct71.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer16.Add( self.btnProduct71, 0, wx.ALL, 1 )
+		
+		self.btnProduct72 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct72.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer16.Add( self.btnProduct72, 0, wx.ALL, 1 )
+		
+		self.btnProduct73 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct73.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer16.Add( self.btnProduct73, 0, wx.ALL, 1 )
+		
+		self.btnProduct74 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct74.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer16.Add( self.btnProduct74, 0, wx.ALL, 1 )
+		
+		self.btnProduct75 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct75.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer16.Add( self.btnProduct75, 0, wx.ALL, 1 )
+		
+		self.btnProduct76 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct76.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer16.Add( self.btnProduct76, 0, wx.ALL, 1 )
+		
+		bSizer121.Add( bSizer16, 1, wx.EXPAND, 5 )
+		
 		self.pnlProducten.SetSizer( bSizer121 )
 		self.pnlProducten.Layout()
 		bSizer121.Fit( self.pnlProducten )
@@ -477,6 +511,12 @@ class MainFrameBase ( wx.Frame ):
 		self.btnProduct64.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
 		self.btnProduct65.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
 		self.btnProduct66.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct71.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct72.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct73.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct74.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct75.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct76.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
 		self.gOrder.Bind( wx.grid.EVT_GRID_SELECT_CELL, self.gOrderOnGridSelectCell )
 		self.btnAfrekeken.Bind( wx.EVT_BUTTON, self.btnAfrekekenOnButtonClick )
 		self.btnAnnuleren.Bind( wx.EVT_BUTTON, self.btnAnnulerenOnButtonClick )
@@ -526,6 +566,12 @@ class MainFrameBase ( wx.Frame ):
 	
 	def btnProductOnButtonClick( self, event ):
 		event.Skip()
+	
+	
+	
+	
+	
+	
 	
 	
 	
