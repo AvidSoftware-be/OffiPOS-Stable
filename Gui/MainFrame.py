@@ -266,7 +266,9 @@ class MainFrame(GeneratedGui.MainFrameBase):
             product.fill()
 
             control = getattr(self, "btnProduct%s" % (str(option[3])))
-            control.SetLabel(product.name.strip())
+            control.SetLabel(product.screenName.strip().replace(" ", "\n"))
+            #control.SetBackgroundColor(wx.Colour(0,255,0))
+            #control.Refresh()
 
         self._selectedGroup = 0
 
@@ -281,7 +283,9 @@ class MainFrame(GeneratedGui.MainFrameBase):
             product.fill()
 
             control = getattr(self, "btnProduct%s" % (str(productLine[3])))
-            control.SetLabel(product.name.strip().replace(" ", "\n"))
+            control.SetLabel(product.screenName.strip().replace(" ", "\n"))
+            control.SetBackgroundColour(productLine[4])
+            control.Refresh()
 
     def _clearButtonNames(self):
         r = 1
@@ -290,6 +294,8 @@ class MainFrame(GeneratedGui.MainFrameBase):
             buttonNo = c + r * 10
             control = getattr(self, "btnProduct%s" % (str(buttonNo)))
             control.SetLabel("")
+            control.SetBackgroundColour('0')
+            control.Refresh()
             c = c + 1
             if c == 7:
                 c = 1

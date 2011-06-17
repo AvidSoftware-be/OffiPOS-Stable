@@ -39,7 +39,7 @@ class Ticket:
             vatcode = product.vatCodeIn
 
         val = (
-        self.no, productId, product.name, product.price, self.eatInOut, isOption, datetime.datetime.now(), vatcode)
+        self.no, productId, product.name.strip(), product.price, self.eatInOut, isOption, datetime.datetime.now(), vatcode)
 
         cur = self.conn.cursor()
 
