@@ -47,7 +47,7 @@ def PrintBill(body, paymentMethod, totalAmt, paidAmt, returnAmt):
         s.write(u"Terug:  {0:>10.2f}".format(returnAmt) + escNewLine)
         s.write(escPrintNormal + 'Betalingswijze: %s' % ("Cash" if paymentMethod == 1 else "Atos") + escNewLine)
         s.write('*****************************************' + escNewLine)
-        s.write(escPrintBold + 'Smakelijk!' + escPrintNormal + escNewLine+ escNewLine)
+        s.write(escPrintBold + 'Smakelijk!' + escPrintNormal + escNewLine + escNewLine)
         s.write("{0:^40}".format('Belgian Food Group bvba') + escNewLine)
         s.write("{0:^40}".format('Baron R. De Vironlaan 172') + escNewLine)
         s.write("{0:^40}".format('1700 Dilbeek') + escNewLine)
@@ -137,7 +137,8 @@ def PrintDayTotals(dayParam):
         s.write(escPrintNormal + '                              -----------' + escNewLine)
         s.write(escPrintNormal + 'TOTAAL' + "{0:>34.2f}".format(dayParam['payedAmts']["Total"]) + escNewLine)
         s.write(escPrintNormal + '                              ===========' + escNewLine)
-        s.write(escPrintNormal + 'Algemeen Totaal' + "{0:>25.2f}".format(dayParam['payedAmts']["Total"]) + escNewLine + escNewLine)
+        s.write(escPrintNormal + 'Algemeen Totaal' + "{0:>25.2f}".format(
+            dayParam['payedAmts']["Total"]) + escNewLine + escNewLine)
 
         s.write(escPrintBig + '       B T W' + escNewLine)
         s.write(escPrintBig + '       -----' + escNewLine + escNewLine)
@@ -151,7 +152,7 @@ def PrintDayTotals(dayParam):
         s.write(escNewLine + escNewLine)
         s.write(escPrintNormal + '========================================' + escNewLine)
         s.write(escPrintNormal + '    AFDRUKKEN OP %s OM %s' % (
-        datetime.now().strftime('%d/%m/%Y'), datetime.now().strftime('%H:%M')) + escNewLine)
+            datetime.now().strftime('%d/%m/%Y'), datetime.now().strftime('%H:%M')) + escNewLine)
         s.write(escPrintNormal + '========================================' + escNewLine)
 
         s.write(escEndAndCut)
