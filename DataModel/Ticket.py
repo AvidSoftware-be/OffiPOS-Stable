@@ -167,7 +167,7 @@ class Ticket:
         lines = self.GetTicketLinesGrouped()
 
         for (k, v) in self.GetTicketLinesGrouped().iteritems():
-            if k != 9999
+            if k != 9999:
                 body += "{0[0]:>2} {0[1]:>}{1:>}".format(v, POSEquipment.TicketPrinter.escNewLine)
 
         body += "{0:*>39}{1:>}".format('*', POSEquipment.TicketPrinter.escNewLine) #lijntje
