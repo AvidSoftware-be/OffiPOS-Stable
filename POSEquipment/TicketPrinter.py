@@ -32,10 +32,10 @@ def PrintBill(body, paymentMethod, totalAmt, paidAmt, returnAmt):
         s.open()
 
         s.write(escInitPrinter + escPrintBig)
-        s.write("0:^21".format('Frituur') + escNewLine)
-        s.write("0:^21".format('Den Baron') + escNewLine)
+        s.write("{0:^21}".format('Frituur') + escNewLine)
+        s.write("{0:^21}".format('Den Baron') + escNewLine)
         s.write(escPrintNormal + '*****************************************' + escNewLine)
-        s.write(escPrintBold + "0:^40".format('Rekening') + escNewLine)
+        s.write(escPrintBold + "{0:^40}".format('Rekening') + escNewLine)
         s.write(escPrintNormal + '*****************************************' + escNewLine)
         s.write(
             '{0}     {1}'.format(date.today().strftime('%d/%m/%Y'), datetime.today().strftime('%H:%M')) + escNewLine)
@@ -80,7 +80,7 @@ def PrintKitchenBill(body):
 
         s.write(escInitPrinter + escPrintNormal)
         s.write('*****************************************' + escNewLine)
-        s.write(escPrintBold + "0:^40".format('Keukenbon') + escNewLine)
+        s.write(escPrintBold + "{0:^40}".format('Keukenbon') + escNewLine)
         s.write(escPrintNormal + '*****************************************' + escNewLine)
         s.write(
             '{0}     {1}'.format(date.today().strftime('%d/%m/%Y'), datetime.today().strftime('%H:%M')) + escNewLine)
