@@ -137,7 +137,7 @@ def PrintDayTotals(dayParam):
         s.write(escPrintNormal + '                              -----------' + escNewLine)
         s.write(escPrintNormal + 'TOTAAL' + "{0:>34.2f}".format(dayParam['payedAmts']["Total"]) + escNewLine)
         s.write(escPrintNormal + '                              ===========' + escNewLine)
-        s.write(escPrintNormal + 'Algemeen Totaal' + "%s" % dayParam['payedAmts']["Total"] + escNewLine + escNewLine)
+        s.write(escPrintNormal + 'Algemeen Totaal' + "{0:>25.2f}".format(dayParam['payedAmts']["Total"]) + escNewLine + escNewLine)
 
         s.write(escPrintBig + '       B T W' + escNewLine)
         s.write(escPrintBig + '       -----' + escNewLine + escNewLine)
@@ -145,7 +145,7 @@ def PrintDayTotals(dayParam):
         s.write(escPrintNormal + '----------------------------------------' + escNewLine)
         for VATLine in dayParam['VATLines']:
             s.write(
-                escPrintNormal + '{0[0]:>10.2f}{0[1]:>5.2f}{0[2]:>10.2f}{0[3]:>10.2f}'.format(VATLine) + escNewLine)
+                escPrintNormal + '{0[0]:>10.2f}{0[1]:>10.2f}{0[2]:>10.2f}{0[3]:>10.2f}'.format(VATLine) + escNewLine)
         s.write(escPrintNormal + '        ---------   -------   ---------' + escNewLine)
         s.write(escPrintNormal + '{0[0]:>20.2f}{0[1]:>10.2f}{0[2]:>10.2f}'.format(dayParam['VATTotals']) + escNewLine)
         s.write(escNewLine + escNewLine)
