@@ -20,10 +20,9 @@ class Ticket:
         self.priceMode = priceModes["pos"]
         self.conn = sqlite3.connect(ini.DB_NAME)
 
-    def AddTicketLine(self, productId, isOption, parentProductId ,buttonNo, screenCategory, price=0):
+    def AddTicketLine(self, productId, isOption, parentProductId, buttonNo, screenCategory, price=0):
         product = Product(productId)
         product.fill()
-
 
         if price:
             product.price = price #er werd een prijs meegegeven die de productprijs vervangt
@@ -125,14 +124,23 @@ class Ticket:
     def GetTicketLinesGrouped(self):
         cur = self.conn.cursor()
         cur.execute(
-            "SELECT count(productId) as qty, productName, sum(price) as lineAmt, productId " +
+            "SELECT productId, productName, price " +
             "FROM ticketLine " +
-            "WHERE ticketNo = ? " +
-            "GROUP BY productId", (self.no,))
+            "WHERE ticketNo = ? ", (self.no,))
 
         lines = cur.fetchall()
+        groupedLines = {}
 
-        return lines
+        for ticketLine in lines:
+            if ticketLine[0] in groupedLines:
+                #bijtellen
+                groupedLines[ticketLine[0]][0] += 1
+                groupedLines[ticketLine[0]][2] += ticketLine[2]
+            else:
+                #aanmaken
+                groupedLines[ticketLine[0]] = [1, ticketLine[1], ticketLine[2]] #qty, naam, prijs
+
+        return groupedLines
 
     def DeleteTickeLine(self, entryNo):
         cur = self.conn.cursor()
@@ -147,9 +155,9 @@ class Ticket:
     def _printReceipt(self, paymentMethod, paidAmt, returnAmt):
         body = ""
 
-        for line in self.GetTicketLinesGrouped():
-            if line[3] != 9999:
-                body += "{0[0]:<4} {0[1]:<26}{0[2]:>8.2f}{1:>}".format(line, POSEquipment.TicketPrinter.escNewLine)
+        for (k, v) in self.GetTicketLinesGrouped().iteritems():
+            if k != 9999:
+                body += "{0[0]:<4} {0[1]:<26}{0[2]:>8.2f}{1:>}".format(v, POSEquipment.TicketPrinter.escNewLine)
 
         POSEquipment.TicketPrinter.PrintBill(body, paymentMethod, self.GetTotalAmt(), paidAmt, returnAmt)
 
@@ -158,8 +166,14 @@ class Ticket:
 
         lines = self.GetTicketLinesGrouped()
 
-        for line in lines:
-            body += "{0:>2} {01:>}{2:>}".format(line[0], line[1], POSEquipment.TicketPrinter.escNewLine)
+        for (k, v) in self.GetTicketLinesGrouped().iteritems():
+            if k != 9999
+                body += "{0[0]:>2} {0[1]:>}{1:>}".format(v, POSEquipment.TicketPrinter.escNewLine)
+
+        body += "{0:*>39}{1:>}".format('*', POSEquipment.TicketPrinter.escNewLine) #lijntje
+
+        for line in self.GetTicketLines():
+                body += "{0[0]:>2} {0[1]:>}{1:>}".format(line, POSEquipment.TicketPrinter.escNewLine)
 
         POSEquipment.TicketPrinter.PrintKitchenBill(body)
 
