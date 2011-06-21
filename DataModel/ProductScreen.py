@@ -24,7 +24,19 @@ class ProductScreen:
         res = cur.fetchone()
 
         cur.execute("select productId from product_screen where screenCategoryId=? and buttonNo=?",
-                    (res[0], buttonNo))
+                (res[0], buttonNo))
+        result = cur.fetchone()
+        return result[0]
+
+    def GetCaption(self, buttonNo, screenCategory):
+        conn = sqlite3.connect(ini.DB_NAME)
+        cur = conn.cursor()
+
+        cur.execute("select id from screen_group where screenOrder=?", (screenCategory,))
+        res = cur.fetchone()
+
+        cur.execute("select productName from product_screen where productId=? and screenCategoryId=? and buttonNo=?",
+                (9999, res[0], buttonNo))
         result = cur.fetchone()
         return result[0]
 
@@ -32,7 +44,7 @@ class ProductScreen:
         conn = sqlite3.connect(ini.DB_NAME)
         cur = conn.cursor()
         cur.execute("select optionProductId from productOption where productId=? and buttonNo=?",
-                    (productId, buttonNo))
+                (productId, buttonNo))
         result = cur.fetchone()
         return result[0]
 
@@ -41,3 +53,11 @@ class ProductScreen:
         cur = conn.cursor()
         cur.execute("select * from productOption where productId = ?", (productNo,))
         return cur.fetchall()
+
+    def GetCaptionForOption(self, parentProductId, buttonNo):
+        conn = sqlite3.connect(ini.DB_NAME)
+        cur = conn.cursor()
+        cur.execute("select productName from productOption where productId=? and buttonNo=?",
+                (parentProductId, buttonNo))
+        result = cur.fetchone()
+        return result[0]

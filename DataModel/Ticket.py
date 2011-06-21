@@ -1,4 +1,5 @@
 import datetime
+from DataModel.ProductScreen import ProductScreen
 from DataModel.Product import Product
 import POSEquipment.CustomerDisplay
 import POSEquipment.TicketPrinter
@@ -19,15 +20,24 @@ class Ticket:
         self.priceMode = priceModes["pos"]
         self.conn = sqlite3.connect(ini.DB_NAME)
 
-    def AddTicketLine(self, productId, isOption, price=0):
+    def AddTicketLine(self, productId, isOption, parentProductId ,buttonNo, screenCategory, price=0):
         product = Product(productId)
         product.fill()
+
 
         if price:
             product.price = price #er werd een prijs meegegeven die de productprijs vervangt
 
         if isOption:
             product.price = product.price - (product.price * (product.discountIfOption) / 100)
+
+            if productId == 9999:
+                #speciaal!
+                product.name = ProductScreen().GetCaptionForOption(parentProductId, buttonNo)
+        else:
+            if productId == 9999:
+                #speciaal!
+                product.name = ProductScreen().GetCaption(buttonNo, screenCategory)
 
         if self.priceMode == priceModes["neg"]:
             product.price = product.price * -1
@@ -39,7 +49,8 @@ class Ticket:
             vatcode = product.vatCodeIn
 
         val = (
-        self.no, productId, product.name.strip(), product.price, self.eatInOut, isOption, datetime.datetime.now(), vatcode)
+            self.no, productId, product.name.strip(), product.price, self.eatInOut, isOption, datetime.datetime.now(),
+            vatcode)
 
         cur = self.conn.cursor()
 
@@ -86,7 +97,7 @@ class Ticket:
         cur.execute("update ticketLine set paid=? where ticketNo=?", (paymentMethod, self.no,))
 
         self.conn.commit()
-        self._printTicket(paymentMethod, paidAmt, returnAmt)
+        self._printReceipt(paymentMethod, paidAmt, returnAmt)
         self._printKitchen()
 
         self._displayMessage("                    " +
@@ -114,10 +125,10 @@ class Ticket:
     def GetTicketLinesGrouped(self):
         cur = self.conn.cursor()
         cur.execute(
-            "SELECT count(productId) as qty, productName, sum(price) as lineAmt " +
+            "SELECT count(productId) as qty, productName, sum(price) as lineAmt, productId " +
             "FROM ticketLine " +
             "WHERE ticketNo = ? " +
-            "GROUP BY productId", (self.no))
+            "GROUP BY productId", (self.no,))
 
         lines = cur.fetchall()
 
@@ -133,11 +144,12 @@ class Ticket:
     def _displayMessage(self, message):
         POSEquipment.CustomerDisplay.Print(message)
 
-    def _printTicket(self, paymentMethod, paidAmt, returnAmt):
+    def _printReceipt(self, paymentMethod, paidAmt, returnAmt):
         body = ""
 
         for line in self.GetTicketLinesGrouped():
-            body += "{0[0]:<4s} {0[1]:<26s}{0[2]:>8.2f}{1:>s}".format(line, POSEquipment.TicketPrinter.escNewLine)
+            if line[3] != 9999:
+                body += "{0[0]:<4} {0[1]:<26}{0[2]:>8.2f}{1:>}".format(line, POSEquipment.TicketPrinter.escNewLine)
 
         POSEquipment.TicketPrinter.PrintBill(body, paymentMethod, self.GetTotalAmt(), paidAmt, returnAmt)
 
@@ -147,7 +159,7 @@ class Ticket:
         lines = self.GetTicketLinesGrouped()
 
         for line in lines:
-            body += "{0:>2s} {01:>s}{2:>s}".format(line[0], line[1], POSEquipment.TicketPrinter.escNewLine)
+            body += "{0:>2} {01:>}{2:>}".format(line[0], line[1], POSEquipment.TicketPrinter.escNewLine)
 
         POSEquipment.TicketPrinter.PrintKitchenBill(body)
 

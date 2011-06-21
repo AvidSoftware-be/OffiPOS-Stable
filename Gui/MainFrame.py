@@ -202,11 +202,14 @@ class MainFrame(GeneratedGui.MainFrameBase):
 
         productNo = 0
         isOption = False
+        parentProductId = 0
+
         if self._selectedGroup == 0:
             #dit is een optie
             ticketLines = self.ticket.GetTicketLines()
+            parentProductId = ticketLines[len(ticketLines) - 1][3]
             productNo = ProductScreen().GetOptionProductNoOnButton(buttonNoPressed,
-                                                                   ticketLines[len(ticketLines) - 1][3])
+                                                                   parentProductId)
             isOption = True
         else:
             productNo = ProductScreen().GetProductNoOnButton(buttonNoPressed, self._selectedGroup)
@@ -221,7 +224,7 @@ class MainFrame(GeneratedGui.MainFrameBase):
 
             prodPrice = askForPriceForm.Value
 
-        self.ticket.AddTicketLine(productNo, isOption, prodPrice)
+        self.ticket.AddTicketLine(productNo, isOption, parentProductId, buttonNoPressed, self._selectedGroup, prodPrice)
 
         options = ProductScreen().GetOptionsForProduct(productNo)
 
@@ -271,8 +274,14 @@ class MainFrame(GeneratedGui.MainFrameBase):
             product = Product(id=option[2])
             product.fill()
 
+            if product.id == 9999:
+                #speciaal!
+                caption = option[7]
+            else:
+                caption = product.screenName
+
             control = getattr(self, "btnProduct%s" % (str(option[3])))
-            control.SetLabel(product.screenName.strip().replace(" ", "\n"))
+            control.SetLabel(caption.strip().replace(" ", "\n"))
             control.SetBackgroundColour(option[5])
             control.Refresh()
 
@@ -289,7 +298,15 @@ class MainFrame(GeneratedGui.MainFrameBase):
             product.fill()
 
             control = getattr(self, "btnProduct%s" % (str(productLine[3])))
-            control.SetLabel(product.screenName.strip().replace(" ", "\n"))
+
+            caption = ""
+            if productLine[2] == 9999:
+                #speciaal!
+                caption = productLine[5]
+            else:
+                caption = product.screenName
+
+            control.SetLabel(caption.strip().replace(" ", "\n"))
             control.SetBackgroundColour(productLine[4])
             control.Refresh()
 
