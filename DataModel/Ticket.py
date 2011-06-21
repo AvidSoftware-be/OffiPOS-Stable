@@ -124,7 +124,7 @@ class Ticket:
     def GetTicketLinesGrouped(self):
         cur = self.conn.cursor()
         cur.execute(
-            "SELECT productId, productName, price " +
+            "SELECT productId, productName, price, isOption " +
             "FROM ticketLine " +
             "WHERE ticketNo = ? ", (self.no,))
 
@@ -132,13 +132,14 @@ class Ticket:
         groupedLines = {}
 
         for ticketLine in lines:
-            if ticketLine[0] in groupedLines:
-                #bijtellen
-                groupedLines[ticketLine[0]][0] += 1
-                groupedLines[ticketLine[0]][2] += ticketLine[2]
-            else:
-                #aanmaken
-                groupedLines[ticketLine[0]] = [1, ticketLine[1], ticketLine[2]] #qty, naam, prijs
+            if (ticketLine[0] != 9999) and (not ticketLine[3]): #geen generieke en geen optie
+                if ticketLine[0] in groupedLines:
+                    #bijtellen
+                    groupedLines[ticketLine[0]][0] += 1
+                    groupedLines[ticketLine[0]][2] += ticketLine[2]
+                else:
+                    #aanmaken
+                    groupedLines[ticketLine[0]] = [1, ticketLine[1], ticketLine[2]] #qty, naam, prijs
 
         return groupedLines
 
@@ -156,8 +157,7 @@ class Ticket:
         body = ""
 
         for (k, v) in self.GetTicketLinesGrouped().iteritems():
-            if k != 9999:
-                body += "{0[0]:<4} {0[1]:<26}{0[2]:>8.2f}{1:>}".format(v, POSEquipment.TicketPrinter.escNewLine)
+            body += "{0[0]:<4} {0[1]:<26}{0[2]:>8.2f}{1:>}".format(v, POSEquipment.TicketPrinter.escNewLine)
 
         POSEquipment.TicketPrinter.PrintBill(body, paymentMethod, self.GetTotalAmt(), paidAmt, returnAmt)
 
@@ -167,14 +167,13 @@ class Ticket:
         lines = self.GetTicketLinesGrouped()
 
         for (k, v) in self.GetTicketLinesGrouped().iteritems():
-            if k != 9999:
-                body += "{0[0]:>2} {0[1]:>}{1:>}".format(v, POSEquipment.TicketPrinter.escNewLine)
+            body += "{0[0]:>2} {0[1]:>}{1:>}".format(v, POSEquipment.TicketPrinter.escNewLine)
 
         body += "{2:>}{0:*>39}{1:>}".format('*', POSEquipment.TicketPrinter.escNewLine, POSEquipment.TicketPrinter.escPrintNormal) #lijntje
 
         for line in self.GetTicketLines():
             indent = ""
-            if line[3] == 9999:
+            if (line[3] == 9999) or line[2]: #is generiek of optie
                 indent = "     "
 
             body += "{2}{0[0]:>2}{1:>}".format(line, POSEquipment.TicketPrinter.escNewLine, indent)
