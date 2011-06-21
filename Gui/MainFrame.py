@@ -60,12 +60,12 @@ class MainFrame(GeneratedGui.MainFrameBase):
             self.btnProduct64: 64,
             self.btnProduct65: 65,
             self.btnProduct66: 66,
-            self.btnProduct61: 71,
-            self.btnProduct62: 72,
-            self.btnProduct63: 73,
-            self.btnProduct64: 74,
-            self.btnProduct65: 75,
-            self.btnProduct66: 76
+            self.btnProduct71: 71,
+            self.btnProduct72: 72,
+            self.btnProduct73: 73,
+            self.btnProduct74: 74,
+            self.btnProduct75: 75,
+            self.btnProduct76: 76
         }
 
         self.pnlGroepen.Enabled = False
