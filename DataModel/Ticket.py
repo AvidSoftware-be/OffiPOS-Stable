@@ -170,10 +170,14 @@ class Ticket:
             if k != 9999:
                 body += "{0[0]:>2} {0[1]:>}{1:>}".format(v, POSEquipment.TicketPrinter.escNewLine)
 
-        body += "{0:*>39}{1:>}".format('*', POSEquipment.TicketPrinter.escNewLine) #lijntje
+        body += "{2:>}{0:*>39}{1:>}".format('*', POSEquipment.TicketPrinter.escNewLine, POSEquipment.TicketPrinter.escPrintNormal) #lijntje
 
         for line in self.GetTicketLines():
-                body += "{0[0]:>2} {0[1]:>}{1:>}".format(line, POSEquipment.TicketPrinter.escNewLine)
+            indent = ""
+            if line[3] == 9999:
+                indent = "     "
+
+            body += "{2}{0[0]:>2}{1:>}".format(line, POSEquipment.TicketPrinter.escNewLine, indent)
 
         POSEquipment.TicketPrinter.PrintKitchenBill(body)
 
