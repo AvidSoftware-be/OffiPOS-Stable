@@ -231,3 +231,11 @@ class Ticket:
             VATLines.append([vatPct, evat, vat, tot])
 
         return VATLines
+
+    def ClearAll(self):
+        
+        cur = self.conn.cursor()
+
+        cur.execute("delete from ticketLine")
+
+        self.conn.commit()

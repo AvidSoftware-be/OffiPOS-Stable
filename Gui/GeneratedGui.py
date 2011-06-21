@@ -870,7 +870,7 @@ class PaymentFrameBase ( wx.Dialog ):
 class AdminDialogBase ( wx.Dialog ):
 	
 	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Admin", pos = wx.DefaultPosition, size = wx.Size( 116,82 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.STAY_ON_TOP|wx.SYSTEM_MENU )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Admin", pos = wx.DefaultPosition, size = wx.Size( -1,126 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.STAY_ON_TOP|wx.SYSTEM_MENU )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		
@@ -879,6 +879,9 @@ class AdminDialogBase ( wx.Dialog ):
 		self.btnKasAfsluiten = wx.Button( self, wx.ID_ANY, u"Kas Afsluiten", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer17.Add( self.btnKasAfsluiten, 0, wx.ALL, 5 )
 		
+		self.btnKasAfsluitenTest = wx.Button( self, wx.ID_ANY, u"Test Afsluiting", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer17.Add( self.btnKasAfsluitenTest, 0, wx.ALL, 5 )
+		
 		self.SetSizer( bSizer17 )
 		self.Layout()
 		
@@ -886,6 +889,7 @@ class AdminDialogBase ( wx.Dialog ):
 		
 		# Connect Events
 		self.btnKasAfsluiten.Bind( wx.EVT_BUTTON, self.btnKasAfsluitenOnButtonClick )
+		self.btnKasAfsluitenTest.Bind( wx.EVT_BUTTON, self.btnKasAfsluitenTestOnButtonClick )
 	
 	def __del__( self ):
 		pass
@@ -893,6 +897,9 @@ class AdminDialogBase ( wx.Dialog ):
 	
 	# Virtual event handlers, overide them in your derived class
 	def btnKasAfsluitenOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnKasAfsluitenTestOnButtonClick( self, event ):
 		event.Skip()
 	
 

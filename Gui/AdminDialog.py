@@ -9,6 +9,9 @@ class AdminDialog(GeneratedGui.AdminDialogBase):
         GeneratedGui.AdminDialogBase.__init__(self, parent)
 
     def btnKasAfsluitenOnButtonClick( self, event ):
-        DataModel.VATManipulations.DoEndOfDay()
+        DataModel.VATManipulations.DoEndOfDay(True)
+
+    def btnKasAfsluitenTestOnButtonClick( self, event ):
+        DataModel.VATManipulations.DoEndOfDay(False)
 
   

@@ -115,7 +115,7 @@ def PrintDayTotals(dayParam):
 
         s.write(escInitPrinter)
         s.write(escPrintNormal + '----------------------------------------' + escNewLine)
-        s.write(escPrintNormal + 'Maatsch. :ML SOLUTIONS BVBA' + escNewLine)
+        s.write(escPrintNormal + 'Maatsch. :BELGIAN FOOD GROUP BVBA' + escNewLine)
         s.write(escPrintNormal + 'B.T.W. :BE0886.290.879' + escNewLine)
         s.write(escPrintNormal + 'Site : DEN BARON' + escNewLine)
         s.write(escPrintNormal + 'Kassa Nr : 1' + escNewLine)
@@ -145,7 +145,7 @@ def PrintDayTotals(dayParam):
         s.write(escPrintNormal + '----------------------------------------' + escNewLine)
         for VATLine in dayParam['VATLines']:
             s.write(
-                escPrintNormal + '{0[0]:>10.2f}{0[1]:>510.2f}{0[2]:>10.2f}{0[3]:>10.2f}'.format(VATLine) + escNewLine)
+                escPrintNormal + '{0[0]:>10.2f}{0[1]:>5.2f}{0[2]:>10.2f}{0[3]:>10.2f}'.format(VATLine) + escNewLine)
         s.write(escPrintNormal + '        ---------   -------   ---------' + escNewLine)
         s.write(escPrintNormal + '{0[0]:>20.2f}{0[1]:>10.2f}{0[2]:>10.2f}'.format(dayParam['VATTotals']) + escNewLine)
         s.write(escNewLine + escNewLine)

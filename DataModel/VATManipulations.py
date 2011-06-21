@@ -4,7 +4,7 @@ import POSEquipment
 
 __author__ = 'dennis'
 
-def DoEndOfDay():
+def DoEndOfDay(withClear):
     dayparam = {'firstOrder': Ticket().GetFirstOrderDate(), 'lastOrder': Ticket().GetLastOrderDate()}
 
     dayparam['payedAmts'] = {'Cash': Ticket().GetPaymentTotal(DataModel.Ticket.paymentMethods['Cash']),
@@ -22,4 +22,7 @@ def DoEndOfDay():
         dayparam['VATTotals'][2] += VATLine[3]
 
     POSEquipment.TicketPrinter.PrintDayTotals(dayparam)
+
+    if withClear:
+        Ticket().ClearAll()
   
