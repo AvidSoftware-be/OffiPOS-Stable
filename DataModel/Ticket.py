@@ -114,9 +114,9 @@ class Ticket:
     def GetTicketLinesGrouped(self):
         cur = self.conn.cursor()
         cur.execute(
-            "SELECT count(productId) as qty, productName, sum(price) as lineAmt" +
-            "FROM ticketLine" +
-            "WHERE ticketNo = ?" +
+            "SELECT count(productId) as qty, productName, sum(price) as lineAmt " +
+            "FROM ticketLine " +
+            "WHERE ticketNo = ? " +
             "GROUP BY productId", (self.no))
 
         lines = cur.fetchall()
