@@ -189,6 +189,12 @@ class Ticket:
 
         return total
 
+    def GetLoyaltyCardPoints(self):
+        totalAmt = self.GetTotalAmt()
+        bracket = 2.5
+
+        return (totalAmt - (totalAmt % bracket)) / bracket
+
     def GetFirstOrderDate(self):
         cur = self.conn.cursor()
         cur.execute("select MIN(dateRegistered) from ticketLine")
