@@ -1,4 +1,5 @@
 from datetime import date, timedelta
+import wx
 import DataModel
 from DataModel.Customer import Customer
 from DataModel.Ticket import Ticket
@@ -17,6 +18,7 @@ class PaymentFrame(GeneratedGui.PaymentFrameBase):
         self.ticket = Ticket()
         self.paymentMethod = 0
         self.cancelled = False
+        self.LoyaltyPayout = False
 
         self.btnEnter.Enabled=False
 
@@ -114,7 +116,11 @@ class PaymentFrame(GeneratedGui.PaymentFrameBase):
         self.paymentMethod = DataModel.Ticket.paymentMethods["Atos"]
 
         self.ticket.PayTicket(self.paymentMethod, payed, toReturn)
-        cust.AddLoyaltyPoints(self.ticket.GetLoyaltyCardPoints())
+
+        cust = Customer()
+        cust.GetCustomerFromLoyaltyCard(self.txtKantKaart.Value)
+        if cust:
+            cust.AddLoyaltyPoints(self.ticket.GetLoyaltyCardPoints())
 
         self.Close()
 
@@ -123,7 +129,11 @@ class PaymentFrame(GeneratedGui.PaymentFrameBase):
         toReturn = float(self.txtTotalToPay.Value) - payed
 
         self.ticket.PayTicket(self.paymentMethod, payed, toReturn)
-        cust.AddLoyaltyPoints(self.ticket.GetLoyaltyCardPoints())
+
+        cust = Customer()
+        cust.GetCustomerFromLoyaltyCard(self.txtKantKaart.Value)
+        if cust:
+            cust.AddLoyaltyPoints(self.ticket.GetLoyaltyCardPoints())
 
         self.Close()
 
@@ -146,23 +156,21 @@ class PaymentFrame(GeneratedGui.PaymentFrameBase):
         else:
             self.txtCustomerName.SetValue("")
 
-        newTotalPoints = 0
         if cust.loyaltyPoints:
             self.txtPuntenKaart.SetValue("{0:>.0f}".format(cust.loyaltyPoints))
-            newTotalPoints = int(self.txtPuntenTicket.Value) + int(self.txtPuntenKaart.Value)
         else:
-            self.txtPuntenKaart.SetValue("")
+            self.txtPuntenKaart.SetValue("0")
+
+        newTotalPoints = int(self.txtPuntenTicket.Value) + int(self.txtPuntenKaart.Value)
 
         self.txtNieuwSaldo.SetValue("{0:>.0f}".format(newTotalPoints))
 
-        if cust.loyaltyDiscount and (date.today() - cust.loyaltyDiscountDate >  timedelta (days = 1)):
+        if cust.CanPayDiscount():
             self.txtKorting.SetValue("{0:>.2f}".format(cust.loyaltyDiscount))
+            self.txtTotalToPay.SetValue("{0:>.2f}".format(float(self.txtTotal.Value) - float(self.txtKorting.Value)))
 
     def txtPuntenTicketOnSetFocus( self, event ):
         self.txtKantKaart.SelectAll()
         self.txtKantKaart.SetFocus()
-
-    def btnKortingUitbetalenOnButtonClick( self, event ):
-        pass
 
   
