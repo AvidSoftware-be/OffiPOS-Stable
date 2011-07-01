@@ -47,26 +47,36 @@ class Customer:
         if self.CanPayDiscount():
             self.PayLoyaltyPoints()
         else:
-            newtotal = self.loyaltyPoints + ticketPoints
+            if self.loyaltyPoints:
+                newTotal = self.loyaltyPoints + ticketPoints
+            else:
+                newTotal = ticketPoints
 
             conn = sqlite3.connect(ini.DB_NAME)
             cur = conn.cursor()
             cur.execute("update customer set loyaltyPoints = ? where loyaltyCardNo=?",
-                    (newtotal, self.loyaltyCardNo, ))
+                    (newTotal, self.loyaltyCardNo, ))
 
-            bonus = (newtotal - (newtotal % 10)) / 10
+            bonus = (newTotal - (newTotal % ini.LOYALTYCARD_POINTS_FOR_BONUS)) / ini.LOYALTYCARD_POINTS_FOR_BONUS
             cur.execute("update customer set loyaltyDiscount = ?, loyaltyDiscountDate = ? where loyaltyCardNo=?",
-                    (2.5 * bonus, date.today(), self.loyaltyCardNo, ))
+                    (ini.LOYALTYCARD_BONUS_AMOUNT * bonus, date.today(), self.loyaltyCardNo, ))
 
             conn.commit()
+
+    def GetPointsToDeductOnBonus(self):
+        pointsToDeduct = (self.loyaltyDiscount / ini.LOYALTYCARD_BONUS_AMOUNT) * ini.LOYALTYCARD_POINTS_FOR_BONUS
+        return pointsToDeduct
 
     def PayLoyaltyPoints(self):
         conn = sqlite3.connect(ini.DB_NAME)
         cur = conn.cursor()
 
+        pointsToDeduct = self.GetPointsToDeductOnBonus()
+
+        remainingPoints = self.loyaltyPoints - pointsToDeduct
+
         cur.execute("update customer set loyaltyPoints = ?, loyaltyDiscount = ? where loyaltyCardNo=?",
-                (self.loyaltyPoints - (
-                self.loyaltyDiscount - (self.loyaltyDiscount % 2.5) / 2.5), 0, self.loyaltyCardNo, ))
+                (remainingPoints, 0, self.loyaltyCardNo, ))
 
         conn.commit()
 

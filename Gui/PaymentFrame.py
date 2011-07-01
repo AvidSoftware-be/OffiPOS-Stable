@@ -161,7 +161,10 @@ class PaymentFrame(GeneratedGui.PaymentFrameBase):
         else:
             self.txtPuntenKaart.SetValue("0")
 
-        newTotalPoints = int(self.txtPuntenTicket.Value) + int(self.txtPuntenKaart.Value)
+        if cust.CanPayDiscount():
+            newTotalPoints = cust.loyaltyPoints - cust.GetPointsToDeductOnBonus()
+        else:
+            newTotalPoints = int(self.txtPuntenTicket.Value) + int(self.txtPuntenKaart.Value)
 
         self.txtNieuwSaldo.SetValue("{0:>.0f}".format(newTotalPoints))
 

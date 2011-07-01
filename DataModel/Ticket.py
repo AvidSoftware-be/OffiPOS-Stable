@@ -191,9 +191,8 @@ class Ticket:
 
     def GetLoyaltyCardPoints(self):
         totalAmt = self.GetTotalAmt()
-        bracket = 2.5
 
-        return (totalAmt - (totalAmt % bracket)) / bracket
+        return (totalAmt - (totalAmt % ini.LOYALTYCARD_EURO_PER_POINT)) / ini.LOYALTYCARD_EURO_PER_POINT
 
     def GetFirstOrderDate(self):
         cur = self.conn.cursor()
