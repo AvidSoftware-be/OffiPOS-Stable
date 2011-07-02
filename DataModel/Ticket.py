@@ -1,4 +1,5 @@
 import datetime
+from DataModel.Customer import Customer
 from DataModel.ProductScreen import ProductScreen
 from DataModel.Product import Product
 import POSEquipment.CustomerDisplay
@@ -19,6 +20,7 @@ class Ticket:
         self.eatInOut = "O"
         self.priceMode = priceModes["pos"]
         self.conn = sqlite3.connect(ini.DB_NAME)
+        self.customer = Customer()
 
     def AddTicketLine(self, productId, isOption, parentProductId, buttonNo, screenCategory, price=0):
         product = Product(productId)
@@ -150,16 +152,22 @@ class Ticket:
 
         self.conn.commit()
 
+    def SetCustomer(self, customer):
+
+        self.customer = customer
+
+        cur = self.conn.cursor()
+
+        cur.execute("update ticketLine set customerId = ? where ticketNo=?", (customer.id, self.no,))
+
+        self.conn.commit()
+
     def _displayMessage(self, message):
         POSEquipment.CustomerDisplay.Print(message)
 
     def _printReceipt(self, paymentMethod, paidAmt, returnAmt):
-        body = ""
 
-        for (k, v) in self.GetTicketLinesGrouped().iteritems():
-            body += "{0[0]:<4} {0[1]:<26}{0[2]:>8.2f}{1:>}".format(v, POSEquipment.TicketPrinter.escNewLine)
-
-        POSEquipment.TicketPrinter.PrintBill(body, paymentMethod, self.GetTotalAmt(), paidAmt, returnAmt)
+        POSEquipment.TicketPrinter.PrintBill(self, paymentMethod, self.GetTotalAmt(), paidAmt, returnAmt, self.customer)
 
     def _printKitchen(self):
         body = ""

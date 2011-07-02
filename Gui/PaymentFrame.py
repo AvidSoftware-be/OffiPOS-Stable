@@ -115,25 +115,26 @@ class PaymentFrame(GeneratedGui.PaymentFrameBase):
 
         self.paymentMethod = DataModel.Ticket.paymentMethods["Atos"]
 
-        self.ticket.PayTicket(self.paymentMethod, payed, toReturn)
-
         cust = Customer()
         cust.GetCustomerFromLoyaltyCard(self.txtKantKaart.Value)
         if cust:
             cust.AddLoyaltyPoints(self.ticket.GetLoyaltyCardPoints())
+
+        self.ticket.SetCustomer(cust)
+        self.ticket.PayTicket(self.paymentMethod, payed, toReturn)
 
         self.Close()
 
     def btnEnterOnButtonClick( self, event ):
         payed = float(self.txtPayed.Value)
         toReturn = float(self.txtTotalToPay.Value) - payed
-
-        self.ticket.PayTicket(self.paymentMethod, payed, toReturn)
-
         cust = Customer()
         cust.GetCustomerFromLoyaltyCard(self.txtKantKaart.Value)
         if cust:
             cust.AddLoyaltyPoints(self.ticket.GetLoyaltyCardPoints())
+
+        self.ticket.SetCustomer(cust)
+        self.ticket.PayTicket(self.paymentMethod, payed, toReturn)
 
         self.Close()
 
@@ -163,14 +164,15 @@ class PaymentFrame(GeneratedGui.PaymentFrameBase):
 
         if cust.CanPayDiscount():
             newTotalPoints = cust.loyaltyPoints - cust.GetPointsToDeductOnBonus()
+            self.txtKorting.SetValue("{0:>.2f}".format(cust.loyaltyDiscount))
+            #self.txtTotalToPay.SetValue("{0:>.2f}".format(float(self.txtTotal.Value) - float(self.txtKorting.Value)))
+            self.ticket.AddTicketLine(343, False, 0, 22, 5, cust.loyaltyDiscount * -1)
+            cust.PayLoyaltyPoints()
+            self.SetTicket(self.ticket)
         else:
             newTotalPoints = int(self.txtPuntenTicket.Value) + int(self.txtPuntenKaart.Value)
 
         self.txtNieuwSaldo.SetValue("{0:>.0f}".format(newTotalPoints))
-
-        if cust.CanPayDiscount():
-            self.txtKorting.SetValue("{0:>.2f}".format(cust.loyaltyDiscount))
-            self.txtTotalToPay.SetValue("{0:>.2f}".format(float(self.txtTotal.Value) - float(self.txtKorting.Value)))
 
     def txtPuntenTicketOnSetFocus( self, event ):
         self.txtKantKaart.SelectAll()

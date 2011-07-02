@@ -222,7 +222,10 @@ class MainFrame(GeneratedGui.MainFrameBase):
             askForPriceForm = dlgAskForPrice(self)
             askForPriceForm.ShowModal()
 
-            prodPrice = askForPriceForm.Value
+            if product.askForPrice == 2:
+                prodPrice = askForPriceForm.Value * -1 #teken omdraaien
+            else:
+                prodPrice = askForPriceForm.Value
 
         self.ticket.AddTicketLine(productNo, isOption, parentProductId, buttonNoPressed, self._selectedGroup, prodPrice)
 

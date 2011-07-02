@@ -836,7 +836,7 @@ class PaymentFrameBase ( wx.Dialog ):
 		self.btnAtos.Bind( wx.EVT_BUTTON, self.btnAtosOnButtonClick )
 		self.btnClr.Bind( wx.EVT_BUTTON, self.btnClrOnButtonClick )
 		self.btnCls.Bind( wx.EVT_BUTTON, self.btnClsOnButtonClick )
-		self.txtKantKaart.Bind( wx.EVT_KEY_DOWN, self.txtKantKaartOnKeyDown )
+		self.txtKantKaart.Bind( wx.EVT_CHAR, self.txtKantKaartOnChar )
 		self.txtKantKaart.Bind( wx.EVT_KILL_FOCUS, self.txtKantKaartOnKillFocus )
 		self.txtPuntenTicket.Bind( wx.EVT_SET_FOCUS, self.txtPuntenTicketOnSetFocus )
 	
@@ -893,7 +893,7 @@ class PaymentFrameBase ( wx.Dialog ):
 	def btnClsOnButtonClick( self, event ):
 		event.Skip()
 	
-	def txtKantKaartOnKeyDown( self, event ):
+	def txtKantKaartOnChar( self, event ):
 		event.Skip()
 	
 	def txtKantKaartOnKillFocus( self, event ):
@@ -916,14 +916,25 @@ class AdminDialogBase ( wx.Dialog ):
 		
 		bSizer17 = wx.BoxSizer( wx.VERTICAL )
 		
+		sbSizer5 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Kassa" ), wx.VERTICAL )
+		
 		self.btnKasAfsluiten = wx.Button( self, wx.ID_ANY, u"Kas Afsluiten", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer17.Add( self.btnKasAfsluiten, 0, wx.ALL|wx.EXPAND, 5 )
+		sbSizer5.Add( self.btnKasAfsluiten, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		self.btnKasAfsluitenTest = wx.Button( self, wx.ID_ANY, u"Test Afsluiting", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer17.Add( self.btnKasAfsluitenTest, 0, wx.ALL|wx.EXPAND, 5 )
+		sbSizer5.Add( self.btnKasAfsluitenTest, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		self.btnTotalOnScreen = wx.Button( self, wx.ID_ANY, u"Schermtotaal", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sbSizer5.Add( self.btnTotalOnScreen, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		bSizer17.Add( sbSizer5, 1, wx.EXPAND, 5 )
+		
+		sbSizer6 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Klanten" ), wx.VERTICAL )
 		
 		self.btnKlantKaartBeheer = wx.Button( self, wx.ID_ANY, u"Klantenkaarten", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer17.Add( self.btnKlantKaartBeheer, 0, wx.ALL|wx.EXPAND, 5 )
+		sbSizer6.Add( self.btnKlantKaartBeheer, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		bSizer17.Add( sbSizer6, 1, wx.EXPAND, 5 )
 		
 		self.SetSizer( bSizer17 )
 		self.Layout()
@@ -934,6 +945,7 @@ class AdminDialogBase ( wx.Dialog ):
 		# Connect Events
 		self.btnKasAfsluiten.Bind( wx.EVT_BUTTON, self.btnKasAfsluitenOnButtonClick )
 		self.btnKasAfsluitenTest.Bind( wx.EVT_BUTTON, self.btnKasAfsluitenTestOnButtonClick )
+		self.btnTotalOnScreen.Bind( wx.EVT_BUTTON, self.btnTotalOnScreenOnButtonClick )
 		self.btnKlantKaartBeheer.Bind( wx.EVT_BUTTON, self.btnKlantKaartBeheerOnButtonClick )
 	
 	def __del__( self ):
@@ -945,6 +957,9 @@ class AdminDialogBase ( wx.Dialog ):
 		event.Skip()
 	
 	def btnKasAfsluitenTestOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnTotalOnScreenOnButtonClick( self, event ):
 		event.Skip()
 	
 	def btnKlantKaartBeheerOnButtonClick( self, event ):

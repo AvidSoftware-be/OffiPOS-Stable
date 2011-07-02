@@ -12,7 +12,7 @@ escPrintBold = "\x1B\x21\x08"
 escNewLine = "\x0D\x0A"
 escEndAndCut = "\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x0D\x0A\x1B\x69\x1B\x70\x00\xFF\x0A\x0D\x0A"
 
-def PrintBill(body, paymentMethod, totalAmt, paidAmt, returnAmt):
+def PrintBill(ticket, paymentMethod, totalAmt, paidAmt, returnAmt, customer):
     try:
         s = serial.Serial(1,
                           baudrate=9600, # baudrate
@@ -40,12 +40,20 @@ def PrintBill(body, paymentMethod, totalAmt, paidAmt, returnAmt):
         s.write(
             '{0}     {1}'.format(date.today().strftime('%d/%m/%Y'), datetime.today().strftime('%H:%M')) + escNewLine)
         s.write('-----------------------------------------' + escNewLine)
+
+        for (k, v) in ticket.GetTicketLinesGrouped().iteritems():
+            body += "{0[0]:<4} {0[1]:<26}{0[2]:>8.2f}{1:>}".format(v, escNewLine)
+
         s.write('{0}'.format(body))
         s.write('-----------------------------------------' + escNewLine)
         s.write(escPrintBig + u"Totaal: {0:>10.2f}".format(totalAmt) + escNewLine)
         s.write(u"Betaald:{0:>10.2f}".format(paidAmt) + escNewLine)
         s.write(u"Terug:  {0:>10.2f}".format(returnAmt) + escNewLine)
         s.write(escPrintNormal + 'Betalingswijze: %s' % ("Cash" if paymentMethod == 1 else "Atos") + escNewLine)
+        s.write('Klantkaart: {0:>s}'.format(customer.loyaltyCardNo) + escNewLine)
+        s.write('Punten Ticket: {0:>s}'.format(ticket.GetLoyaltyCardPoints()) + escNewLine)
+        s.write('Nieuw saldo: {0:>s}'.format(customer.loyaltyPoints) + escNewLine)
+        s.write('-----------------------------------------' + escNewLine)
         s.write('*****************************************' + escNewLine)
         s.write(escPrintBold + 'Smakelijk!' + escPrintNormal + escNewLine + escNewLine)
         s.write("{0:^40}".format('Belgian Food Group bvba') + escNewLine)
