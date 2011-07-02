@@ -50,11 +50,14 @@ def PrintBill(ticket, paymentMethod, totalAmt, paidAmt, returnAmt, customer):
         s.write(escPrintBig + u"Totaal: {0:>10.2f}".format(totalAmt) + escNewLine)
         s.write(u"Betaald:{0:>10.2f}".format(paidAmt) + escNewLine)
         s.write(u"Terug:  {0:>10.2f}".format(returnAmt) + escNewLine)
-        s.write(escPrintNormal + 'Betalingswijze: %s' % ("Cash" if paymentMethod == 1 else "Atos") + escNewLine)
-        s.write('Klantkaart: {0:>s}'.format(customer.loyaltyCardNo) + escNewLine)
-        s.write('Punten Ticket: {0:>.0f}'.format(ticket.GetLoyaltyCardPoints()) + escNewLine)
-        s.write('Nieuw saldo: {0:>.0f}'.format(customer.loyaltyPoints) + escNewLine)
-        s.write('-----------------------------------------' + escNewLine)
+        s.write(escPrintNormal + escNewLine +'Betalingswijze: %s' % ("Cash" if paymentMethod == 1 else "Atos") + escNewLine)
+
+        if customer:
+            s.write('-----------------------------------------' + escNewLine)
+            s.write('Klantkaart: {0:>s}'.format(customer.loyaltyCardNo) + escNewLine)
+            s.write('Punten Ticket: {0:>.0f}'.format(ticket.GetLoyaltyCardPoints()) + escNewLine)
+            s.write('Nieuw saldo: {0:>.0f}'.format(customer.loyaltyPoints) + escNewLine)
+
         s.write('*****************************************' + escNewLine)
         s.write(escPrintBold + 'Smakelijk!' + escPrintNormal + escNewLine + escNewLine)
         s.write("{0:^40}".format('Belgian Food Group bvba') + escNewLine)

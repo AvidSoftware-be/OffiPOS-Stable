@@ -63,6 +63,8 @@ class Customer:
 
             conn.commit()
 
+            self.loyaltyPoints= newTotal
+
     def GetPointsToDeductOnBonus(self):
         pointsToDeduct = (self.loyaltyDiscount / ini.LOYALTYCARD_BONUS_AMOUNT) * ini.LOYALTYCARD_POINTS_FOR_BONUS
         return pointsToDeduct
@@ -79,6 +81,8 @@ class Customer:
                 (remainingPoints, 0, self.loyaltyCardNo, ))
 
         conn.commit()
+
+        self.loyaltyPoints=remainingPoints
 
     def CanPayDiscount(self):
         return self.loyaltyDiscount and (date.today() - self.loyaltyDiscountDate >= timedelta(days=1))
