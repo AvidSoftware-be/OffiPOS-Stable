@@ -41,6 +41,7 @@ def PrintBill(ticket, paymentMethod, totalAmt, paidAmt, returnAmt, customer):
             '{0}     {1}'.format(date.today().strftime('%d/%m/%Y'), datetime.today().strftime('%H:%M')) + escNewLine)
         s.write('-----------------------------------------' + escNewLine)
 
+        body = ""
         for (k, v) in ticket.GetTicketLinesGrouped().iteritems():
             body += "{0[0]:<4} {0[1]:<26}{0[2]:>8.2f}{1:>}".format(v, escNewLine)
 
