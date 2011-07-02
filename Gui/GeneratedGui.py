@@ -625,20 +625,6 @@ class MainFrameBase ( wx.Frame ):
 	
 
 ###########################################################################
-## Class pnlNumPadBase
-###########################################################################
-
-class pnlNumPadBase ( wx.Panel ):
-	
-	def __init__( self, parent ):
-		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( -1,-1 ), style = wx.TAB_TRAVERSAL )
-		
-	
-	def __del__( self ):
-		pass
-	
-
-###########################################################################
 ## Class PaymentFrameBase
 ###########################################################################
 
