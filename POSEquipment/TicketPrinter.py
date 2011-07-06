@@ -93,7 +93,7 @@ def PrintKitchenBill(body, eatInOut):
 
         s.write(escInitPrinter + escPrintNormal)
         s.write('*****************************************' + escNewLine)
-        s.write(escPrintBold + "{0:^40}{1:}".format('Keukenbon') + escNewLine)
+        s.write(escPrintBold + "{0:^40}".format('Keukenbon') + escNewLine)
         s.write(escPrintNormal + '*****************************************' + escNewLine)
         s.write(
             '{0}     {1} '.format(date.today().strftime('%d/%m/%Y'), datetime.today().strftime('%H:%M')))
