@@ -1,7 +1,10 @@
-import wx
+from wx._misc import MessageBox
+from wxPython._core import wxSAVE, wxOVERWRITE_PROMPT, wxID_OK
+from wxPython._windows import wxFileDialog
 from DataModel.Ticket import Ticket
 import DataModel.VATManipulations
 from Gui.frmKlantBeheer import frmKlantBeheer
+import utils.BackupTransactions
 
 __author__ = 'dennis'
 
@@ -26,11 +29,27 @@ class AdminDialog(GeneratedGui.AdminDialogBase):
             if not total:
                 total = 0
 
-        wx.MessageBox(u"Totaal: {0:>10.2f}\u20AC".format(total))
+        MessageBox(u"Totaal: {0:>10.2f}\u20AC".format(total))
 
     def btnKlantKaartBeheerOnButtonClick( self, event ):
         kb = frmKlantBeheer(self)
 
         kb.Show()
+
+    def btnBackTransOnButtonClick( self, event ):
+        destinationFile = ""
+
+        # Create a save file dialog
+        dialog = wxFileDialog ( None, style = wxSAVE | wxOVERWRITE_PROMPT )
+
+        # Show the dialog and get user input
+        if dialog.ShowModal() == wxID_OK:
+           destinationFile = dialog.GetPath()
+
+        # Destroy the dialog
+
+        dialog.Destroy()
+
+        utils.BackupTransactions.DoBackup(destinationFile)
 
   

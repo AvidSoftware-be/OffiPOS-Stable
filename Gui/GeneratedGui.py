@@ -907,11 +907,11 @@ class PaymentFrameBase ( wx.Dialog ):
 class AdminDialogBase ( wx.Dialog ):
 	
 	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Admin", pos = wx.DefaultPosition, size = wx.Size( -1,-1 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.STAY_ON_TOP|wx.SYSTEM_MENU )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Admin", pos = wx.DefaultPosition, size = wx.Size( -1,-1 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.SYSTEM_MENU )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		
-		bSizer17 = wx.BoxSizer( wx.VERTICAL )
+		bSizer17 = wx.BoxSizer( wx.HORIZONTAL )
 		
 		sbSizer5 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Kassa" ), wx.VERTICAL )
 		
@@ -933,6 +933,17 @@ class AdminDialogBase ( wx.Dialog ):
 		
 		bSizer17.Add( sbSizer6, 1, wx.EXPAND, 5 )
 		
+		bSizer24 = wx.BoxSizer( wx.VERTICAL )
+		
+		sbSizer7 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Configuratie" ), wx.VERTICAL )
+		
+		self.btnBackTrans = wx.Button( self, wx.ID_ANY, u"Backup Transacties", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sbSizer7.Add( self.btnBackTrans, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		bSizer24.Add( sbSizer7, 1, wx.EXPAND, 5 )
+		
+		bSizer17.Add( bSizer24, 1, wx.EXPAND, 5 )
+		
 		self.SetSizer( bSizer17 )
 		self.Layout()
 		bSizer17.Fit( self )
@@ -944,6 +955,7 @@ class AdminDialogBase ( wx.Dialog ):
 		self.btnKasAfsluitenTest.Bind( wx.EVT_BUTTON, self.btnKasAfsluitenTestOnButtonClick )
 		self.btnTotalOnScreen.Bind( wx.EVT_BUTTON, self.btnTotalOnScreenOnButtonClick )
 		self.btnKlantKaartBeheer.Bind( wx.EVT_BUTTON, self.btnKlantKaartBeheerOnButtonClick )
+		self.btnBackTrans.Bind( wx.EVT_BUTTON, self.btnBackTransOnButtonClick )
 	
 	def __del__( self ):
 		pass
@@ -960,6 +972,9 @@ class AdminDialogBase ( wx.Dialog ):
 		event.Skip()
 	
 	def btnKlantKaartBeheerOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnBackTransOnButtonClick( self, event ):
 		event.Skip()
 	
 
