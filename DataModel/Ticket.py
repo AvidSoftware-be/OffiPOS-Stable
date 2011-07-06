@@ -234,7 +234,10 @@ class Ticket:
         cur = self.conn.cursor()
         cur.execute("select SUM(price) from ticketLine where paid=?", (paymentType,))
         line = cur.fetchone()
-        return line[0]
+        if line:
+            return line[0]
+        else:
+            return 0
 
 
     def GetVATLines(self):
