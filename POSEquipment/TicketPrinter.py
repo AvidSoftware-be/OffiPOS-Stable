@@ -206,10 +206,18 @@ def PrintItemTotals(totals):
 
         for line in totals:
             s.write(escPrintBold + '{0:<}'.format(line[1]) + escPrintNormal + escNewLine)
-            for itemLine in line:
-                s.write('{0[0]:>3} {0[2]:<27}{0[2]>10.2f}'.format(itemLine) + escNewLine)
+            for itemLine in line[2]:
+                s.write('{0[0]:>3} {0[2]:<27}{0[3]:>10.2f}'.format(itemLine) + escNewLine)
 
+        s.write(escNewLine + escNewLine)
+        s.write(escPrintNormal + '========================================' + escNewLine)
+        s.write(escPrintNormal + '    AFDRUKKEN OP %s OM %s' % (
+            datetime.now().strftime('%d/%m/%Y'), datetime.now().strftime('%H:%M')) + escNewLine)
+        s.write(escPrintNormal + '========================================' + escNewLine)
 
+        s.write(escEndAndCut)
+
+        s.close()
 
     except serial.serialutil.SerialException:
         pass
