@@ -52,9 +52,10 @@ class MainFrameBase ( wx.Frame ):
 		sbFuncties.Add( self.btnInOutToggle, 0, wx.ALL, 1 )
 		
 		self.btnAanbDirToggle = wx.ToggleButton( self, wx.ID_ANY, u"Aanb. Dir.", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnAanbDirToggle.SetValue( True ) 
 		self.btnAanbDirToggle.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
 		
-		sbFuncties.Add( self.btnAanbDirToggle, 0, wx.ALL, 0 )
+		sbFuncties.Add( self.btnAanbDirToggle, 0, wx.ALL, 1 )
 		
 		fgSizer1.Add( sbFuncties, 1, wx.EXPAND, 1 )
 		
@@ -924,6 +925,9 @@ class AdminDialogBase ( wx.Dialog ):
 		self.btnTotalOnScreen = wx.Button( self, wx.ID_ANY, u"Schermtotaal", wx.DefaultPosition, wx.DefaultSize, 0 )
 		sbSizer5.Add( self.btnTotalOnScreen, 0, wx.ALL|wx.EXPAND, 5 )
 		
+		self.btnArtikelTotalen = wx.Button( self, wx.ID_ANY, u"ArtikelTotalen", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sbSizer5.Add( self.btnArtikelTotalen, 0, wx.ALL|wx.EXPAND, 5 )
+		
 		bSizer17.Add( sbSizer5, 1, wx.EXPAND, 5 )
 		
 		sbSizer6 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Klanten" ), wx.VERTICAL )
@@ -954,6 +958,7 @@ class AdminDialogBase ( wx.Dialog ):
 		self.btnKasAfsluiten.Bind( wx.EVT_BUTTON, self.btnKasAfsluitenOnButtonClick )
 		self.btnKasAfsluitenTest.Bind( wx.EVT_BUTTON, self.btnKasAfsluitenTestOnButtonClick )
 		self.btnTotalOnScreen.Bind( wx.EVT_BUTTON, self.btnTotalOnScreenOnButtonClick )
+		self.btnArtikelTotalen.Bind( wx.EVT_BUTTON, self.btnArtikelTotalenOnButtonClick )
 		self.btnKlantKaartBeheer.Bind( wx.EVT_BUTTON, self.btnKlantKaartBeheerOnButtonClick )
 		self.btnBackTrans.Bind( wx.EVT_BUTTON, self.btnBackTransOnButtonClick )
 	
@@ -969,6 +974,9 @@ class AdminDialogBase ( wx.Dialog ):
 		event.Skip()
 	
 	def btnTotalOnScreenOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnArtikelTotalenOnButtonClick( self, event ):
 		event.Skip()
 	
 	def btnKlantKaartBeheerOnButtonClick( self, event ):

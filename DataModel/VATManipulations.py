@@ -25,4 +25,9 @@ def DoEndOfDay(withClear):
 
     if withClear:
         Ticket().ClearAll()
+
+def PrintItemTotals():
+    totals = Ticket().GetItemTotals()
+
+    POSEquipment.TicketPrinter.PrintItemTotals(totals)
   

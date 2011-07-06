@@ -180,7 +180,7 @@ def PrintDayTotals(dayParam):
         pass
 
 
-def PrintItemTotals():
+def PrintItemTotals(totals):
     try:
         s = serial.Serial(1,
                           baudrate=9600, # baudrate
@@ -200,6 +200,16 @@ def PrintItemTotals():
         s.open()
 
         s.write(escInitPrinter)
+        s.write(escPrintNormal + '----------------------------------------' + escNewLine)
+        s.write('  Artikelen' + escNewLine)
+        s.write('----------------------------------------' + escNewLine + escNewLine)
+
+        for line in totals:
+            s.write(escPrintBold + '{0:<}'.format(line[1]) + escPrintNormal + escNewLine)
+            for itemLine in line:
+                s.write('{0[0]:>3} {0[2]:<27}{0[2]>10.2f}'.format(itemLine) + escNewLine)
+
+
 
     except serial.serialutil.SerialException:
         pass

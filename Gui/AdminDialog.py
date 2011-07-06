@@ -31,6 +31,9 @@ class AdminDialog(GeneratedGui.AdminDialogBase):
 
         MessageBox(u"Totaal: {0:>10.2f}\u20AC".format(total))
 
+    def btnArtikelTotalenOnButtonClick( self, event ):
+        DataModel.VATManipulations.PrintItemTotals()
+
     def btnKlantKaartBeheerOnButtonClick( self, event ):
         kb = frmKlantBeheer(self)
 

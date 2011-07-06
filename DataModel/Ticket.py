@@ -23,7 +23,8 @@ class Ticket:
         self.conn = sqlite3.connect(ini.DB_NAME)
         self.customer = Customer()
 
-    def AddTicketLine(self, productId, isOption, parentProductId, buttonNo, screenCategory, price=0, discountType=discountTypes["none"]):
+    def AddTicketLine(self, productId, isOption, parentProductId, buttonNo, screenCategory, price=0,
+                      discountType=discountTypes["none"]):
         product = Product(productId)
         product.fill()
 
@@ -135,7 +136,7 @@ class Ticket:
         cur.execute(
             "SELECT productId, productName, price, isOption " +
             "FROM ticketLine " +
-            "WHERE ticketNo = ? ", (self.no,))
+            "WHERE ticketNo = ? ORDER BY productId", (self.no,))
 
         lines = cur.fetchall()
         groupedLines = {}
@@ -240,7 +241,7 @@ class Ticket:
         cur = self.conn.cursor()
         cur.execute("select SUM(price) from ticketLine where paid=?", (paymentType,))
         line = cur.fetchone()
-        if line:
+        if line[0]:
             return line[0]
         else:
             return 0
@@ -270,6 +271,31 @@ class Ticket:
             VATLines.append([vatPct, evat, vat, tot])
 
         return VATLines
+
+    def GetItemTotals(self):
+        outputLines = []
+
+        cur = self.conn.cursor()
+
+        cur.execute("select * from product_group")
+        groups = cur.fetchall()
+
+        for group in groups:
+            cur.execute("""SELECT
+                              vwItemTotals.qty,
+                              vwItemTotals.productId,
+                              vwItemTotals.productName,
+                              vwItemTotals.total,
+                              vwItemTotals.productGroupName,
+                              vwItemTotals.groupId
+                            FROM
+                              vwItemTotals
+                            WHERE
+                              vwItemTotals.groupId=?""", (group[0],))
+            lines = cur.fetchall()
+            outputLines.append([group[0], group[1], lines])
+
+        return outputLines
 
 
     def ClearAll(self):
