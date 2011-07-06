@@ -4,7 +4,7 @@ import wx
 from wxPython.grid import wxGrid
 from DataModel.ProductScreen import ProductScreen
 from DataModel.ScreenGroup import ScreenGroup
-from DataModel.Ticket import Ticket, priceModes
+from DataModel.Ticket import Ticket, priceModes, discountTypes
 from DataModel.Product import  Product
 import GeneratedGui
 
@@ -13,6 +13,8 @@ from Gui import *
 from Gui.AdminDialog import AdminDialog
 from Gui.PaymentFrame import PaymentFrame
 from Gui.dlgAskForPrice import dlgAskForPrice
+
+from datetime import date, datetime
 
 class MainFrame(GeneratedGui.MainFrameBase):
     _selectedGroup = 1
@@ -114,6 +116,14 @@ class MainFrame(GeneratedGui.MainFrameBase):
         self._updateProductButtons()
 
         self.btnRetour.SetValue(0)
+        self.btnAanbDirToggle.SetValue(0)
+
+        self.timer = wx.Timer(self)
+        self.Bind(wx.EVT_TIMER, self.updateClock, self.timer)
+        self.timer.Start(1000)
+
+    def updateClock(self,event):
+        self.SetStatusText("{0} {1}".format(date.today().strftime('%d/%m/%Y'), datetime.today().strftime('%H:%M:%S')))
 
 
     # Handlers for MainFrameBase events.
@@ -203,6 +213,7 @@ class MainFrame(GeneratedGui.MainFrameBase):
         productNo = 0
         isOption = False
         parentProductId = 0
+        mydiscountType = discountTypes["none"]
 
         if self._selectedGroup == 0:
             #dit is een optie
@@ -227,7 +238,12 @@ class MainFrame(GeneratedGui.MainFrameBase):
             else:
                 prodPrice = askForPriceForm.Value
 
-        self.ticket.AddTicketLine(productNo, isOption, parentProductId, buttonNoPressed, self._selectedGroup, prodPrice)
+        if self.btnAanbDirToggle.Value:
+            prodPrice = 0
+            mydiscountType = discountTypes["managementOffer"]
+
+        self.ticket.AddTicketLine(productNo, isOption, parentProductId, buttonNoPressed, self._selectedGroup, prodPrice,
+                                  mydiscountType)
 
         options = ProductScreen().GetOptionsForProduct(productNo)
 
@@ -331,6 +347,8 @@ class MainFrame(GeneratedGui.MainFrameBase):
         grid = self.gOrder
         table = OrderTable(ticket=self.ticket)
         grid.SetTable(table)
+        rows=table.GetNumberRows()
+        grid.MakeCellVisible(rows-1,1)
         grid.EnableEditing(False)
         grid.SetSelectionMode(wx.grid.Grid.SelectRows)
         grid.SetRowLabelSize(0)

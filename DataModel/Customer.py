@@ -42,6 +42,14 @@ class Customer:
             self.loyaltyPoints = cust[10]
             self.loyaltyDiscount = cust[11]
             self.loyaltyDiscountDate = cust[12]
+        else:
+            #bestaat nog niet dus aanmaken
+            conn = sqlite3.connect(ini.DB_NAME)
+            cur = conn.cursor()
+            cur.execute("insert into customer (loyaltyCardNo) values (?)",
+                    ( loyaltyCardNo, ))
+            conn.commit()
+
 
     def AddLoyaltyPoints(self, ticketPoints):
         if self.CanPayDiscount():

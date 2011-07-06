@@ -46,9 +46,15 @@ class MainFrameBase ( wx.Frame ):
 		sbFuncties.Add( self.btnAdmin, 0, wx.ALL, 1 )
 		
 		self.btnInOutToggle = wx.ToggleButton( self, wx.ID_ANY, u"In/Out", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnInOutToggle.SetValue( True ) 
 		self.btnInOutToggle.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
 		
 		sbFuncties.Add( self.btnInOutToggle, 0, wx.ALL, 1 )
+		
+		self.btnAanbDirToggle = wx.ToggleButton( self, wx.ID_ANY, u"Aanb. Dir.", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnAanbDirToggle.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		sbFuncties.Add( self.btnAanbDirToggle, 0, wx.ALL, 0 )
 		
 		fgSizer1.Add( sbFuncties, 1, wx.EXPAND, 1 )
 		
@@ -459,6 +465,7 @@ class MainFrameBase ( wx.Frame ):
 		
 		self.SetSizer( bSizer1 )
 		self.Layout()
+		self.m_statusBar1 = self.CreateStatusBar( 1, wx.ST_SIZEGRIP, wx.ID_ANY )
 		
 		self.Centre( wx.BOTH )
 		
@@ -466,6 +473,7 @@ class MainFrameBase ( wx.Frame ):
 		self.btnNieuwTicket.Bind( wx.EVT_BUTTON, self.btnNieuwTicketOnButtonClick )
 		self.btnAdmin.Bind( wx.EVT_BUTTON, self.btnAdminOnButtonClick )
 		self.btnInOutToggle.Bind( wx.EVT_TOGGLEBUTTON, self.btnInOutToggleOnToggleButton )
+		self.btnAanbDirToggle.Bind( wx.EVT_TOGGLEBUTTON, self.btnAanbDirToggleOnToggleButton )
 		self.btnGroupOne.Bind( wx.EVT_BUTTON, self.btnGroupOneOnButtonClick )
 		self.btnGroupThree.Bind( wx.EVT_BUTTON, self.btnGroupThreeOnButtonClick )
 		self.btnGroupFive.Bind( wx.EVT_BUTTON, self.btnGroupFiveOnButtonClick )
@@ -535,6 +543,9 @@ class MainFrameBase ( wx.Frame ):
 		event.Skip()
 	
 	def btnInOutToggleOnToggleButton( self, event ):
+		event.Skip()
+	
+	def btnAanbDirToggleOnToggleButton( self, event ):
 		event.Skip()
 	
 	def btnGroupOneOnButtonClick( self, event ):
@@ -1077,5 +1088,27 @@ class dlgAskForPriceBase ( wx.Dialog ):
 	
 	def btnClearOnButtonClick( self, event ):
 		event.Skip()
+	
+
+###########################################################################
+## Class frmKlantBeheerBase
+###########################################################################
+
+class frmKlantBeheerBase ( wx.Frame ):
+	
+	def __init__( self, parent ):
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Klantbeheer", pos = wx.DefaultPosition, size = wx.Size( 766,516 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.STAY_ON_TOP|wx.SYSTEM_MENU|wx.TAB_TRAVERSAL )
+		
+		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
+		
+		bSizer23 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.SetSizer( bSizer23 )
+		self.Layout()
+		
+		self.Centre( wx.BOTH )
+	
+	def __del__( self ):
+		pass
 	
 

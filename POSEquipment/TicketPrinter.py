@@ -50,7 +50,8 @@ def PrintBill(ticket, paymentMethod, totalAmt, paidAmt, returnAmt, customer):
         s.write(escPrintBold + u"Totaal: {0:>10.2f}".format(totalAmt) + escNewLine)
         s.write(u"Betaald:{0:>10.2f}".format(paidAmt) + escNewLine)
         s.write(u"Terug:  {0:>10.2f}".format(returnAmt) + escNewLine)
-        s.write(escPrintNormal + escNewLine +'Betalingswijze: %s' % ("Cash" if paymentMethod == 1 else "Atos") + escNewLine)
+        s.write(escPrintNormal + escNewLine + 'Betalingswijze: %s' % (
+            "Cash" if paymentMethod == 1 else "Atos") + escNewLine)
 
         if customer.id:
             s.write('-----------------------------------------' + escNewLine)
@@ -71,7 +72,7 @@ def PrintBill(ticket, paymentMethod, totalAmt, paidAmt, returnAmt, customer):
         pass
 
 
-def PrintKitchenBill(body):
+def PrintKitchenBill(body, eatInOut):
     try:
         s = serial.Serial(1,
                           baudrate=9600, # baudrate
@@ -92,11 +93,16 @@ def PrintKitchenBill(body):
 
         s.write(escInitPrinter + escPrintNormal)
         s.write('*****************************************' + escNewLine)
-        s.write(escPrintBold + "{0:^40}".format('Keukenbon') + escNewLine)
+        s.write(escPrintBold + "{0:^40}{1:}".format('Keukenbon') + escNewLine)
         s.write(escPrintNormal + '*****************************************' + escNewLine)
         s.write(
-            '{0}     {1}'.format(date.today().strftime('%d/%m/%Y'), datetime.today().strftime('%H:%M')) + escNewLine)
-        s.write('-----------------------------------------' + escNewLine)
+            '{0}     {1} '.format(date.today().strftime('%d/%m/%Y'), datetime.today().strftime('%H:%M')))
+
+        if eatInOut == 'I':
+            s.write(escPrintBold + "EAT IN" + escNewLine)
+        else:
+            s.write(escPrintBold + "TAKE OUT" + escNewLine)
+        s.write(escPrintNormal + '-----------------------------------------' + escNewLine)
         s.write(escPrintBig + body)
         s.write(escPrintNormal + '-----------------------------------------' + escNewLine)
         s.write(escEndAndCut)
@@ -173,3 +179,27 @@ def PrintDayTotals(dayParam):
     except serial.serialutil.SerialException:
         pass
 
+
+def PrintItemTotals():
+    try:
+        s = serial.Serial(1,
+                          baudrate=9600, # baudrate
+                          bytesize=8, # number of databits
+                          parity=PARITY_NONE, # enable parity checking
+                          stopbits=1, # number of stopbits
+                          timeout=3, # set a timeout value, None for waiting forever
+                          xonxoff=0, # enable software flow control
+                          rtscts=0, # enable RTS/CTS flow control
+        )
+        s.setRTS(1)
+        s.setDTR(1)
+        s.flushInput()
+        s.flushOutput()
+
+        s.close()
+        s.open()
+
+        s.write(escInitPrinter)
+
+    except serial.serialutil.SerialException:
+        pass

@@ -166,7 +166,7 @@ class PaymentFrame(GeneratedGui.PaymentFrameBase):
             newTotalPoints = cust.loyaltyPoints - cust.GetPointsToDeductOnBonus()
             self.txtKorting.SetValue("{0:>.2f}".format(cust.loyaltyDiscount))
             #self.txtTotalToPay.SetValue("{0:>.2f}".format(float(self.txtTotal.Value) - float(self.txtKorting.Value)))
-            self.ticket.AddTicketLine(343, False, 0, 22, 5, cust.loyaltyDiscount * -1)
+            self.ticket.AddTicketLine(343, False, 0, 22, 5, cust.loyaltyDiscount * -1, True)
             cust.PayLoyaltyPoints()
             self.SetTicket(self.ticket)
         else:

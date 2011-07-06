@@ -1,6 +1,7 @@
 import wx
 from DataModel.Ticket import Ticket
 import DataModel.VATManipulations
+from Gui.frmKlantBeheer import frmKlantBeheer
 
 __author__ = 'dennis'
 
@@ -26,5 +27,10 @@ class AdminDialog(GeneratedGui.AdminDialogBase):
                 total = 0
 
         wx.MessageBox(u"Totaal: {0:>10.2f}\u20AC".format(total))
+
+    def btnKlantKaartBeheerOnButtonClick( self, event ):
+        kb = frmKlantBeheer(self)
+
+        kb.Show()
 
   

@@ -13,6 +13,7 @@ import ini
 
 paymentMethods = dict(Cash=1, Atos=2)
 priceModes = dict(pos=1, neg=2)
+discountTypes = dict(none=0, managementOffer=1, loyaltyCard=2, personalUse=3)
 
 class Ticket:
     def __init__(self):
@@ -22,11 +23,11 @@ class Ticket:
         self.conn = sqlite3.connect(ini.DB_NAME)
         self.customer = Customer()
 
-    def AddTicketLine(self, productId, isOption, parentProductId, buttonNo, screenCategory, price=0):
+    def AddTicketLine(self, productId, isOption, parentProductId, buttonNo, screenCategory, price=0, discountType=discountTypes["none"]):
         product = Product(productId)
         product.fill()
 
-        if price:
+        if price or (discountType <> discountTypes["none"]):
             product.price = price #er werd een prijs meegegeven die de productprijs vervangt
 
         if isOption:
@@ -51,12 +52,12 @@ class Ticket:
 
         val = (
             self.no, productId, product.name.strip(), product.price, self.eatInOut, isOption, datetime.datetime.now(),
-            vatcode)
+            vatcode, discountType )
 
         cur = self.conn.cursor()
 
         cur.execute(
-            "insert into ticketLine (ticketNo,productId,productName,price,eatInOut,isOption,dateRegistered,vatCode) values (?,?,?,?,?,?,?,?)"
+            "insert into ticketLine (ticketNo,productId,productName,price,eatInOut,isOption,dateRegistered,vatCode,discountType) values (?,?,?,?,?,?,?,?,?)"
             , val)
 
         self.conn.commit()
@@ -67,6 +68,7 @@ class Ticket:
 
         self._displayMessage("{0:<15s}".format(lastline[0]) + "{0:>5.2f}".format(lastline[1]) +
                              "Subtotaal:".ljust(15, ' ') + "{0:>5.2f}".format(totalAmt).ljust(5, ' '))
+
 
     def CreateNewTicket(self):
         cur = self.conn.cursor()
@@ -82,6 +84,7 @@ class Ticket:
         self._displayMessage("                    " +
                              "       Welkom       ")
 
+
     def CancelTicket(self):
         cur = self.conn.cursor()
 
@@ -91,6 +94,7 @@ class Ticket:
 
         self._displayMessage("                    " +
                              "   Tot weerziens!   ")
+
 
     def PayTicket(self, paymentMethod, paidAmt, returnAmt):
         cur = self.conn.cursor()
@@ -104,6 +108,7 @@ class Ticket:
         self._displayMessage("                    " +
                              "   Tot weerziens!   ")
 
+
     def SetEatInOut(self, code):
         cur = self.conn.cursor()
 
@@ -112,6 +117,7 @@ class Ticket:
         self.conn.commit()
 
         self.eatInOut = code
+
 
     def GetTicketLines(self):
         cur = self.conn.cursor()
@@ -122,6 +128,7 @@ class Ticket:
         lines = cur.fetchall()
 
         return lines
+
 
     def GetTicketLinesGrouped(self):
         cur = self.conn.cursor()
@@ -145,6 +152,7 @@ class Ticket:
 
         return groupedLines
 
+
     def DeleteTickeLine(self, entryNo):
         cur = self.conn.cursor()
 
@@ -152,8 +160,8 @@ class Ticket:
 
         self.conn.commit()
 
-    def SetCustomer(self, customer):
 
+    def SetCustomer(self, customer):
         self.customer = customer
 
         cur = self.conn.cursor()
@@ -162,12 +170,14 @@ class Ticket:
 
         self.conn.commit()
 
+
     def _displayMessage(self, message):
         POSEquipment.CustomerDisplay.Print(message)
 
-    def _printReceipt(self, paymentMethod, paidAmt, returnAmt):
 
+    def _printReceipt(self, paymentMethod, paidAmt, returnAmt):
         POSEquipment.TicketPrinter.PrintBill(self, paymentMethod, self.GetTotalAmt(), paidAmt, returnAmt, self.customer)
+
 
     def _printKitchen(self):
         body = ""
@@ -177,7 +187,8 @@ class Ticket:
         for (k, v) in self.GetTicketLinesGrouped().iteritems():
             body += "{0[0]:>2} {0[1]:>}{1:>}".format(v, POSEquipment.TicketPrinter.escNewLine)
 
-        body += "{2:>}{0:*>39}{1:>}".format('*', POSEquipment.TicketPrinter.escNewLine, POSEquipment.TicketPrinter.escPrintNormal) #lijntje
+        body += "{2:>}{0:*>39}{1:>}".format('*', POSEquipment.TicketPrinter.escNewLine,
+                                            POSEquipment.TicketPrinter.escPrintNormal) #lijntje
 
         for line in self.GetTicketLines():
             indent = ""
@@ -186,7 +197,8 @@ class Ticket:
 
             body += "{2}{0[0]:>2}{1:>}".format(line, POSEquipment.TicketPrinter.escNewLine, indent)
 
-        POSEquipment.TicketPrinter.PrintKitchenBill(body)
+        POSEquipment.TicketPrinter.PrintKitchenBill(body, self.eatInOut)
+
 
     def GetTotalAmt(self):
         ticketLines = self.GetTicketLines()
@@ -197,10 +209,12 @@ class Ticket:
 
         return total
 
+
     def GetLoyaltyCardPoints(self):
         totalAmt = self.GetTotalAmt()
 
         return (totalAmt - (totalAmt % ini.LOYALTYCARD_EURO_PER_POINT)) / ini.LOYALTYCARD_EURO_PER_POINT
+
 
     def GetFirstOrderDate(self):
         cur = self.conn.cursor()
@@ -208,17 +222,20 @@ class Ticket:
         line = cur.fetchone()
         return ParseDateTimeUTC(line[0])
 
+
     def GetLastOrderDate(self):
         cur = self.conn.cursor()
         cur.execute("select MAX(dateRegistered) from ticketLine")
         line = cur.fetchone()
         return ParseDateTimeUTC(line[0])
 
+
     def GetPaymentTotal(self, paymentType):
         cur = self.conn.cursor()
         cur.execute("select SUM(price) from ticketLine where paid=?", (paymentType,))
         line = cur.fetchone()
         return line[0]
+
 
     def GetVATLines(self):
         cur = self.conn.cursor()
@@ -245,8 +262,8 @@ class Ticket:
 
         return VATLines
 
+
     def ClearAll(self):
-        
         cur = self.conn.cursor()
 
         cur.execute("delete from ticketLine")
