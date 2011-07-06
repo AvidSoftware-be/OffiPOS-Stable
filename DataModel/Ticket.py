@@ -220,14 +220,20 @@ class Ticket:
         cur = self.conn.cursor()
         cur.execute("select MIN(dateRegistered) from ticketLine")
         line = cur.fetchone()
-        return ParseDateTimeUTC(line[0])
+        if line:
+            return ParseDateTimeUTC(line[0])
+        else:
+            return 0
 
 
     def GetLastOrderDate(self):
         cur = self.conn.cursor()
         cur.execute("select MAX(dateRegistered) from ticketLine")
         line = cur.fetchone()
-        return ParseDateTimeUTC(line[0])
+        if line:
+            return ParseDateTimeUTC(line[0])
+        else:
+            return 0
 
 
     def GetPaymentTotal(self, paymentType):

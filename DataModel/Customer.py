@@ -21,6 +21,10 @@ class Customer:
         self.loyaltyDiscountDate = date.today()
 
     def GetCustomerFromLoyaltyCard(self, loyaltyCardNo):
+        
+        if loyaltyCardNo =="":
+            return
+
         conn = sqlite3.connect(ini.DB_NAME, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES)
         cur = conn.cursor()
         cur.execute(

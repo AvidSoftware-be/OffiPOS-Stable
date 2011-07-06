@@ -96,12 +96,12 @@ def PrintKitchenBill(body, eatInOut):
         s.write(escPrintBold + "{0:^40}".format('Keukenbon') + escNewLine)
         s.write(escPrintNormal + '*****************************************' + escNewLine)
         s.write(
-            '{0}     {1} '.format(date.today().strftime('%d/%m/%Y'), datetime.today().strftime('%H:%M')))
+            '{0}     {1}'.format(date.today().strftime('%d/%m/%Y'), datetime.today().strftime('%H:%M')))
 
         if eatInOut == 'I':
-            s.write(escPrintBold + "EAT IN" + escNewLine)
+            s.write(escPrintBold + "              EAT IN" + escNewLine)
         else:
-            s.write(escPrintBold + "TAKE OUT" + escNewLine)
+            s.write(escPrintBold + "            TAKE OUT" + escNewLine)
         s.write(escPrintNormal + '-----------------------------------------' + escNewLine)
         s.write(escPrintBig + body)
         s.write(escPrintNormal + '-----------------------------------------' + escNewLine)
