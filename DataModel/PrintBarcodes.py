@@ -1,8 +1,8 @@
 __author__ = 'dennis'
 
 def PrintSheet(prefix):
-    startNum = 1
-    endNum = 56
+    startNum = 113
+    endNum = 168
 
     f = open("./klantkaarten.txt","w")
     f.write("nummer;\r")

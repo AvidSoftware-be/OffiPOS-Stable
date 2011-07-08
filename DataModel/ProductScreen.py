@@ -61,3 +61,11 @@ class ProductScreen:
                 (parentProductId, buttonNo))
         result = cur.fetchone()
         return result[0]
+
+    def GetNextScreenForOption(self, parentProductId, optionProductId, buttonNo):
+        conn = sqlite3.connect(ini.DB_NAME)
+        cur = conn.cursor()
+        cur.execute("select nextScreenGroup from productOption where productId=? and optionProductId = ? and buttonNo=?",
+                (parentProductId, optionProductId, buttonNo))
+        result = cur.fetchone()
+        return result[0]

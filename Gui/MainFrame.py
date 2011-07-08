@@ -214,7 +214,7 @@ class MainFrame(GeneratedGui.MainFrameBase):
         parentProductId = 0
         mydiscountType = discountTypes["none"]
 
-        if self._selectedGroup == 0:
+        if not self._selectedGroup:
             #dit is een optie
             ticketLines = self.ticket.GetTicketLines()
             parentProductId = ticketLines[len(ticketLines) - 1][3]
@@ -233,7 +233,7 @@ class MainFrame(GeneratedGui.MainFrameBase):
             askForPriceForm.ShowModal()
 
             if product.askForPrice == 2:
-                prodPrice = askForPriceForm.Value * -1 #teken omdraaien
+                prodPrice = askForPriceForm.Value * -1 #teken omdraaien, bvb in geval van korting
             else:
                 prodPrice = askForPriceForm.Value
 
@@ -250,7 +250,7 @@ class MainFrame(GeneratedGui.MainFrameBase):
             self._updateProductButtonsForOption(productNo, options)
 
         if isOption:
-            self._selectedGroup = 1
+            self._selectedGroup = ProductScreen().GetNextScreenForOption(parentProductId, productNo, buttonNoPressed)
             self._updateProductButtons()
 
         self._updateGrid()
