@@ -950,7 +950,7 @@ class AdminDialogBase ( wx.Dialog ):
 		
 		sbSizer6 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Klanten" ), wx.VERTICAL )
 		
-		self.btnKlantKaartBeheer = wx.Button( self, wx.ID_ANY, u"Klantenkaarten", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.btnKlantKaartBeheer = wx.Button( self, wx.ID_ANY, u"Klantenbeheer", wx.DefaultPosition, wx.DefaultSize, 0 )
 		sbSizer6.Add( self.btnKlantKaartBeheer, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		bSizer17.Add( sbSizer6, 1, wx.EXPAND, 5 )
@@ -1138,14 +1138,180 @@ class dlgAskForPriceBase ( wx.Dialog ):
 class frmKlantBeheerBase ( wx.Frame ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Klantbeheer", pos = wx.DefaultPosition, size = wx.Size( 766,516 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.STAY_ON_TOP|wx.SYSTEM_MENU|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Klantbeheer", pos = wx.DefaultPosition, size = wx.Size( -1,-1 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.STAY_ON_TOP|wx.SYSTEM_MENU|wx.TAB_TRAVERSAL )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		
 		bSizer23 = wx.BoxSizer( wx.VERTICAL )
 		
+		bSizer26 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.m_grid2 = wx.grid.Grid( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
+		
+		# Grid
+		self.m_grid2.CreateGrid( 25, 5 )
+		self.m_grid2.EnableEditing( True )
+		self.m_grid2.EnableGridLines( True )
+		self.m_grid2.EnableDragGridSize( False )
+		self.m_grid2.SetMargins( 0, 0 )
+		
+		# Columns
+		self.m_grid2.AutoSizeColumns()
+		self.m_grid2.EnableDragColMove( False )
+		self.m_grid2.EnableDragColSize( True )
+		self.m_grid2.SetColLabelSize( 30 )
+		self.m_grid2.SetColLabelAlignment( wx.ALIGN_CENTRE, wx.ALIGN_CENTRE )
+		
+		# Rows
+		self.m_grid2.EnableDragRowSize( True )
+		self.m_grid2.SetRowLabelSize( 30 )
+		self.m_grid2.SetRowLabelAlignment( wx.ALIGN_CENTRE, wx.ALIGN_CENTRE )
+		
+		# Label Appearance
+		
+		# Cell Defaults
+		self.m_grid2.SetDefaultCellAlignment( wx.ALIGN_LEFT, wx.ALIGN_TOP )
+		bSizer26.Add( self.m_grid2, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		bSizer27 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.btnBewerk = wx.Button( self, wx.ID_ANY, u"Bewerk", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer27.Add( self.btnBewerk, 0, wx.ALL, 5 )
+		
+		self.btnNieuw = wx.Button( self, wx.ID_ANY, u"Nieuw", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer27.Add( self.btnNieuw, 0, wx.ALL, 5 )
+		
+		self.btnVerwijder = wx.Button( self, wx.ID_ANY, u"Verwijder", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer27.Add( self.btnVerwijder, 0, wx.ALL, 5 )
+		
+		bSizer26.Add( bSizer27, 1, wx.EXPAND, 5 )
+		
+		bSizer23.Add( bSizer26, 1, wx.EXPAND, 5 )
+		
 		self.SetSizer( bSizer23 )
 		self.Layout()
+		bSizer23.Fit( self )
+		
+		self.Centre( wx.BOTH )
+		
+		# Connect Events
+		self.btnBewerk.Bind( wx.EVT_BUTTON, self.btnBewerkOnButtonClick )
+		self.btnNieuw.Bind( wx.EVT_BUTTON, self.btnNieuwOnButtonClick )
+		self.btnVerwijder.Bind( wx.EVT_BUTTON, self.btnVerwijderOnButtonClick )
+	
+	def __del__( self ):
+		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def btnBewerkOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnNieuwOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnVerwijderOnButtonClick( self, event ):
+		event.Skip()
+	
+
+###########################################################################
+## Class dlgCustomerEditBase
+###########################################################################
+
+class dlgCustomerEditBase ( wx.Dialog ):
+	
+	def __init__( self, parent ):
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Klant Beheren", pos = wx.DefaultPosition, size = wx.DefaultSize, style = wx.DEFAULT_DIALOG_STYLE )
+		
+		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
+		
+		bSizer28 = wx.BoxSizer( wx.VERTICAL )
+		
+		fgSizer6 = wx.FlexGridSizer( 11, 2, 0, 0 )
+		fgSizer6.SetFlexibleDirection( wx.BOTH )
+		fgSizer6.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
+		
+		self.m_staticText12 = wx.StaticText( self, wx.ID_ANY, u"Nr.", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText12.Wrap( -1 )
+		fgSizer6.Add( self.m_staticText12, 0, wx.ALL, 5 )
+		
+		self.txtNr = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_READONLY )
+		fgSizer6.Add( self.txtNr, 0, wx.ALL, 5 )
+		
+		self.m_staticText13 = wx.StaticText( self, wx.ID_ANY, u"Klantkaart", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText13.Wrap( -1 )
+		fgSizer6.Add( self.m_staticText13, 0, wx.ALL, 5 )
+		
+		self.txtKlantkaart = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 360,-1 ), 0 )
+		fgSizer6.Add( self.txtKlantkaart, 0, wx.ALL, 5 )
+		
+		self.m_staticText14 = wx.StaticText( self, wx.ID_ANY, u"Naam", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText14.Wrap( -1 )
+		fgSizer6.Add( self.m_staticText14, 0, wx.ALL, 5 )
+		
+		self.txtNaam = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 360,-1 ), 0 )
+		fgSizer6.Add( self.txtNaam, 0, wx.ALL, 5 )
+		
+		self.m_staticText15 = wx.StaticText( self, wx.ID_ANY, u"Voornaam", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText15.Wrap( -1 )
+		fgSizer6.Add( self.m_staticText15, 0, wx.ALL, 5 )
+		
+		self.txtVoornaam = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 360,-1 ), 0 )
+		fgSizer6.Add( self.txtVoornaam, 0, wx.ALL, 5 )
+		
+		self.m_staticText16 = wx.StaticText( self, wx.ID_ANY, u"Adres", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText16.Wrap( -1 )
+		fgSizer6.Add( self.m_staticText16, 0, wx.ALL, 5 )
+		
+		self.txtAdres = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 360,-1 ), 0 )
+		fgSizer6.Add( self.txtAdres, 0, wx.ALL, 5 )
+		
+		self.m_staticText17 = wx.StaticText( self, wx.ID_ANY, u"Postcode", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText17.Wrap( -1 )
+		fgSizer6.Add( self.m_staticText17, 0, wx.ALL, 5 )
+		
+		bSizer29 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.txtPostcode = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer29.Add( self.txtPostcode, 0, wx.ALL, 5 )
+		
+		self.txtGemeente = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 250,-1 ), 0 )
+		bSizer29.Add( self.txtGemeente, 0, wx.ALL, 5 )
+		
+		fgSizer6.Add( bSizer29, 1, wx.EXPAND, 5 )
+		
+		self.m_staticText19 = wx.StaticText( self, wx.ID_ANY, u"Tel/GSM", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText19.Wrap( -1 )
+		fgSizer6.Add( self.m_staticText19, 0, wx.ALL, 5 )
+		
+		self.txtTelefoon = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 360,-1 ), 0 )
+		fgSizer6.Add( self.txtTelefoon, 0, wx.ALL, 5 )
+		
+		self.m_staticText20 = wx.StaticText( self, wx.ID_ANY, u"Geb. Datum", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText20.Wrap( -1 )
+		fgSizer6.Add( self.m_staticText20, 0, wx.ALL, 5 )
+		
+		self.datePickerGeboorte = wx.DatePickerCtrl( self, wx.ID_ANY, wx.DefaultDateTime, wx.DefaultPosition, wx.DefaultSize, wx.DP_DEFAULT )
+		fgSizer6.Add( self.datePickerGeboorte, 0, wx.ALL, 5 )
+		
+		self.m_staticText21 = wx.StaticText( self, wx.ID_ANY, u"Emailadres", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText21.Wrap( -1 )
+		fgSizer6.Add( self.m_staticText21, 0, wx.ALL, 5 )
+		
+		self.txtEmailadres = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 360,-1 ), 0 )
+		fgSizer6.Add( self.txtEmailadres, 0, wx.ALL, 5 )
+		
+		self.btnOpslaan = wx.Button( self, wx.ID_ANY, u"Opslaan", wx.DefaultPosition, wx.DefaultSize, 0 )
+		fgSizer6.Add( self.btnOpslaan, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		self.btnOpslaanEnNieuw = wx.Button( self, wx.ID_ANY, u"Opslaan +\nNieuw", wx.DefaultPosition, wx.DefaultSize, 0 )
+		fgSizer6.Add( self.btnOpslaanEnNieuw, 0, wx.ALL, 5 )
+		
+		bSizer28.Add( fgSizer6, 1, wx.EXPAND, 5 )
+		
+		self.SetSizer( bSizer28 )
+		self.Layout()
+		bSizer28.Fit( self )
 		
 		self.Centre( wx.BOTH )
 	
