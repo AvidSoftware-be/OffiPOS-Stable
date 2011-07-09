@@ -22,6 +22,7 @@ class Ticket:
         self.priceMode = priceModes["pos"]
         self.conn = sqlite3.connect(ini.DB_NAME)
         self.customer = Customer()
+        self.KitchenPrinted = False
 
     def AddTicketLine(self, productId, isOption, parentProductId, buttonNo, screenCategory, price=0,
                       discountType=discountTypes["none"]):
@@ -104,7 +105,8 @@ class Ticket:
 
         self.conn.commit()
         self._printReceipt(paymentMethod, paidAmt, returnAmt)
-        self._printKitchen()
+        if not self.KitchenPrinted:
+            self.PrintKitchen()
 
         self._displayMessage("                    " +
                              "   Tot weerziens!   ")
@@ -180,7 +182,7 @@ class Ticket:
         POSEquipment.TicketPrinter.PrintBill(self, paymentMethod, self.GetTotalAmt(), paidAmt, returnAmt, self.customer)
 
 
-    def _printKitchen(self):
+    def PrintKitchen(self):
         body = ""
 
         lines = self.GetTicketLinesGrouped()
@@ -199,6 +201,8 @@ class Ticket:
             body += "{2}{0[0]:>2}{1:>}".format(line, POSEquipment.TicketPrinter.escNewLine, indent)
 
         POSEquipment.TicketPrinter.PrintKitchenBill(body, self.eatInOut)
+
+        self.KitchenPrinted = True
 
 
     def GetTotalAmt(self):

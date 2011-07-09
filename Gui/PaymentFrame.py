@@ -4,12 +4,13 @@ import DataModel
 from DataModel.Customer import Customer
 from DataModel.Ticket import Ticket
 
+from Gui.dlgAskForPrice import dlgAskForPrice
+
 __author__ = 'dennis'
 
 import GeneratedGui
 
 # Implementing MainFrameBase
-from Gui import *
 
 class PaymentFrame(GeneratedGui.PaymentFrameBase):
     def __init__( self, parent ):
@@ -149,19 +150,17 @@ class PaymentFrame(GeneratedGui.PaymentFrameBase):
         self.cancelled = True
         self.Close()
 
-    def txtKantKaartOnKillFocus( self, event ):
+    def ValidateLoyaltyCard(self):
         cust = Customer()
         cust.GetCustomerFromLoyaltyCard(self.txtKantKaart.Value)
         if cust.firstName:
-            self.txtCustomerName.SetValue("{0:>s} {1:>s}".format(cust.firstName,cust.name))
+            self.txtCustomerName.SetValue("{0:>s} {1:>s}".format(cust.firstName, cust.name))
         else:
             self.txtCustomerName.SetValue("")
-
         if cust.loyaltyPoints:
             self.txtPuntenKaart.SetValue("{0:>.0f}".format(cust.loyaltyPoints))
         else:
             self.txtPuntenKaart.SetValue("0")
-
         if cust.CanPayDiscount():
             newTotalPoints = cust.loyaltyPoints - cust.GetPointsToDeductOnBonus()
             self.txtKorting.SetValue("{0:>.2f}".format(cust.loyaltyDiscount))
@@ -171,11 +170,29 @@ class PaymentFrame(GeneratedGui.PaymentFrameBase):
             self.SetTicket(self.ticket)
         else:
             newTotalPoints = int(self.txtPuntenTicket.Value) + int(self.txtPuntenKaart.Value)
-
         self.txtNieuwSaldo.SetValue("{0:>.0f}".format(newTotalPoints))
+
+    def txtKantKaartOnKillFocus( self, event ):
+        self.ValidateLoyaltyCard()
 
     def txtPuntenTicketOnSetFocus( self, event ):
         self.txtKantKaart.SelectAll()
         self.txtKantKaart.SetFocus()
 
+    def btnAddLoyaltyPointsOnButtonClick( self, event ):
+        askForPriceForm = dlgAskForPrice(self)
+        askForPriceForm.ShowModal()
+        
+        cust = Customer()
+        cust.GetCustomerFromLoyaltyCard(self.txtKantKaart.Value)
+        if cust:
+            cust.AddLoyaltyPoints(askForPriceForm.Value)
+
+        self.txtKantKaart.SelectAll()
+        self.txtKantKaart.SetFocus()
+
+        self.ValidateLoyaltyCard()
+
+    def btnPrintKitchenOnButtonClick( self, event ):
+        self.ticket.PrintKitchen()
   

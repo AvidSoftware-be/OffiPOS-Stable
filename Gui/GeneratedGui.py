@@ -729,11 +729,18 @@ class PaymentFrameBase ( wx.Dialog ):
 		fgSizer5.SetFlexibleDirection( wx.BOTH )
 		fgSizer5.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 		
+		self.m_staticText13 = wx.StaticText( self, wx.ID_ANY, u"Klantnaam", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText13.Wrap( -1 )
+		fgSizer5.Add( self.m_staticText13, 0, wx.ALL, 5 )
+		
+		self.txtCustomerName = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 200,-1 ), wx.TE_READONLY )
+		fgSizer5.Add( self.txtCustomerName, 0, wx.ALL, 0 )
+		
 		self.m_staticText51 = wx.StaticText( self, wx.ID_ANY, u"Klantkaart", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText51.Wrap( -1 )
 		fgSizer5.Add( self.m_staticText51, 0, wx.ALL, 5 )
 		
-		self.txtKantKaart = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( -1,-1 ), 0|wx.WANTS_CHARS )
+		self.txtKantKaart = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
 		fgSizer5.Add( self.txtKantKaart, 0, wx.ALL, 0 )
 		
 		self.m_staticText6 = wx.StaticText( self, wx.ID_ANY, u"Punten Ticket", wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -754,8 +761,15 @@ class PaymentFrameBase ( wx.Dialog ):
 		self.m_staticText8.Wrap( -1 )
 		fgSizer5.Add( self.m_staticText8, 0, wx.ALL, 5 )
 		
+		bSizer25 = wx.BoxSizer( wx.HORIZONTAL )
+		
 		self.txtNieuwSaldo = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_READONLY )
-		fgSizer5.Add( self.txtNieuwSaldo, 0, wx.ALL, 0 )
+		bSizer25.Add( self.txtNieuwSaldo, 0, wx.ALL, 0 )
+		
+		self.btnAddLoyaltyPoints = wx.Button( self, wx.ID_ANY, u"Toevoegen", wx.DefaultPosition, wx.Size( -1,25 ), 0 )
+		bSizer25.Add( self.btnAddLoyaltyPoints, 0, 0, 0 )
+		
+		fgSizer5.Add( bSizer25, 1, wx.EXPAND, 5 )
 		
 		self.m_staticText81 = wx.StaticText( self, wx.ID_ANY, u"Verworven korting", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText81.Wrap( -1 )
@@ -764,12 +778,8 @@ class PaymentFrameBase ( wx.Dialog ):
 		self.txtKorting = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_READONLY )
 		fgSizer5.Add( self.txtKorting, 0, wx.ALL, 0 )
 		
-		self.m_staticText13 = wx.StaticText( self, wx.ID_ANY, u"Klantnaam", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText13.Wrap( -1 )
-		fgSizer5.Add( self.m_staticText13, 0, wx.ALL, 5 )
-		
-		self.txtCustomerName = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 200,-1 ), wx.TE_READONLY )
-		fgSizer5.Add( self.txtCustomerName, 0, wx.ALL, 0 )
+		self.btnPrintKitchen = wx.Button( self, wx.ID_ANY, u"Keuken\nbon", wx.DefaultPosition, wx.Size( 60,60 ), 0 )
+		fgSizer5.Add( self.btnPrintKitchen, 0, wx.ALIGN_RIGHT, 5 )
 		
 		bSizer20.Add( fgSizer5, 1, wx.EXPAND, 5 )
 		
@@ -837,6 +847,8 @@ class PaymentFrameBase ( wx.Dialog ):
 		self.txtKantKaart.Bind( wx.EVT_CHAR, self.txtKantKaartOnChar )
 		self.txtKantKaart.Bind( wx.EVT_KILL_FOCUS, self.txtKantKaartOnKillFocus )
 		self.txtPuntenTicket.Bind( wx.EVT_SET_FOCUS, self.txtPuntenTicketOnSetFocus )
+		self.btnAddLoyaltyPoints.Bind( wx.EVT_BUTTON, self.btnAddLoyaltyPointsOnButtonClick )
+		self.btnPrintKitchen.Bind( wx.EVT_BUTTON, self.btnPrintKitchenOnButtonClick )
 	
 	def __del__( self ):
 		pass
@@ -898,6 +910,12 @@ class PaymentFrameBase ( wx.Dialog ):
 		event.Skip()
 	
 	def txtPuntenTicketOnSetFocus( self, event ):
+		event.Skip()
+	
+	def btnAddLoyaltyPointsOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnPrintKitchenOnButtonClick( self, event ):
 		event.Skip()
 	
 

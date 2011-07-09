@@ -205,14 +205,21 @@ def PrintItemTotals(totals):
         s.write('----------------------------------------' + escNewLine + escNewLine)
 
         for line in totals:
-            s.write(escPrintBold + '{0:<}'.format(line[1]) + escPrintNormal + escNewLine)
+            s.write(escPrintBold + '{0:<}'.format(line[1]) + escPrintNormal + escNewLine) #groepnaam
+            itemQtyTotal = 0
+            amountTotal = 0
             for itemLine in line[2]:
-                s.write('{0[0]:>3} {0[2]:<27}{0[3]:>10.2f}'.format(itemLine) + escNewLine)
+                s.write('{0[0]:>3} {0[1]:>4d}{0[2]:<22}{0[3]:>10.2f}'.format(itemLine) + escNewLine) #artikel
+                itemQtyTotal += itemLine[0]
+                amountTotal += itemLine[3]
+
+            s.write(
+                escPrintBold + '{0:>3}{1:>37.2f}'.format(itemQtyTotal, amountTotal) + escNewLine + escNewLine) #totalen
 
         s.write(escNewLine + escNewLine)
         s.write(escPrintNormal + '========================================' + escNewLine)
-        s.write(escPrintNormal + '    AFDRUKKEN OP %s OM %s' % (
-            datetime.now().strftime('%d/%m/%Y'), datetime.now().strftime('%H:%M')) + escNewLine)
+        s.write(escPrintNormal + '    AFDRUKKEN OP {0:>s} OM {1:>s}'.format(datetime.now().strftime('%d/%m/%Y'),
+                                                                            datetime.now().strftime('%H:%M')) + escNewLine)
         s.write(escPrintNormal + '========================================' + escNewLine)
 
         s.write(escEndAndCut)
