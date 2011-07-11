@@ -1146,32 +1146,32 @@ class frmKlantBeheerBase ( wx.Frame ):
 		
 		bSizer26 = wx.BoxSizer( wx.VERTICAL )
 		
-		self.m_grid2 = wx.grid.Grid( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.grdCustomer = wx.grid.Grid( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
 		
 		# Grid
-		self.m_grid2.CreateGrid( 25, 5 )
-		self.m_grid2.EnableEditing( True )
-		self.m_grid2.EnableGridLines( True )
-		self.m_grid2.EnableDragGridSize( False )
-		self.m_grid2.SetMargins( 0, 0 )
+		self.grdCustomer.CreateGrid( 25, 5 )
+		self.grdCustomer.EnableEditing( True )
+		self.grdCustomer.EnableGridLines( True )
+		self.grdCustomer.EnableDragGridSize( False )
+		self.grdCustomer.SetMargins( 0, 0 )
 		
 		# Columns
-		self.m_grid2.AutoSizeColumns()
-		self.m_grid2.EnableDragColMove( False )
-		self.m_grid2.EnableDragColSize( True )
-		self.m_grid2.SetColLabelSize( 30 )
-		self.m_grid2.SetColLabelAlignment( wx.ALIGN_CENTRE, wx.ALIGN_CENTRE )
+		self.grdCustomer.AutoSizeColumns()
+		self.grdCustomer.EnableDragColMove( False )
+		self.grdCustomer.EnableDragColSize( True )
+		self.grdCustomer.SetColLabelSize( 30 )
+		self.grdCustomer.SetColLabelAlignment( wx.ALIGN_CENTRE, wx.ALIGN_CENTRE )
 		
 		# Rows
-		self.m_grid2.EnableDragRowSize( True )
-		self.m_grid2.SetRowLabelSize( 30 )
-		self.m_grid2.SetRowLabelAlignment( wx.ALIGN_CENTRE, wx.ALIGN_CENTRE )
+		self.grdCustomer.EnableDragRowSize( True )
+		self.grdCustomer.SetRowLabelSize( 30 )
+		self.grdCustomer.SetRowLabelAlignment( wx.ALIGN_CENTRE, wx.ALIGN_CENTRE )
 		
 		# Label Appearance
 		
 		# Cell Defaults
-		self.m_grid2.SetDefaultCellAlignment( wx.ALIGN_LEFT, wx.ALIGN_TOP )
-		bSizer26.Add( self.m_grid2, 0, wx.ALL|wx.EXPAND, 5 )
+		self.grdCustomer.SetDefaultCellAlignment( wx.ALIGN_LEFT, wx.ALIGN_TOP )
+		bSizer26.Add( self.grdCustomer, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		bSizer27 = wx.BoxSizer( wx.HORIZONTAL )
 		
@@ -1314,8 +1314,20 @@ class dlgCustomerEditBase ( wx.Dialog ):
 		bSizer28.Fit( self )
 		
 		self.Centre( wx.BOTH )
+		
+		# Connect Events
+		self.btnOpslaan.Bind( wx.EVT_BUTTON, self.btnOpslaanOnButtonClick )
+		self.btnOpslaanEnNieuw.Bind( wx.EVT_BUTTON, self.btnOpslaanEnNieuwOnButtonClick )
 	
 	def __del__( self ):
 		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def btnOpslaanOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnOpslaanEnNieuwOnButtonClick( self, event ):
+		event.Skip()
 	
 

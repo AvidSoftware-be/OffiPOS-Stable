@@ -8052,7 +8052,7 @@
                                 <property name="margin_width">0</property>
                                 <property name="maximum_size"></property>
                                 <property name="minimum_size"></property>
-                                <property name="name">m_grid2</property>
+                                <property name="name">grdCustomer</property>
                                 <property name="permission">protected</property>
                                 <property name="pos"></property>
                                 <property name="row_label_horiz_alignment">wxALIGN_CENTRE</property>
@@ -9534,7 +9534,7 @@
                                 <property name="window_extra_style"></property>
                                 <property name="window_name"></property>
                                 <property name="window_style"></property>
-                                <event name="OnButtonClick"></event>
+                                <event name="OnButtonClick">btnOpslaanOnButtonClick</event>
                                 <event name="OnChar"></event>
                                 <event name="OnEnterWindow"></event>
                                 <event name="OnEraseBackground"></event>
@@ -9591,7 +9591,7 @@
                                 <property name="window_extra_style"></property>
                                 <property name="window_name"></property>
                                 <property name="window_style"></property>
-                                <event name="OnButtonClick"></event>
+                                <event name="OnButtonClick">btnOpslaanEnNieuwOnButtonClick</event>
                                 <event name="OnChar"></event>
                                 <event name="OnEnterWindow"></event>
                                 <event name="OnEraseBackground"></event>
