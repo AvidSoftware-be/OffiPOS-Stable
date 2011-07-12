@@ -31,7 +31,7 @@ class frmKlantBeheer(GeneratedGui.frmKlantBeheerBase):
     def btnBewerkOnButtonClick( self, event ):
 
         row = self.grdCustomer.GetGridCursorRow()
-        id = int(self.grdCustomer.GetCellValue(row,1))
+        id = int(self.grdCustomer.GetCellValue(row,0))
 
         dlgBeheer = dlgCustomerEdit(self)
         dlgBeheer.SetCustomer(id)

@@ -1,4 +1,3 @@
-
 import wx
 from wx.grid import Grid
 from datetime import date, timedelta
@@ -24,8 +23,7 @@ class Customer:
         self.loyaltyDiscountDate = date.today()
 
     def GetCustomerFromLoyaltyCard(self, loyaltyCardNo):
-        
-        if loyaltyCardNo =="":
+        if loyaltyCardNo == "":
             return
 
         conn = sqlite3.connect(ini.DB_NAME, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES)
@@ -78,7 +76,7 @@ class Customer:
 
             conn.commit()
 
-            self.loyaltyPoints= newTotal
+            self.loyaltyPoints = newTotal
 
     def GetPointsToDeductOnBonus(self):
         pointsToDeduct = (self.loyaltyDiscount / ini.LOYALTYCARD_BONUS_AMOUNT) * ini.LOYALTYCARD_POINTS_FOR_BONUS
@@ -97,7 +95,7 @@ class Customer:
 
         conn.commit()
 
-        self.loyaltyPoints=remainingPoints
+        self.loyaltyPoints = remainingPoints
 
     def CanPayDiscount(self):
         return self.loyaltyDiscount and (date.today() - self.loyaltyDiscountDate >= timedelta(days=1))
@@ -108,8 +106,8 @@ class Customer:
     def GetAll(self):
         conn = sqlite3.connect(ini.DB_NAME, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES)
         cur = conn.cursor()
-        cur.execute('select * from customer')
-        customers=cur.fetchall()
+        cur.execute('select no, name,firstName,address,postalCode,city,telephone,birthDate,emailAddress,loyaltyCardNo,loyaltyPoints from customer')
+        customers = cur.fetchall()
         return customers
 
     def FillFromId(self, customerId):
@@ -135,11 +133,49 @@ class Customer:
             self.loyaltyDiscount = cust[11]
             self.loyaltyDiscountDate = cust[12]
 
+    def Save(self):
+        conn = sqlite3.connect(ini.DB_NAME)
+        cur = conn.cursor()
+
+        if not self.id:
+            #invoegen
+            cur.execute(
+                "insert into customer (firstName, name , address ,postalCode ,city, telephone, birthDate, emailAddress, loyaltyCardNo) values (?,?,?,?,?,?,?,?,?)"
+                , (self.firstName,
+                   self.name,
+                   self.address,
+                   self.postalCode,
+                   self.city,
+                   self.telephone,
+                   self.birthDate,
+                   self.emailAddress,
+                   self.loyaltyCardNo))
+            cur.execute("SELECT last_insert_rowid()")
+            self.id=cur.fetchone()[0]
+        else:
+            #update
+            cur.execute(
+                "update customer set firstName = ?, name = ?, address = ?,postalCode = ?,city = ?, telephone = ?,birthDate = ?,emailAddress = ?,loyaltyCardNo=? where no=?"
+                ,
+                    (self.firstName,
+                     self.name,
+                     self.address,
+                     self.postalCode,
+                     self.city,
+                     self.telephone,
+                     self.birthDate,
+                     self.emailAddress,
+                     self.loyaltyCardNo,
+                     self.id))
+
+        conn.commit()
+
 
 class CustomerTable(wx.grid.PyGridTableBase):
     def __init__(self):
         wx.grid.PyGridTableBase.__init__(self)
-        self.colLabels = ["","Nr.","Voornaam","Naam","Adres","Postcode","Gemeente","Telefoon","Geboortedatum","Emailadres","Klantkaart","Punten"]
+        self.colLabels = ["Nr.", "Voornaam", "Naam", "Adres", "Postcode", "Gemeente", "Telefoon", "Geboortedatum",
+                          "Emailadres", "Klantkaart", "Punten"]
 
         self.customerLines = Customer().GetAll()
 
@@ -153,7 +189,7 @@ class CustomerTable(wx.grid.PyGridTableBase):
         return False
 
     def GetValue(self, row, col):
-        return "{0:>}".format(self.customerLines[row][col - 1])
+        return "{0:>}".format(self.customerLines[row][col])
 
     def SetValue(self, row, col, value):
         pass

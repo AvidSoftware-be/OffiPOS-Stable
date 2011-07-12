@@ -33,8 +33,27 @@ class dlgCustomerEdit(GeneratedGui.dlgCustomerEditBase):
         self.ClearValues()
 
     def SaveFormValues(self):
-        pass
+        self.customer.name = self.txtNaam.Value
+        self.customer.firstName = self.txtVoornaam.Value
+        self.customer.address = self.txtAdres.Value
+        self.customer.postalCode = self.txtPostcode.Value
+        self.customer.city = self.txtGemeente.Value
+        self.customer.telephone = self.txtTelefoon.Value
+        self.customer.emailAddress = self.txtEmailadres.Value
+        self.customer.loyaltyCardNo = self.txtKlantkaart.Value
+        self.customer.birthDate = self.datePickerGeboorte.GetValue()
+        self.customer.Save()
 
     def ClearValues(self):
-        pass
+        self.txtNr.Value = ""
+        self.txtNaam.Value = ""
+        self.txtVoornaam.Value = ""
+        self.txtAdres.Value = ""
+        self.txtPostcode.Value = ""
+        self.txtGemeente.Value = ""
+        self.txtTelefoon.Value = ""
+        self.txtEmailadres.Value = ""
+        self.txtKlantkaart.Value = ""
+
+        self.customer = Customer()
 
