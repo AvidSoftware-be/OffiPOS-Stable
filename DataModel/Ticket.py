@@ -82,6 +82,7 @@ class Ticket:
             self.no = line[0] + 1
 
         self.eatInOut = "O"
+        self.KitchenPrinted = False
 
         self._displayMessage("                    " +
                              "       Welkom       ")
