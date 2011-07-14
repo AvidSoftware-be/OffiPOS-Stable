@@ -117,6 +117,11 @@ class MainFrame(GeneratedGui.MainFrameBase):
         self.btnRetour.SetValue(0)
         self.btnAanbDirToggle.SetValue(0)
 
+        if self.ticket.eatInOut == "O":
+            self.btnInOutToggle.SetValue(0)
+        else:
+            self.btnInOutToggle.SetValue(1)
+
         self.timer = wx.Timer(self)
         self.Bind(wx.EVT_TIMER, self.updateClock, self.timer)
         self.timer.Start(1000)
@@ -138,6 +143,11 @@ class MainFrame(GeneratedGui.MainFrameBase):
             self.btnInOutToggle.SetValue(0)
         else:
             self.btnInOutToggle.SetValue(1)
+
+        self.btnRetour.SetValue(0)
+
+        self.ticket.priceMode = priceModes["pos"]
+        self.btnAanbDirToggle.SetValue(0)
 
         self._selectedGroup = 1
         self._updateProductButtons()

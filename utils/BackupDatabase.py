@@ -1,10 +1,12 @@
-import sqlite3
+import sqlite3,os
+import StringIO
 import ini
+import codecs
 
 __author__ = 'dennis'
 
-def DoBackup(destinationFile):
-    connsrc = sqlite3.connect(ini.DB_NAME)
+def DoBackup(sourceFile,destinationFile):
+    connsrc = sqlite3.connect(sourceFile)
     cursrc = connsrc.cursor()
     cursrc.execute("""SELECT
                       ticketLine.ticketNo,
@@ -31,5 +33,18 @@ def DoBackup(destinationFile):
                         line)
 
     connDest.commit()
+
+def DumpDB(sourceFile="..\\"+ini.DB_NAME,destinationFile='Backup.sql'):
+    con = sqlite3.connect(sourceFile)
+    file = codecs.open(destinationFile,'w','utf-8')
+
+    for line in con.iterdump():
+        file.write(u"{0:>s}\n".format(line))
+
+if __name__ == '__main__':
+    DumpDB()
+    
+
+
 
 

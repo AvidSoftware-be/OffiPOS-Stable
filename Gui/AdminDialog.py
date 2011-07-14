@@ -1,5 +1,5 @@
 from wx._misc import MessageBox
-from wxPython._core import wxSAVE, wxOVERWRITE_PROMPT, wxID_OK
+from wxPython._core import wxSAVE, wxOVERWRITE_PROMPT, wxID_OK, wxOPEN
 from wxPython._windows import wxFileDialog
 from DataModel.Ticket import Ticket
 import DataModel.VATManipulations
@@ -41,18 +41,30 @@ class AdminDialog(GeneratedGui.AdminDialogBase):
 
     def btnBackTransOnButtonClick( self, event ):
         destinationFile = ""
+        sourceFile = ""
 
         # Create a save file dialog
-        dialog = wxFileDialog ( None, style = wxSAVE | wxOVERWRITE_PROMPT )
+        dialog = wxFileDialog(None, message="Bronbestand Kiezen", style=wxOPEN)
 
         # Show the dialog and get user input
         if dialog.ShowModal() == wxID_OK:
-           destinationFile = dialog.GetPath()
+            sourceFile = dialog.GetPath()
 
         # Destroy the dialog
 
         dialog.Destroy()
 
-        utils.BackupTransactions.DoBackup(destinationFile)
+        # Create a save file dialog
+        dialog = wxFileDialog(None, message="Doelbestand Kiezen", style=wxSAVE | wxOVERWRITE_PROMPT)
+
+        # Show the dialog and get user input
+        if dialog.ShowModal() == wxID_OK:
+            destinationFile = dialog.GetPath()
+
+        # Destroy the dialog
+
+        dialog.Destroy()
+
+        utils.BackupTransactions.DoBackup(sourceFile,destinationFile)
 
   
