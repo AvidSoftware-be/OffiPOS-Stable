@@ -1,3 +1,5 @@
+from datetime import date, datetime
+from wxPython._misc import wxDateTimeFromDMY
 from DataModel.Customer import Customer
 import GeneratedGui
 import wx
@@ -23,6 +25,9 @@ class dlgCustomerEdit(GeneratedGui.dlgCustomerEditBase):
         self.txtTelefoon.Value = self.customer.telephone if self.customer.telephone else ""
         self.txtEmailadres.Value = self.customer.emailAddress if self.customer.emailAddress else ""
         self.txtKlantkaart.Value = self.customer.loyaltyCardNo if self.customer.loyaltyCardNo else ""
+        self.datePickerGeboorte.SetValue(
+            wxDateTimeFromDMY(self.customer.birthDate.day, self.customer.birthDate.month - 1,
+                              self.customer.birthDate.year))
 
     def btnOpslaanOnButtonClick( self, event ):
         self.SaveFormValues()
@@ -33,6 +38,8 @@ class dlgCustomerEdit(GeneratedGui.dlgCustomerEditBase):
         self.ClearValues()
 
     def SaveFormValues(self):
+        birthdate = self.datePickerGeboorte.GetValue()
+
         self.customer.name = self.txtNaam.Value
         self.customer.firstName = self.txtVoornaam.Value
         self.customer.address = self.txtAdres.Value
@@ -41,7 +48,7 @@ class dlgCustomerEdit(GeneratedGui.dlgCustomerEditBase):
         self.customer.telephone = self.txtTelefoon.Value
         self.customer.emailAddress = self.txtEmailadres.Value
         self.customer.loyaltyCardNo = self.txtKlantkaart.Value
-        self.customer.birthDate = self.datePickerGeboorte.GetValue()
+        self.customer.birthDate = date(birthdate.Year, birthdate.Month + 1, birthdate.Day)
         self.customer.Save()
 
     def ClearValues(self):

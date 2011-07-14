@@ -15,12 +15,13 @@ class Customer:
         self.postalCode = ""
         self.city = ""
         self.telephone = ""
-        self.birthDate = ""
+        self.birthDate = ini.MINDATE
         self.emailAddress = ""
         self.loyaltyCardNo = ""
         self.loyaltyPoints = 0
         self.loyaltyDiscount = 0
-        self.loyaltyDiscountDate = date.today()
+        self.loyaltyDiscountDate = ini.MINDATE
+        self.dateRegistered = ini.MINDATE
 
     def GetCustomerFromLoyaltyCard(self, loyaltyCardNo):
         if loyaltyCardNo == "":
@@ -48,13 +49,9 @@ class Customer:
             self.loyaltyDiscount = cust[11]
             self.loyaltyDiscountDate = cust[12]
         else:
-            #bestaat nog niet dus aanmaken
-            conn = sqlite3.connect(ini.DB_NAME)
-            cur = conn.cursor()
-            cur.execute("insert into customer (loyaltyCardNo) values (?)",
-                    ( loyaltyCardNo, ))
-            conn.commit()
-
+            self.loyaltyCardNo = loyaltyCardNo
+            self.loyaltyPoints = ini.LOYALTYCARD_STARTING_POINTS
+            self.Save()
 
     def AddLoyaltyPoints(self, ticketPoints):
         if self.CanPayDiscount():
@@ -106,7 +103,8 @@ class Customer:
     def GetAll(self):
         conn = sqlite3.connect(ini.DB_NAME, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES)
         cur = conn.cursor()
-        cur.execute('select no, name,firstName,address,postalCode,city,telephone,birthDate,emailAddress,loyaltyCardNo,loyaltyPoints from customer')
+        cur.execute(
+            'select no, name,firstName,address,postalCode,city,telephone,birthDate,emailAddress,loyaltyCardNo,loyaltyPoints from customer')
         customers = cur.fetchall()
         return customers
 
@@ -114,7 +112,21 @@ class Customer:
         conn = sqlite3.connect(ini.DB_NAME, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES)
         cur = conn.cursor()
         cur.execute(
-            'select no, name,firstName,address,postalCode,city,telephone,birthDate,emailAddress,loyaltyCardNo,loyaltyPoints,loyaltyDiscount,loyaltyDiscountDate as "loyaltyDiscountDate [date]" from customer where no=?'
+            """select no,
+                      name,
+                      firstName,
+                      address,
+                      postalCode,
+                      city,
+                      telephone,
+                      birthDate as "birthDate [date]",
+                      emailAddress,
+                      loyaltyCardNo,
+                      loyaltyPoints,
+                      loyaltyDiscount,
+                      loyaltyDiscountDate as "loyaltyDiscountDate [date]",
+                      dateRegistered
+                from customer where no=?"""
             , (customerId,))
         cust = cur.fetchone()
 
@@ -132,6 +144,7 @@ class Customer:
             self.loyaltyPoints = cust[10]
             self.loyaltyDiscount = cust[11]
             self.loyaltyDiscountDate = cust[12]
+            self.dateRegistered = cust[13]
 
     def Save(self):
         conn = sqlite3.connect(ini.DB_NAME)
@@ -140,22 +153,52 @@ class Customer:
         if not self.id:
             #invoegen
             cur.execute(
-                "insert into customer (firstName, name , address ,postalCode ,city, telephone, birthDate, emailAddress, loyaltyCardNo) values (?,?,?,?,?,?,?,?,?)"
-                , (self.firstName,
-                   self.name,
+                """insert into customer (
+                      name,
+                      firstName,
+                      address,
+                      postalCode,
+                      city,
+                      telephone,
+                      birthDate,
+                      emailAddress,
+                      loyaltyCardNo,
+                      loyaltyPoints,
+                      loyaltyDiscount,
+                      loyaltyDiscountDate,
+                      dateRegistered)
+                                    values
+                                        (?,?,?,?,?,?,?,?,?,?,?,?,?)"""
+                , (self.name,
+                   self.firstName,
                    self.address,
                    self.postalCode,
                    self.city,
                    self.telephone,
                    self.birthDate,
                    self.emailAddress,
-                   self.loyaltyCardNo))
+                   self.loyaltyCardNo,
+                   self.loyaltyPoints,
+                   self.loyaltyDiscount,
+                   self.loyaltyDiscountDate,
+                    self.dateRegistered))
+            
             cur.execute("SELECT last_insert_rowid()")
-            self.id=cur.fetchone()[0]
+            self.id = cur.fetchone()[0]
         else:
             #update
             cur.execute(
-                "update customer set firstName = ?, name = ?, address = ?,postalCode = ?,city = ?, telephone = ?,birthDate = ?,emailAddress = ?,loyaltyCardNo=? where no=?"
+                """update customer set firstName = ?,
+                                        name = ?,
+                                        address = ?,
+                                        postalCode = ?,
+                                        city = ?,
+                                        telephone = ?,
+                                        birthDate = ?,
+                                        emailAddress = ?,
+                                        loyaltyCardNo=?,
+                                         dateRegistered=?
+                                         where no=?"""
                 ,
                     (self.firstName,
                      self.name,
@@ -166,6 +209,7 @@ class Customer:
                      self.birthDate,
                      self.emailAddress,
                      self.loyaltyCardNo,
+                     self.dateRegistered,
                      self.id))
 
         conn.commit()
@@ -189,7 +233,7 @@ class CustomerTable(wx.grid.PyGridTableBase):
         return False
 
     def GetValue(self, row, col):
-        return "{0:>}".format(self.customerLines[row][col])
+        return self.customerLines[row][col]
 
     def SetValue(self, row, col, value):
         pass
