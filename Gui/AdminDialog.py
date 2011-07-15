@@ -5,6 +5,7 @@ from DataModel.Ticket import Ticket
 import DataModel.VATManipulations
 from Gui.frmKlantBeheer import frmKlantBeheer
 import utils.BackupTransactions
+from utils.BackupDatabase import FILETYPES
 
 __author__ = 'dennis'
 
@@ -44,7 +45,7 @@ class AdminDialog(GeneratedGui.AdminDialogBase):
         sourceFile = ""
 
         # Create a save file dialog
-        dialog = wxFileDialog(None, message="Bronbestand Kiezen", style=wxOPEN)
+        dialog = wxFileDialog(None, message="Bronbestand Kiezen", style=wxOPEN, wildcard="*.db")
 
         # Show the dialog and get user input
         if dialog.ShowModal() == wxID_OK:
@@ -55,7 +56,7 @@ class AdminDialog(GeneratedGui.AdminDialogBase):
         dialog.Destroy()
 
         # Create a save file dialog
-        dialog = wxFileDialog(None, message="Doelbestand Kiezen", style=wxSAVE | wxOVERWRITE_PROMPT)
+        dialog = wxFileDialog(None, message="Doelbestand Kiezen", style=wxSAVE | wxOVERWRITE_PROMPT, wildcard="SQL files (*.sql)|*.sql|SQLITE3 files (*.db)|*.db")
 
         # Show the dialog and get user input
         if dialog.ShowModal() == wxID_OK:
@@ -65,6 +66,6 @@ class AdminDialog(GeneratedGui.AdminDialogBase):
 
         dialog.Destroy()
 
-        utils.BackupTransactions.DoBackup(sourceFile,destinationFile)
+        utils.BackupDatabase.BackupDB(sourceFile,destinationFile,FILETYPES[destinationFile.split(".")[1]])
 
   

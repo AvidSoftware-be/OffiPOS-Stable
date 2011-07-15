@@ -14,12 +14,15 @@ from Gui.PaymentFrame import PaymentFrame
 from Gui.dlgAskForPrice import dlgAskForPrice
 
 from datetime import date, datetime
+import utils.dbmanip
 
 class MainFrame(GeneratedGui.MainFrameBase):
     _selectedGroup = 1
 
     def __init__( self, parent ):
         GeneratedGui.MainFrameBase.__init__(self, parent)
+
+        utils.dbmanip.CreateDB() #test of db bestaat en zo niet wordt hij aangemaakt
 
         self.ticket = Ticket()
 

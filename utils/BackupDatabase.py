@@ -1,48 +1,93 @@
-import sqlite3,os
+import sqlite3, os
 import StringIO
 import ini
 import codecs
 
 __author__ = 'dennis'
 
-def DoBackup(sourceFile,destinationFile):
-    connsrc = sqlite3.connect(sourceFile)
-    cursrc = connsrc.cursor()
-    cursrc.execute("""SELECT
-                      ticketLine.ticketNo,
-                      ticketLine.productId,
-                      ticketLine.productName,
-                      ticketLine.price,
-                      ticketLine.paid,
-                      ticketLine.eatInOut,
-                      ticketLine.isOption,
-                      ticketLine.dateRegistered,
-                      ticketLine.vatCode,
-                      ticketLine.customerId,
-                      ticketLine.discountType
-                    FROM
-                      ticketLine""")
+import sqlite3
 
-    lines = cursrc.fetchall()
+DB_FILE = "..\\BaronPOS.db"
+NEW_DB_FILE = "Backup.sql"
+FILETYPES = dict(sql=1, db=2)
 
-    connDest = sqlite3.connect(destinationFile)
-    curDest = connDest.cursor()
+def getTableDump(db_file, table_to_dump):
+    conn = sqlite3.connect(db_file)
 
-    for line in lines:
-        curDest.execute("INSERT INTO ticketLine (ticketNo, productId, productName, price, paid, eatInOut, isOption, dateRegistered, vatCode, customerId, discountType) values (?,?,?,?,?,?,?,?,?,?,?)",
-                        line)
+    cu = conn.cursor()
+    cu.execute("select sql from sqlite_master where type='table' and name='" + table_to_dump + "'")
+    sql_create_table = cu.fetchone()[0]
 
-    connDest.commit()
+    return sql_create_table.replace("\r","") + ";\n"
 
-def DumpDB(sourceFile="..\\"+ini.DB_NAME,destinationFile='Backup.sql'):
-    con = sqlite3.connect(sourceFile)
-    file = codecs.open(destinationFile,'w','utf-8')
 
-    for line in con.iterdump():
-        file.write(u"{0:>s}\n".format(line))
+def getViewDump(db_file, viewToDump):
+    conn = sqlite3.connect(db_file)
+
+    cu = conn.cursor()
+    cu.execute("select sql from sqlite_master where type='view' and name='" + viewToDump + "'")
+    sql_create_view = cu.fetchone()[0]
+
+    return sql_create_view.replace("\r","") + ";\n"
+
+
+def getInsertStatements(db_file, table_name):
+    retList = []
+    conn = sqlite3.connect(db_file)
+
+    cu = conn.cursor()
+    # Build the insert statement for each row of the current table
+    res = cu.execute("PRAGMA table_info('%s')" % table_name)
+    column_names = [str(table_info[1]) for table_info in res.fetchall()]
+    q = "SELECT 'INSERT INTO \"%(tbl_name)s\" VALUES("
+    q += ",".join(["'||quote(" + col + ")||'" for col in column_names])
+    q += ")' FROM '%(tbl_name)s'"
+    res = cu.execute(q % {'tbl_name': table_name})
+    for row in res:
+        retList.append("%s;\n" % row[0])
+
+    return retList
+
+
+def BackupDB(srcDb, destFile, fileType=FILETYPES["sql"]):
+    
+    dbSQL = []
+    conn = sqlite3.connect(srcDb)
+    cur = conn.cursor()
+    cur.execute("select name, type from sqlite_master where NOT name = 'sqlite_sequence'")
+    result = cur.fetchall()
+    for line in result:
+        dbSQL.append("DROP " + line[1].upper() + " IF EXISTS {0:};\n".format(line[0]))
+        if line[1] == 'table':
+            dbSQL.append(getTableDump(srcDb, line[0]))
+            for line in getInsertStatements(srcDb, line[0]):
+                dbSQL.append(line)
+        else:
+            dbSQL.append(getViewDump(srcDb, line[0]))
+
+    if fileType == FILETYPES["sql"]:
+        f = open(destFile,"w")
+    else:
+        conn = sqlite3.connect(destFile)
+        cur = conn.cursor()
+
+    for stat in dbSQL:
+        try:
+            if fileType == FILETYPES["db"]:
+                cur.execute(stat)
+            else:
+                f.write(stat)
+
+        except sqlite3.OperationalError as error:
+            print error.message
+
+    if fileType == FILETYPES["db"]:
+        f.close()
+    else:
+        conn.commit()
 
 if __name__ == '__main__':
-    DumpDB()
+    BackupDB(DB_FILE, NEW_DB_FILE,FILETYPES["sql"])
     
 
 
