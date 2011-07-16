@@ -40,6 +40,13 @@ CREATE TABLE [ticketLine] (
 [dateRegistered] TIMESTAMP  NULL,
 [vatCode] INTEGER  NULL
 , customerId integer, discountType integer);
+INSERT INTO "ticketLine" VALUES(21,0,4,'GROOT',2.5,1,'O',0,'2011-07-16 11:46:15.296000',3,0,0);
+INSERT INTO "ticketLine" VALUES(23,1,2,'KLEIN',1.9,1,'O',0,'2011-07-16 11:51:59.328000',3,0,0);
+INSERT INTO "ticketLine" VALUES(24,2,3,'MIDDEN',2.1,1,'O',0,'2011-07-16 12:12:50.453000',3,0,0);
+INSERT INTO "ticketLine" VALUES(25,2,301,'STOOFVLEES',3.5,1,'O',0,'2011-07-16 12:12:51.953000',3,0,0);
+INSERT INTO "ticketLine" VALUES(26,2,102,'FRIKANDEL',1.4,1,'O',0,'2011-07-16 12:12:54.687000',3,0,0);
+INSERT INTO "ticketLine" VALUES(27,2,7,'MAYONAISE',0.7,1,'O',0,'2011-07-16 12:12:55.843000',3,0,0);
+INSERT INTO "ticketLine" VALUES(28,2,36,'COCA COLA 33cl',1.5,1,'O',0,'2011-07-16 12:13:00.812000',3,0,0);
 DROP TABLE IF EXISTS menuComponent;
 CREATE TABLE [menuComponent] (
 [entryNo] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -417,12 +424,6 @@ CREATE TABLE [customer] (
 INSERT INTO "customer" VALUES(4,'Dennis','Decoene','Poperingseweg 213','8900','Ieper','0477/250.142','1974-07-04','dennis.decoene@gmail.com','KK00001',16,0.0,'1900-01-01','2011-07-04');
 INSERT INTO "customer" VALUES(10,'','','testje!!!','','','','1900-01-01','','KK00016',3,0.0,'1900-01-01','2011-07-04');
 INSERT INTO "customer" VALUES(11,'','','','','','','1900-01-01','','KK00002',3,0.0,'1900-01-01','2011-07-04');
-INSERT INTO "customer" VALUES(12,'tst2','','','','','','1900-01-01','','tst','','','1900-01-01','2011-07-04');
-INSERT INTO "customer" VALUES(15,'','','','','','','1900-02-01','','t2tt',20,0.0,'1900-01-01','0001-01-01');
-INSERT INTO "customer" VALUES(16,'','','','','','','1900-01-01','','test2',20,0.0,'1900-01-01','1900-01-01');
-INSERT INTO "customer" VALUES(17,'','','','','','','2011-06-14','','test3',20,0.0,'1900-01-01','1900-01-01');
-INSERT INTO "customer" VALUES(18,'','','','','','','1974-07-04','','test4',20,0.0,'1900-01-01','1900-01-01');
-INSERT INTO "customer" VALUES(19,'','','','','','','1900-01-01','','test45',21,0.0,'2011-07-14','1900-01-01');
 DROP VIEW IF EXISTS vwItemTotals;
 CREATE VIEW vwItemTotals
 AS

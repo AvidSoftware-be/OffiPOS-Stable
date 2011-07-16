@@ -1,6 +1,5 @@
 import sqlite3, os
 import StringIO
-import ini
 import codecs
 
 __author__ = 'dennis'
