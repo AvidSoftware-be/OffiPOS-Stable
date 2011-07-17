@@ -4,7 +4,6 @@ from wxPython._windows import wxFileDialog
 from DataModel.Ticket import Ticket
 import DataModel.VATManipulations
 from Gui.frmKlantBeheer import frmKlantBeheer
-import utils.BackupTransactions
 from utils.BackupDatabase import FILETYPES
 
 __author__ = 'dennis'
