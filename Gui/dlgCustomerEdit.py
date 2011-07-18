@@ -3,6 +3,7 @@ from wxPython._misc import wxDateTimeFromDMY
 from DataModel.Customer import Customer
 import GeneratedGui
 import wx
+import ini
 
 __author__ = 'dennis'
 
@@ -10,6 +11,7 @@ class dlgCustomerEdit(GeneratedGui.dlgCustomerEditBase):
     def __init__( self, parent ):
         GeneratedGui.dlgCustomerEditBase.__init__(self, parent)
         self.customer = Customer()
+        self.ClearValues()
 
     def SetCustomer(self, customerId):
         self.customer.FillFromId(customerId)
@@ -38,6 +40,10 @@ class dlgCustomerEdit(GeneratedGui.dlgCustomerEditBase):
         self.ClearValues()
 
     def SaveFormValues(self):
+        if not self.customer.id:
+            #nieuwe klant
+            self.customer.loyaltyPoints = ini.LOYALTYCARD_STARTING_POINTS
+
         birthdate = self.datePickerGeboorte.GetValue()
 
         self.customer.name = self.txtNaam.Value
@@ -61,6 +67,7 @@ class dlgCustomerEdit(GeneratedGui.dlgCustomerEditBase):
         self.txtTelefoon.Value = ""
         self.txtEmailadres.Value = ""
         self.txtKlantkaart.Value = ""
+        self.datePickerGeboorte.SetValue(wxDateTimeFromDMY(1,0,1900))
 
         self.customer = Customer()
 
