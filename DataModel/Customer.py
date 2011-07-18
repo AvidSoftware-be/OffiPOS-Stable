@@ -28,6 +28,7 @@ class Customer:
             return
 
         conn = sqlite3.connect(ini.DB_NAME, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES)
+        conn.text_factory = str
         cur = conn.cursor()
         cur.execute(
             'select no, name,firstName,address,postalCode,city,telephone,birthDate,emailAddress,loyaltyCardNo,loyaltyPoints,loyaltyDiscount,loyaltyDiscountDate as "loyaltyDiscountDate [date]" from customer where loyaltyCardNo=?'
@@ -102,6 +103,7 @@ class Customer:
 
     def GetAll(self):
         conn = sqlite3.connect(ini.DB_NAME, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES)
+        conn.text_factory = str
         cur = conn.cursor()
         cur.execute(
             'select no, name,firstName,address,postalCode,city,telephone,birthDate,emailAddress,loyaltyCardNo,loyaltyPoints from customer')
@@ -110,6 +112,7 @@ class Customer:
 
     def FillFromId(self, customerId):
         conn = sqlite3.connect(ini.DB_NAME, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES)
+        conn.text_factory = str
         cur = conn.cursor()
         cur.execute(
             """select no,
