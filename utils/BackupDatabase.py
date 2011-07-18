@@ -33,6 +33,7 @@ def getViewDump(db_file, viewToDump):
 def getInsertStatements(db_file, table_name):
     retList = []
     conn = sqlite3.connect(db_file)
+    conn.text_factory = str
 
     cu = conn.cursor()
     # Build the insert statement for each row of the current table
