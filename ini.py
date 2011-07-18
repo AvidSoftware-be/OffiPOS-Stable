@@ -4,6 +4,7 @@ __author__ = 'dennis'
 
 LOG_FILENAME = 'BaronPOS.log'
 DB_NAME = 'BaronPOS.db'
+BACKUPFILE = 'Backup.sql'
 
 LOYALTYCARD_EURO_PER_POINT = 3
 LOYALTYCARD_POINTS_FOR_BONUS = 100

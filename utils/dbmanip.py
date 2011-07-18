@@ -10,7 +10,7 @@ import ini
 
 def CreateDB():
     if not exists(ini.DB_NAME):
-        backupFileName = os.path.dirname(__file__)+"\\Backup.sql"
+        backupFileName = os.path.dirname(__file__)+"\\"+ini.BACKUPFILE
         fp = open(backupFileName)
         fileCont = fp.read().split(";\n")
 
