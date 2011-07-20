@@ -5,6 +5,7 @@ from DataModel.Ticket import Ticket
 import DataModel.VATManipulations
 from Gui.frmKlantBeheer import frmKlantBeheer
 from utils.BackupDatabase import FILETYPES
+import utils
 
 __author__ = 'dennis'
 
