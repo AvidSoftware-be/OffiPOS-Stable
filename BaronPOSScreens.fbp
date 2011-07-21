@@ -7956,7 +7956,7 @@
             <property name="minimum_size"></property>
             <property name="name">frmKlantBeheerBase</property>
             <property name="pos"></property>
-            <property name="size">1105,636</property>
+            <property name="size">1105,-1</property>
             <property name="style">wxCAPTION|wxCLOSE_BOX|wxSTAY_ON_TOP|wxSYSTEM_MENU</property>
             <property name="subclass"></property>
             <property name="title">Klantbeheer</property>
@@ -8051,7 +8051,7 @@
                                 <property name="margin_height">0</property>
                                 <property name="margin_width">0</property>
                                 <property name="maximum_size"></property>
-                                <property name="minimum_size"></property>
+                                <property name="minimum_size">-1,600</property>
                                 <property name="name">grdCustomer</property>
                                 <property name="permission">protected</property>
                                 <property name="pos"></property>
@@ -8601,7 +8601,7 @@
                                 <event name="OnEraseBackground"></event>
                                 <event name="OnKeyDown"></event>
                                 <event name="OnKeyUp"></event>
-                                <event name="OnKillFocus"></event>
+                                <event name="OnKillFocus">txtKlantkaartOnKillFocus</event>
                                 <event name="OnLeaveWindow"></event>
                                 <event name="OnLeftDClick"></event>
                                 <event name="OnLeftDown"></event>
