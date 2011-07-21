@@ -38,6 +38,7 @@ class dlgCustomerEdit(GeneratedGui.dlgCustomerEditBase):
     def btnOpslaanEnNieuwOnButtonClick( self, event ):
         self.SaveFormValues()
         self.ClearValues()
+        self.txtKlantkaart.SetFocus()
 
     def SaveFormValues(self):
         if not self.customer.id:
@@ -71,3 +72,9 @@ class dlgCustomerEdit(GeneratedGui.dlgCustomerEditBase):
 
         self.customer = Customer()
 
+    def txtKlantkaartOnKillFocus( self, event ):
+        cust = Customer()
+        cust.GetCustomerFromLoyaltyCard(self.txtKlantkaart.Value)
+        if cust.id:
+            self.customer = cust
+            self.UpdateForm()

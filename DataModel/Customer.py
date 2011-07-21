@@ -217,6 +217,15 @@ class Customer:
 
         conn.commit()
 
+    def Delete(self):
+        conn = sqlite3.connect(ini.DB_NAME)
+        cur = conn.cursor()
+
+        #invoegen
+        cur.execute("delete from customer where no=?",(self.id,))
+
+        conn.commit()
+
 
 class CustomerTable(wx.grid.PyGridTableBase):
     def __init__(self):

@@ -39,6 +39,7 @@ class AdminDialog(GeneratedGui.AdminDialogBase):
         kb = frmKlantBeheer(self)
 
         kb.Show()
+        kb.Center()
 
     def btnBackTransOnButtonClick( self, event ):
         destinationFile = ""

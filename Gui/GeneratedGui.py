@@ -1138,7 +1138,7 @@ class dlgAskForPriceBase ( wx.Dialog ):
 class frmKlantBeheerBase ( wx.Frame ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Klantbeheer", pos = wx.DefaultPosition, size = wx.Size( -1,-1 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.FRAME_FLOAT_ON_PARENT|wx.SYSTEM_MENU|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Klantbeheer", pos = wx.DefaultPosition, size = wx.Size( 1105,-1 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.STAY_ON_TOP|wx.SYSTEM_MENU|wx.TAB_TRAVERSAL )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		
@@ -1146,11 +1146,11 @@ class frmKlantBeheerBase ( wx.Frame ):
 		
 		bSizer26 = wx.BoxSizer( wx.VERTICAL )
 		
-		self.grdCustomer = wx.grid.Grid( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.grdCustomer = wx.grid.Grid( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.VSCROLL )
 		
 		# Grid
 		self.grdCustomer.CreateGrid( 25, 5 )
-		self.grdCustomer.EnableEditing( True )
+		self.grdCustomer.EnableEditing( False )
 		self.grdCustomer.EnableGridLines( True )
 		self.grdCustomer.EnableDragGridSize( False )
 		self.grdCustomer.SetMargins( 0, 0 )
@@ -1171,6 +1171,8 @@ class frmKlantBeheerBase ( wx.Frame ):
 		
 		# Cell Defaults
 		self.grdCustomer.SetDefaultCellAlignment( wx.ALIGN_LEFT, wx.ALIGN_TOP )
+		self.grdCustomer.SetMinSize( wx.Size( -1,600 ) )
+		
 		bSizer26.Add( self.grdCustomer, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		bSizer27 = wx.BoxSizer( wx.HORIZONTAL )
@@ -1190,7 +1192,6 @@ class frmKlantBeheerBase ( wx.Frame ):
 		
 		self.SetSizer( bSizer23 )
 		self.Layout()
-		bSizer23.Fit( self )
 		
 		self.Centre( wx.BOTH )
 		
@@ -1316,6 +1317,7 @@ class dlgCustomerEditBase ( wx.Dialog ):
 		self.Centre( wx.BOTH )
 		
 		# Connect Events
+		self.txtKlantkaart.Bind( wx.EVT_KILL_FOCUS, self.txtKlantkaartOnKillFocus )
 		self.btnOpslaan.Bind( wx.EVT_BUTTON, self.btnOpslaanOnButtonClick )
 		self.btnOpslaanEnNieuw.Bind( wx.EVT_BUTTON, self.btnOpslaanEnNieuwOnButtonClick )
 	
@@ -1324,6 +1326,9 @@ class dlgCustomerEditBase ( wx.Dialog ):
 	
 	
 	# Virtual event handlers, overide them in your derived class
+	def txtKlantkaartOnKillFocus( self, event ):
+		event.Skip()
+	
 	def btnOpslaanOnButtonClick( self, event ):
 		event.Skip()
 	
