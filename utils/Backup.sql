@@ -508,9 +508,12 @@ INSERT INTO "customer" VALUES(54,'','','','','','','1900-01-01','','KK00018',24,
 INSERT INTO "customer" VALUES(55,'','','','','','','1900-01-01','','KK00019',21,0.0,'2011-07-20','1900-01-01');
 INSERT INTO "customer" VALUES(56,'','','','','','','1900-01-01','','KK00028',24,0.0,'2011-07-20','1900-01-01');
 INSERT INTO "customer" VALUES(57,'','','','','','','1900-01-01','','KK00021',26,0.0,'2011-07-22','1900-01-01');
-INSERT INTO "customer" VALUES(58,'','','','','','','1900-01-01','','kkàà&((',20,0.0,'1900-01-01','1900-01-01');
-INSERT INTO "customer" VALUES(59,'','','','','','','1900-01-01','','KK00004',23,0.0,'2011-07-22','1900-01-01');
-INSERT INTO "customer" VALUES(60,'','','','','','','1900-01-01','','KK0001',21,0.0,'2011-07-22','1900-01-01');
+INSERT INTO "customer" VALUES(58,'Devlamynck','Virginie','Henri Moeremanslaan 90','1700','Dilbeek','0472802128','1985-04-15','','KK00093',20,0.0,'1900-01-01','1900-01-01');
+INSERT INTO "customer" VALUES(59,'De Nil','Gust','Heuvellaan 3','1700','Dilbeek','0478311364','1944-12-16','gust.denil@skynet.be','KK00094',20,0.0,'1900-01-01','1900-01-01');
+INSERT INTO "customer" VALUES(60,'Vancampenhout','Aurélie','Dr Roger Lambrechtlaan 74','1700','Dilbeek','0476608389','1986-02-08','hebaby711@msn.com','KK00095',20,0.0,'1900-01-01','1900-01-01');
+INSERT INTO "customer" VALUES(61,'','','','','','','1900-01-01','','',20,0.0,'1900-01-01','1900-01-01');
+INSERT INTO "customer" VALUES(62,'Gerard','Didier','Walravenslaan 15/13','1700','Dilbeek','0475960177','1969-12-08','didier-gerard@skynet.be','KK00096',20,0.0,'1900-01-01','1900-01-01');
+INSERT INTO "customer" VALUES(63,'Angeli','Julien','Baron R. de Vironlaan 131','1700','Dilbeek','0499523038','1981-04-21','mariejulien@hotmail.com','KK00097',20,0.0,'1900-01-01','1900-01-01');
 DROP VIEW IF EXISTS vwItemTotals;
 CREATE VIEW vwItemTotals
 AS
