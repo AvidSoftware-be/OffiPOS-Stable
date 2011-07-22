@@ -106,7 +106,7 @@ class Customer:
         conn.text_factory = str
         cur = conn.cursor()
         cur.execute(
-            'select no, name,firstName,address,postalCode,city,telephone,birthDate,emailAddress,loyaltyCardNo,loyaltyPoints from customer')
+            'select no, name,firstName,address,postalCode,city,telephone,birthDate,emailAddress,loyaltyCardNo,loyaltyPoints from customer order by loyaltyCardNo')
         customers = cur.fetchall()
         return customers
 
