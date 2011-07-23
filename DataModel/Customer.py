@@ -68,6 +68,8 @@ class Customer:
             cur.execute("update customer set loyaltyPoints = ? where loyaltyCardNo=?",
                     (newTotal, self.loyaltyCardNo, ))
 
+            cur.execute("insert into loyaltyCardDetails (customerId, ticketPoints) values(?,?)",(self.id,ticketPoints))
+
             bonus = (newTotal - (newTotal % ini.LOYALTYCARD_POINTS_FOR_BONUS)) / ini.LOYALTYCARD_POINTS_FOR_BONUS
             cur.execute("update customer set loyaltyDiscount = ?, loyaltyDiscountDate = ? where loyaltyCardNo=?",
                     (ini.LOYALTYCARD_BONUS_AMOUNT * bonus, date.today(), self.loyaltyCardNo, ))

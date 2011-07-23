@@ -16,6 +16,8 @@ def DoEndOfDay(withClear):
 
     dayparam['VATTotals'] = [0,0,0]
 
+    dayparam['offers'] = Ticket().GetOffers()
+
     for VATLine in dayparam['VATLines']:
         dayparam['VATTotals'][0] += VATLine[1]
         dayparam['VATTotals'][1] += VATLine[2]

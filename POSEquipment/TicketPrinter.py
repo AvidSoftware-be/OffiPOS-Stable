@@ -1,8 +1,6 @@
+import DataModel
 from datetime import date, datetime
 from serial.serialutil import PARITY_NONE
-
-__author__ = 'dennis'
-
 import serial
 
 escInitPrinter = "\x1b\x40\x0D\x0D"
@@ -30,6 +28,9 @@ def PrintBill(ticket, paymentMethod, totalAmt, paidAmt, returnAmt, customer):
 
         s.close()
         s.open()
+
+    except serial.serialutil.SerialException:
+        s = open("ticket.txt","w")
 
         s.write(escInitPrinter + escPrintBig)
         s.write("{0:^21}".format('Frituur') + escNewLine)
@@ -68,9 +69,6 @@ def PrintBill(ticket, paymentMethod, totalAmt, paidAmt, returnAmt, customer):
         s.write(escEndAndCut)
 
         s.close()
-    except serial.serialutil.SerialException:
-        pass
-
 
 def PrintKitchenBill(body, eatInOut):
     try:
@@ -91,6 +89,9 @@ def PrintKitchenBill(body, eatInOut):
         s.close()
         s.open()
 
+    except serial.serialutil.SerialException:
+        s = open("kitchenBill.txt","w")
+
         s.write(escInitPrinter + escPrintNormal)
         s.write('*****************************************' + escNewLine)
         s.write(escPrintBold + "{0:^40}".format('Keukenbon') + escNewLine)
@@ -108,8 +109,6 @@ def PrintKitchenBill(body, eatInOut):
         s.write(escEndAndCut)
 
         s.close()
-    except serial.serialutil.SerialException:
-        pass
 
 
 def PrintDayTotals(dayParam):
@@ -130,6 +129,9 @@ def PrintDayTotals(dayParam):
 
         s.close()
         s.open()
+
+    except serial.serialutil.SerialException:
+        s = open("dayTotals.txt","w")
 
         s.write(escInitPrinter)
         s.write(escPrintNormal + '----------------------------------------' + escNewLine)
@@ -168,6 +170,17 @@ def PrintDayTotals(dayParam):
         s.write(escPrintNormal + '        ---------   -------   ---------' + escNewLine)
         s.write(escPrintNormal + '{0[0]:>20.2f}{0[1]:>10.2f}{0[2]:>10.2f}'.format(dayParam['VATTotals']) + escNewLine)
         s.write(escNewLine + escNewLine)
+
+        for dtype in DataModel.Ticket.discountTypes:
+            if dtype != 'none':
+                offers = dayParam['offers'][dtype]
+                if offers:
+                    s.write(escPrintNormal + '----------------------------------------' + escNewLine)
+                    s.write(escPrintBold + dtype + escNewLine)
+                    s.write(escPrintNormal + '----------------------------------------' + escNewLine)
+                    for offer in offers:
+                        s.write('{0:}: {1[3]:<27}{1[4]:>10.2f}'.format(offer[8].strftime("%H:%M"), offer) + escNewLine) #artikel
+                
         s.write(escPrintNormal + '========================================' + escNewLine)
         s.write(escPrintNormal + '    AFDRUKKEN OP %s OM %s' % (
             datetime.now().strftime('%d/%m/%Y'), datetime.now().strftime('%H:%M')) + escNewLine)
@@ -176,9 +189,6 @@ def PrintDayTotals(dayParam):
         s.write(escEndAndCut)
 
         s.close()
-    except serial.serialutil.SerialException:
-        pass
-
 
 def PrintItemTotals(totals):
     try:
@@ -198,6 +208,9 @@ def PrintItemTotals(totals):
 
         s.close()
         s.open()
+
+    except serial.serialutil.SerialException:
+        s = open("itemTotals.txt","w")
 
         s.write(escInitPrinter)
         s.write(escPrintNormal + '----------------------------------------' + escNewLine)
@@ -219,17 +232,15 @@ def PrintItemTotals(totals):
                 escPrintBold + '{0:>3}{1:>37.2f}'.format(itemQtyTotal, amountTotal) + escNewLine + escNewLine) #totalen
 
         s.write(
-                escPrintBold + '{0:>40.2f}'.format(grandTotAmt) + escNewLine + escNewLine) #totalen
+            escPrintBold + '{0:>40.2f}'.format(grandTotAmt) + escNewLine + escNewLine) #totalen
 
         s.write(escNewLine + escNewLine)
         s.write(escPrintNormal + '========================================' + escNewLine)
         s.write(escPrintNormal + '    AFDRUKKEN OP {0:>s} OM {1:>s}'.format(datetime.now().strftime('%d/%m/%Y'),
-                                                                            datetime.now().strftime('%H:%M')) + escNewLine)
+                                                                            datetime.now().strftime(
+                                                                                '%H:%M')) + escNewLine)
         s.write(escPrintNormal + '========================================' + escNewLine)
 
         s.write(escEndAndCut)
 
         s.close()
-
-    except serial.serialutil.SerialException:
-        pass

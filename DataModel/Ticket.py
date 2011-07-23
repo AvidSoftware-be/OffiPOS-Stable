@@ -13,14 +13,14 @@ import ini
 
 paymentMethods = dict(Cash=1, Atos=2)
 priceModes = dict(pos=1, neg=2)
-discountTypes = dict(none=0, managementOffer=1, loyaltyCard=2, personalUse=3)
+discountTypes = {'none':0, 'Aanbieding Directie':1, 'Klantkaart':2, 'Persoonlijk Gebruik':3}
 
 class Ticket:
     def __init__(self):
         self.no = 0
         self.eatInOut = "O"
         self.priceMode = priceModes["pos"]
-        self.conn = sqlite3.connect(ini.DB_NAME)
+        self.conn = sqlite3.connect(ini.DB_NAME, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES)
         self.customer = Customer()
         self.KitchenPrinted = False
 
@@ -76,7 +76,7 @@ class Ticket:
         cur = self.conn.cursor()
         cur.execute("select max(ticketNo) from ticketLine")
         line = cur.fetchone()
-        if not line:
+        if not line[0]:
             self.no = 1
         else:
             self.no = line[0] + 1
@@ -309,3 +309,18 @@ class Ticket:
         cur.execute("delete from ticketLine")
 
         self.conn.commit()
+
+    def GetOffers(self):
+        cur = self.conn.cursor()
+
+        offers = {}
+
+        for dtype in discountTypes:
+            if dtype != 'none':
+                cur.execute("select * from ticketLine where discountType=?", (discountTypes[dtype],))
+                offers[dtype] = cur.fetchall()
+
+        return offers
+
+            
+
