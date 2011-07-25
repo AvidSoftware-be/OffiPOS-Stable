@@ -1276,8 +1276,9 @@ class dlgCustomerEditBase ( wx.Dialog ):
 		self.txtPostcode = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer29.Add( self.txtPostcode, 0, wx.ALL, 5 )
 		
-		self.txtGemeente = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 250,-1 ), 0 )
-		bSizer29.Add( self.txtGemeente, 0, wx.ALL, 5 )
+		cmbGemeenteChoices = []
+		self.cmbGemeente = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 250,-1 ), cmbGemeenteChoices, 0 )
+		bSizer29.Add( self.cmbGemeente, 0, wx.ALL, 5 )
 		
 		fgSizer6.Add( bSizer29, 1, wx.EXPAND, 5 )
 		
@@ -1318,6 +1319,7 @@ class dlgCustomerEditBase ( wx.Dialog ):
 		
 		# Connect Events
 		self.txtKlantkaart.Bind( wx.EVT_KILL_FOCUS, self.txtKlantkaartOnKillFocus )
+		self.txtPostcode.Bind( wx.EVT_KILL_FOCUS, self.txtPostcodeOnKillFocus )
 		self.btnOpslaan.Bind( wx.EVT_BUTTON, self.btnOpslaanOnButtonClick )
 		self.btnOpslaanEnNieuw.Bind( wx.EVT_BUTTON, self.btnOpslaanEnNieuwOnButtonClick )
 	
@@ -1327,6 +1329,9 @@ class dlgCustomerEditBase ( wx.Dialog ):
 	
 	# Virtual event handlers, overide them in your derived class
 	def txtKlantkaartOnKillFocus( self, event ):
+		event.Skip()
+	
+	def txtPostcodeOnKillFocus( self, event ):
 		event.Skip()
 	
 	def btnOpslaanOnButtonClick( self, event ):

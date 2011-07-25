@@ -1,6 +1,7 @@
 from datetime import date, datetime
 from wxPython._misc import wxDateTimeFromDMY
 from DataModel.Customer import Customer
+from DataModel.PostalCode import PostalCode
 import GeneratedGui
 import wx
 import ini
@@ -23,13 +24,15 @@ class dlgCustomerEdit(GeneratedGui.dlgCustomerEditBase):
         self.txtVoornaam.Value = self.customer.firstName if self.customer.firstName else ""
         self.txtAdres.Value = self.customer.address if self.customer.address else ""
         self.txtPostcode.Value = self.customer.postalCode if self.customer.postalCode else ""
-        self.txtGemeente.Value = self.customer.city if self.customer.city else ""
+        self.cmbGemeente.Value = self.customer.city if self.customer.city else ""
         self.txtTelefoon.Value = self.customer.telephone if self.customer.telephone else ""
         self.txtEmailadres.Value = self.customer.emailAddress if self.customer.emailAddress else ""
         self.txtKlantkaart.Value = self.customer.loyaltyCardNo if self.customer.loyaltyCardNo else ""
         self.datePickerGeboorte.SetValue(
             wxDateTimeFromDMY(self.customer.birthDate.day, self.customer.birthDate.month - 1,
                               self.customer.birthDate.year))
+
+        self.UpdateCitiesCombo()
 
     def btnOpslaanOnButtonClick( self, event ):
         self.SaveFormValues()
@@ -51,7 +54,7 @@ class dlgCustomerEdit(GeneratedGui.dlgCustomerEditBase):
         self.customer.firstName = self.txtVoornaam.Value
         self.customer.address = self.txtAdres.Value
         self.customer.postalCode = self.txtPostcode.Value
-        self.customer.city = self.txtGemeente.Value
+        self.customer.city = self.cmbGemeente.Value
         self.customer.telephone = self.txtTelefoon.Value
         self.customer.emailAddress = self.txtEmailadres.Value
         self.customer.loyaltyCardNo = self.txtKlantkaart.Value
@@ -64,7 +67,7 @@ class dlgCustomerEdit(GeneratedGui.dlgCustomerEditBase):
         self.txtVoornaam.Value = ""
         self.txtAdres.Value = ""
         self.txtPostcode.Value = ""
-        self.txtGemeente.Value = ""
+        self.cmbGemeente.Value = ""
         self.txtTelefoon.Value = ""
         self.txtEmailadres.Value = ""
         self.txtKlantkaart.Value = ""
@@ -78,3 +81,28 @@ class dlgCustomerEdit(GeneratedGui.dlgCustomerEditBase):
         if cust.id:
             self.customer = cust
             self.UpdateForm()
+
+    def UpdateCitiesCombo(self):
+        self.cmbGemeente.Clear()
+        pc = PostalCode()
+        cities = pc.GetFromCode(int(self.txtPostcode.Value))
+        for city in cities:
+            self.cmbGemeente.Append(city[2])
+
+        items = self.cmbGemeente.GetItems()
+
+        index = -1
+        try:
+            if self.customer.city != "":
+                index = items.index(self.customer.city)
+            else:
+                index = 0
+
+            self.cmbGemeente.SetSelection(index)
+            
+        except ValueError:
+            self.cmbGemeente.SetValue(self.customer.city)
+
+
+    def txtPostcodeOnKillFocus( self, event ):
+        self.UpdateCitiesCombo()
