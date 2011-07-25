@@ -252,7 +252,7 @@ class MainFrame(GeneratedGui.MainFrameBase):
 
         if self.btnAanbDirToggle.Value:
             prodPrice = 0
-            mydiscountType = discountTypes["managementOffer"]
+            mydiscountType = discountTypes["Aanbieding Directie"]
 
         self.ticket.AddTicketLine(productNo, isOption, parentProductId, buttonNoPressed, self._selectedGroup, prodPrice,
                                   mydiscountType)

@@ -68,7 +68,8 @@ class Customer:
             cur.execute("update customer set loyaltyPoints = ? where loyaltyCardNo=?",
                     (newTotal, self.loyaltyCardNo, ))
 
-            cur.execute("insert into loyaltyCardDetails (customerId, ticketPoints) values(?,?)",(self.id,ticketPoints))
+            cur.execute("insert into loyaltyCardDetails (customerId, ticketPoints) values(?,?)",
+                    (self.id, ticketPoints))
 
             bonus = (newTotal - (newTotal % ini.LOYALTYCARD_POINTS_FOR_BONUS)) / ini.LOYALTYCARD_POINTS_FOR_BONUS
             cur.execute("update customer set loyaltyDiscount = ?, loyaltyDiscountDate = ? where loyaltyCardNo=?",
@@ -92,6 +93,9 @@ class Customer:
 
         cur.execute("update customer set loyaltyPoints = ?, loyaltyDiscount = ? where loyaltyCardNo=?",
                 (remainingPoints, 0, self.loyaltyCardNo, ))
+
+        cur.execute("insert into loyaltyCardDetails (customerId, ticketPoints) values(?,?)",
+                (self.id, pointsToDeduct * -1))
 
         conn.commit()
 
@@ -186,8 +190,8 @@ class Customer:
                    self.loyaltyPoints,
                    self.loyaltyDiscount,
                    self.loyaltyDiscountDate,
-                    self.dateRegistered))
-            
+                   self.dateRegistered))
+
             cur.execute("SELECT last_insert_rowid()")
             self.id = cur.fetchone()[0]
         else:
@@ -224,7 +228,7 @@ class Customer:
         cur = conn.cursor()
 
         #invoegen
-        cur.execute("delete from customer where no=?",(self.id,))
+        cur.execute("delete from customer where no=?", (self.id,))
 
         conn.commit()
 

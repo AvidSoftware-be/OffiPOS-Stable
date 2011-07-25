@@ -2,7 +2,7 @@ from datetime import date, timedelta
 import wx
 import DataModel
 from DataModel.Customer import Customer
-from DataModel.Ticket import Ticket
+from DataModel.Ticket import Ticket, discountTypes
 
 from Gui.dlgAskForPrice import dlgAskForPrice
 
@@ -165,7 +165,7 @@ class PaymentFrame(GeneratedGui.PaymentFrameBase):
             newTotalPoints = cust.loyaltyPoints - cust.GetPointsToDeductOnBonus()
             self.txtKorting.SetValue("{0:>.2f}".format(cust.loyaltyDiscount))
             #self.txtTotalToPay.SetValue("{0:>.2f}".format(float(self.txtTotal.Value) - float(self.txtKorting.Value)))
-            self.ticket.AddTicketLine(343, False, 0, 22, 5, cust.loyaltyDiscount * -1, True)
+            self.ticket.AddTicketLine(343, False, 0, 22, 5, cust.loyaltyDiscount * -1, discountTypes["Klantkaart"])
             cust.PayLoyaltyPoints()
             self.SetTicket(self.ticket)
         else:
