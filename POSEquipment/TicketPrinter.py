@@ -169,7 +169,7 @@ def PrintDayTotals(dayParam):
             escPrintNormal + '{0[0]:>10.2f}{0[1]:>10.2f}{0[2]:>10.2f}{0[3]:>10.2f}'.format(VATLine) + escNewLine)
     s.write(escPrintNormal + '        ---------   -------   ---------' + escNewLine)
     s.write(escPrintNormal + '{0[0]:>20.2f}{0[1]:>10.2f}{0[2]:>10.2f}'.format(dayParam['VATTotals']) + escNewLine)
-    s.write(escNewLine + escNewLine)
+    s.write(escNewLine)
 
     for dtype in DataModel.Ticket.discountTypes:
         if dtype != 'none':
@@ -179,7 +179,7 @@ def PrintDayTotals(dayParam):
                 s.write(escPrintBold + dtype + escNewLine)
                 s.write(escPrintNormal + '----------------------------------------' + escNewLine)
                 for offer in offers:
-                    s.write('{0:}: {1[3]:<27}{1[4]:>10.2f}'.format(offer[8].strftime("%H:%M"), offer) + escNewLine) #artikel
+                    s.write('{0:}: {1[3]:<23}{1[4]:>10.2f}'.format(offer[8].strftime("%H:%M"), offer) + escNewLine) #artikel
 
     s.write(escPrintNormal + '========================================' + escNewLine)
     s.write(escPrintNormal + '    AFDRUKKEN OP %s OM %s' % (
