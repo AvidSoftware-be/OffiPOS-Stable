@@ -104,15 +104,15 @@ class Customer:
     def CanPayDiscount(self):
         return self.loyaltyDiscount and (date.today() - self.loyaltyDiscountDate >= timedelta(days=1))
 
-    def GetCustomerTable(self):
-        return CustomerTable()
+    def GetCustomerTable(self, sortingCol):
+        return CustomerTable(sortingCol)
 
-    def GetAll(self):
+    def GetAll(self, sortingColumnName):
         conn = sqlite3.connect(ini.DB_NAME, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES)
         conn.text_factory = str
         cur = conn.cursor()
         cur.execute(
-            'select no, name,firstName,address,postalCode,city,telephone,birthDate,emailAddress,loyaltyCardNo,loyaltyPoints from customer order by loyaltyCardNo')
+            'select no, firstName,name,address,postalCode,city,telephone,birthDate,emailAddress,loyaltyCardNo,loyaltyPoints from customer order by ' + sortingColumnName)
         customers = cur.fetchall()
         return customers
 
@@ -234,12 +234,14 @@ class Customer:
 
 
 class CustomerTable(wx.grid.PyGridTableBase):
-    def __init__(self):
+    def __init__(self, sortCol):
         wx.grid.PyGridTableBase.__init__(self)
         self.colLabels = ["Nr.", "Voornaam", "Naam", "Adres", "Postcode", "Gemeente", "Telefoon", "Geboortedatum",
                           "Emailadres", "Klantkaart", "Punten"]
+        self.recordLabels = ["no", "firstName", "name", "address", "postalCode", "city", "telephone", "birthDate",
+                             "emailAddress", "loyaltyCardNo", "loyaltyPoints"]
 
-        self.customerLines = Customer().GetAll()
+        self.customerLines = Customer().GetAll(self.recordLabels[sortCol])
 
     def GetNumberRows(self):
         return len(self.customerLines)

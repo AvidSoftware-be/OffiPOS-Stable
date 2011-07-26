@@ -6,9 +6,10 @@ import wx
 __author__ = 'dennis'
 
 class frmKlantBeheer(GeneratedGui.frmKlantBeheerBase):
-    def UpdateForm(self):
+    def UpdateForm(self ):
+
         grid = self.grdCustomer
-        table = Customer().GetCustomerTable()
+        table = Customer().GetCustomerTable(self.sortingCol)
         grid.SetTable(table)
         rows = table.GetNumberRows()
         grid.MakeCellVisible(rows-1, 1)
@@ -20,6 +21,8 @@ class frmKlantBeheer(GeneratedGui.frmKlantBeheerBase):
 
     def __init__( self, parent ):
         GeneratedGui.frmKlantBeheerBase.__init__(self, parent)
+
+        self.sortingCol = 9
 
         self.UpdateForm()
 
@@ -57,6 +60,12 @@ class frmKlantBeheer(GeneratedGui.frmKlantBeheerBase):
             dlg.Destroy()
 
         self.UpdateForm()
+
+    def grdCustomerOnGridLabelLeftClick( self, event ):
+        self.sortingCol = event.GetCol()
+        self.UpdateForm()
+
+
 
 
 

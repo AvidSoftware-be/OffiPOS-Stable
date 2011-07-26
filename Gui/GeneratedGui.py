@@ -1196,6 +1196,7 @@ class frmKlantBeheerBase ( wx.Frame ):
 		self.Centre( wx.BOTH )
 		
 		# Connect Events
+		self.grdCustomer.Bind( wx.grid.EVT_GRID_LABEL_LEFT_CLICK, self.grdCustomerOnGridLabelLeftClick )
 		self.btnBewerk.Bind( wx.EVT_BUTTON, self.btnBewerkOnButtonClick )
 		self.btnNieuw.Bind( wx.EVT_BUTTON, self.btnNieuwOnButtonClick )
 		self.btnVerwijder.Bind( wx.EVT_BUTTON, self.btnVerwijderOnButtonClick )
@@ -1205,6 +1206,9 @@ class frmKlantBeheerBase ( wx.Frame ):
 	
 	
 	# Virtual event handlers, overide them in your derived class
+	def grdCustomerOnGridLabelLeftClick( self, event ):
+		event.Skip()
+	
 	def btnBewerkOnButtonClick( self, event ):
 		event.Skip()
 	

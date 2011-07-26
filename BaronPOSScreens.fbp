@@ -8099,7 +8099,7 @@
                                 <event name="OnGridEditorCreated"></event>
                                 <event name="OnGridEditorHidden"></event>
                                 <event name="OnGridEditorShown"></event>
-                                <event name="OnGridLabelLeftClick"></event>
+                                <event name="OnGridLabelLeftClick">grdCustomerOnGridLabelLeftClick</event>
                                 <event name="OnGridLabelLeftDClick"></event>
                                 <event name="OnGridLabelRightClick"></event>
                                 <event name="OnGridLabelRightDClick"></event>
@@ -9074,7 +9074,7 @@
                                         <event name="OnEraseBackground"></event>
                                         <event name="OnKeyDown"></event>
                                         <event name="OnKeyUp"></event>
-                                        <event name="OnKillFocus"></event>
+                                        <event name="OnKillFocus">txtPostcodeOnKillFocus</event>
                                         <event name="OnLeaveWindow"></event>
                                         <event name="OnLeftDClick"></event>
                                         <event name="OnLeftDown"></event>
@@ -9102,8 +9102,9 @@
                                     <property name="border">5</property>
                                     <property name="flag">wxALL</property>
                                     <property name="proportion">0</property>
-                                    <object class="wxTextCtrl" expanded="1">
+                                    <object class="wxComboBox" expanded="1">
                                         <property name="bg"></property>
+                                        <property name="choices"></property>
                                         <property name="context_help"></property>
                                         <property name="context_menu">1</property>
                                         <property name="enabled">1</property>
@@ -9112,9 +9113,8 @@
                                         <property name="hidden">0</property>
                                         <property name="id">wxID_ANY</property>
                                         <property name="maximum_size"></property>
-                                        <property name="maxlength">0</property>
                                         <property name="minimum_size"></property>
-                                        <property name="name">txtGemeente</property>
+                                        <property name="name">cmbGemeente</property>
                                         <property name="permission">protected</property>
                                         <property name="pos"></property>
                                         <property name="size">250,-1</property>
@@ -9130,6 +9130,7 @@
                                         <property name="window_name"></property>
                                         <property name="window_style"></property>
                                         <event name="OnChar"></event>
+                                        <event name="OnCombobox"></event>
                                         <event name="OnEnterWindow"></event>
                                         <event name="OnEraseBackground"></event>
                                         <event name="OnKeyDown"></event>
@@ -9153,8 +9154,6 @@
                                         <event name="OnSize"></event>
                                         <event name="OnText"></event>
                                         <event name="OnTextEnter"></event>
-                                        <event name="OnTextMaxLen"></event>
-                                        <event name="OnTextURL"></event>
                                         <event name="OnUpdateUI"></event>
                                     </object>
                                 </object>
