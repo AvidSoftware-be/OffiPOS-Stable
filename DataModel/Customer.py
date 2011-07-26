@@ -232,6 +232,16 @@ class Customer:
 
         conn.commit()
 
+    def UpdateLoyaltyCardNo(self, newLoyaltyCardNo):
+        conn = sqlite3.connect(ini.DB_NAME)
+        cur = conn.cursor()
+
+        cur.execute("update customer set loyaltyCardNo = ? where no = ?", (newLoyaltyCardNo, self.id))
+
+        conn.commit()
+
+        self.loyaltyCardNo = newLoyaltyCardNo
+
 
 class CustomerTable(wx.grid.PyGridTableBase):
     def __init__(self, sortCol):

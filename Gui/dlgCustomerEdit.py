@@ -71,16 +71,30 @@ class dlgCustomerEdit(GeneratedGui.dlgCustomerEditBase):
         self.txtTelefoon.Value = ""
         self.txtEmailadres.Value = ""
         self.txtKlantkaart.Value = ""
-        self.datePickerGeboorte.SetValue(wxDateTimeFromDMY(1,0,1900))
+        self.datePickerGeboorte.SetValue(wxDateTimeFromDMY(1, 0, 1900))
 
         self.customer = Customer()
 
     def txtKlantkaartOnKillFocus( self, event ):
-        cust = Customer()
-        cust.GetCustomerFromLoyaltyCard(self.txtKlantkaart.Value)
-        if cust.id:
-            self.customer = cust
-            self.UpdateForm()
+        if self.txtKlantkaart.Value == self.customer.loyaltyCardNo:
+            return
+
+        if self.customer.id:
+            #klant is in edit mode, vragen om klantkaart nummer te vervangen
+            retCode = wx.MessageBox("Wenst u het klantnummer van klant {0:} te vervangen?".format(self.customer.id),
+                                    "Opgelet", wx.YES_NO | wx.ICON_EXCLAMATION)
+
+            if retCode == wx.YES:
+                #vervang
+                self.customer.UpdateLoyaltyCardNo(self.txtKlantkaart.Value)
+        else:
+            #niet in edit mode
+            cust = Customer()
+            cust.GetCustomerFromLoyaltyCard(self.txtKlantkaart.Value)
+            if cust.id:
+                self.customer = cust
+
+        self.UpdateForm()
 
     def UpdateCitiesCombo(self):
         self.cmbGemeente.Clear()
@@ -99,7 +113,7 @@ class dlgCustomerEdit(GeneratedGui.dlgCustomerEditBase):
                 index = 0
 
             self.cmbGemeente.SetSelection(index)
-            
+
         except ValueError:
             self.cmbGemeente.SetValue(self.customer.city)
 
