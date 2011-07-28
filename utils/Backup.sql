@@ -469,7 +469,7 @@ CREATE TABLE [customer] (
 [loyaltyDiscountDate] date  NULL,
 [dateRegistered] DATE  NULL
 );
-INSERT INTO "customer" VALUES(4,'Dennis','Decoene','Poperingseweg 213','8908','Vlamertinge','0477/250.142','1974-07-04','dennis.decoene@gmail.com','KK00001',16,0.0,'1900-01-01','1900-01-01');
+INSERT INTO "customer" VALUES(4,'Dennis','Decoene','Poperingseweg 213','8900','Ieper','0477/250.142','1974-07-04','dennis.decoene@gmail.com','KK00001',16,0.0,'1900-01-01','2011-07-04');
 INSERT INTO "customer" VALUES(10,'Gillet','Gaelle','Statiestraat 21','1740','Ternat','0496854123','1978-07-30','gaelgil@hotmail.com','KK00016',3,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(11,'Strens ','Alain','L. Walravenslaan 31','1700','Dilbeek','0470553420','1900-01-01','alainstrens@hotmail.com','KK00002',3,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(22,'Nackom','Marie-Claire','Dr. Jan Appelmanslaan 80/2','1700','Dilbeek','0479682836','1948-10-09','marie-claire.nackom@telenet.be','KK00156',20,0.0,'2011-07-16','1900-01-01');
@@ -479,10 +479,10 @@ INSERT INTO "customer" VALUES(25,'','','','','','','1900-01-01','','KK00031',20,
 INSERT INTO "customer" VALUES(26,'Demesmaeker','Patrick','Ninoofsesteenweg 3b2','1700','Dilbeek','0498272349','1969-08-02','demesmaeker.nerinckx@scarlet.be','KK00032',20,0.0,'2011-07-16','1900-01-01');
 INSERT INTO "customer" VALUES(27,'','','','','','','1900-01-01','','KK00034',20,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(28,'Goudmaeker','Eddy','De Rudderstraat 5','1080','Brussel','0479766984','1961-12-08','eddy.goudmaeker@skynet.be','KK00033',20,0.0,'2011-07-16','1900-01-01');
-INSERT INTO "customer" VALUES(29,'De Gieter ','Joëlle','Kuiperweg 3','1703','Schepdaal','0477946094','1975-04-02','joëlle.de.gieter@telenet.be','KK00035',20,0.0,'2011-07-16','1900-01-01');
+INSERT INTO "customer" VALUES(29,'De Gieter ','Joï¿½lle','Kuiperweg 3','1703','Schepdaal','0477946094','1975-04-02','joï¿½lle.de.gieter@telenet.be','KK00035',20,0.0,'2011-07-16','1900-01-01');
 INSERT INTO "customer" VALUES(30,'Coppitters','Bart','Levoldlaan 12','1700','Dilbeek','0472955935','1974-07-10','','KK00155',23,0.0,'2011-07-22','1900-01-01');
 INSERT INTO "customer" VALUES(31,'Kiekens','Anne','Ninoofsesteenweg 396','1700','Dilbeek','0475211185','1961-09-30','','KK00154',20,0.0,'1900-01-01','1900-01-01');
-INSERT INTO "customer" VALUES(32,'Wils','Erwin','Herdebeekstraat 111','1701','Itterbeek','','1900-01-01','micptl@gmail.com','KK00153',20,0.0,'1900-01-01','1900-01-01');
+INSERT INTO "customer" VALUES(32,'Wils','Erwin','Herdebeekstraat 111','1701','Dilbeek','','1900-01-01','micptl@gmail.com','KK00153',20,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(33,'Bossuyt','Sofie','Ninoofsesteenweg 83','1700','Dilbeek','025693286','1982-08-12','frankbossuyt@telenet.be','KK00147',20,0.0,'2011-07-16','1900-01-01');
 INSERT INTO "customer" VALUES(34,'Lynen','Christien','Baron R De Vironlaan 35','1700','Dilbeek','024661425','1961-12-31','ronny.beyl@skynet.be','KK00151',20,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(35,'Brack','Kevin','Kothemstraat 67','1700','Dilbeek','0475733328','1990-09-14','kevinbrack@hotmail.com','KK00149',20,0.0,'1900-01-01','1900-01-01');
@@ -509,16 +509,18 @@ INSERT INTO "customer" VALUES(57,'Blauwblomme','Veronique','Weerstanderslaan 7',
 INSERT INTO "customer" VALUES(59,'Jans','Tom','Ninoofsesteenweg 134','1700','Dilbeek','0470430554','1978-10-18','','KK00004',23,0.0,'2011-07-22','1900-01-01');
 INSERT INTO "customer" VALUES(60,'De Brandt','Lia','J.M.Vanlierdelaan 13','1701','Dilbeek','0476353892','1964-03-22','debruyne.stefan@telenet.be','KK00024',20,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(61,'Bousard','Marylene','Vleermuisstraat 32','1700','Dilbeek','','1963-12-02','marylene.bousard@alva-sa.be','KK00025',20,0.0,'1900-01-01','1900-01-01');
-INSERT INTO "customer" VALUES(62,'Wauters','Vera','Baron R de Vironlaan 77','1700','Dilbeek','0478385347','1900-01-01','','KK00026',20,0.0,'1900-01-01','1900-01-01');
+INSERT INTO "customer" VALUES(62,'Wauters','Vera','Baron R de Vironlaan 77','1700','Dilbeek','0478385347','1900-01-01','','KK00026',22,0.0,'2011-07-25','1900-01-01');
 INSERT INTO "customer" VALUES(63,'Wargnies','Patrick','Weerstanderlaan 5','1700','Dilbeek','0475391108','1955-04-08','p.wargnies@skynet.be','KK00027',20,0.0,'1900-01-01','1900-01-01');
+INSERT INTO "customer" VALUES(64,'','','','','','','1900-01-01','','',-20,-15.0,'2011-07-25','1900-01-01');
 INSERT INTO "customer" VALUES(65,'Roose','Raf','Prieeldreef 12','1700','Dilbeek','0477942144','1964-01-28','raf.roose@telenet.be','KK00085',20,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(66,'Heylens','Bjorn','Ninoofsesteenweg 73','1700','Dilbeek','0477684607','1981-01-04','bufalobjorn@hotmail.com','KK00086',20,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(67,'Ba','Sadio','Kastanjedreef 7','1700','Dilbeek','0476562815','1973-01-24','sadio.ba@gmail.com','KK00087',20,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(68,'Tanckaert','Erik','Dr. Jan Appelmanslaan','1700','Dilbeek','','1969-06-16','etanckaert@gmail.com','KK00110',20,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(69,'Schellens','Jimmy','Kauwstraat 39','9550','Herzele','0483419942','1973-05-02','jimmy.schellens@hotmail.com','KK00109',20,0.0,'1900-01-01','1900-01-01');
+INSERT INTO "customer" VALUES(70,'','','','','','','1900-01-01','','',-20,-15.0,'2011-07-25','1900-01-01');
 INSERT INTO "customer" VALUES(71,'Lemoine','Frederic','Livinus Walravenslaan 36','1700','Dilbeek','0478060749','1977-02-10','fredericlemoine@hotmail.com','KK00108',20,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(72,'Segers','Martina','Kerkstraat 8a','1701','Itterbeek','','1961-07-10','msegers@kraftfoods.com','KK00054',20,0.0,'1900-01-01','1900-01-01');
-INSERT INTO "customer" VALUES(73,'Van Merris','Olivier','Schoonslaapsterstraat 24/2a','1080','Brussel (Sint-Jans-Molenbeek)','0471846092','1982-11-03','oliviervanmerris@gmail.com','KK00053',20,0.0,'1900-01-01','1900-01-01');
+INSERT INTO "customer" VALUES(73,'Van Merris','Olivier','Schoonslaapsterstraat 24/2a','1080','Brussel','0471846092','1982-11-03','oliviervanmerris@gmail.com','KK00053',20,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(74,'Rijpstra','Frans','Weerstanderslaan 27','1700','Dilbeek','0495763134','1954-07-03','','KK00051',20,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(75,'Hautman','HÃ©lÃ¨ne','Bodegemstraat 63','1700','Dilbeek','0477423884','1960-09-08','','KK00052',20,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(76,'Geerts','Mark','Bezenberg 8a','1700','Dilbeek','0491716471','1975-05-28','mark.geerts@telenet.be','KK00050',20,0.0,'1900-01-01','1900-01-01');
@@ -526,8 +528,9 @@ INSERT INTO "customer" VALUES(77,'Beck','Kathy','Itterbeeksebaan 176','1701','It
 INSERT INTO "customer" VALUES(78,'Ribbens','Jonathan','Kauwenlaan 11','1700','Dilbeek','','1993-09-28','dri@telenet.be','KK00048',20,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(79,'Hubert','Georges','Ninoofsesteenweg 327','1700','Dilbeek','','1900-01-01','','KK00047',20,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(80,'De Leeuw','Michiel','A. Gossetlaan 3/20','1702','Dilbeek','0474934691','1988-06-27','','KK00045',20,0.0,'1900-01-01','1900-01-01');
+INSERT INTO "customer" VALUES(81,'','','','','','','1900-01-01','','',-20,-15.0,'2011-07-25','1900-01-01');
 INSERT INTO "customer" VALUES(82,'Van haute','Yves','Baron R. de Vironlaan 134b6','1700','Dilbeek','0475665010','1974-03-01','yves.vanhaute@dhl.com','KK00044',20,0.0,'1900-01-01','1900-01-01');
-INSERT INTO "customer" VALUES(83,'Engels','Kevin','Rue Corneillestraat 8','1070','Anderlecht','0479236685','1991-06-28','k3vin.3n63ls@hotmail.com','KK00040',20,0.0,'1900-01-01','1900-01-01');
+INSERT INTO "customer" VALUES(83,'Engels','Kevin','Rue Corneillestraat 8','1070','Anderlecht','0479236685','1991-06-28','k3vin.3n63ls@hotmail.com','KK00040',22,0.0,'2011-07-25','1900-01-01');
 INSERT INTO "customer" VALUES(84,'Zachary','Maxime','Smissenvosstraat 44','1700','Dilbeek','0470626825','1990-01-17','maximezachary@hotmail.com','KK00039',20,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(85,'Janvier','Alain','Hendrickplacestraat 19','1700','Dilbeek','0476423446','1969-06-13','','KK00038',20,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(86,'Thiebaut','Peter','Ninoofsesteenweg 272','1700','Dilbeek','025692265','1968-05-05','peter.thiebaut@skynet.be','KK00037',20,0.0,'1900-01-01','1900-01-01');
@@ -555,7 +558,7 @@ INSERT INTO "customer" VALUES(107,'Van Den Nest','Patrick','Steenweg 588','9470'
 INSERT INTO "customer" VALUES(108,'Broodearen','Luc','Zierbeekhofbaan 2b','1703','Schepdaal','0498575731','1954-12-25','broodearen.luc@telenet.be','KK00013',20,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(109,'Gieuors','Sandrine','Roomstraat 185','1701','Itterbeek','','1900-01-01','','KK00014',20,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(110,'Timmermans','Firmen','Bouwkunstlaan 31','1700','Dilbeek','02679060','1942-12-14','','KK00015',20,0.0,'1900-01-01','1900-01-01');
-INSERT INTO "customer" VALUES(111,'Deliessche','Peter','Hoogveldlaan 16','1652','Alsemberg','023810315','1985-06-26','peter.deliessche@gmail.com','KK00017',20,0.0,'1900-01-01','1900-01-01');
+INSERT INTO "customer" VALUES(111,'Deliessche','Peter','Hoogveldlaan 16','1652','Alsemberg','023810315','1985-06-26','peter.deliessche@gmail.com','KK00174',21,0.0,'2011-07-25','1900-01-01');
 INSERT INTO "customer" VALUES(112,'Termont','Nathalie','Livinus Walravenslaan 31/3','1700','Dilbeek','0494172066','1984-05-03','nathalietermont@hotmail.com','KK00020',20,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(113,'Agneessens','Lydia','Egelstraat 25','1700','Dilbeek','0473661706','1968-12-07','lydia.agneessens@telenet.be','KK00022',20,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(114,'Gorissen','Luc','Henri Mosismanlaan 138','1700','Dilbeek','0485836475','1980-08-31','gorissen.luc@gmail.com','KK00023',20,0.0,'1900-01-01','1900-01-01');
@@ -578,13 +581,6 @@ GROUP BY
 ORDER BY
   product_group.id,
   ticketLine.productId;
-DROP TABLE IF EXISTS loyaltyCardDetails;
-CREATE TABLE [loyaltyCardDetails] (
-[entryNo] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
-[customerId] INTEGER  NULL,
-[ticketPoints] REAL  NULL,
-[dateRegistered] TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL
-);
 DROP TABLE IF EXISTS postalCode;
 CREATE TABLE postalCode (
   EntryNo     integer PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -3496,3 +3492,57 @@ INSERT INTO "postalCode" VALUES(2900,9988,'Watervliet','WATERVLIET','9988       
 INSERT INTO "postalCode" VALUES(2901,9990,'Maldegem','MALDEGEM','9990   MALDEGEM');
 INSERT INTO "postalCode" VALUES(2902,9991,'Adegem','ADEGEM','9991        Adegem');
 INSERT INTO "postalCode" VALUES(2903,9992,'Middelburg','MIDDELBURG','9992        Middelburg');
+DROP TABLE IF EXISTS loyaltyCardDetails;
+CREATE TABLE [loyaltyCardDetails] (
+[entryNo] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
+[customerId] INTEGER  NULL,
+[ticketPoints] REAL  NULL,
+[dateRegistered] TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL
+);
+INSERT INTO "loyaltyCardDetails" VALUES(1,0,0.0,'2011-07-25 14:49:00');
+INSERT INTO "loyaltyCardDetails" VALUES(2,0,1.0,'2011-07-25 15:34:25');
+INSERT INTO "loyaltyCardDetails" VALUES(3,0,1.0,'2011-07-25 15:59:45');
+INSERT INTO "loyaltyCardDetails" VALUES(4,0,0.0,'2011-07-25 16:00:09');
+INSERT INTO "loyaltyCardDetails" VALUES(5,0,1.0,'2011-07-25 16:01:44');
+INSERT INTO "loyaltyCardDetails" VALUES(6,0,1.0,'2011-07-25 16:17:39');
+INSERT INTO "loyaltyCardDetails" VALUES(7,0,2.0,'2011-07-25 16:18:14');
+INSERT INTO "loyaltyCardDetails" VALUES(8,0,2.0,'2011-07-25 16:19:28');
+INSERT INTO "loyaltyCardDetails" VALUES(9,0,1.0,'2011-07-25 16:20:08');
+INSERT INTO "loyaltyCardDetails" VALUES(10,0,6.0,'2011-07-25 16:41:24');
+INSERT INTO "loyaltyCardDetails" VALUES(11,0,2.0,'2011-07-25 16:52:28');
+INSERT INTO "loyaltyCardDetails" VALUES(12,0,2.0,'2011-07-25 16:53:32');
+INSERT INTO "loyaltyCardDetails" VALUES(13,83,2.0,'2011-07-25 17:01:04');
+INSERT INTO "loyaltyCardDetails" VALUES(14,83,0.0,'2011-07-25 17:01:08');
+INSERT INTO "loyaltyCardDetails" VALUES(15,0,1.0,'2011-07-25 17:04:34');
+INSERT INTO "loyaltyCardDetails" VALUES(16,0,1.0,'2011-07-25 17:06:06');
+INSERT INTO "loyaltyCardDetails" VALUES(17,0,1.0,'2011-07-25 17:10:25');
+INSERT INTO "loyaltyCardDetails" VALUES(18,0,4.0,'2011-07-25 17:35:35');
+INSERT INTO "loyaltyCardDetails" VALUES(19,0,8.0,'2011-07-25 17:39:11');
+INSERT INTO "loyaltyCardDetails" VALUES(20,0,2.0,'2011-07-25 17:40:05');
+INSERT INTO "loyaltyCardDetails" VALUES(21,0,-1.0,'2011-07-25 17:47:11');
+INSERT INTO "loyaltyCardDetails" VALUES(22,62,2.0,'2011-07-25 17:48:20');
+INSERT INTO "loyaltyCardDetails" VALUES(23,0,1.0,'2011-07-25 17:51:42');
+INSERT INTO "loyaltyCardDetails" VALUES(24,0,1.0,'2011-07-25 17:52:20');
+INSERT INTO "loyaltyCardDetails" VALUES(25,0,2.0,'2011-07-25 18:06:24');
+INSERT INTO "loyaltyCardDetails" VALUES(26,0,1.0,'2011-07-25 18:14:22');
+INSERT INTO "loyaltyCardDetails" VALUES(27,111,1.0,'2011-07-25 18:20:36');
+INSERT INTO "loyaltyCardDetails" VALUES(28,0,1.0,'2011-07-25 18:23:23');
+INSERT INTO "loyaltyCardDetails" VALUES(29,0,4.0,'2011-07-25 18:24:44');
+INSERT INTO "loyaltyCardDetails" VALUES(30,0,1.0,'2011-07-25 18:31:33');
+INSERT INTO "loyaltyCardDetails" VALUES(31,0,1.0,'2011-07-25 18:38:54');
+INSERT INTO "loyaltyCardDetails" VALUES(32,0,0.0,'2011-07-25 18:48:33');
+INSERT INTO "loyaltyCardDetails" VALUES(33,0,1.0,'2011-07-25 19:00:50');
+INSERT INTO "loyaltyCardDetails" VALUES(34,0,4.0,'2011-07-25 19:02:01');
+INSERT INTO "loyaltyCardDetails" VALUES(35,0,2.0,'2011-07-25 19:06:03');
+INSERT INTO "loyaltyCardDetails" VALUES(36,0,1.0,'2011-07-25 19:25:17');
+INSERT INTO "loyaltyCardDetails" VALUES(37,0,2.0,'2011-07-25 19:37:19');
+INSERT INTO "loyaltyCardDetails" VALUES(38,0,1.0,'2011-07-25 19:41:48');
+INSERT INTO "loyaltyCardDetails" VALUES(39,0,0.0,'2011-07-25 19:43:40');
+INSERT INTO "loyaltyCardDetails" VALUES(40,0,2.0,'2011-07-25 19:53:23');
+INSERT INTO "loyaltyCardDetails" VALUES(41,0,1.0,'2011-07-25 20:01:15');
+INSERT INTO "loyaltyCardDetails" VALUES(42,0,2.0,'2011-07-25 20:04:52');
+INSERT INTO "loyaltyCardDetails" VALUES(43,0,4.0,'2011-07-25 20:08:24');
+INSERT INTO "loyaltyCardDetails" VALUES(44,0,1.0,'2011-07-25 20:19:43');
+INSERT INTO "loyaltyCardDetails" VALUES(45,0,1.0,'2011-07-25 21:01:48');
+INSERT INTO "loyaltyCardDetails" VALUES(46,0,3.0,'2011-07-25 21:04:25');
+INSERT INTO "loyaltyCardDetails" VALUES(47,0,-20.0,'2011-07-25 21:17:20');
