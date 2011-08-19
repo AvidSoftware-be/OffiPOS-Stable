@@ -13,7 +13,7 @@ import ini
 
 paymentMethods = dict(Cash=1, Atos=2)
 priceModes = dict(pos=1, neg=2)
-discountTypes = {'none':0, 'Aanbieding Directie':1, 'Klantkaart':2, 'Persoonlijk Gebruik':3}
+discountTypes = {'none': 0, 'Aanbieding Directie': 1, 'Klantkaart': 2, 'Persoonlijk Gebruik': 3}
 
 class Ticket:
     def __init__(self):
@@ -116,12 +116,23 @@ class Ticket:
     def SetEatInOut(self, code):
         cur = self.conn.cursor()
 
-        cur.execute("update ticketLine set eatInOut=? where ticketNo=?", (code, self.no,))
-
-        self.conn.commit()
-
         self.eatInOut = code
 
+        #vatcodes en I/O updaten
+        lines = self.GetTicketLines()
+        for line in lines:
+            product = Product(line[3])
+            product.fill()
+
+            vatcode = 0
+            if self.eatInOut == "O":
+                vatcode = product.vatCodeOut
+            elif self.eatInOut == "I":
+                vatcode = product.vatCodeIn
+
+            cur.execute("update ticketLine set vatCode = ?, eatInOut=? where entryNo = ?", (vatcode, code, line[4]))
+
+        self.conn.commit()
 
     def GetTicketLines(self):
         cur = self.conn.cursor()
