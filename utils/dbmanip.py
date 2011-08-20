@@ -16,10 +16,16 @@ def CreateDB():
 
         conn = sqlite3.connect(ini.DB_NAME)
         cu = conn.cursor()
-        for sql in fileCont:
-            cu.execute(sql)
 
-        conn.commit()
+        try:
+            for sql in fileCont:
+                cu.execute(sql)
+
+            conn.commit()
+        except sqlite3.OperationalError:
+            print sql
+            conn.rollback()
+
 
 if __name__ == '__main__':
     CreateDB()

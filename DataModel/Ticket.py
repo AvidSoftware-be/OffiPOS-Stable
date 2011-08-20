@@ -1,5 +1,6 @@
 import datetime
 from DataModel.Customer import Customer
+from DataModel.Menu import ProductMenu
 from DataModel.ProductScreen import ProductScreen
 from DataModel.Product import Product
 import POSEquipment.CustomerDisplay
@@ -13,7 +14,8 @@ import ini
 
 paymentMethods = dict(Cash=1, Atos=2)
 priceModes = dict(pos=1, neg=2)
-discountTypes = {'none': 0, 'Aanbieding Directie': 1, 'Klantkaart': 2, 'Persoonlijk Gebruik': 3}
+discountTypes = {'none': 0, 'Aanbieding Directie': 1, 'Klantkaart': 2, 'Persoonlijk Gebruik': 3,
+                 'Commerciele korting': 4}
 
 class Ticket:
     def __init__(self):
@@ -62,6 +64,15 @@ class Ticket:
         cur.execute(
             "insert into ticketLine (ticketNo,productId,productName,price,eatInOut,isOption,dateRegistered,vatCode,discountType, quantity) values (?,?,?,?,?,?,?,?,?,?)"
             , val)
+
+
+        pMenu = ProductMenu(product.id)
+        if pMenu.menuComponents:
+            for component in pMenu.menuComponents:
+                cur.execute(
+                    "insert into ticketLine (ticketNo,productId,productName,price,eatInOut,isOption,dateRegistered,vatCode,discountType, quantity) values (?,?,?,?,?,?,?,?,?,?)"
+            , (self.no, component[2],component[3],component[4],self.eatInOut,isOption,datetime.datetime.now(),
+            vatcode, component[5], qty ))
 
         self.conn.commit()
 
