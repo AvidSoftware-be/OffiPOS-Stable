@@ -99,9 +99,10 @@ class dlgCustomerEdit(GeneratedGui.dlgCustomerEditBase):
     def UpdateCitiesCombo(self):
         self.cmbGemeente.Clear()
         pc = PostalCode()
-        cities = pc.GetFromCode(int(self.txtPostcode.Value))
-        for city in cities:
-            self.cmbGemeente.Append(city[2])
+        if self.txtPostcode.Value:
+            cities = pc.GetFromCode(int(self.txtPostcode.Value))
+            for city in cities:
+                self.cmbGemeente.Append(city[2])
 
         items = self.cmbGemeente.GetItems()
 
