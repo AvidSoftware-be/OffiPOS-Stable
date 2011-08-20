@@ -21,6 +21,5 @@ def CreateDB():
 
         conn.commit()
 
-
 if __name__ == '__main__':
     CreateDB()

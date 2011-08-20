@@ -25,7 +25,7 @@ class Ticket:
         self.KitchenPrinted = False
 
     def AddTicketLine(self, productId, isOption, parentProductId, buttonNo, screenCategory, price=0,
-                      discountType=discountTypes["none"]):
+                      discountType=discountTypes["none"], qty=1):
         product = Product(productId)
         product.fill()
 
@@ -33,7 +33,7 @@ class Ticket:
             product.price = price #er werd een prijs meegegeven die de productprijs vervangt
 
         if isOption:
-            product.price = product.price - (product.price * (product.discountIfOption) / 100)
+            product.price = product.price - (product.price * product.discountIfOption / 100)
 
             if productId == 9999:
                 #speciaal!
@@ -45,6 +45,7 @@ class Ticket:
 
         if self.priceMode == priceModes["neg"]:
             product.price = product.price * -1
+            qty = qty * -1
 
         vatcode = 0
         if self.eatInOut == "O":
@@ -54,12 +55,12 @@ class Ticket:
 
         val = (
             self.no, productId, product.name.strip(), product.price, self.eatInOut, isOption, datetime.datetime.now(),
-            vatcode, discountType )
+            vatcode, discountType, qty )
 
         cur = self.conn.cursor()
 
         cur.execute(
-            "insert into ticketLine (ticketNo,productId,productName,price,eatInOut,isOption,dateRegistered,vatCode,discountType) values (?,?,?,?,?,?,?,?,?)"
+            "insert into ticketLine (ticketNo,productId,productName,price,eatInOut,isOption,dateRegistered,vatCode,discountType, quantity) values (?,?,?,?,?,?,?,?,?,?)"
             , val)
 
         self.conn.commit()
@@ -91,7 +92,7 @@ class Ticket:
     def CancelTicket(self):
         cur = self.conn.cursor()
 
-        cur.execute("delete from ticketLine where ticketNo=?", (self.no,))
+        cur.execute("update ticketLine set isCancelled = 1 where ticketNo=?", (self.no,))
 
         self.conn.commit()
 
@@ -138,7 +139,7 @@ class Ticket:
         cur = self.conn.cursor()
         cur.execute(
             #"select product.name, product.price, ticketLine.isOption, product.discountIfOption, product.id from ticketLine, product where ticketline.productId=product.id and ticketline.ticketNo=?"
-            "select productName, price, isOption, productId, entryNo from ticketLine where ticketline.ticketNo=?"
+            "select productName, price, isOption, productId, entryNo, isCancelled from ticketLine where ticketline.ticketNo=? and isCancelled=0"
             , (self.no,))
         lines = cur.fetchall()
 
@@ -171,7 +172,7 @@ class Ticket:
     def DeleteTickeLine(self, entryNo):
         cur = self.conn.cursor()
 
-        cur.execute("delete from ticketLine where entryNo=?", (entryNo,))
+        cur.execute("update ticketLine set isCancelled = 1 where entryNo=?", (entryNo,))
 
         self.conn.commit()
 
@@ -218,6 +219,7 @@ class Ticket:
 
 
     def GetTotalAmt(self):
+        #only for current ticket!
         ticketLines = self.GetTicketLines()
         total = 0
 
@@ -255,7 +257,7 @@ class Ticket:
 
     def GetPaymentTotal(self, paymentType):
         cur = self.conn.cursor()
-        cur.execute("select SUM(price) from ticketLine where paid=?", (paymentType,))
+        cur.execute("select SUM(price) from ticketLine where paid=? and isCancelled=0", (paymentType,))
         line = cur.fetchone()
         if line[0]:
             return line[0]
@@ -272,7 +274,7 @@ class Ticket:
 
         for line in lines:
             vatPct = line[2]
-            cur.execute("select SUM(price) from ticketLine where vatCode=?", (line[0],))
+            cur.execute("select SUM(price) from ticketLine where vatCode=? and isCancelled=0", (line[0],))
             totAmt = cur.fetchone()
 
             if totAmt[0]:

@@ -1,11 +1,15 @@
 from wx._misc import MessageBox
 from wxPython._core import wxSAVE, wxOVERWRITE_PROMPT, wxID_OK, wxOPEN
 from wxPython._windows import wxFileDialog
+from Client.JSONClient import Proxy
 from DataModel.Ticket import Ticket
 import DataModel.VATManipulations
 from Gui.frmKlantBeheer import frmKlantBeheer
+import ini
 from utils.BackupDatabase import FILETYPES
 import utils
+
+import pprint
 
 __author__ = 'dennis'
 
@@ -14,6 +18,7 @@ import GeneratedGui
 class AdminDialog(GeneratedGui.AdminDialogBase):
     def __init__( self, parent ):
         GeneratedGui.AdminDialogBase.__init__(self, parent)
+        self.JSONProxy = Proxy(ini.SERVICEURL+'/vat')
 
     def btnKasAfsluitenOnButtonClick( self, event ):
         DataModel.VATManipulations.DoEndOfDay(True)
@@ -22,15 +27,26 @@ class AdminDialog(GeneratedGui.AdminDialogBase):
         DataModel.VATManipulations.DoEndOfDay(False)
 
     def btnTotalOnScreenOnButtonClick( self, event ):
-        total = 0
-        try:
-            total = Ticket().GetPaymentTotal(DataModel.Ticket.paymentMethods['Cash'])
-            total += Ticket().GetPaymentTotal(DataModel.Ticket.paymentMethods['Atos'])
-        except:
-            if not total:
-                total = 0
+    #        total = 0
+    #        try:
+    #            total = Ticket().GetPaymentTotal(DataModel.Ticket.paymentMethods['Cash'])
+    #            total += Ticket().GetPaymentTotal(DataModel.Ticket.paymentMethods['Atos'])
+    #        except:
+    #            if not total:
+    #                total = 0
 
-        MessageBox(u"Totaal: {0:>10.2f}\u20AC".format(total))
+        total = self.JSONProxy._call('getDayTotal', {'param': ''})
+        MessageBox(u"Totaal: {0:>10.2f}\u20AC".format(total["result"]))
+
+    def btnArtTotSchermOnButtonClick( self, event ):
+        itemTotals = self.JSONProxy._call('getItemTotals', {'param': ''})
+
+        for totalLine in itemTotals:
+            for itemLine in totalLine:
+                pass
+
+        pp = pprint.PrettyPrinter(indent=4)
+        pp.pprint()
 
     def btnArtikelTotalenOnButtonClick( self, event ):
         DataModel.VATManipulations.PrintItemTotals()
@@ -57,7 +73,8 @@ class AdminDialog(GeneratedGui.AdminDialogBase):
         dialog.Destroy()
 
         # Create a save file dialog
-        dialog = wxFileDialog(None, message="Doelbestand Kiezen", style=wxSAVE | wxOVERWRITE_PROMPT, wildcard="SQL files (*.sql)|*.sql|SQLITE3 files (*.db)|*.db")
+        dialog = wxFileDialog(None, message="Doelbestand Kiezen", style=wxSAVE | wxOVERWRITE_PROMPT,
+                              wildcard="SQL files (*.sql)|*.sql|SQLITE3 files (*.db)|*.db")
 
         # Show the dialog and get user input
         if dialog.ShowModal() == wxID_OK:
@@ -67,6 +84,6 @@ class AdminDialog(GeneratedGui.AdminDialogBase):
 
         dialog.Destroy()
 
-        utils.BackupDatabase.BackupDB(sourceFile,destinationFile,FILETYPES[destinationFile.split(".")[1]])
+        utils.BackupDatabase.BackupDB(sourceFile, destinationFile, FILETYPES[destinationFile.split(".")[1]])
 
   

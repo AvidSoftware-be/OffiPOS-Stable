@@ -276,6 +276,7 @@ class MainFrame(GeneratedGui.MainFrameBase):
             self.ticket.SetEatInOut("O")
 
     def btnAdminOnButtonClick( self, event ):
+        
         adminMenu = AdminDialog(self)
         adminMenu.ShowModal()
 
