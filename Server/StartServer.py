@@ -1,4 +1,4 @@
-from Server.BaronPOSServer import BaronPOSServer
+from BaronPOSServer import BaronPOSServer
 
 __author__ = 'dennis'
 
