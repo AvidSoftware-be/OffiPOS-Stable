@@ -498,7 +498,7 @@ INSERT INTO "customer" VALUES(71,'Lemoine','Frederic','Livinus Walravenslaan 36'
 INSERT INTO "customer" VALUES(72,'Segers','Martina','Kerkstraat 8a','1701','Itterbeek','','1961-07-10','msegers@kraftfoods.com','KK00054',20,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(73,'Van Merris','Olivier','Schoonslaapsterstraat 24/2a','1080','Brussel (Sint-Jans-Molenbeek)','0471846092','1982-11-03','oliviervanmerris@gmail.com','KK00053',20,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(74,'Rijpstra','Frans','Weerstanderslaan 27','1700','Dilbeek','0495763134','1954-07-03','','KK00051',21,0.0,'2011-08-18','1900-01-01');
-INSERT INTO "customer" VALUES(75,'Hautman','Hélène','Bodegemstraat 63','1700','Dilbeek','0477423884','1960-09-08','','KK00052',20,0.0,'1900-01-01','1900-01-01');
+INSERT INTO "customer" VALUES(75,'Hautman','Hï¿½lï¿½ne','Bodegemstraat 63','1700','Dilbeek','0477423884','1960-09-08','','KK00052',20,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(76,'Geerts','Mark','Bezenberg 8a','1700','Dilbeek','0491716471','1975-05-28','mark.geerts@telenet.be','KK00050',20,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(77,'Beck','Kathy','Itterbeeksebaan 176','1701','Itterbeek','0488413900','1967-01-09','kathy_beck@live.be','KK00049',23,0.0,'2011-07-29','1900-01-01');
 INSERT INTO "customer" VALUES(78,'Ribbens','Jonathan','Kauwenlaan 11','1700','Dilbeek','','1993-09-28','dri@telenet.be','KK00048',20,0.0,'1900-01-01','1900-01-01');
@@ -512,7 +512,7 @@ INSERT INTO "customer" VALUES(86,'Thiebaut','Peter','Ninoofsesteenweg 272','1700
 INSERT INTO "customer" VALUES(87,'Devlamynck','Virginie','Henri Moeremanslaan 90','1700','Dilbeek','0472802128','1985-04-15','','KK00093',20,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(88,'Angeli','Julien','Baron R. de Vironlaan 131','1700','Dilbeek','0499523038','1981-04-21','mariejulien@hotmail.com','KK00097',20,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(89,'Gerard ','Didier','Walravenslaan 15/13','1700','Dilbeek','0475960177','1969-12-08','didier-gerard@skynet.be','KK00096',20,0.0,'1900-01-01','1900-01-01');
-INSERT INTO "customer" VALUES(90,'Vancampenhaut','Aurélie','Dr. Roger Lambrechtslaan 74','1700','Dilbeek','0476608389','1986-02-08','hebaby711@msn.com','KK00095',20,0.0,'1900-01-01','1900-01-01');
+INSERT INTO "customer" VALUES(90,'Vancampenhaut','Aurï¿½lie','Dr. Roger Lambrechtslaan 74','1700','Dilbeek','0476608389','1986-02-08','hebaby711@msn.com','KK00095',20,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(91,'De Nil','Gust','Heuvellaan 3','1700','Dilbeek','0478311364','1944-12-16','gust.denil@skynet.be','KK00094',24,0.0,'2011-07-29','1900-01-01');
 INSERT INTO "customer" VALUES(92,'Dekoster','Stephane','Baron R. de Vironlaan 101','1700','Dilbeek','0475471571','1963-07-12','stephane@dilhome.be','KK00099',20,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(93,'Mostinckx','Wim','Baron R. de Vironlaan 105','1700','Dilbeek','','1969-02-21','wim.mostinckx@telenet.be','KK00100',22,0.0,'2011-07-29','1900-01-01');
@@ -582,7 +582,7 @@ INSERT INTO "customer" VALUES(158,'Heremans','Sylvia','Ninoofsesteenweg 131 b1',
 INSERT INTO "customer" VALUES(159,'Balran','Ayline','Lange Haagstraat 49','1700','Dilbeek','','1994-10-12','ayline.balran@hotmail.com','KK00246',20,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(160,'Smet','Herman','van Mulderlaan 29','1700','Dilbeek','024666004','1960-04-26','hemar@telenet.be','KK00182',20,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(161,'Masy','Patricia','Baron R de Vironlaan 131/8','1700','Dilbeek','0476357297','1967-02-08','patricia.masy@hotmail.com','KK00183',20,0.0,'1900-01-01','1900-01-01');
-INSERT INTO "customer" VALUES(162,'','','','','','','1900-01-01','','çè',20,0.0,'1900-01-01','1900-01-01');
+INSERT INTO "customer" VALUES(162,'','','','','','','1900-01-01','','ï¿½ï¿½',20,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(163,'','','','','','','1900-01-01','','KK',20,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(164,'Merckx','Paula','Schilderkunstlaan 18','1700','Dilbeek','025691482','1939-01-13','','KK00181',20,0.0,'1900-01-01','1900-01-01');
 INSERT INTO "customer" VALUES(165,'Delmatie','Eric','Henri Moeremansstraat 85','1700','Dilbeek','024668119','1966-05-22','ddeeric@hotmail.com','KK00184',20,0.0,'1900-01-01','1900-01-01');
@@ -4069,8 +4069,11 @@ CREATE TABLE [menuComponent] (
 [price] REAL  NULL,
 [discountType] INTEGER  NULL
 );
-INSERT INTO "menuComponent" VALUES(1,1,9999,'Tijd. Korting',-0.05,4);
-INSERT INTO "menuComponent" VALUES(2,2,9999,'Tijd. Korting',-0.05,4);
-INSERT INTO "menuComponent" VALUES(3,3,9999,'Tijd. Korting',-0.05,4);
-INSERT INTO "menuComponent" VALUES(4,4,9999,'Tijd. Korting',-0.05,4);
-INSERT INTO "menuComponent" VALUES(5,5,9999,'Tijd. Korting',-0.05,4);
+INSERT INTO "menuComponent" VALUES(1,1,9999,'Tijd. Korting Friet',-0.05,4);
+INSERT INTO "menuComponent" VALUES(2,2,9999,'Tijd. Korting Friet',-0.05,4);
+INSERT INTO "menuComponent" VALUES(3,3,9999,'Tijd. Korting Friet',-0.05,4);
+INSERT INTO "menuComponent" VALUES(4,4,9999,'Tijd. Korting Friet',-0.05,4);
+INSERT INTO "menuComponent" VALUES(5,5,9999,'Tijd. Korting Friet',-0.05,4);
+
+INSERT INTO "menuComponent" VALUES(Null,337,2,Null,0,0);
+INSERT INTO "menuComponent" VALUES(Null,337,301,Null,0,0);

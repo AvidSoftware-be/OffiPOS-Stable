@@ -65,14 +65,22 @@ class Ticket:
             "insert into ticketLine (ticketNo,productId,productName,price,eatInOut,isOption,dateRegistered,vatCode,discountType, quantity) values (?,?,?,?,?,?,?,?,?,?)"
             , val)
 
-
+        #als dit artikel menuComponents heeft, ook opvullen
         pMenu = ProductMenu(product.id)
         if pMenu.menuComponents:
             for component in pMenu.menuComponents:
+                if not component[3]: #name is leeg, begruik die van het gekoppeld product
+                    prod = Product(component[2])
+                    prod.fill()
+                    name = prod.name
+                else:
+                    name = component[3]
+
                 cur.execute(
                     "insert into ticketLine (ticketNo,productId,productName,price,eatInOut,isOption,dateRegistered,vatCode,discountType, quantity) values (?,?,?,?,?,?,?,?,?,?)"
-            , (self.no, component[2],component[3],component[4],self.eatInOut,isOption,datetime.datetime.now(),
-            vatcode, component[5], qty ))
+                    , (self.no, component[2], name, component[4], self.eatInOut, isOption,
+                       datetime.datetime.now(),
+                       vatcode, component[5], qty ))
 
         self.conn.commit()
 
@@ -150,7 +158,7 @@ class Ticket:
         cur = self.conn.cursor()
         cur.execute(
             #"select product.name, product.price, ticketLine.isOption, product.discountIfOption, product.id from ticketLine, product where ticketline.productId=product.id and ticketline.ticketNo=?"
-            "select productName, price, isOption, productId, entryNo, isCancelled from ticketLine where ticketline.ticketNo=? and isCancelled=0"
+            "select productName, price, isOption, productId, entryNo, isCancelled, discountType from ticketLine where ticketline.ticketNo=? and isCancelled=0"
             , (self.no,))
         lines = cur.fetchall()
 
@@ -160,22 +168,17 @@ class Ticket:
     def GetTicketLinesGrouped(self):
         cur = self.conn.cursor()
         cur.execute(
-            "SELECT productId, productName, price, isOption " +
-            "FROM ticketLine " +
-            "WHERE ticketNo = ? ORDER BY productId", (self.no,))
+            """SELECT productId, productName, sum(price), isOption, discountType, sum(quantity) as qty FROM ticketLine
+            WHERE ticketNo = ? and isCancelled=0 group by productId, discountType ORDER BY productId""", (self.no,))
 
         lines = cur.fetchall()
         groupedLines = {}
 
         for ticketLine in lines:
-            if (ticketLine[0] != 9999) and (not ticketLine[3]): #geen generieke en geen optie
-                if ticketLine[0] in groupedLines:
-                    #bijtellen
-                    groupedLines[ticketLine[0]][0] += 1
-                    groupedLines[ticketLine[0]][2] += ticketLine[2]
-                else:
-                    #aanmaken
-                    groupedLines[ticketLine[0]] = [1, ticketLine[1], ticketLine[2]] #qty, naam, prijs
+            if (ticketLine[0] != 9999) and (not ticketLine[3]) or(
+                ticketLine[4]): #geen generieke en geen opties, wel kortingen
+                groupedLines[ticketLine[0]] = [ticketLine[5], ticketLine[1], ticketLine[2],
+                                               ticketLine[4]] #qty, naam, prijs, discountType
 
         return groupedLines
 
@@ -211,18 +214,22 @@ class Ticket:
 
         lines = self.GetTicketLinesGrouped()
 
+        #overzicht
         for (k, v) in self.GetTicketLinesGrouped().iteritems():
-            body += "{0[0]:>2} {0[1]:>}{1:>}".format(v, POSEquipment.TicketPrinter.escNewLine)
+            if not v[3]: #kortingen niet afdrukken
+                body += "{0[0]:>2} {0[1]:>}{1:>}".format(v, POSEquipment.TicketPrinter.escNewLine)
 
         body += "{2:>}{0:*>39}{1:>}".format('*', POSEquipment.TicketPrinter.escNewLine,
                                             POSEquipment.TicketPrinter.escPrintNormal) #lijntje
 
+        #detail
         for line in self.GetTicketLines():
-            indent = ""
-            if (line[3] == 9999) or line[2]: #is generiek of optie
-                indent = "     "
+            if not line[6]: #kortingen hoeven niet op de bon
+                indent = ""
+                if (line[3] == 9999) or line[2]: #is generiek of optie
+                    indent = "     "
 
-            body += "{2}{0[0]:>2}{1:>}".format(line, POSEquipment.TicketPrinter.escNewLine, indent)
+                body += "{2}{0[0]:>2}{1:>}".format(line, POSEquipment.TicketPrinter.escNewLine, indent)
 
         POSEquipment.TicketPrinter.PrintKitchenBill(body, self.eatInOut)
 
