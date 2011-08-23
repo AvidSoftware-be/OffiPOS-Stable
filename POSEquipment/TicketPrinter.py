@@ -44,7 +44,7 @@ def PrintBill(ticket, paymentMethod, totalAmt, paidAmt, returnAmt, customer):
 
     body = ""
     for (k, v) in ticket.GetTicketLinesGrouped().iteritems():
-        body += "{0[0]:<4} {0[1]:<26}{0[2]:>8.2f}{1:>}".format(v, escNewLine)
+        body += "{0[0]:<4.0f} {0[1]:<26}{0[2]:>8.2f}{1:>}".format(v, escNewLine)
 
     s.write('{0}'.format(body))
     s.write('-----------------------------------------' + escNewLine)
@@ -223,13 +223,13 @@ def PrintItemTotals(totals):
         itemQtyTotal = 0
         amountTotal = 0
         for itemLine in line[2]:
-            s.write('{0[0]:>3} {0[1]:>4d} {0[2]:<21}{0[3]:>10.2f}'.format(itemLine) + escNewLine) #artikel
+            s.write('{0[0]:>3.0f} {0[1]:>4d} {0[2]:<21}{0[3]:>10.2f}'.format(itemLine) + escNewLine) #artikel
             itemQtyTotal += itemLine[0]
             amountTotal += itemLine[3]
             grandTotAmt += itemLine[3]
 
         s.write(
-            escPrintBold + '{0:>3}{1:>37.2f}'.format(itemQtyTotal, amountTotal) + escNewLine + escNewLine) #totalen
+            escPrintBold + '{0:>3.0f}{1:>37.2f}'.format(itemQtyTotal, amountTotal) + escNewLine + escNewLine) #totalen
 
     s.write(
         escPrintBold + '{0:>40.2f}'.format(grandTotAmt) + escNewLine + escNewLine) #totalen

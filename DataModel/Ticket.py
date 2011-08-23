@@ -217,7 +217,7 @@ class Ticket:
         #overzicht
         for (k, v) in self.GetTicketLinesGrouped().iteritems():
             if not v[3]: #kortingen niet afdrukken
-                body += "{0[0]:>2} {0[1]:>}{1:>}".format(v, POSEquipment.TicketPrinter.escNewLine)
+                body += "{0[0]:>2.0f} {0[1]:>}{1:>}".format(v, POSEquipment.TicketPrinter.escNewLine)
 
         body += "{2:>}{0:*>39}{1:>}".format('*', POSEquipment.TicketPrinter.escNewLine,
                                             POSEquipment.TicketPrinter.escPrintNormal) #lijntje
