@@ -1,4 +1,7 @@
-from Server.SimpleJSONRPCServer import SimpleJSONRPCServer
+import sys
+sys.path.append("..")
+
+from SimpleJSONRPCServer import SimpleJSONRPCServer
 from DataModel.Ticket import paymentMethods
 from DataModel.Ticket import Ticket
 
