@@ -1,4 +1,6 @@
-from Server.SimpleJSONRPCServer import SimpleJSONRPCServer
+from SimpleJSONRPCServer import SimpleJSONRPCServer
+import sys
+sys.path.append("..")
 from DataModel.Ticket import paymentMethods
 from DataModel.Ticket import Ticket
 
@@ -17,15 +19,7 @@ class BaronPOSServer(SimpleJSONRPCServer):
             return func(*params)
 
     def export_getDayTotal(self, param):
-        total = 0
-        try:
-            total = Ticket().GetPaymentTotal(paymentMethods['Cash'])
-            total += Ticket().GetPaymentTotal(paymentMethods['Atos'])
-        except:
-            if not total:
-                total = 0
-
-        return total
+        return Ticket().GetTotalAmt()
 
     def export_getItemTotals(self, param):
         return Ticket().GetItemTotals()

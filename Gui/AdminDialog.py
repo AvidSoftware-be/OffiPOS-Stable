@@ -18,7 +18,7 @@ import GeneratedGui
 class AdminDialog(GeneratedGui.AdminDialogBase):
     def __init__( self, parent ):
         GeneratedGui.AdminDialogBase.__init__(self, parent)
-        self.JSONProxy = Proxy(ini.SERVICEURL+'/vat')
+        self.JSONProxy = Proxy(ini.SERVICEURL)
 
     def btnKasAfsluitenOnButtonClick( self, event ):
         DataModel.VATManipulations.DoEndOfDay(True)
@@ -27,16 +27,11 @@ class AdminDialog(GeneratedGui.AdminDialogBase):
         DataModel.VATManipulations.DoEndOfDay(False)
 
     def btnTotalOnScreenOnButtonClick( self, event ):
-    #        total = 0
-    #        try:
-    #            total = Ticket().GetPaymentTotal(DataModel.Ticket.paymentMethods['Cash'])
-    #            total += Ticket().GetPaymentTotal(DataModel.Ticket.paymentMethods['Atos'])
-    #        except:
-    #            if not total:
-    #                total = 0
-
         total = self.JSONProxy._call('getDayTotal', {'param': ''})
-        MessageBox(u"Totaal: {0:>10.2f}\u20AC".format(total["result"]))
+        if total["error"]:
+            MessageBox(total["error"]["message"])
+        else:
+            MessageBox(u"Totaal: {0:>10.2f}\u20AC".format(total["result"]))
 
     def btnArtTotSchermOnButtonClick( self, event ):
         itemTotals = self.JSONProxy._call('getItemTotals', {'param': ''})

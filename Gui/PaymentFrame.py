@@ -195,4 +195,6 @@ class PaymentFrame(GeneratedGui.PaymentFrameBase):
 
     def btnPrintKitchenOnButtonClick( self, event ):
         self.ticket.PrintKitchen()
+        self.txtKantKaart.SelectAll()
+        self.txtKantKaart.SetFocus()
   
