@@ -25,6 +25,7 @@ class Ticket:
         self.conn = sqlite3.connect(ini.DB_NAME, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES)
         self.customer = Customer()
         self.KitchenPrinted = False
+        self.parentEntryNo = 0
 
     def AddTicketLine(self, productId, isOption, parentProductId, buttonNo, screenCategory, price=0,
                       discountType=discountTypes["none"], qty=1):
@@ -68,6 +69,7 @@ class Ticket:
         #als dit artikel menuComponents heeft, ook opvullen
         pMenu = ProductMenu(product.id)
         if pMenu.menuComponents:
+            parentEntryNo = cur.lastrowid
             for component in pMenu.menuComponents:
                 if not component[3]: #name is leeg, begruik die van het gekoppeld product
                     prod = Product(component[2])
@@ -77,10 +79,10 @@ class Ticket:
                     name = component[3]
 
                 cur.execute(
-                    "insert into ticketLine (ticketNo,productId,productName,price,eatInOut,isOption,dateRegistered,vatCode,discountType, quantity) values (?,?,?,?,?,?,?,?,?,?)"
+                    "insert into ticketLine (ticketNo,productId,productName,price,eatInOut,isOption,dateRegistered,vatCode,discountType, quantity, parentEntryNo) values (?,?,?,?,?,?,?,?,?,?,?)"
                     , (self.no, component[2], name, component[4], self.eatInOut, isOption,
                        datetime.datetime.now(),
-                       vatcode, component[5], qty ))
+                       vatcode, component[5], qty, parentEntryNo ))
 
         self.conn.commit()
 
@@ -141,7 +143,13 @@ class Ticket:
         #vatcodes en I/O updaten
         lines = self.GetTicketLines()
         for line in lines:
-            product = Product(line[3])
+
+            if line[7]: #er is een parentEntryNo, dus komt het van een menucomponent
+                parentLine = self.GetOneTicketLine(line[7])
+                product = Product(parentLine[3])
+            else:
+                product = Product(line[3])
+
             product.fill()
 
             vatcode = 0
@@ -158,11 +166,21 @@ class Ticket:
         cur = self.conn.cursor()
         cur.execute(
             #"select product.name, product.price, ticketLine.isOption, product.discountIfOption, product.id from ticketLine, product where ticketline.productId=product.id and ticketline.ticketNo=?"
-            "select productName, price, isOption, productId, entryNo, isCancelled, discountType from ticketLine where ticketline.ticketNo=? and isCancelled=0"
+            "select productName, price, isOption, productId, entryNo, isCancelled, discountType, parentEntryNo from ticketLine where ticketline.ticketNo=? and isCancelled=0"
             , (self.no,))
         lines = cur.fetchall()
 
         return lines
+
+    def GetOneTicketLine(self, entryNo):
+        cur = self.conn.cursor()
+        cur.execute(
+            #"select product.name, product.price, ticketLine.isOption, product.discountIfOption, product.id from ticketLine, product where ticketline.productId=product.id and ticketline.ticketNo=?"
+            "select productName, price, isOption, productId, entryNo, isCancelled, discountType, parentEntryNo from ticketLine where entryNo=?"
+            , (entryNo,))
+        line = cur.fetchone()
+
+        return line
 
 
     def GetTicketLinesGrouped(self):
@@ -292,7 +310,7 @@ class Ticket:
 
         for line in lines:
             vatPct = line[2]
-            cur.execute("select SUM(price) from ticketLine where vatCode=? and isCancelled=0", (line[0],))
+            cur.execute("select SUM(price) from ticketLine where vatCode=? and paid<>0 and isCancelled=0", (line[0],))
             totAmt = cur.fetchone()
 
             if totAmt[0]:
@@ -333,7 +351,6 @@ class Ticket:
 
         return outputLines
 
-
     def ClearAll(self):
         cur = self.conn.cursor()
 
@@ -348,7 +365,30 @@ class Ticket:
 
         for dtype in discountTypes:
             if dtype != 'none':
-                cur.execute("select * from ticketLine where discountType=?", (discountTypes[dtype],))
+                if dtype == 'Commerciele korting':
+
+                    cur.execute("""SELECT
+                                      ticketLine.entryNo,
+                                      ticketLine.ticketNo,
+                                      ticketLine.productId,
+                                      ticketLine.productName,
+                                      sum(ticketLine.price) AS price,
+                                      ticketLine.paid,
+                                      ticketLine.eatInOut,
+                                      ticketLine.isOption,
+                                      ticketLine.dateRegistered,
+                                      ticketLine.vatCode,
+                                      ticketLine.customerId,
+                                      ticketLine.discountType,
+                                      ticketLine.isCancelled,
+                                      ticketLine.quantity
+                                    FROM
+                                      ticketLine
+                                    WHERE ticketLine.discountType=? and paid <> 0 and isCancelled=0
+                                    GROUP BY
+                                      ticketLine.productId""", (discountTypes[dtype],))
+                else:
+                    cur.execute("select * from ticketLine where discountType=? and isCancelled=0 and paid<>0", (discountTypes[dtype],))
                 offers[dtype] = cur.fetchall()
 
         return offers

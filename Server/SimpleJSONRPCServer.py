@@ -111,7 +111,7 @@ import sys
 import os
 
 import SimpleXMLRPCServer
-import json
+import jsonHelper
 
 import traceback
 
