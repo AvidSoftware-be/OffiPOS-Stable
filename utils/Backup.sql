@@ -1112,6 +1112,8 @@ INSERT INTO "loyaltyCardDetails" VALUES(792,0,1.0,'2011-08-20 19:49:42');
 INSERT INTO "loyaltyCardDetails" VALUES(793,0,3.0,'2011-08-20 20:01:14');
 INSERT INTO "loyaltyCardDetails" VALUES(794,0,13.0,'2011-08-20 20:18:36');
 INSERT INTO "loyaltyCardDetails" VALUES(795,0,0.0,'2011-08-20 20:19:56');
+INSERT INTO "loyaltyCardDetails" VALUES(796,0,0.0,'2011-08-24 19:54:14');
+INSERT INTO "loyaltyCardDetails" VALUES(797,0,0.0,'2011-08-24 19:55:56');
 DROP TABLE IF EXISTS postalCode;
 CREATE TABLE postalCode (
   EntryNo     integer PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -4039,7 +4041,7 @@ CREATE TABLE [ticketLine] (
 [discountType] INTEGER  NULL,
 [isCancelled] INTEGER DEFAULT '0' NULL,
 [quantity] REAL  NULL
-);
+, parentEntryNo integer);
 DROP VIEW IF EXISTS vwItemTotals;
 CREATE VIEW vwItemTotals
 AS
@@ -4074,6 +4076,5 @@ INSERT INTO "menuComponent" VALUES(2,2,9999,'Tijd. Korting Friet',-0.05,4);
 INSERT INTO "menuComponent" VALUES(3,3,9999,'Tijd. Korting Friet',-0.05,4);
 INSERT INTO "menuComponent" VALUES(4,4,9999,'Tijd. Korting Friet',-0.05,4);
 INSERT INTO "menuComponent" VALUES(5,5,9999,'Tijd. Korting Friet',-0.05,4);
-
-INSERT INTO "menuComponent" VALUES(Null,337,2,Null,0,0);
-INSERT INTO "menuComponent" VALUES(Null,337,301,Null,0,0);
+INSERT INTO "menuComponent" VALUES(6,337,2,NULL,0.0,0);
+INSERT INTO "menuComponent" VALUES(7,337,301,NULL,0.0,0);
