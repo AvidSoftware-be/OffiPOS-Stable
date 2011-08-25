@@ -19,7 +19,7 @@ class BaronPOSServer(SimpleJSONRPCServer):
             return func(*params)
 
     def export_getDayTotal(self, param):
-        return Ticket().GetTotalAmt()
+        return Ticket().GetTotalAmt(True)
 
     def export_getItemTotals(self, param):
         return Ticket().GetItemTotals()

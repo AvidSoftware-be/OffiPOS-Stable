@@ -254,16 +254,25 @@ class Ticket:
         self.KitchenPrinted = True
 
 
-    def GetTotalAmt(self):
-        #only for current ticket!
-        ticketLines = self.GetTicketLines()
-        total = 0
+    def GetTotalAmt(self, allTickets = False):
+        if not allTickets:
+            #only for current ticket!
+            ticketLines = self.GetTicketLines()
+            total = 0
 
-        for line in ticketLines:
-            total = total + line[1]
+            for line in ticketLines:
+                total = total + line[1]
 
-        return total
-
+            return total
+        else:
+            cur = self.conn.cursor()
+            cur.execute("select SUM(price) from ticketLine where paid<>0 and isCancelled=0")
+            line = cur.fetchone()
+            if line[0]:
+                return line[0]
+            else:
+                return 0
+                
 
     def GetLoyaltyCardPoints(self):
         totalAmt = self.GetTotalAmt()
