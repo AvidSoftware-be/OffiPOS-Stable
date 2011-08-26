@@ -15,18 +15,20 @@ class Proxy():
         try:
             id = str(uuid.uuid1())
             data = json.dumps({'method':method, 'params':params, 'id':id})
-            req = urllib2.Request(self.service_url)
+            req = urllib2.Request(self.service_url + '/' +method)
             if self.auth_user != None and self.auth_password != None:
                 authString = base64.encodestring('%s:%s' % (self.auth_user, self.auth_password))[:-1]
                 req.add_header("Authorization", "Basic %s" % authString)
             req.add_header("Content-type", "application/json")
-            f = urllib2.urlopen(req, data)
+            #f = urllib2.urlopen(req, data)
+            f = urllib2.urlopen(req)
             response = f.read()
             data = json.loads(response)
         except IOError, (strerror):
             data = dict(result=None,error=dict(message='Network error. ' + str(strerror),code=None,data=None), id=id)
         except ValueError, (strerror):
             data = dict(result=None,error=dict(message='JSON format error. ' + str(strerror),code=None,data=None), id=id)
+
         if data.has_key('error') and data["error"] != None:# ZF workaround
             data['result'] = None
             if data['error'] != None and failure != None:

@@ -8,7 +8,7 @@ SERVICEURL = "http://"+os.getenv('COMPUTERNAME')+":8000"
 LOG_FILENAME = 'BaronPOS.log'
 #DB_NAME = 'D:\\Dev\\BaronPOS\\baronpos\\BaronPOS.db'
 DB_NAME = '\\\\kassa\\C\\BaronPOS\\BaronPOS.db'
-DB_NAME = 'c:\\BaronPOS\\BaronPOS.db'
+#DB_NAME = 'c:\\BaronPOS\\BaronPOS.db'
 BACKUPFILE = 'Backup.sql'
 
 LOYALTYCARD_EURO_PER_POINT = 3
