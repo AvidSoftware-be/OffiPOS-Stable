@@ -166,7 +166,9 @@ class Ticket:
         cur = self.conn.cursor()
         cur.execute(
             #"select product.name, product.price, ticketLine.isOption, product.discountIfOption, product.id from ticketLine, product where ticketline.productId=product.id and ticketline.ticketNo=?"
-            "select productName, price, isOption, productId, entryNo, isCancelled, discountType, parentEntryNo from ticketLine where ticketline.ticketNo=? and isCancelled=0"
+            """select productName, price, isOption, productId, entryNo, isCancelled, discountType, parentEntryNo
+                from ticketLine
+                where ticketline.ticketNo=? and isCancelled=0"""
             , (self.no,))
         lines = cur.fetchall()
 
@@ -187,7 +189,8 @@ class Ticket:
         cur = self.conn.cursor()
         cur.execute(
             """SELECT productId, productName, sum(price), isOption, discountType, sum(quantity) as qty FROM ticketLine
-            WHERE ticketNo = ? and isCancelled=0 group by productId, discountType ORDER BY productId""", (self.no,))
+            WHERE ticketNo = ? and isCancelled=0 and isOption=0
+            group by productId, discountType ORDER BY productId""", (self.no,))
 
         lines = cur.fetchall()
         groupedLines = {}
@@ -230,7 +233,7 @@ class Ticket:
     def PrintKitchen(self):
         body = ""
 
-        lines = self.GetTicketLinesGrouped()
+        #lines = self.GetTicketLinesGrouped()
 
         #overzicht
         for (k, v) in self.GetTicketLinesGrouped().iteritems():
