@@ -57,4 +57,16 @@ class ItemTotals:
 root = Root()
 root.ItemTotals=ItemTotals()
 root.DayTotal = DayTotal()
-cherrypy.quickstart(root)
+
+userpassdict = {'dennis' : 'Marlboro001', }
+checkpassword = cherrypy.lib.auth_basic.checkpassword_dict(userpassdict)
+basic_auth = {'tools.auth_basic.on': True,
+              'tools.auth_basic.realm': 'denbaron',
+              'tools.auth_basic.checkpassword': checkpassword,
+}
+app_config = { '/' : basic_auth }
+
+cherrypy.tree.mount(root,"",app_config)
+
+cherrypy.server.start()
+cherrypy.engine.start()

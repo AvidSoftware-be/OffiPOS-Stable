@@ -237,7 +237,7 @@ class Ticket:
 
         #overzicht
         for (k, v) in self.GetTicketLinesGrouped().iteritems():
-            if not v[3]: #kortingen niet afdrukken
+            if (v[3]==0) or (v[3]==1) or (v[3]==3): #kortingen niet afdrukken
                 body += "{0[0]:>2.0f} {0[1]:>}{1:>}".format(v, POSEquipment.TicketPrinter.escNewLine)
 
         body += "{2:>}{0:*>39}{1:>}".format('*', POSEquipment.TicketPrinter.escNewLine,
@@ -245,7 +245,7 @@ class Ticket:
 
         #detail
         for line in self.GetTicketLines():
-            if not line[6]: #kortingen hoeven niet op de bon
+            if (line[6]==0)or(line[6]==1)or(line[6]==3): #kortingen hoeven niet op de bon
                 indent = ""
                 if (line[3] == 9999) or line[2]: #is generiek of optie
                     indent = "     "
