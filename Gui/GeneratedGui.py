@@ -1254,8 +1254,20 @@ class dlgCustomerEditBase ( wx.Dialog ):
 		self.m_staticText13.Wrap( -1 )
 		fgSizer6.Add( self.m_staticText13, 0, wx.ALL, 5 )
 		
-		self.txtKlantkaart = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 360,-1 ), 0 )
-		fgSizer6.Add( self.txtKlantkaart, 0, wx.ALL, 5 )
+		bSizer30 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.txtKlantkaart = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 160,-1 ), 0 )
+		bSizer30.Add( self.txtKlantkaart, 0, wx.ALL, 5 )
+		
+		self.txtPunten = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 50,-1 ), 0 )
+		self.txtPunten.Enable( False )
+		
+		bSizer30.Add( self.txtPunten, 0, wx.ALL, 5 )
+		
+		self.btnToevoegen = wx.Button( self, wx.ID_ANY, u"Punten Toevoegen", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer30.Add( self.btnToevoegen, 0, wx.ALL, 5 )
+		
+		fgSizer6.Add( bSizer30, 1, wx.EXPAND, 5 )
 		
 		self.m_staticText14 = wx.StaticText( self, wx.ID_ANY, u"Naam", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText14.Wrap( -1 )
@@ -1330,6 +1342,7 @@ class dlgCustomerEditBase ( wx.Dialog ):
 		
 		# Connect Events
 		self.txtKlantkaart.Bind( wx.EVT_KILL_FOCUS, self.txtKlantkaartOnKillFocus )
+		self.btnToevoegen.Bind( wx.EVT_BUTTON, self.btnToevoegenOnButtonClick )
 		self.txtPostcode.Bind( wx.EVT_KILL_FOCUS, self.txtPostcodeOnKillFocus )
 		self.btnOpslaan.Bind( wx.EVT_BUTTON, self.btnOpslaanOnButtonClick )
 		self.btnOpslaanEnNieuw.Bind( wx.EVT_BUTTON, self.btnOpslaanEnNieuwOnButtonClick )
@@ -1340,6 +1353,9 @@ class dlgCustomerEditBase ( wx.Dialog ):
 	
 	# Virtual event handlers, overide them in your derived class
 	def txtKlantkaartOnKillFocus( self, event ):
+		event.Skip()
+	
+	def btnToevoegenOnButtonClick( self, event ):
 		event.Skip()
 	
 	def txtPostcodeOnKillFocus( self, event ):

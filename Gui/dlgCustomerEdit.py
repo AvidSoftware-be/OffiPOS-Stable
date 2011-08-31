@@ -4,6 +4,7 @@ from DataModel.Customer import Customer
 from DataModel.PostalCode import PostalCode
 import GeneratedGui
 import wx
+from Gui.dlgAskForPrice import dlgAskForPrice
 import ini
 
 __author__ = 'dennis'
@@ -28,6 +29,7 @@ class dlgCustomerEdit(GeneratedGui.dlgCustomerEditBase):
         self.txtTelefoon.Value = self.customer.telephone if self.customer.telephone else ""
         self.txtEmailadres.Value = self.customer.emailAddress if self.customer.emailAddress else ""
         self.txtKlantkaart.Value = self.customer.loyaltyCardNo if self.customer.loyaltyCardNo else ""
+        self.txtPunten.Value = "{0:>.0f}".format(self.customer.loyaltyPoints) if self.customer.loyaltyPoints else ""
         self.datePickerGeboorte.SetValue(
             wxDateTimeFromDMY(self.customer.birthDate.day, self.customer.birthDate.month - 1,
                               self.customer.birthDate.year))
@@ -121,3 +123,16 @@ class dlgCustomerEdit(GeneratedGui.dlgCustomerEditBase):
 
     def txtPostcodeOnKillFocus( self, event ):
         self.UpdateCitiesCombo()
+
+    def btnToevoegenOnButtonClick( self, event ):
+
+        askForPriceForm = dlgAskForPrice(self)
+        askForPriceForm.ShowModal()
+
+        cust = Customer()
+        cust.GetCustomerFromLoyaltyCard(self.txtKlantkaart.Value)
+        if cust:
+            cust.AddLoyaltyPoints(askForPriceForm.Value)
+            self.customer = cust
+
+        self.UpdateForm()
