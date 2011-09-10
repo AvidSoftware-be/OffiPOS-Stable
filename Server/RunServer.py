@@ -3,6 +3,7 @@ import sys
 sys.path.append("c:\\BaronPOS")
 import cherrypy
 from DataModel.Ticket import Ticket
+from datetime import datetime
 
 cherrypy.config.update({"server.socket_port": 8000, "server.socket_host":"0.0.0.0"})
 
@@ -73,6 +74,10 @@ table.gridtable td.grandtotal {
 	background-color: #FA8258;
 	font-weight:bold;
 	}
+body {
+	font-family: verdana,arial,sans-serif;
+	font-size:11px;
+    }
 </style>"""+\
                '<title>Item Totals</title>'+\
                '</head><body>'
@@ -93,7 +98,11 @@ table.gridtable td.grandtotal {
 
         body += '<tr><td colspan="4" align="right" class="grandtotal">{0:>.2f}</td></tr>'.format(grandTotAmt) #totalen
 
-        body += '</table></body></html>'
+        body += '</table>'
+        body += 'Gemaakt op {0:>s} om {1:>s}'.format(datetime.now().strftime('%d/%m/%Y'),
+                                                                        datetime.now().strftime(
+                                                                            '%H:%M'))
+        body += '</body></html>'
         return body
 
 root = Root()
