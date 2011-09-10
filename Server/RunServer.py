@@ -33,10 +33,52 @@ class ItemTotals:
         body = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" ' +\
                '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">' +\
                '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"> '+\
-               '<head><title>Item Totals</title></head><body>'
-        body += '<table>'
+               '<head>'+\
+               '<style type="text/css">'+\
+"""table.gridtable {
+	font-family: verdana,arial,sans-serif;
+	font-size:11px;
+	color:#333333;
+	border-width: 1px;
+	border-color: #666666;
+	border-collapse: collapse;
+}
+table.gridtable th {
+	border-width: 1px;
+	padding: 4px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #dedede;
+}
+table.gridtable td {
+	border-width: 1px;
+	padding: 3px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #ffffff;
+}
+table.gridtable td.total {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #F5BCA9;
+	font-weight:bold;
+	}
+table.gridtable td.grandtotal {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #FA8258;
+	font-weight:bold;
+	}
+</style>"""+\
+               '<title>Item Totals</title>'+\
+               '</head><body>'
+        body += '<table class="gridtable">'
         for line in totals:
-            body += '<tr><td colspan="4">{0:<}</td></tr>'.format(line[1]) #groepnaam
+            body += '<tr><th colspan="4">{0:<}</th></tr>'.format(line[1]) #groepnaam
             itemQtyTotal = 0
             amountTotal = 0
             for itemLine in line[2]:
@@ -46,10 +88,10 @@ class ItemTotals:
                 amountTotal += itemLine[3]
                 grandTotAmt += itemLine[3]
 
-            body += '<tr><td>{0:>.0f}</td><td colspan="3" align="right">{1:>.2f}</td></tr>'.format(itemQtyTotal,
+            body += '<tr><td class="total">{0:>.0f}</td><td colspan="3" align="right" class="total">{1:>.2f}</td></tr>'.format(itemQtyTotal,
                                                                                                    amountTotal) #totalen
 
-        body += '<tr><td colspan="4" align="right">{0:>.2f}</td></tr>'.format(grandTotAmt) #totalen
+        body += '<tr><td colspan="4" align="right" class="grandtotal">{0:>.2f}</td></tr>'.format(grandTotAmt) #totalen
 
         body += '</table></body></html>'
         return body
