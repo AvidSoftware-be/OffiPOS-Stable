@@ -55,6 +55,9 @@ class Customer:
             self.Save()
 
     def AddLoyaltyPoints(self, ticketPoints):
+        if not self.id:
+            return
+        
         if self.CanPayDiscount():
             self.PayLoyaltyPoints()
         else:

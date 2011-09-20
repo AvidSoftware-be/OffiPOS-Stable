@@ -1,14 +1,14 @@
 from datetime import date
-import os
+import os, sys
 
 __author__ = 'dennis'
 
-SERVICEURL = "http://"+os.getenv('COMPUTERNAME')+":8000"
+SERVICEURL = "http://localhost:8000"
 
 LOG_FILENAME = 'BaronPOS.log'
 #DB_NAME = 'D:\\Dev\\BaronPOS\\baronpos\\BaronPOS.db'
-#DB_NAME = '\\\\kassa\\C\\BaronPOS\\BaronPOS.db'
-DB_NAME = 'c:\\BaronPOS\\BaronPOS.db'
+DB_NAME = '/home/dennis/Aptana Studio 3 Workspace/BaronPOS/src/BaronPOS.db'
+#DB_NAME = os.path.join(os.path.dirname(sys.argv[0]), 'BaronPOS.db')
 BACKUPFILE = 'Backup.sql'
 
 LOYALTYCARD_EURO_PER_POINT = 3

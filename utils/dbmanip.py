@@ -1,7 +1,5 @@
-from datetime import date, datetime
 from genericpath import exists
 import os
-from DataModel.Customer import Customer
 
 __author__ = 'dennis'
 
@@ -10,7 +8,7 @@ import ini
 
 def CreateDB():
     if not exists(ini.DB_NAME):
-        backupFileName = os.path.dirname(__file__)+"\\"+ini.BACKUPFILE
+        backupFileName = os.path.join(os.path.dirname(__file__),ini.BACKUPFILE)
         fp = open(backupFileName)
         fileCont = fp.read().split(";\n")
 
