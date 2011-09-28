@@ -326,9 +326,9 @@ class Ticket:
             totAmt = cur.fetchone()
 
             if totAmt[0]:
-                vat = totAmt[0] * (vatPct / 100)
-                evat = totAmt[0] - vat
                 tot = totAmt[0]
+                evat = tot / (1 + (vatPct / 100))
+                vat = tot - evat
             else:
                 vat = 0
                 evat = 0

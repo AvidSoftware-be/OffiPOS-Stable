@@ -5,7 +5,7 @@ import wx
 
 __author__ = 'dennis'
 
-class frmKlantBeheer(GeneratedGui.frmKlantBeheerBase):
+class frmKlantBeheer(GeneratedGui.dlgKlantBeheerBase):
     def UpdateForm(self ):
 
         grid = self.grdCustomer
@@ -20,7 +20,7 @@ class frmKlantBeheer(GeneratedGui.frmKlantBeheerBase):
         self.Fit()
 
     def __init__( self, parent ):
-        GeneratedGui.frmKlantBeheerBase.__init__(self, parent)
+        GeneratedGui.dlgKlantBeheerBase.__init__(self, parent)
 
         self.sortingCol = 9
 
@@ -64,7 +64,15 @@ class frmKlantBeheer(GeneratedGui.frmKlantBeheerBase):
     def grdCustomerOnGridLabelLeftClick( self, event ):
         self.sortingCol = event.GetCol()
         self.UpdateForm()
-
+        
+    def btnSelectOnButtonClick(self, event):
+        row = self.grdCustomer.GetGridCursorRow()
+        id = int(self.grdCustomer.GetCellValue(row,0))
+        
+        self.customer = Customer()
+        self.customer.FillFromId(id)
+        
+        self.Close()
 
 
 

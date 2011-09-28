@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*- 
 
 ###########################################################################
-## Python code generated with wxFormBuilder (version Sep  8 2010)
+## Python code generated with wxFormBuilder (version Jun  6 2011)
 ## http://www.wxformbuilder.org/
 ##
 ## PLEASE DO "NOT" EDIT THIS FILE!
@@ -740,8 +740,15 @@ class PaymentFrameBase ( wx.Dialog ):
 		self.m_staticText51.Wrap( -1 )
 		fgSizer5.Add( self.m_staticText51, 0, wx.ALL, 5 )
 		
+		bSizer31 = wx.BoxSizer( wx.HORIZONTAL )
+		
 		self.txtKantKaart = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
-		fgSizer5.Add( self.txtKantKaart, 0, wx.ALL, 0 )
+		bSizer31.Add( self.txtKantKaart, 0, wx.ALL, 0 )
+		
+		self.btnKlantOpzoeken = wx.Button( self, wx.ID_ANY, u"Opzoeken", wx.DefaultPosition, wx.Size( -1,25 ), 0 )
+		bSizer31.Add( self.btnKlantOpzoeken, 0, wx.ALL, 0 )
+		
+		fgSizer5.Add( bSizer31, 1, wx.EXPAND, 5 )
 		
 		self.m_staticText6 = wx.StaticText( self, wx.ID_ANY, u"Punten Ticket", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText6.Wrap( -1 )
@@ -846,6 +853,7 @@ class PaymentFrameBase ( wx.Dialog ):
 		self.btnCls.Bind( wx.EVT_BUTTON, self.btnClsOnButtonClick )
 		self.txtKantKaart.Bind( wx.EVT_CHAR, self.txtKantKaartOnChar )
 		self.txtKantKaart.Bind( wx.EVT_KILL_FOCUS, self.txtKantKaartOnKillFocus )
+		self.btnKlantOpzoeken.Bind( wx.EVT_BUTTON, self.btnKlantOpzoekenOnButtonClick )
 		self.txtPuntenTicket.Bind( wx.EVT_SET_FOCUS, self.txtPuntenTicketOnSetFocus )
 		self.btnAddLoyaltyPoints.Bind( wx.EVT_BUTTON, self.btnAddLoyaltyPointsOnButtonClick )
 		self.btnPrintKitchen.Bind( wx.EVT_BUTTON, self.btnPrintKitchenOnButtonClick )
@@ -907,6 +915,9 @@ class PaymentFrameBase ( wx.Dialog ):
 		event.Skip()
 	
 	def txtKantKaartOnKillFocus( self, event ):
+		event.Skip()
+	
+	def btnKlantOpzoekenOnButtonClick( self, event ):
 		event.Skip()
 	
 	def txtPuntenTicketOnSetFocus( self, event ):
@@ -1139,13 +1150,13 @@ class dlgAskForPriceBase ( wx.Dialog ):
 	
 
 ###########################################################################
-## Class frmKlantBeheerBase
+## Class dlgKlantBeheerBase
 ###########################################################################
 
-class frmKlantBeheerBase ( wx.Frame ):
+class dlgKlantBeheerBase ( wx.Dialog ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Klantbeheer", pos = wx.DefaultPosition, size = wx.Size( 1105,-1 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.STAY_ON_TOP|wx.SYSTEM_MENU|wx.TAB_TRAVERSAL )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 1105,-1 ), style = wx.DEFAULT_DIALOG_STYLE )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		
@@ -1193,6 +1204,9 @@ class frmKlantBeheerBase ( wx.Frame ):
 		self.btnVerwijder = wx.Button( self, wx.ID_ANY, u"Verwijder", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer27.Add( self.btnVerwijder, 0, wx.ALL, 5 )
 		
+		self.btnSelect = wx.Button( self, wx.ID_ANY, u"Selecteer", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer27.Add( self.btnSelect, 0, wx.ALL, 5 )
+		
 		bSizer26.Add( bSizer27, 1, wx.EXPAND, 5 )
 		
 		bSizer23.Add( bSizer26, 1, wx.EXPAND, 5 )
@@ -1207,6 +1221,7 @@ class frmKlantBeheerBase ( wx.Frame ):
 		self.btnBewerk.Bind( wx.EVT_BUTTON, self.btnBewerkOnButtonClick )
 		self.btnNieuw.Bind( wx.EVT_BUTTON, self.btnNieuwOnButtonClick )
 		self.btnVerwijder.Bind( wx.EVT_BUTTON, self.btnVerwijderOnButtonClick )
+		self.btnSelect.Bind( wx.EVT_BUTTON, self.btnSelectOnButtonClick )
 	
 	def __del__( self ):
 		pass
@@ -1223,6 +1238,9 @@ class frmKlantBeheerBase ( wx.Frame ):
 		event.Skip()
 	
 	def btnVerwijderOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnSelectOnButtonClick( self, event ):
 		event.Skip()
 	
 

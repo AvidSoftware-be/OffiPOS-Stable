@@ -129,7 +129,7 @@ class MainFrame(GeneratedGui.MainFrameBase):
         self.Bind(wx.EVT_TIMER, self.updateClock, self.timer)
         self.timer.Start(1000)
 
-    def updateClock(self,event):
+    def updateClock(self, event):
         self.SetStatusText("{0} {1}".format(date.today().strftime('%d/%m/%Y'), datetime.today().strftime('%H:%M:%S')))
 
 
@@ -183,6 +183,7 @@ class MainFrame(GeneratedGui.MainFrameBase):
             self.pnlProducten.Enabled = True
             self.pnlRekening.Enabled = True
             self.btnNieuwTicket.Enabled = False
+            self.ticket.KitchenPrinted = False
 
         self.btnRetour.Value = 0
 
@@ -276,7 +277,6 @@ class MainFrame(GeneratedGui.MainFrameBase):
             self.ticket.SetEatInOut("O")
 
     def btnAdminOnButtonClick( self, event ):
-        
         adminMenu = AdminDialog(self)
         adminMenu.ShowModal()
 
@@ -360,8 +360,8 @@ class MainFrame(GeneratedGui.MainFrameBase):
         grid = self.gOrder
         table = OrderTable(ticket=self.ticket)
         grid.SetTable(table)
-        rows=table.GetNumberRows()
-        grid.MakeCellVisible(rows-1,1)
+        rows = table.GetNumberRows()
+        grid.MakeCellVisible(rows - 1, 1)
         grid.EnableEditing(False)
         grid.SetSelectionMode(wx.grid.Grid.SelectRows)
         grid.SetRowLabelSize(0)

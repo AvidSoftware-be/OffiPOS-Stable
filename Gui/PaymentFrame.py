@@ -5,6 +5,7 @@ from DataModel.Customer import Customer
 from DataModel.Ticket import Ticket, discountTypes
 
 from Gui.dlgAskForPrice import dlgAskForPrice
+from Gui.frmKlantBeheer import frmKlantBeheer
 
 __author__ = 'dennis'
 
@@ -195,6 +196,21 @@ class PaymentFrame(GeneratedGui.PaymentFrameBase):
 
     def btnPrintKitchenOnButtonClick( self, event ):
         self.ticket.PrintKitchen()
+        self.txtKantKaart.SelectAll()
+        self.txtKantKaart.SetFocus()
+        
+    def btnKlantOpzoekenOnButtonClick(self, event):
+        klantBeheer = frmKlantBeheer(self)
+        klantBeheer.btnSelect.Visible = True
+        klantBeheer.btnBewerk.Visible = False
+        klantBeheer.btnNieuw.Visible = False
+        klantBeheer.btnVerwijder.Visible = False
+        
+        klantBeheer.ShowModal()
+        klantBeheer.Center()
+        
+        self.txtKantKaart.Value = klantBeheer.customer.loyaltyCardNo
+        
         self.txtKantKaart.SelectAll()
         self.txtKantKaart.SetFocus()
   
