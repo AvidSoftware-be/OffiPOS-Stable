@@ -48,9 +48,10 @@ class AdminDialog(GeneratedGui.AdminDialogBase):
 
     def btnKlantKaartBeheerOnButtonClick( self, event ):
         kb = frmKlantBeheer(self)
+        
+        kb.Center()
 
         kb.ShowModal()
-        kb.Center()
 
     def btnBackTransOnButtonClick( self, event ):
         destinationFile = ""

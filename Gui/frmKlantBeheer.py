@@ -21,6 +21,7 @@ class frmKlantBeheer(GeneratedGui.dlgKlantBeheerBase):
 
     def __init__( self, parent ):
         GeneratedGui.dlgKlantBeheerBase.__init__(self, parent)
+        self.customer = Customer()
 
         self.sortingCol = 9
 
@@ -68,8 +69,6 @@ class frmKlantBeheer(GeneratedGui.dlgKlantBeheerBase):
     def btnSelectOnButtonClick(self, event):
         row = self.grdCustomer.GetGridCursorRow()
         id = int(self.grdCustomer.GetCellValue(row,0))
-        
-        self.customer = Customer()
         self.customer.FillFromId(id)
         
         self.Close()

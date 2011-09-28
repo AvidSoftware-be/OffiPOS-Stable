@@ -201,13 +201,10 @@ class PaymentFrame(GeneratedGui.PaymentFrameBase):
         
     def btnKlantOpzoekenOnButtonClick(self, event):
         klantBeheer = frmKlantBeheer(self)
-        klantBeheer.btnSelect.Visible = True
-        klantBeheer.btnBewerk.Visible = False
-        klantBeheer.btnNieuw.Visible = False
-        klantBeheer.btnVerwijder.Visible = False
+        
+        klantBeheer.Center()
         
         klantBeheer.ShowModal()
-        klantBeheer.Center()
         
         self.txtKantKaart.Value = klantBeheer.customer.loyaltyCardNo
         
