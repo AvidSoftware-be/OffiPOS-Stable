@@ -334,7 +334,7 @@ class Ticket:
                 evat = 0
                 tot = 0
 
-            VATLines.append([vatPct, evat, vat, tot])
+            VATLines.append([vatPct, evat, vat, tot, line[0]])
 
         return VATLines
 

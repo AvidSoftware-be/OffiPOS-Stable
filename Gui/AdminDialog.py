@@ -26,6 +26,7 @@ class AdminDialog(GeneratedGui.AdminDialogBase):
     def btnKasAfsluitenTestOnButtonClick( self, event ):
         DataModel.VATManipulations.DoEndOfDay(False)
 
+    '''
     def btnTotalOnScreenOnButtonClick( self, event ):
         total = self.JSONProxy._call('getDayTotal')
         if total["error"]:
@@ -45,6 +46,7 @@ class AdminDialog(GeneratedGui.AdminDialogBase):
 
     def btnArtikelTotalenOnButtonClick( self, event ):
         DataModel.VATManipulations.PrintItemTotals()
+    '''
 
     def btnKlantKaartBeheerOnButtonClick( self, event ):
         kb = frmKlantBeheer(self)

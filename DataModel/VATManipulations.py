@@ -1,6 +1,8 @@
 import DataModel
 from DataModel.Ticket import Ticket
 import POSEquipment
+import sqlite3, ini
+from datetime import datetime
 
 __author__ = 'dennis'
 
@@ -25,11 +27,20 @@ def DoEndOfDay(withClear):
 
     POSEquipment.TicketPrinter.PrintDayTotals(dayparam)
 
-    if withClear:
+    if withClear: #afsluiten
         Ticket().ClearAll()
+        WriteDayTotals(dayparam['VATLines'])
 
 def PrintItemTotals():
     totals = Ticket().GetItemTotals()
 
     POSEquipment.TicketPrinter.PrintItemTotals(totals)
-  
+    
+def WriteDayTotals(totals):
+    conn = sqlite3.connect(ini.DB_NAME)
+    cu = conn.cursor()
+    
+    for line in totals:
+        cu.execute('insert into dayTotals (dateRegistered, vatCode, priceVatIn) values (?,?,?)',(datetime.now(), line[4],line[3]))
+        
+    conn.commit()

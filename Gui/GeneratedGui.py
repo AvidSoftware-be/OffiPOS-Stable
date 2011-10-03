@@ -951,15 +951,6 @@ class AdminDialogBase ( wx.Dialog ):
 		self.btnKasAfsluitenTest = wx.Button( self, wx.ID_ANY, u"Test Afsluiting", wx.DefaultPosition, wx.DefaultSize, 0 )
 		sbSizer5.Add( self.btnKasAfsluitenTest, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		self.btnTotalOnScreen = wx.Button( self, wx.ID_ANY, u"Schermtotaal", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sbSizer5.Add( self.btnTotalOnScreen, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.btnArtikelTotalen = wx.Button( self, wx.ID_ANY, u"Artikel Totalen", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sbSizer5.Add( self.btnArtikelTotalen, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.btnArtTotScherm = wx.Button( self, wx.ID_ANY, u"Artikel Totalen Scherm", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sbSizer5.Add( self.btnArtTotScherm, 0, wx.ALL|wx.EXPAND, 5 )
-		
 		bSizer17.Add( sbSizer5, 1, wx.EXPAND, 5 )
 		
 		sbSizer6 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Klanten" ), wx.VERTICAL )
@@ -989,9 +980,6 @@ class AdminDialogBase ( wx.Dialog ):
 		# Connect Events
 		self.btnKasAfsluiten.Bind( wx.EVT_BUTTON, self.btnKasAfsluitenOnButtonClick )
 		self.btnKasAfsluitenTest.Bind( wx.EVT_BUTTON, self.btnKasAfsluitenTestOnButtonClick )
-		self.btnTotalOnScreen.Bind( wx.EVT_BUTTON, self.btnTotalOnScreenOnButtonClick )
-		self.btnArtikelTotalen.Bind( wx.EVT_BUTTON, self.btnArtikelTotalenOnButtonClick )
-		self.btnArtTotScherm.Bind( wx.EVT_BUTTON, self.btnArtTotSchermOnButtonClick )
 		self.btnKlantKaartBeheer.Bind( wx.EVT_BUTTON, self.btnKlantKaartBeheerOnButtonClick )
 		self.btnBackTrans.Bind( wx.EVT_BUTTON, self.btnBackTransOnButtonClick )
 	
@@ -1004,15 +992,6 @@ class AdminDialogBase ( wx.Dialog ):
 		event.Skip()
 	
 	def btnKasAfsluitenTestOnButtonClick( self, event ):
-		event.Skip()
-	
-	def btnTotalOnScreenOnButtonClick( self, event ):
-		event.Skip()
-	
-	def btnArtikelTotalenOnButtonClick( self, event ):
-		event.Skip()
-	
-	def btnArtTotSchermOnButtonClick( self, event ):
 		event.Skip()
 	
 	def btnKlantKaartBeheerOnButtonClick( self, event ):
