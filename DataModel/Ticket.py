@@ -405,5 +405,16 @@ class Ticket:
 
         return offers
 
+    def GetMaxTicketNo(self):
+        
+        cur = self.conn.cursor()
+
+        cur.execute('select max(ticketNo) from ticketLine')
+
+        res = cur.fetchone()
+
+        return res[0]
+        
+
             
 

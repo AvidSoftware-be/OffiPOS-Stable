@@ -82,6 +82,7 @@ body {
             chartData[line[1]]=amountTotal
 
         body += '<tr><td colspan="4" align="right" class="grandtotal">{0:>.2f}</td></tr>'.format(grandTotAmt) #totalen
+        body += '<tr><td colspan="4" align="right" class="total">Tickets: {0:>.0f}</td></tr>'.format(Ticket().GetMaxTicketNo()) #klanten
         
         params=[]
         for k, v in chartData.items():
