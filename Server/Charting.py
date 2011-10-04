@@ -11,7 +11,7 @@ class Charting(object):
         height=200
         cherrypy.response.headers['Content-Type'] = 'image/png'
         
-        surf = cairo.ImageSurface(cairo.FORMAT_ARGB32, height, width)
+        surf = cairo.ImageSurface(cairo.FORMAT_ARGB32, width, height)
         data = {}
         for k, v in args.items():
             data[k] = int(v)

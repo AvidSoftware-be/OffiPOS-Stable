@@ -1,7 +1,6 @@
 from genericpath import exists
 import DBMigrations
 import os
-from invest.currencies import Currencies
 
 __author__ = 'dennis'
 
@@ -66,7 +65,6 @@ def DoMigration():
         #zoek de hoogste versie in de package
         migrations=sorted(package_contents("DBMigrations"))
         migrations.remove('__init__')
-        print migrations
                 
         versions = []
         for migration in migrations:
@@ -78,6 +76,7 @@ def DoMigration():
                 exec(version[1]+".Up()")
                 cu.execute('update schema_info set schemaVersion=?',(version[0],))
                 conn.commit()
+                print "Upgraded to {0:s}".format(version[1])
             
 
 def package_contents(package_name):
