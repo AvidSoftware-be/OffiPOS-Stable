@@ -1,5 +1,4 @@
 from genericpath import exists
-import DBMigrations
 import os
 
 __author__ = 'dennis'
@@ -8,7 +7,6 @@ import sqlite3
 import ini
         
 import imp
-import os
 MODULE_EXTENSIONS = ('.py', '.pyc', '.pyo')
 
 def CreateDB():

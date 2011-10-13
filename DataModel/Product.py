@@ -14,6 +14,7 @@ class Product:
         self.vatCodeOut = 0
         self.askForPrice = 0
         self.screenName = ""
+        self.treatAsOption = 0
 
     #    def save(self):
     #        conn = sqlite3.connect(ini.DB_NAME)
@@ -47,4 +48,5 @@ class Product:
             self.vatCodeOut = prod[6]
             self.askForPrice = prod[7]
             self.screenName = prod[8]
+            self.treatAsOption = prod[9]
 

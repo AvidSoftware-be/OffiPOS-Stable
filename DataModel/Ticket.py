@@ -31,6 +31,8 @@ class Ticket:
                       discountType=discountTypes["none"], qty=1):
         product = Product(productId)
         product.fill()
+        
+        isOption = isOption or product.treatAsOption
 
         if price or (discountType <> discountTypes["none"]):
             product.price = price #er werd een prijs meegegeven die de productprijs vervangt
@@ -412,8 +414,11 @@ class Ticket:
         cur.execute('select max(ticketNo) from ticketLine')
 
         res = cur.fetchone()
-
-        return res[0]
+        
+        if res[0]:
+            return res[0]
+        else:
+            return 0
         
 
             
