@@ -80,9 +80,13 @@ body {
             body += '<tr><td class="total">{0:>.0f}</td><td colspan="3" align="right" class="total">{1:>.2f}</td></tr>'.format(itemQtyTotal,
                                                                                                    amountTotal) #totalen
             chartData[line[1]]=amountTotal
+            
+        maxTicket=Ticket().GetMaxTicketNo()
 
         body += '<tr><td colspan="4" align="right" class="grandtotal">{0:>.2f}</td></tr>'.format(grandTotAmt) #totalen
-        body += '<tr><td colspan="4" align="right" class="total">Tickets: {0:>.0f}</td></tr>'.format(Ticket().GetMaxTicketNo()) #klanten
+        body += '<tr><td colspan="4" align="right" class="total">Tickets: {0:>.0f}</td></tr>'.format(maxTicket) #klanten
+        body += '<tr><td colspan="4" align="right" class="total">Gemiddeld order: {0:>.2f}</td></tr>'.format(grandTotAmt / maxTicket) #gemiddelde per order
+        
         
         params=[]
         for k, v in chartData.items():
