@@ -108,6 +108,7 @@ class Ticket:
 
         self.eatInOut = "O"
         self.KitchenPrinted = False
+        self.TicketPrinted = False
 
         self._displayMessage("                    " +
                              "       Welkom       ")

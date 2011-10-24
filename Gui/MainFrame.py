@@ -72,28 +72,28 @@ class MainFrame(GeneratedGui.MainFrameBase):
             self.btnProduct76: 76
         }
 
-        self.pnlGroepen.Enabled = False
+        self.pnlGroepen.Disable()
         self.pnlProducten.Enabled = False
         self.pnlRekening.Enabled = False
         self.pnlRekening.Enabled = False
         self.btnNieuwTicket.Enabled = True
 
         #Empty out Group Buttons
-        self.btnGroupOne.Enabled = False
+        #self.btnGroupOne.Enabled = False
         self.btnGroupOne.SetLabel("")
-        self.btnGroupTwo.Enabled = False
+        #self.btnGroupTwo.Enabled = False
         self.btnGroupTwo.SetLabel("")
-        self.btnGroupThree.Enabled = False
+        #self.btnGroupThree.Enabled = False
         self.btnGroupThree.SetLabel("")
-        self.btnGroupFour.Enabled = False
+        #self.btnGroupFour.Enabled = False
         self.btnGroupFour.SetLabel("")
-        self.btnGroupFive.Enabled = False
+        #self.btnGroupFive.Enabled = False
         self.btnGroupFive.SetLabel("")
-        self.btnGroupSix.Enabled = False
+        #self.btnGroupSix.Enabled = False
         self.btnGroupSix.SetLabel("")
-        self.btnGroupSeven.Enabled = False
+        #self.btnGroupSeven.Enabled = False
         self.btnGroupSeven.SetLabel("")
-        self.btnGroupEight.Enabled = False
+        #self.btnGroupEight.Enabled = False
         self.btnGroupEight.SetLabel("")
 
         #fill group buttons
@@ -135,7 +135,7 @@ class MainFrame(GeneratedGui.MainFrameBase):
 
     # Handlers for MainFrameBase events.
     def btnNieuwTicketOnButtonClick( self, event ):
-        self.pnlGroepen.Enabled = True
+        self.pnlGroepen.Enable()
         self.pnlProducten.Enabled = True
         self.pnlRekening.Enabled = True
         self.btnNieuwTicket.Enabled = False
@@ -158,7 +158,7 @@ class MainFrame(GeneratedGui.MainFrameBase):
         self._updateGrid()
 
     def btnAnnulerenOnButtonClick( self, event ):
-        self.pnlGroepen.Enabled = False
+        self.pnlGroepen.Disable()
         self.pnlProducten.Enabled = False
         self.pnlRekening.Enabled = False
         self.btnNieuwTicket.Enabled = True
@@ -168,7 +168,7 @@ class MainFrame(GeneratedGui.MainFrameBase):
         self._updateGrid()
 
     def btnAfrekekenOnButtonClick( self, event ):
-        self.pnlGroepen.Enabled = False
+        self.pnlGroepen.Disable()
         self.pnlProducten.Enabled = False
         self.pnlRekening.Enabled = False
         self.btnNieuwTicket.Enabled = True
@@ -179,7 +179,7 @@ class MainFrame(GeneratedGui.MainFrameBase):
         frmPayment.ShowModal()
 
         if frmPayment.cancelled:
-            self.pnlGroepen.Enabled = True
+            self.pnlGroepen.Enable()
             self.pnlProducten.Enabled = True
             self.pnlRekening.Enabled = True
             self.btnNieuwTicket.Enabled = False

@@ -637,6 +637,20 @@ class MainFrameBase ( wx.Frame ):
 	
 
 ###########################################################################
+## Class MyPanel1
+###########################################################################
+
+class MyPanel1 ( wx.Panel ):
+	
+	def __init__( self, parent ):
+		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.TAB_TRAVERSAL )
+		
+	
+	def __del__( self ):
+		pass
+	
+
+###########################################################################
 ## Class PaymentFrameBase
 ###########################################################################
 
