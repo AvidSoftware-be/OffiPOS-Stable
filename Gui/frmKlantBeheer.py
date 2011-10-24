@@ -16,16 +16,22 @@ class frmKlantBeheer(GeneratedGui.dlgKlantBeheerBase):
         grid.EnableEditing(False)
         grid.SetSelectionMode(wx.grid.Grid.SelectRows)
         grid.SetRowLabelSize(0)
-        grid.AutoSizeColumns()
-        self.Fit()
+        
+        self.RestoreColSizes()
 
     def __init__( self, parent ):
         GeneratedGui.dlgKlantBeheerBase.__init__(self, parent)
         self.customer = Customer()
 
         self.sortingCol = 9
+        self.ColWidths = []
 
         self.UpdateForm()
+        
+        self.grdCustomer.AutoSizeColumns(False)
+        self.Fit()
+        
+        self.SaveColSizes()
 
 
     def btnNieuwOnButtonClick( self, event ):
@@ -72,7 +78,19 @@ class frmKlantBeheer(GeneratedGui.dlgKlantBeheerBase):
         self.customer.FillFromId(id)
         
         self.Close()
-
-
-
-
+        
+    def dlgKlantBeheerBaseOnClose(self, event):
+        self.SaveColSizes()
+        self.Destroy()
+        
+    def grdCustomerOnGridColSize(self, event):
+        self.SaveColSizes()
+        
+    def SaveColSizes(self):
+        for i in range(1,self.grdCustomer.GetNumberCols()):
+            self.ColWidths.append(self.grdCustomer.GetColSize(i))
+            
+    def RestoreColSizes(self):
+        for i in range(1,len(self.ColWidths)):
+            self.grdCustomer.SetColSize(i,self.ColWidths[i])
+            

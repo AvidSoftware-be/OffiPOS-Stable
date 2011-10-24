@@ -210,4 +210,10 @@ class PaymentFrame(GeneratedGui.PaymentFrameBase):
         
         self.txtKantKaart.SelectAll()
         self.txtKantKaart.SetFocus()
+        
+    def chkPrintKitchenOnCheckBox(self, event):
+        self.ticket.KitchenPrinted = not self.chkPrintKitchen.Value
+        
+    def chkPrintTicketOnCheckBox(self,event):
+        self.ticket.TicketPrinted = not self.chkPrintTicket.Value
   

@@ -25,6 +25,7 @@ class Ticket:
         self.conn = sqlite3.connect(ini.DB_NAME, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES)
         self.customer = Customer()
         self.KitchenPrinted = False
+        self.TicketPrinted = False
         self.parentEntryNo = 0
 
     def AddTicketLine(self, productId, isOption, parentProductId, buttonNo, screenCategory, price=0,
@@ -129,7 +130,10 @@ class Ticket:
         cur.execute("update ticketLine set paid=? where ticketNo=?", (paymentMethod, self.no,))
 
         self.conn.commit()
-        self._printReceipt(paymentMethod, paidAmt, returnAmt)
+        
+        if not self.TicketPrinted:
+            self._printReceipt(paymentMethod, paidAmt, returnAmt)
+            
         if not self.KitchenPrinted:
             self.PrintKitchen()
 

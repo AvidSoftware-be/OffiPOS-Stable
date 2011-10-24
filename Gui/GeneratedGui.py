@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*- 
 
 ###########################################################################
-## Python code generated with wxFormBuilder (version Jun  6 2011)
+## Python code generated with wxFormBuilder (version Oct 12 2011)
 ## http://www.wxformbuilder.org/
 ##
 ## PLEASE DO "NOT" EDIT THIS FILE!
@@ -788,6 +788,18 @@ class PaymentFrameBase ( wx.Dialog ):
 		self.btnPrintKitchen = wx.Button( self, wx.ID_ANY, u"Keuken\nbon", wx.DefaultPosition, wx.Size( 60,60 ), 0 )
 		fgSizer5.Add( self.btnPrintKitchen, 0, wx.ALIGN_RIGHT, 5 )
 		
+		bSizer32 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.chkPrintKitchen = wx.CheckBox( self, wx.ID_ANY, u"Keukenbon Afd.", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_RIGHT )
+		self.chkPrintKitchen.SetValue(True) 
+		bSizer32.Add( self.chkPrintKitchen, 0, wx.ALIGN_RIGHT, 0 )
+		
+		self.chkPrintTicket = wx.CheckBox( self, wx.ID_ANY, u"Ticket Afd.", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_RIGHT )
+		self.chkPrintTicket.SetValue(True) 
+		bSizer32.Add( self.chkPrintTicket, 0, wx.ALIGN_RIGHT, 0 )
+		
+		fgSizer5.Add( bSizer32, 1, wx.ALIGN_BOTTOM|wx.ALIGN_RIGHT, 0 )
+		
 		bSizer20.Add( fgSizer5, 1, wx.EXPAND, 5 )
 		
 		gbSizer1.Add( bSizer20, wx.GBPosition( 1, 2 ), wx.GBSpan( 2, 1 ), wx.EXPAND, 5 )
@@ -857,6 +869,8 @@ class PaymentFrameBase ( wx.Dialog ):
 		self.txtPuntenTicket.Bind( wx.EVT_SET_FOCUS, self.txtPuntenTicketOnSetFocus )
 		self.btnAddLoyaltyPoints.Bind( wx.EVT_BUTTON, self.btnAddLoyaltyPointsOnButtonClick )
 		self.btnPrintKitchen.Bind( wx.EVT_BUTTON, self.btnPrintKitchenOnButtonClick )
+		self.chkPrintKitchen.Bind( wx.EVT_CHECKBOX, self.chkPrintKitchenOnCheckBox )
+		self.chkPrintTicket.Bind( wx.EVT_CHECKBOX, self.chkPrintTicketOnCheckBox )
 	
 	def __del__( self ):
 		pass
@@ -927,6 +941,12 @@ class PaymentFrameBase ( wx.Dialog ):
 		event.Skip()
 	
 	def btnPrintKitchenOnButtonClick( self, event ):
+		event.Skip()
+	
+	def chkPrintKitchenOnCheckBox( self, event ):
+		event.Skip()
+	
+	def chkPrintTicketOnCheckBox( self, event ):
 		event.Skip()
 	
 
@@ -1196,6 +1216,8 @@ class dlgKlantBeheerBase ( wx.Dialog ):
 		self.Centre( wx.BOTH )
 		
 		# Connect Events
+		self.Bind( wx.EVT_CLOSE, self.dlgKlantBeheerBaseOnClose )
+		self.grdCustomer.Bind( wx.grid.EVT_GRID_COL_SIZE, self.grdCustomerOnGridColSize )
 		self.grdCustomer.Bind( wx.grid.EVT_GRID_LABEL_LEFT_CLICK, self.grdCustomerOnGridLabelLeftClick )
 		self.btnBewerk.Bind( wx.EVT_BUTTON, self.btnBewerkOnButtonClick )
 		self.btnNieuw.Bind( wx.EVT_BUTTON, self.btnNieuwOnButtonClick )
@@ -1207,6 +1229,12 @@ class dlgKlantBeheerBase ( wx.Dialog ):
 	
 	
 	# Virtual event handlers, overide them in your derived class
+	def dlgKlantBeheerBaseOnClose( self, event ):
+		event.Skip()
+	
+	def grdCustomerOnGridColSize( self, event ):
+		event.Skip()
+	
 	def grdCustomerOnGridLabelLeftClick( self, event ):
 		event.Skip()
 	
