@@ -17,7 +17,7 @@ import wx.grid
 class MainFrameBase ( wx.Frame ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"BaronPOS", pos = wx.DefaultPosition, size = wx.Size( 1067,705 ), style = wx.DEFAULT_FRAME_STYLE|wx.MAXIMIZE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"BaronPOS", pos = wx.DefaultPosition, size = wx.Size( 1067,705 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		
@@ -29,35 +29,39 @@ class MainFrameBase ( wx.Frame ):
 		fgSizer1.SetFlexibleDirection( wx.BOTH )
 		fgSizer1.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 		
-		sbFuncties = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Functies" ), wx.VERTICAL )
+		self.pnlFuncties = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		sbFuncties = wx.StaticBoxSizer( wx.StaticBox( self.pnlFuncties, wx.ID_ANY, u"Functies" ), wx.VERTICAL )
 		
-		self.btnInloggen = wx.Button( self, wx.ID_ANY, u"Log In", wx.DefaultPosition, wx.Size( 80,-1 ), 0 )
-		sbFuncties.Add( self.btnInloggen, 0, wx.ALL, 1 )
-		
-		self.btnLogOut = wx.Button( self, wx.ID_ANY, u"Log Uit", wx.DefaultPosition, wx.Size( 80,-1 ), 0 )
-		sbFuncties.Add( self.btnLogOut, 0, wx.ALL, 1 )
-		
-		self.btnNieuwTicket = wx.Button( self, wx.ID_ANY, u"Nieuw\nTicket", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnNieuwTicket = wx.Button( self.pnlFuncties, wx.ID_ANY, u"Nieuw\nTicket", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
 		self.btnNieuwTicket.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
 		
 		sbFuncties.Add( self.btnNieuwTicket, 0, wx.ALL, 1 )
 		
-		self.btnAdmin = wx.Button( self, wx.ID_ANY, u"Admin", wx.DefaultPosition, wx.Size( 80,-1 ), 0 )
-		sbFuncties.Add( self.btnAdmin, 0, wx.ALL, 1 )
-		
-		self.btnInOutToggle = wx.ToggleButton( self, wx.ID_ANY, u"In/Out", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnInOutToggle.SetValue( True ) 
+		self.btnInOutToggle = wx.ToggleButton( self.pnlFuncties, wx.ID_ANY, u"In/Out", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
 		self.btnInOutToggle.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
 		
 		sbFuncties.Add( self.btnInOutToggle, 0, wx.ALL, 1 )
 		
-		self.btnAanbDirToggle = wx.ToggleButton( self, wx.ID_ANY, u"Aanb. Dir.", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnAanbDirToggle = wx.ToggleButton( self.pnlFuncties, wx.ID_ANY, u"Aanb. Dir.", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
 		self.btnAanbDirToggle.SetValue( True ) 
 		self.btnAanbDirToggle.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
 		
 		sbFuncties.Add( self.btnAanbDirToggle, 0, wx.ALL, 1 )
 		
-		fgSizer1.Add( sbFuncties, 1, wx.EXPAND, 1 )
+		self.btnAdmin = wx.Button( self.pnlFuncties, wx.ID_ANY, u"Admin", wx.DefaultPosition, wx.Size( 80,-1 ), 0 )
+		self.btnAdmin.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		sbFuncties.Add( self.btnAdmin, 0, wx.ALL, 1 )
+		
+		self.btnHeropen = wx.Button( self.pnlFuncties, wx.ID_ANY, u"Heropen\nLaatste\nTicket", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnHeropen.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		sbFuncties.Add( self.btnHeropen, 0, wx.ALL, 1 )
+		
+		self.pnlFuncties.SetSizer( sbFuncties )
+		self.pnlFuncties.Layout()
+		sbFuncties.Fit( self.pnlFuncties )
+		fgSizer1.Add( self.pnlFuncties, 1, wx.EXPAND |wx.ALL, 0 )
 		
 		sbGroepen = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Groepen" ), wx.VERTICAL )
 		
@@ -438,13 +442,6 @@ class MainFrameBase ( wx.Frame ):
 		
 		bSizer12 = wx.BoxSizer( wx.VERTICAL )
 		
-		self.btnQtyPlus = wx.Button( self.pnlRekening, wx.ID_ANY, u"+", wx.DefaultPosition, wx.Size( 30,30 ), 0 )
-		self.btnQtyPlus.SetFont( wx.Font( 12, 70, 90, 92, False, wx.EmptyString ) )
-		self.btnQtyPlus.SetForegroundColour( wx.Colour( 255, 0, 0 ) )
-		self.btnQtyPlus.Hide()
-		
-		bSizer12.Add( self.btnQtyPlus, 0, wx.ALL, 5 )
-		
 		self.btnQtyMin = wx.Button( self.pnlRekening, wx.ID_ANY, u"-", wx.DefaultPosition, wx.Size( 30,30 ), 0 )
 		self.btnQtyMin.SetFont( wx.Font( 12, 70, 90, 92, False, wx.EmptyString ) )
 		self.btnQtyMin.SetForegroundColour( wx.Colour( 0, 128, 0 ) )
@@ -472,9 +469,10 @@ class MainFrameBase ( wx.Frame ):
 		
 		# Connect Events
 		self.btnNieuwTicket.Bind( wx.EVT_BUTTON, self.btnNieuwTicketOnButtonClick )
-		self.btnAdmin.Bind( wx.EVT_BUTTON, self.btnAdminOnButtonClick )
 		self.btnInOutToggle.Bind( wx.EVT_TOGGLEBUTTON, self.btnInOutToggleOnToggleButton )
 		self.btnAanbDirToggle.Bind( wx.EVT_TOGGLEBUTTON, self.btnAanbDirToggleOnToggleButton )
+		self.btnAdmin.Bind( wx.EVT_BUTTON, self.btnAdminOnButtonClick )
+		self.btnHeropen.Bind( wx.EVT_BUTTON, self.btnHeropenOnButtonClick )
 		self.btnGroupOne.Bind( wx.EVT_BUTTON, self.btnGroupOneOnButtonClick )
 		self.btnGroupThree.Bind( wx.EVT_BUTTON, self.btnGroupThreeOnButtonClick )
 		self.btnGroupFive.Bind( wx.EVT_BUTTON, self.btnGroupFiveOnButtonClick )
@@ -529,7 +527,6 @@ class MainFrameBase ( wx.Frame ):
 		self.gOrder.Bind( wx.grid.EVT_GRID_SELECT_CELL, self.gOrderOnGridSelectCell )
 		self.btnAfrekeken.Bind( wx.EVT_BUTTON, self.btnAfrekekenOnButtonClick )
 		self.btnAnnuleren.Bind( wx.EVT_BUTTON, self.btnAnnulerenOnButtonClick )
-		self.btnQtyPlus.Bind( wx.EVT_BUTTON, self.btnQtyPlusOnButtonClick )
 		self.btnQtyMin.Bind( wx.EVT_BUTTON, self.btnQtyMinOnButtonClick )
 	
 	def __del__( self ):
@@ -540,13 +537,16 @@ class MainFrameBase ( wx.Frame ):
 	def btnNieuwTicketOnButtonClick( self, event ):
 		event.Skip()
 	
-	def btnAdminOnButtonClick( self, event ):
-		event.Skip()
-	
 	def btnInOutToggleOnToggleButton( self, event ):
 		event.Skip()
 	
 	def btnAanbDirToggleOnToggleButton( self, event ):
+		event.Skip()
+	
+	def btnAdminOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnHeropenOnButtonClick( self, event ):
 		event.Skip()
 	
 	def btnGroupOneOnButtonClick( self, event ):
@@ -629,25 +629,8 @@ class MainFrameBase ( wx.Frame ):
 	def btnAnnulerenOnButtonClick( self, event ):
 		event.Skip()
 	
-	def btnQtyPlusOnButtonClick( self, event ):
-		event.Skip()
-	
 	def btnQtyMinOnButtonClick( self, event ):
 		event.Skip()
-	
-
-###########################################################################
-## Class MyPanel1
-###########################################################################
-
-class MyPanel1 ( wx.Panel ):
-	
-	def __init__( self, parent ):
-		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.TAB_TRAVERSAL )
-		
-	
-	def __del__( self ):
-		pass
 	
 
 ###########################################################################
@@ -1001,6 +984,9 @@ class AdminDialogBase ( wx.Dialog ):
 		self.btnBackTrans = wx.Button( self, wx.ID_ANY, u"Backup Transacties", wx.DefaultPosition, wx.DefaultSize, 0 )
 		sbSizer7.Add( self.btnBackTrans, 0, wx.ALL|wx.EXPAND, 5 )
 		
+		self.btnProgKassa = wx.Button( self, wx.ID_ANY, u"Programmeer Kassa", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sbSizer7.Add( self.btnProgKassa, 0, wx.ALL, 5 )
+		
 		bSizer24.Add( sbSizer7, 1, wx.EXPAND, 5 )
 		
 		bSizer17.Add( bSizer24, 1, wx.EXPAND, 5 )
@@ -1016,6 +1002,7 @@ class AdminDialogBase ( wx.Dialog ):
 		self.btnKasAfsluitenTest.Bind( wx.EVT_BUTTON, self.btnKasAfsluitenTestOnButtonClick )
 		self.btnKlantKaartBeheer.Bind( wx.EVT_BUTTON, self.btnKlantKaartBeheerOnButtonClick )
 		self.btnBackTrans.Bind( wx.EVT_BUTTON, self.btnBackTransOnButtonClick )
+		self.btnProgKassa.Bind( wx.EVT_BUTTON, self.btnProgKassaOnButtonClick )
 	
 	def __del__( self ):
 		pass
@@ -1032,6 +1019,9 @@ class AdminDialogBase ( wx.Dialog ):
 		event.Skip()
 	
 	def btnBackTransOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnProgKassaOnButtonClick( self, event ):
 		event.Skip()
 	
 

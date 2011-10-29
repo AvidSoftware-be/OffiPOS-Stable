@@ -41,6 +41,6 @@ def WriteDayTotals(totals):
     cu = conn.cursor()
     
     for line in totals:
-        cu.execute('insert into dayTotals (dateRegistered, vatCode, priceVatIn) values (?,?,?)',(datetime.now(), line[4],line[3]))
+        cu.execute('insert into day_totals (dateRegistered, vatCode, priceVatIn) values (?,?,?)',(datetime.now(), line[4],line[3]))
         
     conn.commit()

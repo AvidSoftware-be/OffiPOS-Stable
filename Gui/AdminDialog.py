@@ -1,6 +1,7 @@
 from wx._misc import MessageBox
 from wxPython._core import wxSAVE, wxOVERWRITE_PROMPT, wxID_OK, wxOPEN
 from wxPython._windows import wxFileDialog
+import wx
 from Client.JSONClient import Proxy
 from DataModel.Ticket import Ticket
 import DataModel.VATManipulations
@@ -10,6 +11,7 @@ from utils.BackupDatabase import FILETYPES
 import utils
 
 import pprint
+from Gui import POSProgramScreen
 
 __author__ = 'dennis'
 
@@ -83,5 +85,12 @@ class AdminDialog(GeneratedGui.AdminDialogBase):
         dialog.Destroy()
 
         utils.BackupDatabase.BackupDB(sourceFile, destinationFile, FILETYPES[destinationFile.split(".")[1]])
+        
+    def btnProgKassaOnButtonClick(self, event):
+        pp = POSProgramScreen.POSProgram(wx.GetApp().TopWindow)
+        pp.Center()
+        pp.Show()
+        
+
 
   

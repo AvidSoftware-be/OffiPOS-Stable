@@ -128,6 +128,8 @@ class MainFrame(GeneratedGui.MainFrameBase):
         self.timer = wx.Timer(self)
         self.Bind(wx.EVT_TIMER, self.updateClock, self.timer)
         self.timer.Start(1000)
+        
+        self.Maximize()
 
     def updateClock(self, event):
         self.SetStatusText("{0} {1}".format(date.today().strftime('%d/%m/%Y'), datetime.today().strftime('%H:%M:%S')))
@@ -135,27 +137,14 @@ class MainFrame(GeneratedGui.MainFrameBase):
 
     # Handlers for MainFrameBase events.
     def btnNieuwTicketOnButtonClick( self, event ):
-        self.pnlGroepen.Enable()
-        self.pnlProducten.Enabled = True
-        self.pnlRekening.Enabled = True
-        self.btnNieuwTicket.Enabled = False
 
         self.ticket.CreateNewTicket()
-
-        if self.ticket.eatInOut == "O":
-            self.btnInOutToggle.SetValue(0)
-        else:
-            self.btnInOutToggle.SetValue(1)
-
-        self.btnRetour.SetValue(0)
-
-        self.ticket.priceMode = priceModes["pos"]
-        self.btnAanbDirToggle.SetValue(0)
-
-        self._selectedGroup = 1
-        self._updateProductButtons()
-
-        self._updateGrid()
+        
+        self._setScreenForOpenTicket()
+        
+    def btnHeropenOnButtonClick(self, event):
+        self.ticket.no = Ticket().GetMaxTicketNo()
+        self._setScreenForOpenTicket()
 
     def btnAnnulerenOnButtonClick( self, event ):
         self.pnlGroepen.Disable()
@@ -373,6 +362,23 @@ class MainFrame(GeneratedGui.MainFrameBase):
         total = self.ticket.GetTotalAmt()
 
         self.lblTotal.SetLabel(u"\u20AC %.2f" % total)
+
+    def _setScreenForOpenTicket(self):
+        self.pnlGroepen.Enable()
+        self.pnlProducten.Enabled = True
+        self.pnlRekening.Enabled = True
+        self.btnNieuwTicket.Enabled = False
+        if self.ticket.eatInOut == "O":
+            self.btnInOutToggle.SetValue(0)
+        else:
+            self.btnInOutToggle.SetValue(1)
+        self.btnRetour.SetValue(0)
+        self.ticket.priceMode = priceModes["pos"]
+        self.btnAanbDirToggle.SetValue(0)
+        self._selectedGroup = 1
+        self._updateProductButtons()
+        self._updateGrid()
+
 
 
 class OrderTable(wx.grid.PyGridTableBase):
