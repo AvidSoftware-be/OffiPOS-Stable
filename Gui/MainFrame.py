@@ -141,10 +141,12 @@ class MainFrame(GeneratedGui.MainFrameBase):
         self.ticket.CreateNewTicket()
         
         self._setScreenForOpenTicket()
+        self.btnAnnuleren.Enable()
         
     def btnHeropenOnButtonClick(self, event):
         self.ticket.no = Ticket().GetMaxTicketNo()
         self._setScreenForOpenTicket()
+        self.btnAnnuleren.Disable()
 
     def btnAnnulerenOnButtonClick( self, event ):
         self.pnlGroepen.Disable()
