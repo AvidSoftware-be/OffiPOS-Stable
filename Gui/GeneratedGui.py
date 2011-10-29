@@ -29,39 +29,43 @@ class MainFrameBase ( wx.Frame ):
 		fgSizer1.SetFlexibleDirection( wx.BOTH )
 		fgSizer1.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 		
+		sbFuncties = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Functies" ), wx.VERTICAL )
+		
 		self.pnlFuncties = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		sbFuncties = wx.StaticBoxSizer( wx.StaticBox( self.pnlFuncties, wx.ID_ANY, u"Functies" ), wx.VERTICAL )
+		bSizer33 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.btnHeropen = wx.Button( self.pnlFuncties, wx.ID_ANY, u"Heropen\nLaatste\nTicket", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnHeropen.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer33.Add( self.btnHeropen, 0, wx.ALL, 1 )
 		
 		self.btnNieuwTicket = wx.Button( self.pnlFuncties, wx.ID_ANY, u"Nieuw\nTicket", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
 		self.btnNieuwTicket.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
 		
-		sbFuncties.Add( self.btnNieuwTicket, 0, wx.ALL, 1 )
+		bSizer33.Add( self.btnNieuwTicket, 0, wx.ALL, 1 )
 		
 		self.btnInOutToggle = wx.ToggleButton( self.pnlFuncties, wx.ID_ANY, u"In/Out", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
 		self.btnInOutToggle.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
 		
-		sbFuncties.Add( self.btnInOutToggle, 0, wx.ALL, 1 )
+		bSizer33.Add( self.btnInOutToggle, 0, wx.ALL, 1 )
 		
 		self.btnAanbDirToggle = wx.ToggleButton( self.pnlFuncties, wx.ID_ANY, u"Aanb. Dir.", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
 		self.btnAanbDirToggle.SetValue( True ) 
 		self.btnAanbDirToggle.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
 		
-		sbFuncties.Add( self.btnAanbDirToggle, 0, wx.ALL, 1 )
+		bSizer33.Add( self.btnAanbDirToggle, 0, wx.ALL, 1 )
 		
 		self.btnAdmin = wx.Button( self.pnlFuncties, wx.ID_ANY, u"Admin", wx.DefaultPosition, wx.Size( 80,-1 ), 0 )
 		self.btnAdmin.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
 		
-		sbFuncties.Add( self.btnAdmin, 0, wx.ALL, 1 )
+		bSizer33.Add( self.btnAdmin, 0, wx.ALL, 1 )
 		
-		self.btnHeropen = wx.Button( self.pnlFuncties, wx.ID_ANY, u"Heropen\nLaatste\nTicket", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnHeropen.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		sbFuncties.Add( self.btnHeropen, 0, wx.ALL, 1 )
-		
-		self.pnlFuncties.SetSizer( sbFuncties )
+		self.pnlFuncties.SetSizer( bSizer33 )
 		self.pnlFuncties.Layout()
-		sbFuncties.Fit( self.pnlFuncties )
-		fgSizer1.Add( self.pnlFuncties, 1, wx.EXPAND |wx.ALL, 0 )
+		bSizer33.Fit( self.pnlFuncties )
+		sbFuncties.Add( self.pnlFuncties, 1, wx.EXPAND |wx.ALL, 0 )
+		
+		fgSizer1.Add( sbFuncties, 1, wx.EXPAND, 5 )
 		
 		sbGroepen = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Groepen" ), wx.VERTICAL )
 		
@@ -468,11 +472,11 @@ class MainFrameBase ( wx.Frame ):
 		self.Centre( wx.BOTH )
 		
 		# Connect Events
+		self.btnHeropen.Bind( wx.EVT_BUTTON, self.btnHeropenOnButtonClick )
 		self.btnNieuwTicket.Bind( wx.EVT_BUTTON, self.btnNieuwTicketOnButtonClick )
 		self.btnInOutToggle.Bind( wx.EVT_TOGGLEBUTTON, self.btnInOutToggleOnToggleButton )
 		self.btnAanbDirToggle.Bind( wx.EVT_TOGGLEBUTTON, self.btnAanbDirToggleOnToggleButton )
 		self.btnAdmin.Bind( wx.EVT_BUTTON, self.btnAdminOnButtonClick )
-		self.btnHeropen.Bind( wx.EVT_BUTTON, self.btnHeropenOnButtonClick )
 		self.btnGroupOne.Bind( wx.EVT_BUTTON, self.btnGroupOneOnButtonClick )
 		self.btnGroupThree.Bind( wx.EVT_BUTTON, self.btnGroupThreeOnButtonClick )
 		self.btnGroupFive.Bind( wx.EVT_BUTTON, self.btnGroupFiveOnButtonClick )
@@ -534,6 +538,9 @@ class MainFrameBase ( wx.Frame ):
 	
 	
 	# Virtual event handlers, overide them in your derived class
+	def btnHeropenOnButtonClick( self, event ):
+		event.Skip()
+	
 	def btnNieuwTicketOnButtonClick( self, event ):
 		event.Skip()
 	
@@ -544,9 +551,6 @@ class MainFrameBase ( wx.Frame ):
 		event.Skip()
 	
 	def btnAdminOnButtonClick( self, event ):
-		event.Skip()
-	
-	def btnHeropenOnButtonClick( self, event ):
 		event.Skip()
 	
 	def btnGroupOneOnButtonClick( self, event ):
