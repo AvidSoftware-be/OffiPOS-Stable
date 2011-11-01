@@ -618,10 +618,36 @@ class dlgAskForPriceBase ( wx.Dialog ):
 		
 		bSizer20 = wx.BoxSizer( wx.VERTICAL )
 		
-		self.txtPrice = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( -1,50 ), wx.TE_READONLY|wx.TE_RIGHT )
-		self.txtPrice.SetFont( wx.Font( 20, 70, 90, 90, False, wx.EmptyString ) )
+		gbSizer2 = wx.GridBagSizer( 0, 0 )
+		gbSizer2.SetFlexibleDirection( wx.BOTH )
+		gbSizer2.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 		
-		bSizer20.Add( self.txtPrice, 0, wx.ALL|wx.EXPAND, 5 )
+		bSizer37 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.btnDivide = wx.Button( self, wx.ID_ANY, u"/", wx.DefaultPosition, wx.Size( 60,30 ), 0 )
+		bSizer37.Add( self.btnDivide, 0, 0, 5 )
+		
+		self.btnMultiply = wx.Button( self, wx.ID_ANY, u"*", wx.DefaultPosition, wx.Size( 60,30 ), 0 )
+		bSizer37.Add( self.btnMultiply, 0, 0, 5 )
+		
+		self.btnSubtract = wx.Button( self, wx.ID_ANY, u"-", wx.DefaultPosition, wx.Size( 60,30 ), 0 )
+		bSizer37.Add( self.btnSubtract, 0, 0, 5 )
+		
+		self.btnAdd = wx.Button( self, wx.ID_ANY, u"+", wx.DefaultPosition, wx.Size( 60,30 ), 0 )
+		bSizer37.Add( self.btnAdd, 0, 0, 5 )
+		
+		self.btnEquals = wx.Button( self, wx.ID_ANY, u"=", wx.DefaultPosition, wx.Size( 60,60 ), 0 )
+		bSizer37.Add( self.btnEquals, 0, 0, 5 )
+		
+		
+		bSizer37.AddSpacer( ( 0, 60), 1, wx.EXPAND, 5 )
+		
+		self.btnBack = wx.Button( self, wx.ID_ANY, u"<-", wx.DefaultPosition, wx.Size( 60,30 ), 0 )
+		bSizer37.Add( self.btnBack, 0, 0, 5 )
+		
+		gbSizer2.Add( bSizer37, wx.GBPosition( 1, 1 ), wx.GBSpan( 1, 1 ), wx.EXPAND, 5 )
+		
+		bSizer36 = wx.BoxSizer( wx.VERTICAL )
 		
 		gSizer2 = wx.GridSizer( 4, 3, 0, 0 )
 		
@@ -661,10 +687,19 @@ class dlgAskForPriceBase ( wx.Dialog ):
 		self.btnEnter = wx.Button( self, wx.ID_ANY, u"Ok", wx.DefaultPosition, wx.Size( 60,60 ), 0 )
 		gSizer2.Add( self.btnEnter, 0, wx.ALL, 0 )
 		
-		bSizer20.Add( gSizer2, 1, wx.EXPAND, 5 )
+		bSizer36.Add( gSizer2, 1, wx.EXPAND, 5 )
 		
-		self.btnClear = wx.Button( self, wx.ID_ANY, u"Clr", wx.DefaultPosition, wx.Size( 175,-1 ), 0 )
-		bSizer20.Add( self.btnClear, 0, wx.ALL, 0 )
+		self.btnClear = wx.Button( self, wx.ID_ANY, u"Clr", wx.DefaultPosition, wx.Size( -1,30 ), 0 )
+		bSizer36.Add( self.btnClear, 0, wx.ALL|wx.EXPAND, 0 )
+		
+		gbSizer2.Add( bSizer36, wx.GBPosition( 1, 0 ), wx.GBSpan( 1, 1 ), wx.EXPAND, 5 )
+		
+		self.txtPrice = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( -1,50 ), wx.TE_READONLY|wx.TE_RIGHT )
+		self.txtPrice.SetFont( wx.Font( 20, 70, 90, 90, False, wx.EmptyString ) )
+		
+		gbSizer2.Add( self.txtPrice, wx.GBPosition( 0, 0 ), wx.GBSpan( 1, 2 ), wx.ALL|wx.EXPAND, 5 )
+		
+		bSizer20.Add( gbSizer2, 1, wx.EXPAND, 5 )
 		
 		self.SetSizer( bSizer20 )
 		self.Layout()
@@ -673,6 +708,12 @@ class dlgAskForPriceBase ( wx.Dialog ):
 		self.Centre( wx.BOTH )
 		
 		# Connect Events
+		self.btnDivide.Bind( wx.EVT_BUTTON, self.btnDivideOnButtonClick )
+		self.btnMultiply.Bind( wx.EVT_BUTTON, self.btnMultiplyOnButtonClick )
+		self.btnSubtract.Bind( wx.EVT_BUTTON, self.btnSubtractOnButtonClick )
+		self.btnAdd.Bind( wx.EVT_BUTTON, self.btnAddOnButtonClick )
+		self.btnEquals.Bind( wx.EVT_BUTTON, self.btnEqualsOnButtonClick )
+		self.btnBack.Bind( wx.EVT_BUTTON, self.btnBackOnButtonClick )
 		self.btnSeven.Bind( wx.EVT_BUTTON, self.btnSevenOnButtonClick )
 		self.btnEight.Bind( wx.EVT_BUTTON, self.btnEightOnButtonClick )
 		self.btnNine.Bind( wx.EVT_BUTTON, self.btnNineOnButtonClick )
@@ -692,6 +733,24 @@ class dlgAskForPriceBase ( wx.Dialog ):
 	
 	
 	# Virtual event handlers, overide them in your derived class
+	def btnDivideOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnMultiplyOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnSubtractOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnAddOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnEqualsOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnBackOnButtonClick( self, event ):
+		event.Skip()
+	
 	def btnSevenOnButtonClick( self, event ):
 		event.Skip()
 	

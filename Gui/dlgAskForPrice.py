@@ -47,3 +47,21 @@ class dlgAskForPrice(GeneratedGui.dlgAskForPriceBase):
 
     def btnClearOnButtonClick( self, event ):
         self.txtPrice.Value = ""
+        
+    def btnDivideOnButtonClick(self, event):
+        self.txtPrice.Value += "/"
+        
+    def btnMultiplyOnButtonClick(self, event):
+        self.txtPrice.Value += "*"
+        
+    def btnSubtractOnButtonClick(self, event):
+        self.txtPrice.Value += "-"
+        
+    def btnAddOnButtonClick(self, event):
+        self.txtPrice.Value += "+"
+        
+    def btnEqualsOnButtonClick(self, event):
+        self.txtPrice.Value = str(eval(self.txtPrice.Value))
+        
+    def btnBackOnButtonClick(self, event):
+        self.txtPrice.Value = self.txtPrice.Value[:-1]
