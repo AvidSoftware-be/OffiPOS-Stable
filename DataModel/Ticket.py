@@ -1,16 +1,17 @@
-import datetime
 from DataModel.Customer import Customer
 from DataModel.Menu import ProductMenu
-from DataModel.ProductScreen import ProductScreen
 from DataModel.Product import Product
+from DataModel.ProductGroup import ProductGroup
+from DataModel.ProductScreen import ProductScreen
+from mx.DateTime.ISO import ParseDateTimeUTC
 import POSEquipment.CustomerDisplay
 import POSEquipment.TicketPrinter
-from mx.DateTime.ISO import ParseDateTimeUTC
+import datetime
+import ini
+import sqlite3
 
 __author__ = 'dennis'
 
-import sqlite3
-import ini
 
 paymentMethods = dict(Cash=1, Atos=2)
 priceModes = dict(pos=1, neg=2)
@@ -350,8 +351,7 @@ class Ticket:
 
         cur = self.conn.cursor()
 
-        cur.execute("select * from product_group")
-        groups = cur.fetchall()
+        groups = ProductGroup.fetchall()
 
         for group in groups:
             cur.execute("""SELECT

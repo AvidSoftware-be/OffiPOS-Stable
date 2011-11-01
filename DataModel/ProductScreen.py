@@ -13,8 +13,11 @@ class ProductScreen:
         cur.execute("select id from screen_group where screenOrder=?", (screenCategory,))
         res = cur.fetchone()
 
-        cur.execute("select * from product_screen where screenCategoryId=? order by buttonNo ASC", (res[0],))
-        return cur.fetchall()
+        if res:
+            cur.execute("select * from product_screen where screenCategoryId=? order by buttonNo ASC", (res[0],))
+            return cur.fetchall()
+        else:
+            return None
 
     def GetProductNoOnButton(self, buttonNo, screenCategory):
         conn = sqlite3.connect(ini.DB_NAME)
@@ -26,7 +29,10 @@ class ProductScreen:
         cur.execute("select productId from product_screen where screenCategoryId=? and buttonNo=?",
                 (res[0], buttonNo))
         result = cur.fetchone()
-        return result[0]
+        if result:
+            return result[0]
+        else:
+            return None
 
     def GetCaption(self, buttonNo, screenCategory):
         conn = sqlite3.connect(ini.DB_NAME)

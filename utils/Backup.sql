@@ -10,7 +10,7 @@ INSERT INTO "product_group" VALUES(4,'Eigen Bereidingen');
 INSERT INTO "product_group" VALUES(5,'Hamburgers');
 INSERT INTO "product_group" VALUES(6,'Dranken');
 INSERT INTO "product_group" VALUES(7,'Snacks');
-INSERT INTO "product_group" VALUES(8,'BROODJES');
+INSERT INTO "product_group" VALUES(8,'Broodjes');
 INSERT INTO "product_group" VALUES(9,'Diversen');
 DROP TABLE IF EXISTS vatCode;
 CREATE TABLE [vatCode] ([code] INTEGER PRIMARY KEY, [name] TEXT, [vatPct] REAL);

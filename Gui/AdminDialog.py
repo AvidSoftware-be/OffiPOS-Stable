@@ -11,7 +11,7 @@ from utils.BackupDatabase import FILETYPES
 import utils
 
 import pprint
-from Gui import POSProgramScreen
+from Gui import dlgProgScreen
 
 __author__ = 'dennis'
 
@@ -87,9 +87,9 @@ class AdminDialog(GeneratedGui.AdminDialogBase):
         utils.BackupDatabase.BackupDB(sourceFile, destinationFile, FILETYPES[destinationFile.split(".")[1]])
         
     def btnProgKassaOnButtonClick(self, event):
-        pp = POSProgramScreen.POSProgram(wx.GetApp().TopWindow)
+        pp = dlgProgScreen.dlgProgScreen(self)
         pp.Center()
-        pp.Show()
+        pp.ShowModal()
         
 
 

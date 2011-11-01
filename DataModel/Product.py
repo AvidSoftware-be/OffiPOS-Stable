@@ -16,15 +16,37 @@ class Product:
         self.screenName = ""
         self.treatAsOption = 0
 
-    #    def save(self):
-    #        conn = sqlite3.connect(ini.DB_NAME)
-    #        val = (self.id, self.name, self.price, self.group, self.vatCodeIn, self.vatCodeOut)
-    #
-    #        cur = conn.cursor()
-    #
-    #        cur.execute("insert into product values (?,?,?,?,?,?)", val)
-    #
-    #        conn.commit()
+    def save(self):
+        conn = sqlite3.connect(ini.DB_NAME)
+
+        cur = conn.cursor()
+        
+        if not self.id:
+            cur.execute("insert into product (name,price,groupId,vatCodeIn,vatCodeOut,askForPrice,screenName,treatAsOption,discountIfOption) values (?,?,?,?,?,?,?,?,?)", (self.name,
+               self.price,
+               self.group,
+               self.vatCodeIn,
+               self.vatCodeOut,
+               self.askForPrice,
+               self.screenName,
+               self.treatAsOption,
+               self.discountIfOption))
+            
+            cur.execute("SELECT last_insert_rowid()")
+            self.id = cur.fetchone()[0]
+        else:
+            cur.execute("update product set name=?,price=?,groupId=?,vatCodeIn=?,vatCodeOut=?,askForPrice=?,screenName=?,treatAsOption=?,discountIfOption=? where id=?", (self.name,
+               self.price,
+               self.group,
+               self.vatCodeIn,
+               self.vatCodeOut,
+               self.askForPrice,
+               self.screenName,
+               self.treatAsOption,
+               self.discountIfOption,
+               self.id))
+
+        conn.commit()
 
     def fetchall(self):
         conn = sqlite3.connect(ini.DB_NAME)

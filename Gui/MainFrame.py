@@ -12,110 +12,112 @@ from Gui import *
 from Gui.AdminDialog import AdminDialog
 from Gui.PaymentFrame import PaymentFrame
 from Gui.dlgAskForPrice import dlgAskForPrice
+import Gui.helpers
 
 from datetime import date, datetime
 import utils.dbmanip
 
 class MainFrame(GeneratedGui.MainFrameBase):
     _selectedGroup = 1
-
-    def __init__( self, parent ):
+    
+    def __init__(self, parent):
+        self._selectedGroup = 1
+        
         GeneratedGui.MainFrameBase.__init__(self, parent)
 
         utils.dbmanip.CreateDB() #test of db bestaat en zo niet wordt hij aangemaakt
+        
+        self.pnlProducten = GeneratedGui.pnlProductenBase(self)
+        self.sbProducten.Add(self.pnlProducten, 1, wx.EXPAND | wx.ALL, 1)
 
         self.ticket = Ticket()
 
         #add product buttons to dictionary for later reference
-        self.buttonDict = {
-            self.btnProduct11: 11,
-            self.btnProduct12: 12,
-            self.btnProduct13: 13,
-            self.btnProduct14: 14,
-            self.btnProduct15: 15,
-            self.btnProduct16: 16,
-            self.btnProduct21: 21,
-            self.btnProduct22: 22,
-            self.btnProduct23: 23,
-            self.btnProduct24: 24,
-            self.btnProduct25: 25,
-            self.btnProduct26: 26,
-            self.btnProduct31: 31,
-            self.btnProduct32: 32,
-            self.btnProduct33: 33,
-            self.btnProduct34: 34,
-            self.btnProduct35: 35,
-            self.btnProduct36: 36,
-            self.btnProduct41: 41,
-            self.btnProduct42: 42,
-            self.btnProduct43: 43,
-            self.btnProduct44: 44,
-            self.btnProduct45: 45,
-            self.btnProduct46: 46,
-            self.btnProduct51: 51,
-            self.btnProduct52: 52,
-            self.btnProduct53: 53,
-            self.btnProduct54: 54,
-            self.btnProduct55: 55,
-            self.btnProduct56: 56,
-            self.btnProduct61: 61,
-            self.btnProduct62: 62,
-            self.btnProduct63: 63,
-            self.btnProduct64: 64,
-            self.btnProduct65: 65,
-            self.btnProduct66: 66,
-            self.btnProduct71: 71,
-            self.btnProduct72: 72,
-            self.btnProduct73: 73,
-            self.btnProduct74: 74,
-            self.btnProduct75: 75,
-            self.btnProduct76: 76
-        }
+        self.buttonDict = Gui.helpers.createButtonDict(self)
+        
+        # Connect Events
+        self.pnlProducten.btnProduct11.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct12.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct13.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct14.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct15.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct16.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct21.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct22.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct23.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct24.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct25.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct26.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct31.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct32.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct33.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct34.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct35.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct36.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct41.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct42.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct43.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct44.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct45.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct46.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct51.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct52.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct53.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct54.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct55.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct56.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct61.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct62.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct63.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct64.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct65.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct66.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct71.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct72.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct73.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct74.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct75.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
+        self.pnlProducten.btnProduct76.Bind(wx.EVT_BUTTON, self.btnProductOnButtonClick)
 
+        self.pnlGroepen = GeneratedGui.pnlGroepenBase(self)
+        self.sbGroepen.Add(self.pnlGroepen, 1, wx.EXPAND | wx.ALL, 1)
+        #Empty out Group Buttons
+        #self.btnGroupOne.Enabled = False
+        self.pnlGroepen.btnGroupOne.SetLabel("")
+        #self.btnGroupTwo.Enabled = False
+        self.pnlGroepen.btnGroupTwo.SetLabel("")
+        #self.btnGroupThree.Enabled = False
+        self.pnlGroepen.btnGroupThree.SetLabel("")
+        #self.btnGroupFour.Enabled = False
+        self.pnlGroepen.btnGroupFour.SetLabel("")
+        #self.btnGroupFive.Enabled = False
+        self.pnlGroepen.btnGroupFive.SetLabel("")
+        #self.btnGroupSix.Enabled = False
+        self.pnlGroepen.btnGroupSix.SetLabel("")
+        #self.btnGroupSeven.Enabled = False
+        self.pnlGroepen.btnGroupSeven.SetLabel("")
+        #self.btnGroupEight.Enabled = False
+        self.pnlGroepen.btnGroupEight.SetLabel("")
+
+        # Connect Events
+        self.pnlGroepen.btnGroupOne.Bind(wx.EVT_BUTTON, self.btnGroupOneOnButtonClick)
+        self.pnlGroepen.btnGroupThree.Bind(wx.EVT_BUTTON, self.btnGroupThreeOnButtonClick)
+        self.pnlGroepen.btnGroupFive.Bind(wx.EVT_BUTTON, self.btnGroupFiveOnButtonClick)
+        self.pnlGroepen.btnGroupSeven.Bind(wx.EVT_BUTTON, self.btnGroupSevenOnButtonClick)
+        self.pnlGroepen.btnGroupTwo.Bind(wx.EVT_BUTTON, self.btnGroupTwoOnButtonClick)
+        self.pnlGroepen.btnGroupFour.Bind(wx.EVT_BUTTON, self.btnGroupFourOnButtonClick)
+        self.pnlGroepen.btnGroupSix.Bind(wx.EVT_BUTTON, self.btnGroupSixOnButtonClick)
+        self.pnlGroepen.btnGroupEight.Bind(wx.EVT_BUTTON, self.btnGroupEightOnButtonClick)
+        
+        Gui.helpers.fillGroupButtons(self) #helper
+        
         self.pnlGroepen.Disable()
         self.pnlProducten.Enabled = False
         self.pnlRekening.Enabled = False
         self.pnlRekening.Enabled = False
         self.btnNieuwTicket.Enabled = True
 
-        #Empty out Group Buttons
-        #self.btnGroupOne.Enabled = False
-        self.btnGroupOne.SetLabel("")
-        #self.btnGroupTwo.Enabled = False
-        self.btnGroupTwo.SetLabel("")
-        #self.btnGroupThree.Enabled = False
-        self.btnGroupThree.SetLabel("")
-        #self.btnGroupFour.Enabled = False
-        self.btnGroupFour.SetLabel("")
-        #self.btnGroupFive.Enabled = False
-        self.btnGroupFive.SetLabel("")
-        #self.btnGroupSix.Enabled = False
-        self.btnGroupSix.SetLabel("")
-        #self.btnGroupSeven.Enabled = False
-        self.btnGroupSeven.SetLabel("")
-        #self.btnGroupEight.Enabled = False
-        self.btnGroupEight.SetLabel("")
-
-        #fill group buttons
-        for name in ScreenGroup().fetchall():
-            if name[2] == 1:
-                self.btnGroupOne.SetLabel(name[1].replace(" ", "\n"))
-            elif name[2] == 2:
-                self.btnGroupTwo.SetLabel(name[1].replace(" ", "\n"))
-            elif name[2] == 3:
-                self.btnGroupThree.SetLabel(name[1].replace(" ", "\n"))
-            elif name[2] == 4:
-                self.btnGroupFour.SetLabel(name[1].replace(" ", "\n"))
-            elif name[2] == 5:
-                self.btnGroupFive.SetLabel(name[1].replace(" ", "\n"))
-            elif name[2] == 6:
-                self.btnGroupSix.SetLabel(name[1].replace(" ", "\n"))
-            elif name[2] == 7:
-                self.btnGroupSeven.SetLabel(name[1].replace(" ", "\n"))
-            elif name[2] == 8:
-                self.btnGroupSeven.SetLabel(name[1].replace(" ", "\n"))
-
-        self._updateProductButtons()
+        Gui.helpers.updateProductButtons(self, self._selectedGroup)
 
         self.btnRetour.SetValue(0)
         self.btnAanbDirToggle.SetValue(0)
@@ -136,7 +138,7 @@ class MainFrame(GeneratedGui.MainFrameBase):
 
 
     # Handlers for MainFrameBase events.
-    def btnNieuwTicketOnButtonClick( self, event ):
+    def btnNieuwTicketOnButtonClick(self, event):
 
         self.ticket.CreateNewTicket()
         
@@ -148,7 +150,7 @@ class MainFrame(GeneratedGui.MainFrameBase):
         self._setScreenForOpenTicket()
         self.btnAnnuleren.Disable()
 
-    def btnAnnulerenOnButtonClick( self, event ):
+    def btnAnnulerenOnButtonClick(self, event):
         self.pnlGroepen.Disable()
         self.pnlProducten.Enabled = False
         self.pnlRekening.Enabled = False
@@ -158,7 +160,7 @@ class MainFrame(GeneratedGui.MainFrameBase):
 
         self._updateGrid()
 
-    def btnAfrekekenOnButtonClick( self, event ):
+    def btnAfrekekenOnButtonClick(self, event):
         self.pnlGroepen.Disable()
         self.pnlProducten.Enabled = False
         self.pnlRekening.Enabled = False
@@ -178,39 +180,39 @@ class MainFrame(GeneratedGui.MainFrameBase):
 
         self.btnRetour.Value = 0
 
-    def btnGroupOneOnButtonClick( self, event ):
+    def btnGroupOneOnButtonClick(self, event):
         self._selectedGroup = 1
-        self._updateProductButtons()
+        Gui.helpers.updateProductButtons(self, self._selectedGroup)
 
-    def btnGroupTwoOnButtonClick( self, event ):
+    def btnGroupTwoOnButtonClick(self, event):
         self._selectedGroup = 2
-        self._updateProductButtons()
+        Gui.helpers.updateProductButtons(self, self._selectedGroup)
 
-    def btnGroupThreeOnButtonClick( self, event ):
+    def btnGroupThreeOnButtonClick(self, event):
         self._selectedGroup = 3
-        self._updateProductButtons()
-
-    def btnGroupFourOnButtonClick( self, event ):
+        Gui.helpers.updateProductButtons(self, self._selectedGroup)
+        
+    def btnGroupFourOnButtonClick(self, event):
         self._selectedGroup = 4
-        self._updateProductButtons()
+        Gui.helpers.updateProductButtons(self, self._selectedGroup)
 
-    def btnGroupFiveOnButtonClick( self, event ):
+    def btnGroupFiveOnButtonClick(self, event):
         self._selectedGroup = 5
-        self._updateProductButtons()
+        Gui.helpers.updateProductButtons(self, self._selectedGroup)
 
-    def btnGroupSixOnButtonClick( self, event ):
+    def btnGroupSixOnButtonClick(self, event):
         self._selectedGroup = 6
-        self._updateProductButtons()
+        Gui.helpers.updateProductButtons(self, self._selectedGroup)
 
-    def btnGroupSevenOnButtonClick( self, event ):
+    def btnGroupSevenOnButtonClick(self, event):
         self._selectedGroup = 7
-        self._updateProductButtons()
+        Gui.helpers.updateProductButtons(self, self._selectedGroup)
 
-    def btnGroupEightOnButtonClick( self, event ):
+    def btnGroupEightOnButtonClick(self, event):
         self._selectedGroup = 8
-        self._updateProductButtons()
+        Gui.helpers.updateProductButtons(self, self._selectedGroup)
 
-    def btnProductOnButtonClick( self, event ):
+    def btnProductOnButtonClick(self, event):
         thisButton = event.GetEventObject()
         buttonNoPressed = self.buttonDict[thisButton]
 
@@ -256,29 +258,29 @@ class MainFrame(GeneratedGui.MainFrameBase):
 
         if isOption:
             self._selectedGroup = ProductScreen().GetNextScreenForOption(parentProductId, productNo, buttonNoPressed)
-            self._updateProductButtons()
+            Gui.helpers.updateProductButtons(self, self._selectedGroup)
 
         self._updateGrid()
 
-    def btnInOutToggleOnToggleButton( self, event ):
+    def btnInOutToggleOnToggleButton(self, event):
         button = event.GetEventObject()
         if button.GetValue():
             self.ticket.SetEatInOut("I")
         else:
             self.ticket.SetEatInOut("O")
 
-    def btnAdminOnButtonClick( self, event ):
+    def btnAdminOnButtonClick(self, event):
         adminMenu = AdminDialog(self)
         adminMenu.ShowModal()
 
-    def btnRetourOnToggleButton( self, event ):
+    def btnRetourOnToggleButton(self, event):
         button = event.GetEventObject()
         if button.GetValue():
             self.ticket.priceMode = priceModes["neg"]
         else:
             self.ticket.priceMode = priceModes["pos"]
 
-    def btnQtyMinOnButtonClick( self, event ):
+    def btnQtyMinOnButtonClick(self, event):
         rowNo = self.gOrder.GetGridCursorRow()
 
         ticketLines = self.ticket.GetTicketLines()
@@ -291,7 +293,7 @@ class MainFrame(GeneratedGui.MainFrameBase):
 
 
     def _updateProductButtonsForOption(self, productId, options):
-        self._clearButtonNames()
+        Gui.helpers.clearButtonNames(self)
 
         for option in options:
             product = Product(id=option[2])
@@ -303,7 +305,7 @@ class MainFrame(GeneratedGui.MainFrameBase):
             else:
                 caption = product.screenName
 
-            control = getattr(self, "btnProduct%s" % (str(option[3])))
+            control = getattr(self.pnlProducten, "btnProduct%s" % (str(option[3])))
             control.SetLabel(caption.strip().replace(" ", "\n"))
             control.SetBackgroundColour(option[5])
             control.Refresh()
@@ -311,41 +313,6 @@ class MainFrame(GeneratedGui.MainFrameBase):
         self._selectedGroup = 0
 
 
-    def _updateProductButtons(self):
-        self._clearButtonNames()
-
-        productsInScreen = ProductScreen().GetProductsForScreen(self._selectedGroup)
-
-        for productLine in productsInScreen:
-            product = Product(id=productLine[2])
-            product.fill()
-
-            control = getattr(self, "btnProduct%s" % (str(productLine[3])))
-
-            caption = ""
-            if productLine[2] == 9999:
-                #speciaal!
-                caption = productLine[5]
-            else:
-                caption = product.screenName
-
-            control.SetLabel(caption.strip().replace(" ", "\n"))
-            control.SetBackgroundColour(productLine[4])
-            control.Refresh()
-
-    def _clearButtonNames(self):
-        r = 1
-        c = 1
-        for i in range(1, 43):
-            buttonNo = c + r * 10
-            control = getattr(self, "btnProduct%s" % (str(buttonNo)))
-            control.SetLabel("")
-            control.SetBackgroundColour('0')
-            control.Refresh()
-            c = c + 1
-            if c == 7:
-                c = 1
-                r = r + 1
 
     def _updateGrid(self):
         grid = self.gOrder
@@ -378,10 +345,8 @@ class MainFrame(GeneratedGui.MainFrameBase):
         self.ticket.priceMode = priceModes["pos"]
         self.btnAanbDirToggle.SetValue(0)
         self._selectedGroup = 1
-        self._updateProductButtons()
+        Gui.helpers.updateProductButtons(self,self._selectedGroup)
         self._updateGrid()
-
-
 
 class OrderTable(wx.grid.PyGridTableBase):
     def __init__(self, ticket):

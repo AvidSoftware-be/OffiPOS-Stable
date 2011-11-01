@@ -60,6 +60,14 @@ class MainFrameBase ( wx.Frame ):
 		
 		bSizer33.Add( self.btnAdmin, 0, wx.ALL, 1 )
 		
+		bSizer18 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.btnRetour = wx.ToggleButton( self.pnlFuncties, wx.ID_ANY, u"Retour", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.btnRetour.SetValue( True ) 
+		bSizer18.Add( self.btnRetour, 0, wx.ALIGN_BOTTOM, 0 )
+		
+		bSizer33.Add( bSizer18, 1, wx.EXPAND, 5 )
+		
 		self.pnlFuncties.SetSizer( bSizer33 )
 		self.pnlFuncties.Layout()
 		bSizer33.Fit( self.pnlFuncties )
@@ -67,327 +75,13 @@ class MainFrameBase ( wx.Frame ):
 		
 		fgSizer1.Add( sbFuncties, 1, wx.EXPAND, 5 )
 		
-		sbGroepen = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Groepen" ), wx.VERTICAL )
+		self.sbGroepen = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Groepen" ), wx.VERTICAL )
 		
-		self.pnlGroepen = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		bSizer6 = wx.BoxSizer( wx.HORIZONTAL )
+		fgSizer1.Add( self.sbGroepen, 1, wx.EXPAND, 1 )
 		
-		bSizer8 = wx.BoxSizer( wx.VERTICAL )
+		self.sbProducten = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Producten" ), wx.VERTICAL )
 		
-		self.btnGroupOne = wx.Button( self.pnlGroepen, wx.ID_ANY, u"Group\nOne", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnGroupOne.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer8.Add( self.btnGroupOne, 0, wx.ALL, 1 )
-		
-		self.btnGroupThree = wx.Button( self.pnlGroepen, wx.ID_ANY, u"Group\nThree", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnGroupThree.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer8.Add( self.btnGroupThree, 0, wx.ALL, 1 )
-		
-		self.btnGroupFive = wx.Button( self.pnlGroepen, wx.ID_ANY, u"Group\nFive", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnGroupFive.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer8.Add( self.btnGroupFive, 0, wx.ALL, 1 )
-		
-		self.btnGroupSeven = wx.Button( self.pnlGroepen, wx.ID_ANY, u"Group\nSeven", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnGroupSeven.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer8.Add( self.btnGroupSeven, 0, wx.ALL, 1 )
-		
-		bSizer18 = wx.BoxSizer( wx.HORIZONTAL )
-		
-		self.btnRetour = wx.ToggleButton( self.pnlGroepen, wx.ID_ANY, u"Retour", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.btnRetour.SetValue( True ) 
-		bSizer18.Add( self.btnRetour, 0, wx.ALIGN_BOTTOM, 0 )
-		
-		bSizer8.Add( bSizer18, 1, wx.EXPAND, 5 )
-		
-		bSizer6.Add( bSizer8, 1, wx.EXPAND, 1 )
-		
-		bSizer9 = wx.BoxSizer( wx.VERTICAL )
-		
-		self.btnGroupTwo = wx.Button( self.pnlGroepen, wx.ID_ANY, u"Group\nTwo", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnGroupTwo.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer9.Add( self.btnGroupTwo, 0, wx.ALL, 1 )
-		
-		self.btnGroupFour = wx.Button( self.pnlGroepen, wx.ID_ANY, u"Group\nFour", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnGroupFour.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer9.Add( self.btnGroupFour, 0, wx.ALL, 1 )
-		
-		self.btnGroupSix = wx.Button( self.pnlGroepen, wx.ID_ANY, u"Group\nSix", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnGroupSix.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer9.Add( self.btnGroupSix, 0, wx.ALL, 1 )
-		
-		self.btnGroupEight = wx.Button( self.pnlGroepen, wx.ID_ANY, u"Group\nEight", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnGroupEight.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer9.Add( self.btnGroupEight, 0, wx.ALL, 1 )
-		
-		bSizer19 = wx.BoxSizer( wx.HORIZONTAL )
-		
-		bSizer9.Add( bSizer19, 1, wx.EXPAND, 5 )
-		
-		bSizer6.Add( bSizer9, 1, wx.EXPAND, 1 )
-		
-		self.pnlGroepen.SetSizer( bSizer6 )
-		self.pnlGroepen.Layout()
-		bSizer6.Fit( self.pnlGroepen )
-		sbGroepen.Add( self.pnlGroepen, 1, wx.EXPAND |wx.ALL, 1 )
-		
-		fgSizer1.Add( sbGroepen, 1, wx.EXPAND, 1 )
-		
-		sbProducten = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Producten" ), wx.VERTICAL )
-		
-		self.pnlProducten = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		bSizer121 = wx.BoxSizer( wx.VERTICAL )
-		
-		bSizer10 = wx.BoxSizer( wx.HORIZONTAL )
-		
-		self.btnProduct11 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct11.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer10.Add( self.btnProduct11, 0, wx.ALL, 1 )
-		
-		self.btnProduct12 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct12.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer10.Add( self.btnProduct12, 0, wx.ALL, 1 )
-		
-		self.btnProduct13 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct13.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer10.Add( self.btnProduct13, 0, wx.ALL, 1 )
-		
-		self.btnProduct14 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct14.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer10.Add( self.btnProduct14, 0, wx.ALL, 1 )
-		
-		self.btnProduct15 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct15.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer10.Add( self.btnProduct15, 0, wx.ALL, 1 )
-		
-		self.btnProduct16 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct16.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer10.Add( self.btnProduct16, 0, wx.ALL, 1 )
-		
-		bSizer121.Add( bSizer10, 1, wx.EXPAND, 5 )
-		
-		bSizer111 = wx.BoxSizer( wx.HORIZONTAL )
-		
-		self.btnProduct21 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct21.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer111.Add( self.btnProduct21, 0, wx.ALL, 1 )
-		
-		self.btnProduct22 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct22.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer111.Add( self.btnProduct22, 0, wx.ALL, 1 )
-		
-		self.btnProduct23 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct23.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer111.Add( self.btnProduct23, 0, wx.ALL, 1 )
-		
-		self.btnProduct24 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct24.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer111.Add( self.btnProduct24, 0, wx.ALL, 1 )
-		
-		self.btnProduct25 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct25.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer111.Add( self.btnProduct25, 0, wx.ALL, 1 )
-		
-		self.btnProduct26 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct26.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer111.Add( self.btnProduct26, 0, wx.ALL, 1 )
-		
-		bSizer121.Add( bSizer111, 1, wx.EXPAND, 5 )
-		
-		bSizer122 = wx.BoxSizer( wx.HORIZONTAL )
-		
-		self.btnProduct31 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct31.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer122.Add( self.btnProduct31, 0, wx.ALL, 1 )
-		
-		self.btnProduct32 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct32.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer122.Add( self.btnProduct32, 0, wx.ALL, 1 )
-		
-		self.btnProduct33 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct33.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer122.Add( self.btnProduct33, 0, wx.ALL, 1 )
-		
-		self.btnProduct34 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct34.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer122.Add( self.btnProduct34, 0, wx.ALL, 1 )
-		
-		self.btnProduct35 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct35.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer122.Add( self.btnProduct35, 0, wx.ALL, 1 )
-		
-		self.btnProduct36 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct36.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer122.Add( self.btnProduct36, 0, wx.ALL, 1 )
-		
-		bSizer121.Add( bSizer122, 1, wx.EXPAND, 5 )
-		
-		bSizer13 = wx.BoxSizer( wx.HORIZONTAL )
-		
-		self.btnProduct41 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct41.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer13.Add( self.btnProduct41, 0, wx.ALL, 1 )
-		
-		self.btnProduct42 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct42.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer13.Add( self.btnProduct42, 0, wx.ALL, 1 )
-		
-		self.btnProduct43 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct43.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer13.Add( self.btnProduct43, 0, wx.ALL, 1 )
-		
-		self.btnProduct44 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct44.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer13.Add( self.btnProduct44, 0, wx.ALL, 1 )
-		
-		self.btnProduct45 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct45.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer13.Add( self.btnProduct45, 0, wx.ALL, 1 )
-		
-		self.btnProduct46 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct46.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer13.Add( self.btnProduct46, 0, wx.ALL, 1 )
-		
-		bSizer121.Add( bSizer13, 1, wx.EXPAND, 5 )
-		
-		bSizer14 = wx.BoxSizer( wx.HORIZONTAL )
-		
-		self.btnProduct51 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct51.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer14.Add( self.btnProduct51, 0, wx.ALL, 1 )
-		
-		self.btnProduct52 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct52.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer14.Add( self.btnProduct52, 0, wx.ALL, 1 )
-		
-		self.btnProduct53 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct53.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer14.Add( self.btnProduct53, 0, wx.ALL, 1 )
-		
-		self.btnProduct54 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct54.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer14.Add( self.btnProduct54, 0, wx.ALL, 1 )
-		
-		self.btnProduct55 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct55.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer14.Add( self.btnProduct55, 0, wx.ALL, 1 )
-		
-		self.btnProduct56 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct56.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer14.Add( self.btnProduct56, 0, wx.ALL, 1 )
-		
-		bSizer121.Add( bSizer14, 1, wx.EXPAND, 5 )
-		
-		bSizer15 = wx.BoxSizer( wx.HORIZONTAL )
-		
-		self.btnProduct61 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct61.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer15.Add( self.btnProduct61, 0, wx.ALL, 1 )
-		
-		self.btnProduct62 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct62.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer15.Add( self.btnProduct62, 0, wx.ALL, 1 )
-		
-		self.btnProduct63 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct63.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer15.Add( self.btnProduct63, 0, wx.ALL, 1 )
-		
-		self.btnProduct64 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct64.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer15.Add( self.btnProduct64, 0, wx.ALL, 1 )
-		
-		self.btnProduct65 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct65.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer15.Add( self.btnProduct65, 0, wx.ALL, 1 )
-		
-		self.btnProduct66 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct66.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer15.Add( self.btnProduct66, 0, wx.ALL, 1 )
-		
-		bSizer121.Add( bSizer15, 1, wx.EXPAND, 5 )
-		
-		bSizer16 = wx.BoxSizer( wx.HORIZONTAL )
-		
-		self.btnProduct71 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct71.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer16.Add( self.btnProduct71, 0, wx.ALL, 1 )
-		
-		self.btnProduct72 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct72.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer16.Add( self.btnProduct72, 0, wx.ALL, 1 )
-		
-		self.btnProduct73 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct73.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer16.Add( self.btnProduct73, 0, wx.ALL, 1 )
-		
-		self.btnProduct74 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct74.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer16.Add( self.btnProduct74, 0, wx.ALL, 1 )
-		
-		self.btnProduct75 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct75.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer16.Add( self.btnProduct75, 0, wx.ALL, 1 )
-		
-		self.btnProduct76 = wx.Button( self.pnlProducten, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
-		self.btnProduct76.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-		
-		bSizer16.Add( self.btnProduct76, 0, wx.ALL, 1 )
-		
-		bSizer121.Add( bSizer16, 1, wx.EXPAND, 5 )
-		
-		self.pnlProducten.SetSizer( bSizer121 )
-		self.pnlProducten.Layout()
-		bSizer121.Fit( self.pnlProducten )
-		sbProducten.Add( self.pnlProducten, 1, wx.EXPAND |wx.ALL, 1 )
-		
-		fgSizer1.Add( sbProducten, 1, wx.EXPAND, 1 )
+		fgSizer1.Add( self.sbProducten, 1, wx.EXPAND, 1 )
 		
 		sbRekening = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Rekening" ), wx.VERTICAL )
 		
@@ -477,57 +171,7 @@ class MainFrameBase ( wx.Frame ):
 		self.btnInOutToggle.Bind( wx.EVT_TOGGLEBUTTON, self.btnInOutToggleOnToggleButton )
 		self.btnAanbDirToggle.Bind( wx.EVT_TOGGLEBUTTON, self.btnAanbDirToggleOnToggleButton )
 		self.btnAdmin.Bind( wx.EVT_BUTTON, self.btnAdminOnButtonClick )
-		self.btnGroupOne.Bind( wx.EVT_BUTTON, self.btnGroupOneOnButtonClick )
-		self.btnGroupThree.Bind( wx.EVT_BUTTON, self.btnGroupThreeOnButtonClick )
-		self.btnGroupFive.Bind( wx.EVT_BUTTON, self.btnGroupFiveOnButtonClick )
-		self.btnGroupSeven.Bind( wx.EVT_BUTTON, self.btnGroupSevenOnButtonClick )
 		self.btnRetour.Bind( wx.EVT_TOGGLEBUTTON, self.btnRetourOnToggleButton )
-		self.btnGroupTwo.Bind( wx.EVT_BUTTON, self.btnGroupTwoOnButtonClick )
-		self.btnGroupFour.Bind( wx.EVT_BUTTON, self.btnGroupFourOnButtonClick )
-		self.btnGroupSix.Bind( wx.EVT_BUTTON, self.btnGroupSixOnButtonClick )
-		self.btnGroupEight.Bind( wx.EVT_BUTTON, self.btnGroupEightOnButtonClick )
-		self.btnProduct11.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct12.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct13.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct14.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct15.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct16.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct21.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct22.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct23.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct24.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct25.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct26.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct31.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct32.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct33.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct34.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct35.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct36.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct41.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct42.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct43.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct44.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct45.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct46.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct51.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct52.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct53.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct54.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct55.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct56.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct61.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct62.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct63.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct64.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct65.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct66.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct71.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct72.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct73.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct74.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct75.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
-		self.btnProduct76.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
 		self.gOrder.Bind( wx.grid.EVT_GRID_SELECT_CELL, self.gOrderOnGridSelectCell )
 		self.btnAfrekeken.Bind( wx.EVT_BUTTON, self.btnAfrekekenOnButtonClick )
 		self.btnAnnuleren.Bind( wx.EVT_BUTTON, self.btnAnnulerenOnButtonClick )
@@ -553,76 +197,8 @@ class MainFrameBase ( wx.Frame ):
 	def btnAdminOnButtonClick( self, event ):
 		event.Skip()
 	
-	def btnGroupOneOnButtonClick( self, event ):
-		event.Skip()
-	
-	def btnGroupThreeOnButtonClick( self, event ):
-		event.Skip()
-	
-	def btnGroupFiveOnButtonClick( self, event ):
-		event.Skip()
-	
-	def btnGroupSevenOnButtonClick( self, event ):
-		event.Skip()
-	
 	def btnRetourOnToggleButton( self, event ):
 		event.Skip()
-	
-	def btnGroupTwoOnButtonClick( self, event ):
-		event.Skip()
-	
-	def btnGroupFourOnButtonClick( self, event ):
-		event.Skip()
-	
-	def btnGroupSixOnButtonClick( self, event ):
-		event.Skip()
-	
-	def btnGroupEightOnButtonClick( self, event ):
-		event.Skip()
-	
-	def btnProductOnButtonClick( self, event ):
-		event.Skip()
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	def gOrderOnGridSelectCell( self, event ):
 		event.Skip()
@@ -1163,7 +739,7 @@ class dlgAskForPriceBase ( wx.Dialog ):
 class dlgKlantBeheerBase ( wx.Dialog ):
 	
 	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 750,-1 ), style = wx.DEFAULT_DIALOG_STYLE )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"KLanten Overzicht", pos = wx.DefaultPosition, size = wx.Size( 750,-1 ), style = wx.DEFAULT_DIALOG_STYLE )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		
@@ -1398,6 +974,609 @@ class dlgCustomerEditBase ( wx.Dialog ):
 		event.Skip()
 	
 	def btnOpslaanEnNieuwOnButtonClick( self, event ):
+		event.Skip()
+	
+
+###########################################################################
+## Class pnlGroepenBase
+###########################################################################
+
+class pnlGroepenBase ( wx.Panel ):
+	
+	def __init__( self, parent ):
+		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( -1,-1 ), style = wx.TAB_TRAVERSAL )
+		
+		bSizer6 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		bSizer8 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.btnGroupOne = wx.Button( self, wx.ID_ANY, u"Group\nOne", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnGroupOne.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer8.Add( self.btnGroupOne, 0, wx.ALL, 1 )
+		
+		self.btnGroupThree = wx.Button( self, wx.ID_ANY, u"Group\nThree", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnGroupThree.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer8.Add( self.btnGroupThree, 0, wx.ALL, 1 )
+		
+		self.btnGroupFive = wx.Button( self, wx.ID_ANY, u"Group\nFive", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnGroupFive.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer8.Add( self.btnGroupFive, 0, wx.ALL, 1 )
+		
+		self.btnGroupSeven = wx.Button( self, wx.ID_ANY, u"Group\nSeven", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnGroupSeven.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer8.Add( self.btnGroupSeven, 0, wx.ALL, 1 )
+		
+		bSizer6.Add( bSizer8, 1, wx.EXPAND, 1 )
+		
+		bSizer9 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.btnGroupTwo = wx.Button( self, wx.ID_ANY, u"Group\nTwo", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnGroupTwo.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer9.Add( self.btnGroupTwo, 0, wx.ALL, 1 )
+		
+		self.btnGroupFour = wx.Button( self, wx.ID_ANY, u"Group\nFour", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnGroupFour.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer9.Add( self.btnGroupFour, 0, wx.ALL, 1 )
+		
+		self.btnGroupSix = wx.Button( self, wx.ID_ANY, u"Group\nSix", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnGroupSix.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer9.Add( self.btnGroupSix, 0, wx.ALL, 1 )
+		
+		self.btnGroupEight = wx.Button( self, wx.ID_ANY, u"Group\nEight", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnGroupEight.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer9.Add( self.btnGroupEight, 0, wx.ALL, 1 )
+		
+		bSizer19 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		bSizer9.Add( bSizer19, 1, wx.EXPAND, 5 )
+		
+		bSizer6.Add( bSizer9, 1, wx.EXPAND, 1 )
+		
+		self.SetSizer( bSizer6 )
+		self.Layout()
+		bSizer6.Fit( self )
+		
+		# Connect Events
+		self.btnGroupOne.Bind( wx.EVT_BUTTON, self.btnGroupOneOnButtonClick )
+		self.btnGroupThree.Bind( wx.EVT_BUTTON, self.btnGroupThreeOnButtonClick )
+		self.btnGroupFive.Bind( wx.EVT_BUTTON, self.btnGroupFiveOnButtonClick )
+		self.btnGroupSeven.Bind( wx.EVT_BUTTON, self.btnGroupSevenOnButtonClick )
+		self.btnGroupTwo.Bind( wx.EVT_BUTTON, self.btnGroupTwoOnButtonClick )
+		self.btnGroupFour.Bind( wx.EVT_BUTTON, self.btnGroupFourOnButtonClick )
+		self.btnGroupSix.Bind( wx.EVT_BUTTON, self.btnGroupSixOnButtonClick )
+		self.btnGroupEight.Bind( wx.EVT_BUTTON, self.btnGroupEightOnButtonClick )
+	
+	def __del__( self ):
+		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def btnGroupOneOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnGroupThreeOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnGroupFiveOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnGroupSevenOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnGroupTwoOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnGroupFourOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnGroupSixOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnGroupEightOnButtonClick( self, event ):
+		event.Skip()
+	
+
+###########################################################################
+## Class pnlProductenBase
+###########################################################################
+
+class pnlProductenBase ( wx.Panel ):
+	
+	def __init__( self, parent ):
+		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( -1,-1 ), style = wx.TAB_TRAVERSAL )
+		
+		bSizer121 = wx.BoxSizer( wx.VERTICAL )
+		
+		bSizer10 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.btnProduct11 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct11.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer10.Add( self.btnProduct11, 0, wx.ALL, 1 )
+		
+		self.btnProduct12 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct12.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer10.Add( self.btnProduct12, 0, wx.ALL, 1 )
+		
+		self.btnProduct13 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct13.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer10.Add( self.btnProduct13, 0, wx.ALL, 1 )
+		
+		self.btnProduct14 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct14.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer10.Add( self.btnProduct14, 0, wx.ALL, 1 )
+		
+		self.btnProduct15 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct15.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer10.Add( self.btnProduct15, 0, wx.ALL, 1 )
+		
+		self.btnProduct16 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct16.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer10.Add( self.btnProduct16, 0, wx.ALL, 1 )
+		
+		bSizer121.Add( bSizer10, 1, wx.EXPAND, 5 )
+		
+		bSizer111 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.btnProduct21 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct21.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer111.Add( self.btnProduct21, 0, wx.ALL, 1 )
+		
+		self.btnProduct22 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct22.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer111.Add( self.btnProduct22, 0, wx.ALL, 1 )
+		
+		self.btnProduct23 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct23.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer111.Add( self.btnProduct23, 0, wx.ALL, 1 )
+		
+		self.btnProduct24 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct24.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer111.Add( self.btnProduct24, 0, wx.ALL, 1 )
+		
+		self.btnProduct25 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct25.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer111.Add( self.btnProduct25, 0, wx.ALL, 1 )
+		
+		self.btnProduct26 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct26.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer111.Add( self.btnProduct26, 0, wx.ALL, 1 )
+		
+		bSizer121.Add( bSizer111, 1, wx.EXPAND, 5 )
+		
+		bSizer122 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.btnProduct31 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct31.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer122.Add( self.btnProduct31, 0, wx.ALL, 1 )
+		
+		self.btnProduct32 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct32.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer122.Add( self.btnProduct32, 0, wx.ALL, 1 )
+		
+		self.btnProduct33 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct33.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer122.Add( self.btnProduct33, 0, wx.ALL, 1 )
+		
+		self.btnProduct34 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct34.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer122.Add( self.btnProduct34, 0, wx.ALL, 1 )
+		
+		self.btnProduct35 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct35.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer122.Add( self.btnProduct35, 0, wx.ALL, 1 )
+		
+		self.btnProduct36 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct36.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer122.Add( self.btnProduct36, 0, wx.ALL, 1 )
+		
+		bSizer121.Add( bSizer122, 1, wx.EXPAND, 5 )
+		
+		bSizer13 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.btnProduct41 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct41.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer13.Add( self.btnProduct41, 0, wx.ALL, 1 )
+		
+		self.btnProduct42 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct42.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer13.Add( self.btnProduct42, 0, wx.ALL, 1 )
+		
+		self.btnProduct43 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct43.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer13.Add( self.btnProduct43, 0, wx.ALL, 1 )
+		
+		self.btnProduct44 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct44.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer13.Add( self.btnProduct44, 0, wx.ALL, 1 )
+		
+		self.btnProduct45 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct45.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer13.Add( self.btnProduct45, 0, wx.ALL, 1 )
+		
+		self.btnProduct46 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct46.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer13.Add( self.btnProduct46, 0, wx.ALL, 1 )
+		
+		bSizer121.Add( bSizer13, 1, wx.EXPAND, 5 )
+		
+		bSizer14 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.btnProduct51 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct51.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer14.Add( self.btnProduct51, 0, wx.ALL, 1 )
+		
+		self.btnProduct52 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct52.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer14.Add( self.btnProduct52, 0, wx.ALL, 1 )
+		
+		self.btnProduct53 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct53.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer14.Add( self.btnProduct53, 0, wx.ALL, 1 )
+		
+		self.btnProduct54 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct54.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer14.Add( self.btnProduct54, 0, wx.ALL, 1 )
+		
+		self.btnProduct55 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct55.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer14.Add( self.btnProduct55, 0, wx.ALL, 1 )
+		
+		self.btnProduct56 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct56.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer14.Add( self.btnProduct56, 0, wx.ALL, 1 )
+		
+		bSizer121.Add( bSizer14, 1, wx.EXPAND, 5 )
+		
+		bSizer15 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.btnProduct61 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct61.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer15.Add( self.btnProduct61, 0, wx.ALL, 1 )
+		
+		self.btnProduct62 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct62.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer15.Add( self.btnProduct62, 0, wx.ALL, 1 )
+		
+		self.btnProduct63 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct63.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer15.Add( self.btnProduct63, 0, wx.ALL, 1 )
+		
+		self.btnProduct64 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct64.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer15.Add( self.btnProduct64, 0, wx.ALL, 1 )
+		
+		self.btnProduct65 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct65.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer15.Add( self.btnProduct65, 0, wx.ALL, 1 )
+		
+		self.btnProduct66 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct66.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer15.Add( self.btnProduct66, 0, wx.ALL, 1 )
+		
+		bSizer121.Add( bSizer15, 1, wx.EXPAND, 5 )
+		
+		bSizer16 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.btnProduct71 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct71.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer16.Add( self.btnProduct71, 0, wx.ALL, 1 )
+		
+		self.btnProduct72 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct72.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer16.Add( self.btnProduct72, 0, wx.ALL, 1 )
+		
+		self.btnProduct73 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct73.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer16.Add( self.btnProduct73, 0, wx.ALL, 1 )
+		
+		self.btnProduct74 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct74.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer16.Add( self.btnProduct74, 0, wx.ALL, 1 )
+		
+		self.btnProduct75 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct75.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer16.Add( self.btnProduct75, 0, wx.ALL, 1 )
+		
+		self.btnProduct76 = wx.Button( self, wx.ID_ANY, u"Product\nButton", wx.DefaultPosition, wx.Size( 80,80 ), 0 )
+		self.btnProduct76.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer16.Add( self.btnProduct76, 0, wx.ALL, 1 )
+		
+		bSizer121.Add( bSizer16, 1, wx.EXPAND, 5 )
+		
+		self.SetSizer( bSizer121 )
+		self.Layout()
+		bSizer121.Fit( self )
+		
+		# Connect Events
+		self.btnProduct11.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct12.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct13.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct14.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct15.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct16.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct21.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct22.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct23.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct24.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct25.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct26.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct31.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct32.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct33.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct34.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct35.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct36.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct41.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct42.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct43.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct44.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct45.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct46.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct51.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct52.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct53.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct54.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct55.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct56.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct61.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct62.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct63.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct64.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct65.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct66.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct71.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct72.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct73.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct74.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct75.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+		self.btnProduct76.Bind( wx.EVT_BUTTON, self.btnProductOnButtonClick )
+	
+	def __del__( self ):
+		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def btnProductOnButtonClick( self, event ):
+		event.Skip()
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+###########################################################################
+## Class dlgProgScreenBase
+###########################################################################
+
+class dlgProgScreenBase ( wx.Dialog ):
+	
+	def __init__( self, parent ):
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Programmatie Knoppen", pos = wx.DefaultPosition, size = wx.DefaultSize, style = wx.DEFAULT_DIALOG_STYLE )
+		
+		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
+		
+		self.fgSizer7 = wx.FlexGridSizer( 0, 2, 0, 0 )
+		self.fgSizer7.SetFlexibleDirection( wx.BOTH )
+		self.fgSizer7.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
+		
+		self.sbGroepen = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Groepen" ), wx.VERTICAL )
+		
+		self.fgSizer7.Add( self.sbGroepen, 1, wx.EXPAND, 5 )
+		
+		self.sbProducten = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Producten" ), wx.VERTICAL )
+		
+		self.fgSizer7.Add( self.sbProducten, 1, wx.EXPAND, 5 )
+		
+		self.SetSizer( self.fgSizer7 )
+		self.Layout()
+		self.fgSizer7.Fit( self )
+		
+		self.Centre( wx.BOTH )
+	
+	def __del__( self ):
+		pass
+	
+
+###########################################################################
+## Class dlgProductEditBase
+###########################################################################
+
+class dlgProductEditBase ( wx.Dialog ):
+	
+	def __init__( self, parent ):
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Product Bewerken", pos = wx.DefaultPosition, size = wx.DefaultSize, style = wx.DEFAULT_DIALOG_STYLE )
+		
+		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
+		
+		fgSizer8 = wx.FlexGridSizer( 0, 2, 0, 0 )
+		fgSizer8.SetFlexibleDirection( wx.BOTH )
+		fgSizer8.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
+		
+		self.m_staticText21 = wx.StaticText( self, wx.ID_ANY, u"Id", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText21.Wrap( -1 )
+		fgSizer8.Add( self.m_staticText21, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
+		
+		self.txtProductNo = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
+		self.txtProductNo.Enable( False )
+		
+		fgSizer8.Add( self.txtProductNo, 0, wx.ALL, 5 )
+		
+		self.m_staticText22 = wx.StaticText( self, wx.ID_ANY, u"Omschrijving", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText22.Wrap( -1 )
+		fgSizer8.Add( self.m_staticText22, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
+		
+		self.txtOmschrijving = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 360,-1 ), 0 )
+		fgSizer8.Add( self.txtOmschrijving, 0, wx.ALL, 5 )
+		
+		self.m_staticText27 = wx.StaticText( self, wx.ID_ANY, u"Scherm Omschrijving", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText27.Wrap( -1 )
+		fgSizer8.Add( self.m_staticText27, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
+		
+		self.txtSchermOmschrijving = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 360,-1 ), 0 )
+		fgSizer8.Add( self.txtSchermOmschrijving, 0, wx.ALL, 5 )
+		
+		self.m_staticText23 = wx.StaticText( self, wx.ID_ANY, u"Prijs BTW In", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText23.Wrap( -1 )
+		fgSizer8.Add( self.m_staticText23, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
+		
+		self.txtPrijs = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		fgSizer8.Add( self.txtPrijs, 0, wx.ALL, 5 )
+		
+		self.m_staticText29 = wx.StaticText( self, wx.ID_ANY, u"Korting indien optie (%)", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText29.Wrap( -1 )
+		fgSizer8.Add( self.m_staticText29, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
+		
+		self.txtKorting = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		fgSizer8.Add( self.txtKorting, 0, wx.ALL, 5 )
+		
+		self.m_staticText24 = wx.StaticText( self, wx.ID_ANY, u"Groep", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText24.Wrap( -1 )
+		fgSizer8.Add( self.m_staticText24, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
+		
+		chGroepChoices = []
+		self.chGroep = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 150,-1 ), chGroepChoices, 0 )
+		self.chGroep.SetSelection( 0 )
+		fgSizer8.Add( self.chGroep, 0, wx.ALL, 5 )
+		
+		self.m_staticText25 = wx.StaticText( self, wx.ID_ANY, u"BTW Eat In", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText25.Wrap( -1 )
+		fgSizer8.Add( self.m_staticText25, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
+		
+		chBTWInChoices = []
+		self.chBTWIn = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, chBTWInChoices, 0 )
+		self.chBTWIn.SetSelection( 0 )
+		fgSizer8.Add( self.chBTWIn, 0, wx.ALL, 5 )
+		
+		self.m_staticText26 = wx.StaticText( self, wx.ID_ANY, u"BTW Take Out", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText26.Wrap( -1 )
+		fgSizer8.Add( self.m_staticText26, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
+		
+		chBTWOutChoices = []
+		self.chBTWOut = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, chBTWOutChoices, 0 )
+		self.chBTWOut.SetSelection( 0 )
+		fgSizer8.Add( self.chBTWOut, 0, wx.ALL, 5 )
+		
+		self.chkAskForPrice = wx.CheckBox( self, wx.ID_ANY, u"Om prijs vragen", wx.DefaultPosition, wx.DefaultSize, 0 )
+		fgSizer8.Add( self.chkAskForPrice, 0, wx.ALL, 5 )
+		
+		bSizer34 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.chkTreatAsOption = wx.CheckBox( self, wx.ID_ANY, u"Als optie behandelen", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer34.Add( self.chkTreatAsOption, 0, wx.ALL, 5 )
+		
+		self.chkReverseSign = wx.CheckBox( self, wx.ID_ANY, u"Teken Omdraaien", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer34.Add( self.chkReverseSign, 0, wx.ALL, 5 )
+		
+		fgSizer8.Add( bSizer34, 1, wx.EXPAND, 5 )
+		
+		
+		fgSizer8.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
+		
+		self.btnOpslaan = wx.Button( self, wx.ID_ANY, u"Opslaan", wx.DefaultPosition, wx.DefaultSize, 0 )
+		fgSizer8.Add( self.btnOpslaan, 0, wx.ALL, 5 )
+		
+		self.SetSizer( fgSizer8 )
+		self.Layout()
+		fgSizer8.Fit( self )
+		
+		self.Centre( wx.BOTH )
+		
+		# Connect Events
+		self.btnOpslaan.Bind( wx.EVT_BUTTON, self.btnOpslaanOnButtonClick )
+	
+	def __del__( self ):
+		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def btnOpslaanOnButtonClick( self, event ):
 		event.Skip()
 	
 
