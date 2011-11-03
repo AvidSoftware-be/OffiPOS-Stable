@@ -1542,10 +1542,20 @@ class dlgProductEditBase ( wx.Dialog ):
 		self.m_staticText21.Wrap( -1 )
 		fgSizer8.Add( self.m_staticText21, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
 		
+		bSizer38 = wx.BoxSizer( wx.HORIZONTAL )
+		
 		self.txtProductNo = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
 		self.txtProductNo.Enable( False )
 		
-		fgSizer8.Add( self.txtProductNo, 0, wx.ALL, 5 )
+		bSizer38.Add( self.txtProductNo, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
+		
+		self.btnSearch = wx.Button( self, wx.ID_ANY, u"Zoek", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer38.Add( self.btnSearch, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
+		
+		self.colourPicker = wx.ColourPickerCtrl( self, wx.ID_ANY, wx.BLACK, wx.DefaultPosition, wx.DefaultSize, wx.CLRP_DEFAULT_STYLE|wx.CLRP_SHOW_LABEL )
+		bSizer38.Add( self.colourPicker, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
+		
+		fgSizer8.Add( bSizer38, 1, wx.EXPAND, 5 )
 		
 		self.m_staticText22 = wx.StaticText( self, wx.ID_ANY, u"Omschrijving", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText22.Wrap( -1 )
@@ -1618,8 +1628,15 @@ class dlgProductEditBase ( wx.Dialog ):
 		
 		fgSizer8.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
 		
+		bSizer37 = wx.BoxSizer( wx.HORIZONTAL )
+		
 		self.btnOpslaan = wx.Button( self, wx.ID_ANY, u"Opslaan", wx.DefaultPosition, wx.DefaultSize, 0 )
-		fgSizer8.Add( self.btnOpslaan, 0, wx.ALL, 5 )
+		bSizer37.Add( self.btnOpslaan, 0, wx.ALL, 5 )
+		
+		self.btnDelete = wx.Button( self, wx.ID_ANY, u"Verwijder", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer37.Add( self.btnDelete, 0, wx.ALL, 5 )
+		
+		fgSizer8.Add( bSizer37, 1, wx.EXPAND, 5 )
 		
 		self.SetSizer( fgSizer8 )
 		self.Layout()
@@ -1629,6 +1646,7 @@ class dlgProductEditBase ( wx.Dialog ):
 		
 		# Connect Events
 		self.btnOpslaan.Bind( wx.EVT_BUTTON, self.btnOpslaanOnButtonClick )
+		self.btnDelete.Bind( wx.EVT_BUTTON, self.btnDeleteOnButtonClick )
 	
 	def __del__( self ):
 		pass
@@ -1636,6 +1654,9 @@ class dlgProductEditBase ( wx.Dialog ):
 	
 	# Virtual event handlers, overide them in your derived class
 	def btnOpslaanOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnDeleteOnButtonClick( self, event ):
 		event.Skip()
 	
 

@@ -19,6 +19,11 @@ class dlgProductEdit(GeneratedGui.dlgProductEditBase):
         self.product = Product(ProductScreen().GetProductNoOnButton(buttonNo, selectedGroup))
         self.product.fill()
         self.buttonNo = buttonNo
+        self.screenCategoryId = selectedGroup
+        
+        ps = ProductScreen()
+        ps.GetProductNoOnButton(self.buttonNo, self.screenCategoryId)
+        self.colourPicker.SetColour(ps.bgColor)
         
         self.UpdateForm()
     
@@ -37,9 +42,17 @@ class dlgProductEdit(GeneratedGui.dlgProductEditBase):
         
         self.product.save()
         
-        
+        ps = ProductScreen()
+        ps.productId = self.product.id
+        ps.buttonNo = self.buttonNo
+        ps.screenCategoryId = self.screenCategoryId
+        ps.bgColor = self.colourPicker.GetColour().GetAsString(wx.C2S_HTML_SYNTAX)
+        ps.save()
         
         self.UpdateForm()
+        
+    def btnDeleteOnButtonClick(self, event):
+        pass
 
     def UpdateForm(self):
         self.txtProductNo.SetValue(str(self.product.id))
