@@ -1660,3 +1660,60 @@ class dlgProductEditBase ( wx.Dialog ):
 		event.Skip()
 	
 
+###########################################################################
+## Class dlgDeleteProductBase
+###########################################################################
+
+class dlgDeleteProductBase ( wx.Dialog ):
+	
+	def __init__( self, parent ):
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Product Verwijderen", pos = wx.DefaultPosition, size = wx.DefaultSize, style = wx.DEFAULT_DIALOG_STYLE )
+		
+		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
+		
+		bSizer39 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.m_staticText29 = wx.StaticText( self, wx.ID_ANY, u"Wenst u het product te verwijderen of\nenkel los te koppelen van de knop?", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_CENTRE )
+		self.m_staticText29.Wrap( -1 )
+		bSizer39.Add( self.m_staticText29, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
+		
+		bSizer40 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.btnDelete = wx.Button( self, wx.ID_ANY, u"Verwijder", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer40.Add( self.btnDelete, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		self.btnUnCouple = wx.Button( self, wx.ID_ANY, u"Loskoppelen", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer40.Add( self.btnUnCouple, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		self.btnCancel = wx.Button( self, wx.ID_ANY, u"Annuleren", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.btnCancel.SetDefault() 
+		bSizer40.Add( self.btnCancel, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		bSizer39.Add( bSizer40, 1, wx.EXPAND, 5 )
+		
+		self.SetSizer( bSizer39 )
+		self.Layout()
+		bSizer39.Fit( self )
+		
+		self.Centre( wx.BOTH )
+		
+		# Connect Events
+		self.btnDelete.Bind( wx.EVT_BUTTON, self.btnDeleteOnButtonClick )
+		self.btnUnCouple.Bind( wx.EVT_BUTTON, self.btnUnCoupleOnButtonClick )
+		self.btnCancel.Bind( wx.EVT_BUTTON, self.btnCancelOnButtonClick )
+	
+	def __del__( self ):
+		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def btnDeleteOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnUnCoupleOnButtonClick( self, event ):
+		event.Skip()
+	
+	def btnCancelOnButtonClick( self, event ):
+		event.Skip()
+	
+

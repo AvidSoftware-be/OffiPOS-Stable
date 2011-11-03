@@ -2,6 +2,7 @@ from DataModel.Product import Product
 from DataModel.ProductGroup import ProductGroup
 from DataModel.ProductScreen import ProductScreen
 from DataModel.VatCode import VatCode
+from Gui.dlgDeleteProduct import dlgDeleteProduct
 import GeneratedGui
 import wx
 
@@ -52,7 +53,14 @@ class dlgProductEdit(GeneratedGui.dlgProductEditBase):
         self.UpdateForm()
         
     def btnDeleteOnButtonClick(self, event):
-        pass
+        
+        dp = dlgDeleteProduct(self)
+        ret = dp.ShowModal()
+        
+        if ret == 1: #Delete
+            pass
+        elif ret == 2: #Uncouple
+            pass
 
     def UpdateForm(self):
         self.txtProductNo.SetValue(str(self.product.id))
