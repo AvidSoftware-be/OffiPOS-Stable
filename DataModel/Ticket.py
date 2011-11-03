@@ -351,7 +351,7 @@ class Ticket:
 
         cur = self.conn.cursor()
 
-        groups = ProductGroup.fetchall()
+        groups = ProductGroup().fetchall()
 
         for group in groups:
             cur.execute("""SELECT
