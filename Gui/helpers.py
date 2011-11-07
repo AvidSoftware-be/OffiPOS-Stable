@@ -29,7 +29,7 @@ def updateProductButtons(self, selectedGroup):
 
     for productLine in productsInScreen:
         product = Product(id=productLine[2])
-        product.fill()
+        #product.fill()
 
         control = getattr(self.pnlProducten, "btnProduct%s" % (str(productLine[3])))
 

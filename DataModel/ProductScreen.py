@@ -36,6 +36,11 @@ class ProductScreen:
             
         self._conn.commit()
     
+    def deleteByProductId(self):
+        cur=self._conn.cursor()
+        cur.execute("delete from product_screen where productId=?",(self.productId,))
+        self._conn.commit()
+    
     def GetProductsForScreen(self, screenCategory):
         cur = self._conn.cursor()
 

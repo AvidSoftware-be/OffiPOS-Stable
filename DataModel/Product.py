@@ -5,6 +5,8 @@ import ini
 
 class Product:
     def __init__(self, id):
+        self._conn = sqlite3.connect(ini.DB_NAME)
+        
         self.id = id
         self.name = ""
         self.price = 0
@@ -15,11 +17,12 @@ class Product:
         self.askForPrice = 0
         self.screenName = ""
         self.treatAsOption = 0
+        
+        self._fill()
 
     def save(self):
-        conn = sqlite3.connect(ini.DB_NAME)
 
-        cur = conn.cursor()
+        cur = self._conn.cursor()
         
         if not self.id:
             cur.execute("insert into product (name,price,groupId,vatCodeIn,vatCodeOut,askForPrice,screenName,treatAsOption,discountIfOption) values (?,?,?,?,?,?,?,?,?)", (self.name,
@@ -46,17 +49,21 @@ class Product:
                self.discountIfOption,
                self.id))
 
-        conn.commit()
+        self._conn.commit()
 
     def fetchall(self):
-        conn = sqlite3.connect(ini.DB_NAME)
-        cur = conn.cursor()
+        cur = self._conn.cursor()
         cur.execute("select * from product")
         return cur.fetchall()
-
-    def fill(self):
-        conn = sqlite3.connect(ini.DB_NAME)
-        cur = conn.cursor()
+    
+    def delete(self):
+        cur = self._conn.cursor()
+        cur.execute("delete from product where id=?",(self.id,))
+        #todo: gekoppelde tabellen ook verwijderen?
+        self._conn.commit()
+        
+    def _fill(self):
+        cur = self._conn.cursor()
         cur.execute("select * from product where id=?", (self.id,))
         prod = cur.fetchone()
 

@@ -232,7 +232,7 @@ class MainFrame(GeneratedGui.MainFrameBase):
             productNo = ProductScreen().GetProductNoOnButton(buttonNoPressed, self._selectedGroup)
 
         product = Product(productNo)
-        product.fill()
+        #product.fill()
         prodPrice = 0
         if product.askForPrice:
             #prijs ophalen
@@ -297,7 +297,7 @@ class MainFrame(GeneratedGui.MainFrameBase):
 
         for option in options:
             product = Product(id=option[2])
-            product.fill()
+            #product.fill()
 
             if product.id == 9999:
                 #speciaal!

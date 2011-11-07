@@ -32,7 +32,7 @@ class Ticket:
     def AddTicketLine(self, productId, isOption, parentProductId, buttonNo, screenCategory, price=0,
                       discountType=discountTypes["none"], qty=1):
         product = Product(productId)
-        product.fill()
+        #product.fill()
         
         isOption = isOption or product.treatAsOption
 
@@ -77,7 +77,7 @@ class Ticket:
             for component in pMenu.menuComponents:
                 if not component[3]: #name is leeg, begruik die van het gekoppeld product
                     prod = Product(component[2])
-                    prod.fill()
+                    #prod.fill()
                     name = prod.name
                 else:
                     name = component[3]
@@ -158,7 +158,7 @@ class Ticket:
             else:
                 product = Product(line[3])
 
-            product.fill()
+            #product.fill()
 
             vatcode = 0
             if self.eatInOut == "O":

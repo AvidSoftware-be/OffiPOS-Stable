@@ -5,6 +5,7 @@ from DataModel.VatCode import VatCode
 from Gui.dlgDeleteProduct import dlgDeleteProduct
 import GeneratedGui
 import wx
+from Gui.dlgSelectProduct import dlgSelectProduct
 
 __author__ = 'dennis'
 
@@ -18,7 +19,7 @@ class dlgProductEdit(GeneratedGui.dlgProductEditBase):
         self._setVatOut()
         
         self.product = Product(ProductScreen().GetProductNoOnButton(buttonNo, selectedGroup))
-        self.product.fill()
+        #self.product.fill()
         self.buttonNo = buttonNo
         self.screenCategoryId = selectedGroup
         
@@ -58,9 +59,26 @@ class dlgProductEdit(GeneratedGui.dlgProductEditBase):
         ret = dp.ShowModal()
         
         if ret == 1: #Delete
-            pass
+            self.product.delete()
+            
+            ps = ProductScreen() #todo: dubbele code vermijden
+            ps.productId = self.product.id
+            ps.deleteByProductId()
+            
         elif ret == 2: #Uncouple
-            pass
+            ps = ProductScreen()
+            ps.productId = self.product.id
+            ps.deleteByProductId()
+            
+    def btnSearchOnButtonClick(self, event):
+        sp = dlgSelectProduct(self)
+        ret = sp.ShowModal()
+        if ret:
+            self.product = Product(ret)
+        else:
+            self.product = Product(0)
+            
+        self.UpdateForm()
 
     def UpdateForm(self):
         self.txtProductNo.SetValue(str(self.product.id))

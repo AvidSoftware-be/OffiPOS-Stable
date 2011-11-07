@@ -798,7 +798,7 @@ class dlgAskForPriceBase ( wx.Dialog ):
 class dlgKlantBeheerBase ( wx.Dialog ):
 	
 	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"KLanten Overzicht", pos = wx.DefaultPosition, size = wx.Size( 750,-1 ), style = wx.DEFAULT_DIALOG_STYLE )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Klanten Overzicht", pos = wx.DefaultPosition, size = wx.Size( 750,-1 ), style = wx.DEFAULT_DIALOG_STYLE )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		
@@ -1612,6 +1612,35 @@ class dlgProductEditBase ( wx.Dialog ):
 		self.chBTWOut.SetSelection( 0 )
 		fgSizer8.Add( self.chBTWOut, 0, wx.ALL, 5 )
 		
+		
+		fgSizer8.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
+		
+		self.m_grid4 = wx.grid.Grid( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
+		
+		# Grid
+		self.m_grid4.CreateGrid( 5, 5 )
+		self.m_grid4.EnableEditing( True )
+		self.m_grid4.EnableGridLines( True )
+		self.m_grid4.EnableDragGridSize( False )
+		self.m_grid4.SetMargins( 0, 0 )
+		
+		# Columns
+		self.m_grid4.EnableDragColMove( False )
+		self.m_grid4.EnableDragColSize( True )
+		self.m_grid4.SetColLabelSize( 30 )
+		self.m_grid4.SetColLabelAlignment( wx.ALIGN_CENTRE, wx.ALIGN_CENTRE )
+		
+		# Rows
+		self.m_grid4.EnableDragRowSize( True )
+		self.m_grid4.SetRowLabelSize( 80 )
+		self.m_grid4.SetRowLabelAlignment( wx.ALIGN_CENTRE, wx.ALIGN_CENTRE )
+		
+		# Label Appearance
+		
+		# Cell Defaults
+		self.m_grid4.SetDefaultCellAlignment( wx.ALIGN_LEFT, wx.ALIGN_TOP )
+		fgSizer8.Add( self.m_grid4, 0, wx.ALL, 5 )
+		
 		self.chkAskForPrice = wx.CheckBox( self, wx.ID_ANY, u"Om prijs vragen", wx.DefaultPosition, wx.DefaultSize, 0 )
 		fgSizer8.Add( self.chkAskForPrice, 0, wx.ALL, 5 )
 		
@@ -1645,6 +1674,7 @@ class dlgProductEditBase ( wx.Dialog ):
 		self.Centre( wx.BOTH )
 		
 		# Connect Events
+		self.btnSearch.Bind( wx.EVT_BUTTON, self.btnSearchOnButtonClick )
 		self.btnOpslaan.Bind( wx.EVT_BUTTON, self.btnOpslaanOnButtonClick )
 		self.btnDelete.Bind( wx.EVT_BUTTON, self.btnDeleteOnButtonClick )
 	
@@ -1653,6 +1683,9 @@ class dlgProductEditBase ( wx.Dialog ):
 	
 	
 	# Virtual event handlers, overide them in your derived class
+	def btnSearchOnButtonClick( self, event ):
+		event.Skip()
+	
 	def btnOpslaanOnButtonClick( self, event ):
 		event.Skip()
 	
@@ -1714,6 +1747,102 @@ class dlgDeleteProductBase ( wx.Dialog ):
 		event.Skip()
 	
 	def btnCancelOnButtonClick( self, event ):
+		event.Skip()
+	
+
+###########################################################################
+## Class dlgSelectProductBase
+###########################################################################
+
+class dlgSelectProductBase ( wx.Dialog ):
+	
+	def __init__( self, parent ):
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Selecteer Product", pos = wx.DefaultPosition, size = wx.DefaultSize, style = wx.DEFAULT_DIALOG_STYLE )
+		
+		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
+		
+		bSizer41 = wx.BoxSizer( wx.VERTICAL )
+		
+		bSizer42 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.m_grid3 = wx.grid.Grid( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
+		
+		# Grid
+		self.m_grid3.CreateGrid( 25, 5 )
+		self.m_grid3.EnableEditing( False )
+		self.m_grid3.EnableGridLines( True )
+		self.m_grid3.EnableDragGridSize( True )
+		self.m_grid3.SetMargins( 0, 0 )
+		
+		# Columns
+		self.m_grid3.AutoSizeColumns()
+		self.m_grid3.EnableDragColMove( False )
+		self.m_grid3.EnableDragColSize( True )
+		self.m_grid3.SetColLabelSize( 30 )
+		self.m_grid3.SetColLabelAlignment( wx.ALIGN_CENTRE, wx.ALIGN_CENTRE )
+		
+		# Rows
+		self.m_grid3.SetRowSize( 0, 25 )
+		self.m_grid3.SetRowSize( 1, 25 )
+		self.m_grid3.SetRowSize( 2, 25 )
+		self.m_grid3.SetRowSize( 3, 25 )
+		self.m_grid3.SetRowSize( 4, 25 )
+		self.m_grid3.SetRowSize( 5, 25 )
+		self.m_grid3.SetRowSize( 6, 25 )
+		self.m_grid3.SetRowSize( 7, 25 )
+		self.m_grid3.SetRowSize( 8, 25 )
+		self.m_grid3.SetRowSize( 9, 25 )
+		self.m_grid3.SetRowSize( 10, 25 )
+		self.m_grid3.SetRowSize( 11, 25 )
+		self.m_grid3.SetRowSize( 12, 25 )
+		self.m_grid3.SetRowSize( 13, 25 )
+		self.m_grid3.SetRowSize( 14, 25 )
+		self.m_grid3.SetRowSize( 15, 25 )
+		self.m_grid3.SetRowSize( 16, 25 )
+		self.m_grid3.SetRowSize( 17, 25 )
+		self.m_grid3.SetRowSize( 18, 25 )
+		self.m_grid3.SetRowSize( 19, 25 )
+		self.m_grid3.SetRowSize( 20, 25 )
+		self.m_grid3.SetRowSize( 21, 25 )
+		self.m_grid3.SetRowSize( 22, 25 )
+		self.m_grid3.SetRowSize( 23, 25 )
+		self.m_grid3.SetRowSize( 24, 25 )
+		self.m_grid3.EnableDragRowSize( True )
+		self.m_grid3.SetRowLabelSize( 80 )
+		self.m_grid3.SetRowLabelAlignment( wx.ALIGN_CENTRE, wx.ALIGN_CENTRE )
+		
+		# Label Appearance
+		
+		# Cell Defaults
+		self.m_grid3.SetDefaultCellAlignment( wx.ALIGN_LEFT, wx.ALIGN_TOP )
+		self.m_grid3.SetMinSize( wx.Size( -1,600 ) )
+		
+		bSizer42.Add( self.m_grid3, 0, wx.ALL, 5 )
+		
+		bSizer43 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.btnSelect = wx.Button( self, wx.ID_ANY, u"Selecteer", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer43.Add( self.btnSelect, 0, wx.ALL, 5 )
+		
+		bSizer42.Add( bSizer43, 1, wx.EXPAND, 5 )
+		
+		bSizer41.Add( bSizer42, 1, wx.EXPAND, 5 )
+		
+		self.SetSizer( bSizer41 )
+		self.Layout()
+		bSizer41.Fit( self )
+		
+		self.Centre( wx.BOTH )
+		
+		# Connect Events
+		self.btnSelect.Bind( wx.EVT_BUTTON, self.btnSelectOnButtonClick )
+	
+	def __del__( self ):
+		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def btnSelectOnButtonClick( self, event ):
 		event.Skip()
 	
 

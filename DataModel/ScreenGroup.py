@@ -5,14 +5,15 @@ import ini
 
 class ScreenGroup:
     def __init__(self, id=0, name="", screenOrder=0):
+        
+        self._conn = sqlite3.connect(ini.DB_NAME)
+        
         self.id = id
         self.name = name
         self.screenOrder = screenOrder
     
     def fetchOne(self, id=0, screenOrder=0):
-        
-        conn = sqlite3.connect(ini.DB_NAME)
-        cur = conn.cursor()
+        cur = self._conn.cursor()
         
         if screenOrder:
             cur.execute("select * from screen_group where screenOrder=?", (screenOrder,))
@@ -28,7 +29,7 @@ class ScreenGroup:
         self.screenOrder = res[2]
     
     def fetchall(self):
-        conn = sqlite3.connect(ini.DB_NAME)
-        cur = conn.cursor()
+
+        cur = self._conn.cursor()
         cur.execute("select * from screen_group order by screenOrder ASC")
         return cur.fetchall()
