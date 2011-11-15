@@ -4549,4 +4549,4 @@ CREATE TABLE [day_totals] (
 [entryNo] INTEGER  PRIMARY KEY AUTOINCREMENT NOT NULL,
 [dateRegistered] TIMESTAMP  NULL,
 [vatCode] INTEGER  NULL,
-[priceVatIn] REAL  NULL);
+[priceVatIn] REAL  NULL)

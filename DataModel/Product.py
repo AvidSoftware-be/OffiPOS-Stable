@@ -1,12 +1,9 @@
+from DataModel.DMBase import DMBase
 __author__ = 'dennis'
 
-import sqlite3
-import ini
-
-class Product:
+class Product(DMBase):
     def __init__(self, id):
-        self._conn = sqlite3.connect(ini.DB_NAME)
-        
+        DMBase.__init__(self)
         self.id = id
         self.name = ""
         self.price = 0

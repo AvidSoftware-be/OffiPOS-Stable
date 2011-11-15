@@ -2,13 +2,14 @@ from DataModel.Product import Product
 from DataModel.ScreenGroup import ScreenGroup
 import ini
 import sqlite3
+from DataModel.DMBase import DMBase
 
 __author__ = 'dennis'
 
 
-class ProductScreen:
+class ProductScreen(DMBase):
     def __init__(self, entryNo=0):
-        self._conn = sqlite3.connect(ini.DB_NAME)
+        DMBase.__init__(self)
         
         self.entryNo = entryNo
         self.screenCategoryId = 0
@@ -91,9 +92,9 @@ class ProductScreen:
         result = cur.fetchone()
         return result[0]
 
-    def GetOptionsForProduct(self, productNo):
+    def GetOptionsForProduct(self, parentProductId):
         cur = self._conn.cursor()
-        cur.execute("select * from productOption where productId = ?", (productNo,))
+        cur.execute("select * from productOption where productId = ?", (parentProductId,))
         return cur.fetchall()
 
     def GetCaptionForOption(self, parentProductId, buttonNo):

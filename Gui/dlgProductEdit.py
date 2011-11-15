@@ -1,11 +1,12 @@
+from DataModel.ProductOptionTable import ProductOptionTable
 from DataModel.Product import Product
 from DataModel.ProductGroup import ProductGroup
 from DataModel.ProductScreen import ProductScreen
 from DataModel.VatCode import VatCode
 from Gui.dlgDeleteProduct import dlgDeleteProduct
+from Gui.dlgSelectProduct import dlgSelectProduct
 import GeneratedGui
 import wx
-from Gui.dlgSelectProduct import dlgSelectProduct
 
 __author__ = 'dennis'
 
@@ -65,10 +66,16 @@ class dlgProductEdit(GeneratedGui.dlgProductEditBase):
             ps.productId = self.product.id
             ps.deleteByProductId()
             
+            self.product = Product(0)
+            
+            self.UpdateForm()
+            
         elif ret == 2: #Uncouple
             ps = ProductScreen()
             ps.productId = self.product.id
             ps.deleteByProductId()
+            
+            
             
     def btnSearchOnButtonClick(self, event):
         sp = dlgSelectProduct(self)
@@ -102,6 +109,17 @@ class dlgProductEdit(GeneratedGui.dlgProductEditBase):
         self.chkAskForPrice.SetValue(self.product.askForPrice)
         if self.product.askForPrice == 2:
             self.chkReverseSign.SetValue(1)
+            
+        #opties updaten
+        
+        grid = self.m_grid4
+        table = ProductOptionTable(self.product.id)
+        grid.SetTable(table)
+        rows = table.GetNumberRows()
+        grid.MakeCellVisible(rows - 1, 1)
+        grid.EnableEditing(False)
+        grid.SetSelectionMode(wx.grid.Grid.SelectRows)
+        grid.SetRowLabelSize(0)
             
     def _setGroups(self):
         groups = ProductGroup().fetchall()

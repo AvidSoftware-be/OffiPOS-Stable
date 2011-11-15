@@ -1,9 +1,12 @@
 import sqlite3
 import ini
+from DataModel.DMBase import DMBase
 
-class VatCode:
+class VatCode(DMBase):
+    def __init__(self):
+        DMBase.__init__(self)
+        
     def fetchall(self):
-        conn = sqlite3.connect(ini.DB_NAME)
-        cur = conn.cursor()
+        cur = self._conn.cursor()
         cur.execute("select * from vatcode")
         return cur.fetchall()

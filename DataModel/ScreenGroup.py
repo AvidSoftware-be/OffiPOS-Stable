@@ -1,12 +1,9 @@
+from DataModel.DMBase import DMBase
 __author__ = 'dennis'
 
-import sqlite3
-import ini
-
-class ScreenGroup:
+class ScreenGroup(DMBase):
     def __init__(self, id=0, name="", screenOrder=0):
-        
-        self._conn = sqlite3.connect(ini.DB_NAME)
+        DMBase.__init__(self)
         
         self.id = id
         self.name = name

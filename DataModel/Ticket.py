@@ -1,4 +1,5 @@
 from DataModel.Customer import Customer
+from DataModel.DMBase import DMBase
 from DataModel.Menu import ProductMenu
 from DataModel.Product import Product
 from DataModel.ProductGroup import ProductGroup
@@ -8,7 +9,6 @@ import POSEquipment.CustomerDisplay
 import POSEquipment.TicketPrinter
 import datetime
 import ini
-import sqlite3
 
 __author__ = 'dennis'
 
@@ -18,12 +18,13 @@ priceModes = dict(pos=1, neg=2)
 discountTypes = {'none': 0, 'Aanbieding Directie': 1, 'Klantkaart': 2, 'Persoonlijk Gebruik': 3,
                  'Commerciele korting': 4}
 
-class Ticket:
+class Ticket(DMBase):
     def __init__(self):
+        DMBase.__init__(self)
+        
         self.no = 0
         self.eatInOut = "O"
         self.priceMode = priceModes["pos"]
-        self.conn = sqlite3.connect(ini.DB_NAME, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES)
         self.customer = Customer()
         self.KitchenPrinted = False
         self.TicketPrinted = False
@@ -64,7 +65,7 @@ class Ticket:
             self.no, productId, product.name.strip(), product.price, self.eatInOut, isOption, datetime.datetime.now(),
             vatcode, discountType, qty )
 
-        cur = self.conn.cursor()
+        cur = self._conn.cursor()
 
         cur.execute(
             "insert into ticketLine (ticketNo,productId,productName,price,eatInOut,isOption,dateRegistered,vatCode,discountType, quantity) values (?,?,?,?,?,?,?,?,?,?)"
@@ -88,7 +89,7 @@ class Ticket:
                        datetime.datetime.now(),
                        vatcode, component[5], qty, parentEntryNo ))
 
-        self.conn.commit()
+        self._conn.commit()
 
         lines = self.GetTicketLines()
         totalAmt = self.GetTotalAmt()
@@ -99,7 +100,7 @@ class Ticket:
 
 
     def CreateNewTicket(self):
-        cur = self.conn.cursor()
+        cur = self._conn.cursor()
         cur.execute("select max(ticketNo) from ticketLine")
         line = cur.fetchone()
         if not line[0]:
@@ -127,11 +128,11 @@ class Ticket:
 
 
     def PayTicket(self, paymentMethod, paidAmt, returnAmt):
-        cur = self.conn.cursor()
+        cur = self._conn.cursor()
 
         cur.execute("update ticketLine set paid=? where ticketNo=?", (paymentMethod, self.no,))
 
-        self.conn.commit()
+        self._conn.commit()
         
         if not self.TicketPrinted:
             self._printReceipt(paymentMethod, paidAmt, returnAmt)
@@ -144,7 +145,7 @@ class Ticket:
 
 
     def SetEatInOut(self, code):
-        cur = self.conn.cursor()
+        cur = self._conn.cursor()
 
         self.eatInOut = code
 
@@ -168,10 +169,10 @@ class Ticket:
 
             cur.execute("update ticketLine set vatCode = ?, eatInOut=? where entryNo = ?", (vatcode, code, line[4]))
 
-        self.conn.commit()
+        self._conn.commit()
 
     def GetTicketLines(self):
-        cur = self.conn.cursor()
+        cur = self._conn.cursor()
         cur.execute(
             #"select product.name, product.price, ticketLine.isOption, product.discountIfOption, product.id from ticketLine, product where ticketline.productId=product.id and ticketline.ticketNo=?"
             """select productName, price, isOption, productId, entryNo, isCancelled, discountType, parentEntryNo
@@ -183,7 +184,7 @@ class Ticket:
         return lines
 
     def GetOneTicketLine(self, entryNo):
-        cur = self.conn.cursor()
+        cur = self._conn.cursor()
         cur.execute(
             #"select product.name, product.price, ticketLine.isOption, product.discountIfOption, product.id from ticketLine, product where ticketline.productId=product.id and ticketline.ticketNo=?"
             "select productName, price, isOption, productId, entryNo, isCancelled, discountType, parentEntryNo from ticketLine where entryNo=?"
@@ -194,7 +195,7 @@ class Ticket:
 
 
     def GetTicketLinesGrouped(self):
-        cur = self.conn.cursor()
+        cur = self._conn.cursor()
         cur.execute(
             """SELECT productId, productName, sum(price), isOption, discountType, sum(quantity) as qty FROM ticketLine
             WHERE ticketNo = ? and isCancelled=0 and isOption=0
@@ -213,21 +214,21 @@ class Ticket:
 
 
     def DeleteTickeLine(self, entryNo):
-        cur = self.conn.cursor()
+        cur = self._conn.cursor()
 
         cur.execute("update ticketLine set isCancelled = 1 where entryNo=?", (entryNo,))
 
-        self.conn.commit()
+        self._conn.commit()
 
 
     def SetCustomer(self, customer):
         self.customer = customer
 
-        cur = self.conn.cursor()
+        cur = self._conn.cursor()
 
         cur.execute("update ticketLine set customerId = ? where ticketNo=?", (customer.id, self.no,))
 
-        self.conn.commit()
+        self._conn.commit()
 
 
     def _displayMessage(self, message):
@@ -276,7 +277,7 @@ class Ticket:
 
             return total
         else:
-            cur = self.conn.cursor()
+            cur = self._conn.cursor()
             cur.execute("select SUM(price) from ticketLine where paid<>0 and isCancelled=0")
             line = cur.fetchone()
             if line[0]:
@@ -292,7 +293,7 @@ class Ticket:
 
 
     def GetFirstOrderDate(self):
-        cur = self.conn.cursor()
+        cur = self._conn.cursor()
         cur.execute("select MIN(dateRegistered) from ticketLine")
         line = cur.fetchone()
         if line:
@@ -302,7 +303,7 @@ class Ticket:
 
 
     def GetLastOrderDate(self):
-        cur = self.conn.cursor()
+        cur = self._conn.cursor()
         cur.execute("select MAX(dateRegistered) from ticketLine")
         line = cur.fetchone()
         if line:
@@ -312,7 +313,7 @@ class Ticket:
 
 
     def GetPaymentTotal(self, paymentType):
-        cur = self.conn.cursor()
+        cur = self._conn.cursor()
         cur.execute("select SUM(price) from ticketLine where paid=? and isCancelled=0", (paymentType,))
         line = cur.fetchone()
         if line[0]:
@@ -322,7 +323,7 @@ class Ticket:
 
 
     def GetVATLines(self):
-        cur = self.conn.cursor()
+        cur = self._conn.cursor()
         cur.execute("select * from vatCode")
         lines = cur.fetchall()
 
@@ -349,7 +350,7 @@ class Ticket:
     def GetItemTotals(self):
         outputLines = []
 
-        cur = self.conn.cursor()
+        cur = self._conn.cursor()
 
         groups = ProductGroup().fetchall()
 
@@ -371,14 +372,14 @@ class Ticket:
         return outputLines
 
     def ClearAll(self):
-        cur = self.conn.cursor()
+        cur = self._conn.cursor()
 
         cur.execute("delete from ticketLine")
 
-        self.conn.commit()
+        self._conn.commit()
 
     def GetOffers(self):
-        cur = self.conn.cursor()
+        cur = self._conn.cursor()
 
         offers = {}
 
@@ -414,7 +415,7 @@ class Ticket:
 
     def GetMaxTicketNo(self):
         
-        cur = self.conn.cursor()
+        cur = self._conn.cursor()
 
         cur.execute('select max(ticketNo) from ticketLine')
 

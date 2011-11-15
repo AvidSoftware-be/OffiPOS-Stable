@@ -1,18 +1,15 @@
 
-import sqlite3
-import ini
-
+from DataModel.DMBase import DMBase
 __author__ = 'dennis'
 
-class PostalCode:
+class PostalCode(DMBase):
     def __init__(self):
-        self.conn = sqlite3.connect(ini.DB_NAME)
 
         self.Code = 0
         self.Name = ""
 
     def GetFromCode(self, code):
-        cur = self.conn.cursor()
+        cur = self._conn.cursor()
         cur.execute("select * from postalCode where Code=?",(code,))
 
         res = cur.fetchall()

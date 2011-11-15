@@ -1,13 +1,15 @@
-import wx
-from wx.grid import Grid
+from DataModel.DMBase import DMBase
 from datetime import date, timedelta
-import sqlite3
+from wx.grid import Grid
 import ini
+import sqlite3
+import wx
 
 __author__ = 'dennis'
 
-class Customer:
+class Customer(DMBase):
     def __init__(self):
+        DMBase.__init__(self)
         self.id = 0
         self.name = ""
         self.firstName = ""
@@ -27,9 +29,7 @@ class Customer:
         if loyaltyCardNo == "":
             return
 
-        conn = sqlite3.connect(ini.DB_NAME, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES)
-        conn.text_factory = str
-        cur = conn.cursor()
+        cur = self._conn.cursor()
         cur.execute(
             'select no, name,firstName,address,postalCode,city,telephone,birthDate,emailAddress,loyaltyCardNo,loyaltyPoints,loyaltyDiscount,loyaltyDiscountDate as "loyaltyDiscountDate [date]" from customer where loyaltyCardNo=?'
             , (loyaltyCardNo,))
@@ -66,19 +66,18 @@ class Customer:
             else:
                 newTotal = ticketPoints
 
-            conn = sqlite3.connect(ini.DB_NAME)
-            cur = conn.cursor()
+            cur = self._conn.cursor()
             cur.execute("update customer set loyaltyPoints = ? where loyaltyCardNo=?",
                     (newTotal, self.loyaltyCardNo, ))
 
-            cur.execute("insert into loyaltyCardDetails (customerId, ticketPoints) values(?,?)",
-                    (self.id, ticketPoints))
+#            cur.execute("insert into loyaltyCardDetails (customerId, ticketPoints) values(?,?)",
+#                    (self.id, ticketPoints))
 
             bonus = (newTotal - (newTotal % ini.LOYALTYCARD_POINTS_FOR_BONUS)) / ini.LOYALTYCARD_POINTS_FOR_BONUS
             cur.execute("update customer set loyaltyDiscount = ?, loyaltyDiscountDate = ? where loyaltyCardNo=?",
                     (ini.LOYALTYCARD_BONUS_AMOUNT * bonus, date.today(), self.loyaltyCardNo, ))
 
-            conn.commit()
+            self._conn.commit()
 
             self.loyaltyPoints = newTotal
 
@@ -87,8 +86,7 @@ class Customer:
         return pointsToDeduct
 
     def PayLoyaltyPoints(self):
-        conn = sqlite3.connect(ini.DB_NAME)
-        cur = conn.cursor()
+        cur = self._conn.cursor()
 
         pointsToDeduct = self.GetPointsToDeductOnBonus()
 
@@ -100,7 +98,7 @@ class Customer:
         cur.execute("insert into loyaltyCardDetails (customerId, ticketPoints) values(?,?)",
                 (self.id, pointsToDeduct * -1))
 
-        conn.commit()
+        self._conn.commit()
 
         self.loyaltyPoints = remainingPoints
 
@@ -111,18 +109,14 @@ class Customer:
         return CustomerTable(sortingCol)
 
     def GetAll(self, sortingColumnName):
-        conn = sqlite3.connect(ini.DB_NAME, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES)
-        conn.text_factory = str
-        cur = conn.cursor()
+        cur = self._conn.cursor()
         cur.execute(
             'select no, firstName,name,address,postalCode,city,telephone,birthDate,emailAddress,loyaltyCardNo,loyaltyPoints from customer order by ' + sortingColumnName)
         customers = cur.fetchall()
         return customers
 
     def FillFromId(self, customerId):
-        conn = sqlite3.connect(ini.DB_NAME, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES)
-        conn.text_factory = str
-        cur = conn.cursor()
+        cur = self._conn.cursor()
         cur.execute(
             """select no,
                       name,
@@ -159,8 +153,7 @@ class Customer:
             self.dateRegistered = cust[13]
 
     def Save(self):
-        conn = sqlite3.connect(ini.DB_NAME)
-        cur = conn.cursor()
+        cur = self._conn.cursor()
 
         if not self.id:
             #invoegen
@@ -224,24 +217,22 @@ class Customer:
                      self.dateRegistered,
                      self.id))
 
-        conn.commit()
+        self._conn.commit()
 
     def Delete(self):
-        conn = sqlite3.connect(ini.DB_NAME)
-        cur = conn.cursor()
+        cur = self._conn.cursor()
 
         #invoegen
         cur.execute("delete from customer where no=?", (self.id,))
 
-        conn.commit()
+        self._conn.commit()
 
     def UpdateLoyaltyCardNo(self, newLoyaltyCardNo):
-        conn = sqlite3.connect(ini.DB_NAME)
-        cur = conn.cursor()
+        cur = self._conn.cursor()
 
         cur.execute("update customer set loyaltyCardNo = ? where no = ?", (newLoyaltyCardNo, self.id))
 
-        conn.commit()
+        self._conn.commit()
 
         self.loyaltyCardNo = newLoyaltyCardNo
 

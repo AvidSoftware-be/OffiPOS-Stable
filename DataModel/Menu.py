@@ -1,14 +1,12 @@
-import sqlite3
-import ini
+from DataModel.DMBase import DMBase
 
 __author__ = 'dennis'
 
 
-class ProductMenu():
+class ProductMenu(DMBase):
     def __init__(self, productId):
-        conn = sqlite3.connect(ini.DB_NAME, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES)
-        conn.text_factory = str
-        cur = conn.cursor()
+        DMBase.__init__(self)
+        cur = self._conn.cursor()
         cur.execute('select * from menuComponent where productId=?',(productId,))
 
         self.menuComponents = cur.fetchall()

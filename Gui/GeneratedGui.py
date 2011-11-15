@@ -1639,6 +1639,8 @@ class dlgProductEditBase ( wx.Dialog ):
 		
 		# Cell Defaults
 		self.m_grid4.SetDefaultCellAlignment( wx.ALIGN_LEFT, wx.ALIGN_TOP )
+		self.m_grid4.SetMinSize( wx.Size( -1,150 ) )
+		
 		fgSizer8.Add( self.m_grid4, 0, wx.ALL, 5 )
 		
 		self.chkAskForPrice = wx.CheckBox( self, wx.ID_ANY, u"Om prijs vragen", wx.DefaultPosition, wx.DefaultSize, 0 )

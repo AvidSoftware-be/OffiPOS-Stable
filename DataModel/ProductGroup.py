@@ -1,9 +1,11 @@
-import sqlite3
-import ini
+from DataModel.DMBase import DMBase
 
-class ProductGroup:
+class ProductGroup(DMBase):
+    def __init__(self):
+        DMBase.__init__(self)
+        
     def fetchall(self):
-        conn = sqlite3.connect(ini.DB_NAME)
-        cur = conn.cursor()
+
+        cur = self._conn.cursor()
         cur.execute("select * from product_group")
         return cur.fetchall()
