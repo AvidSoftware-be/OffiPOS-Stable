@@ -4,7 +4,7 @@ __author__ = 'dennis'
 
 class PostalCode(DMBase):
     def __init__(self):
-
+        DMBase.__init__(self)
         self.Code = 0
         self.Name = ""
 

@@ -7,10 +7,11 @@ def Up():
     
     try:
     
-        cu.execute('''ALTER TABLE [product] ADD COLUMN treatAsOption INTEGER DEFAULT 0''')
-        
-        cu.execute('''UPDATE product SET treatAsOption=1 WHERE id >= 346 AND id <= 372 ''')
-        
+        cu.execute('''CREATE TABLE "customer_remarks" (
+    "entryNo" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "customerNo" INTEGER,
+    "remark" TEXT
+);''')
         conn.commit()
         
     except sqlite3.OperationalError as e:

@@ -2,7 +2,7 @@ import sqlite3, ini
 
 def Up():
     
-    conn = sqlite3.connect(ini.DB_NAME)
+    conn = sqlite3.connect(ini.DB_NAME_SQLITE3)
     cu = conn.cursor()
     
     cu.execute('''CREATE TABLE [day_totals] (

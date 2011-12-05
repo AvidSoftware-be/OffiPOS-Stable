@@ -111,7 +111,7 @@ def PrintKitchenBill(body, eatInOut):
     s.close()
 
 
-def PrintDayTotals(dayParam, printDate = datetime.now()):
+def PrintDayTotals(dayParam, printDate = datetime.today()):
     try:
         s = serial.Serial(1,
                           baudrate=9600, # baudrate

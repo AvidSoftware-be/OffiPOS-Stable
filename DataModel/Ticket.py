@@ -336,7 +336,7 @@ class Ticket(DMBase):
 
             if totAmt[0]:
                 tot = totAmt[0]
-                evat = tot / (1 + (vatPct / 100))
+                evat = round(tot / (1 + (vatPct / 100)),2)
                 vat = tot - evat
             else:
                 vat = 0

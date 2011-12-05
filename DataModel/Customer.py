@@ -24,6 +24,7 @@ class Customer(DMBase):
         self.loyaltyDiscount = 0
         self.loyaltyDiscountDate = ini.MINDATE
         self.dateRegistered = ini.MINDATE
+        self.remarks = [] ##TODO: opvullen en wegschrijven in customer_remarks tabel
 
     def GetCustomerFromLoyaltyCard(self, loyaltyCardNo):
         if loyaltyCardNo == "":

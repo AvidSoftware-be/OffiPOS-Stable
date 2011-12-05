@@ -22,7 +22,8 @@ def CreateDB():
             try:
                 for sql in fileCont:
                     print sql
-                    cu.execute(sql)
+                    if sql:
+                        cu.execute(sql)
     
                 conn.commit()
                 
@@ -33,9 +34,9 @@ def CreateDB():
                 print sql
                 conn.rollback()
                 
-            else:
-                #bestaat, versie nagaan en indien nodig updaten
-                DoMigration()
+        else:
+            #bestaat, versie nagaan en indien nodig updaten
+            DoMigration()
                 
     elif (ini.DB_TYPE == "MySQL"):
         fileCont = readBackupFile()
@@ -55,7 +56,8 @@ def CreateDB():
             sql = sql.replace(",'''",",'")
             sql = sql.replace("'''","")
             print sql
-            cu.execute(sql)
+            if sql:
+                cu.execute(sql)
 
         conn.commit()
             
