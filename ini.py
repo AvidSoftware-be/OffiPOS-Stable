@@ -9,7 +9,7 @@ LOG_FILENAME = 'BaronPOS.log'
 BACKUPFILE = 'Backup.sql'
 
 #DB_TYPE = "Sqlite3" # or "MySQL"
-DB_TYPE = "MySQL"
+DB_TYPE = "Sqlite3"
 
 #Sqlite3 DB Settings
 #----------------------

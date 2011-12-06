@@ -3,7 +3,7 @@ import imp
 import ini
 import os
 import sqlite3
-import MySQLdb
+##import MySQLdb
 
 __author__ = 'dennis'
 
@@ -37,29 +37,29 @@ def CreateDB():
         else:
             #bestaat, versie nagaan en indien nodig updaten
             DoMigration()
-                
-    elif (ini.DB_TYPE == "MySQL"):
-        fileCont = readBackupFile()
-        
-        conn = MySQLdb.connect(ini.DB_SERVER_MYSQL, ini.DB_NAME_MYSQL, ini.DB_USER_MYSQL, ini.DB_PWD_MYSQL)
-        cu = conn.cursor()
-        
-        cu.execute("SET sql_mode='ANSI_QUOTES';")
-        
-        for sql in fileCont:
-            
-            print "ORG: "+sql
-            
-            sql = sql.replace("[","")
-            sql = sql.replace("]","")
-            sql = sql.replace("AUTOINCREMENT","AUTO_INCREMENT")
-            sql = sql.replace(",'''",",'")
-            sql = sql.replace("'''","")
-            print sql
-            if sql:
-                cu.execute(sql)
-
-        conn.commit()
+##                
+##    elif (ini.DB_TYPE == "MySQL"):
+##        fileCont = readBackupFile()
+##        
+##        conn = MySQLdb.connect(ini.DB_SERVER_MYSQL, ini.DB_NAME_MYSQL, ini.DB_USER_MYSQL, ini.DB_PWD_MYSQL)
+##        cu = conn.cursor()
+##        
+##        cu.execute("SET sql_mode='ANSI_QUOTES';")
+##        
+##        for sql in fileCont:
+##            
+##            print "ORG: "+sql
+##            
+##            sql = sql.replace("[","")
+##            sql = sql.replace("]","")
+##            sql = sql.replace("AUTOINCREMENT","AUTO_INCREMENT")
+##            sql = sql.replace(",'''",",'")
+##            sql = sql.replace("'''","")
+##            print sql
+##            if sql:
+##                cu.execute(sql)
+##
+##        conn.commit()
             
         
 def DoMigration():

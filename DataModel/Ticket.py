@@ -117,11 +117,11 @@ class Ticket(DMBase):
 
 
     def CancelTicket(self):
-        cur = self.conn.cursor()
+        cur = self._conn.cursor()
 
         cur.execute("update ticketLine set isCancelled = 1 where ticketNo=?", (self.no,))
 
-        self.conn.commit()
+        self._conn.commit()
 
         self._displayMessage("                    " +
                              "   Tot weerziens!   ")
