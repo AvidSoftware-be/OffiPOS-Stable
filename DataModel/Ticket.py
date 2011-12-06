@@ -375,6 +375,7 @@ class Ticket(DMBase):
         cur = self._conn.cursor()
 
         cur.execute("delete from ticketLine")
+        cur.execute("DELETE FROM sqlite_sequence WHERE name = 'ticketLine';")
 
         self._conn.commit()
 

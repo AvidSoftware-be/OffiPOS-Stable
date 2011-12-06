@@ -13,7 +13,7 @@ DB_TYPE = "MySQL"
 
 #Sqlite3 DB Settings
 #----------------------
-DB_NAME_SQLITE3 = '/home/dennis/Aptana Studio 3 Workspace/BaronPOS/src/BaronPOS.db'
+DB_NAME_SQLITE3 = 'C:\\BaronPOS\\BaronPOS.db'#'/home/dennis/Aptana Studio 3 Workspace/BaronPOS/src/BaronPOS.db'
 #DB_NAME = os.path.join(os.path.dirname(sys.argv[0]), 'BaronPOS.db')
 
 #MySQL settings
