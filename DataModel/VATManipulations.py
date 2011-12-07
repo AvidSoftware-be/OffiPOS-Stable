@@ -37,7 +37,7 @@ def PrintItemTotals():
     POSEquipment.TicketPrinter.PrintItemTotals(totals)
     
 def WriteDayTotals(totals):
-    conn = sqlite3.connect(ini.DB_NAME)
+    conn = sqlite3.connect(ini.DB_NAME_SQLITE3)
     cu = conn.cursor()
     
     for line in totals:
