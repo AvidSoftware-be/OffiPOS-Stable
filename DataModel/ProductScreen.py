@@ -20,17 +20,21 @@ class ProductScreen(DMBase):
         
     def save(self):
         cur = self._conn.cursor()
+        
+        sg = ScreenGroup()
+        sg.fetchOne(screenOrder=self.screenCategoryId)
+        
         ps = ProductScreen()
         ps.GetProductNoOnButton(self.buttonNo, self.screenCategoryId)
         
         if ps.entryNo: #this means an entry was found for this button/screen
             cur.execute("update product_screen set screenCategoryId=?, productId=?,buttonNo=?,bgColor=?,productName=? where entryNo=?",
-                        (self.screenCategoryId, self.productId, self.buttonNo, self.bgColor, self.productName, ps.entryNo))
+                        (sg.id, self.productId, self.buttonNo, self.bgColor, self.productName, ps.entryNo))
             self.entryNo = ps.entryNo
             
         else:
             cur.execute("insert into product_screen (screenCategoryId, productId, buttonNo, bgColor, productName) values (?,?,?,?,?)",
-                        (self.screenCategoryId, self.productId, self.buttonNo, self.bgColor, self.productName))
+                        (sg.id, self.productId, self.buttonNo, self.bgColor, self.productName))
     
             cur.execute("SELECT last_insert_rowid()")
             self.entryNo = cur.fetchone()[0]
